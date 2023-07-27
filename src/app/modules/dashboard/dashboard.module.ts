@@ -45,11 +45,13 @@ import { LayoutModule } from '../layout/layout.module';
 import { LoginComponent } from 'src/app/components/security/login/login.component';
 import { RegisterComponent } from 'src/app/components/security/register/register.component';
 import { DashboardRoutingModule } from './dashboard-routing.modules';
+import { PortfolioComponent } from 'src/app/components/dashboard/portfolio/portfolio.component';
 
 
 @NgModule({
   declarations: [
     DashboardComponent,
+    PortfolioComponent
   ],
   imports: [
     CommonModule,
