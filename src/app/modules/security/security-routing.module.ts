@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { SecurityRouterActivate } from './security-router.activate';
+
 import { SecurityComponent } from './security.component';
 import { LoginComponent } from 'src/app/components/security/login/login.component';
 import { SecurityRouterActivate } from './security-router.activate';
@@ -20,6 +20,6 @@ const routes: Routes = [
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],
-  exports: [RouterModule],
+  exports: [RouterModule]
 })
-export class SecurityRoutingModule {}
+export class SecurityRoutingModule { }

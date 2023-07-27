@@ -20,4 +20,4 @@ import { AppSettings } from './app-settings';
   providers: [AppSettings],
   bootstrap: [AppComponent]
 })
-export class AppModule {}
+export class AppModule { }
