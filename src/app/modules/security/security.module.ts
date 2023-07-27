@@ -18,12 +18,8 @@ import { InputNumberModule } from 'primeng/inputnumber';
 import { ToastModule } from 'primeng/toast';
 import { DropdownModule } from 'primeng/dropdown';
 import { TagModule } from 'primeng/tag';
-import { MessageService, ConfirmationService } from 'primeng/api';
 import {
-  DialogService,
-  DynamicDialogConfig,
   DynamicDialogModule,
-  DynamicDialogRef,
 } from 'primeng/dynamicdialog';
 import { PanelMenuModule } from 'primeng/panelmenu';
 import { MegaMenuModule } from 'primeng/megamenu';
