@@ -1,0 +1,31 @@
+.main-content{
+    padding: 50px;
+    // background: url('./../../../../assets/img/background_body.png') center center; 
+    background-size: cover;
+    background-position: 0 0;
+
+    @media screen and (max-width: 580px){
+        width: 100%;
+        padding: 80px 20px;
+    }
+}
+:host ::ng-deep.p-dropdown{
+    border-radius: 0px;
+}
+
+.wallet-panel{
+    display: flex;
+    padding: 50px;
+    align-items: center;
+    gap: 24px;
+    flex: 1 0 0;
+    border-radius: 10px;
+    background: linear-gradient(113deg,#f44097,#3f26d9 87%,#3f26d9);
+}
+
+.wallet-icon {
+    background: rgba(255, 255, 255, 0.30);
+}
+:host ::ng-deep.p-button.p-button-text {
+    color:white;
+}

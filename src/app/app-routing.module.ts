@@ -15,6 +15,11 @@ const routes: Routes = [
     loadChildren: () =>
       import('./modules/dashboard/dashboard.module').then((m) => m.DashboardModule),
   },
+  {
+    path: 'wallet',
+    loadChildren: () =>
+      import('./modules/wallet/wallet.module').then((m) => m.WalletModule),
+  },
 ];
 
 @NgModule({

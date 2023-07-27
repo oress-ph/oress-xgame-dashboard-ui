@@ -1,7 +1,5 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { DashboardComponent } from './dashboard.component';
-import { DashboardRouterActivate } from './dashboard-router.activate';
 
 import {
   DialogService,
@@ -9,6 +7,7 @@ import {
   DynamicDialogRef,
 } from 'primeng/dynamicdialog';
 import { ConfirmationService, MessageService } from 'primeng/api';
+import { WalletsComponent } from 'src/app/components/dashboard/wallets/wallets.component';
 
 
 //PrimeNG
@@ -44,14 +43,18 @@ import { ProgressSpinnerModule } from 'primeng/progressspinner';
 import { LayoutModule } from '../layout/layout.module';
 import { LoginComponent } from 'src/app/components/security/login/login.component';
 import { RegisterComponent } from 'src/app/components/security/register/register.component';
-import { DashboardRoutingModule } from './dashboard-routing.modules';
-import { PortfolioComponent } from 'src/app/components/dashboard/portfolio/portfolio.component';
 
-
+import { WalletRouterActivate } from './wallet-router.activate';
+import { WalletRoutingModule } from './wallet-routing.module';
+import { WalletComponent } from './wallet.component';
+import { SafePipe } from 'src/app/pipes/safe.pipe';
+import { WalletInfoComponent } from 'src/app/components/dashboard/wallet-info/wallet-info.component';
 @NgModule({
   declarations: [
-    DashboardComponent,
-    PortfolioComponent
+    SafePipe,
+    WalletComponent,
+    WalletsComponent,
+    WalletInfoComponent
   ],
   imports: [
     CommonModule,
@@ -79,7 +82,7 @@ import { PortfolioComponent } from 'src/app/components/dashboard/portfolio/portf
     MegaMenuModule,
     HttpClientModule,
     RadioButtonModule,
-    DashboardRoutingModule,
+    WalletRoutingModule,
     LayoutModule,
     ImageModule,
     PaginatorModule,
@@ -90,7 +93,7 @@ import { PortfolioComponent } from 'src/app/components/dashboard/portfolio/portf
   ],
 
   providers: [
-    DashboardRouterActivate,
+    WalletRouterActivate,
     DialogService,
     MessageService,
     ConfirmationService,
@@ -98,4 +101,4 @@ import { PortfolioComponent } from 'src/app/components/dashboard/portfolio/portf
     DynamicDialogConfig,
   ],
 })
-export class DashboardModule { }
+export class WalletModule { }
