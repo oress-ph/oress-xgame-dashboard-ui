@@ -133,11 +133,7 @@
     letter-spacing: .5px;
     background-color: #0038FF;
     border: 0px;
-    // margin-left: 20px;
-    // background-color: #3f26d9;
-    // background-image: linear-gradient(113deg,#f44097,#3f26d9 87%,#3f26d9);
-    // border-radius: 0 10px;
-    // border-bottom-left-radius: 10px;
+    border-radius: 10px;
     font-family: Zen Dots,sans-serif;
     font-size: 16px;
 }
@@ -196,51 +192,11 @@
  }
 
 :host ::ng-deep p-menubarsub {
-    // width: 100%;
-}
-:host ::ng-deep p-menubarsub {
     @media screen and (max-width: 960px){
         width: unset;
     }
 }
 
-// :host ::ng-deep p-menubarsub {
-//     // width: 100%;
-//     // display: flex;
-//     // justify-content: space-between;
-//     @media screen and (max-width: 1076px){
-//         display: unset;
-//     }
-// }
-// :host ::ng-deep .p-menubar .p-menubar-root-list {
-//     @media screen and (max-width: 1076px){
-//         position: absolute;
-//         display: none;
-//         padding: 0.25rem 0;
-//         background: #ffffff;
-//         border: 0 none;
-//         box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.1);
-//         width: 100%;
-//     }
-// }
-
-// .p-menubar .p-menubar-root-list .p-menuitem {
-//     @media screen and (max-width: 1076px){
-//         width: 100%;
-//         position: static;
-//     }
-// }
-
-// .p-menubar .p-menubar-root-list .p-menuitem {
-//     @media screen and (max-width: 1076px){
-//         display: flex;
-//         width: 2rem;
-//         height: 2rem;
-//         color: #6c757d;
-//         border-radius: 50%;
-//         transition: background-color 0.2s, color 0.2s, box-shadow 0.2s;
-//     }
-// }
 
 
 :host ::ng-deep .p-menubar .p-menubar-root-list .p-menuitem:hover {
@@ -280,13 +236,13 @@ margin-right: 5px; /* Adjust the margin as needed */
 }
 .text-net{
     display: unset;
-    @media screen and (max-width: 1145px){
+    @media screen and (max-width: 1196px){
         display: none;
     }
 }
 .text-icon{
     display: none;
-    @media screen and (max-width: 1145px){
+    @media screen and (max-width: 1196px){
         display: unset;
     }
 }
@@ -294,4 +250,28 @@ margin-right: 5px; /* Adjust the margin as needed */
 
 :host ::ng-deep .p-splitbutton {
     margin-right: 20px;
+}
+
+:host ::ng-deep .p-inputtext {
+    padding: 0.5rem 1.2rem;
+    color: white;
+    font-weight: bold;
+    font-family: Zen Dots, sans-serif;
+}
+
+:host ::ng-deep.p-dropdown {
+    background-color: #0038FF;
+    border: unset;
+    color: white;
+    font-weight: bold;
+    border-radius: 10px;
+    margin-right: 20px;
+}
+:host ::ng-deep.p-icon {
+    color: white;
+}
+
+:host ::ng-deep .p-menubar-end {
+    display: flex;
+    align-items: center;
 }

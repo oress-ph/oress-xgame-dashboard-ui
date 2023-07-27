@@ -3,7 +3,11 @@ import { MenuItem } from 'primeng/api';
 import { MessageService } from 'primeng/api';
 import { AppSettings } from 'src/app/app-settings';
 
-
+interface Country {
+    name: string;
+    logo: string;
+    // You can add more properties as needed, such as 'flag' for the image URL.
+}
 @Component({
     selector: 'app-topbar',
     templateUrl: './topbar.component.html',
@@ -17,6 +21,15 @@ export class TopbarComponent {
         private appsetting: AppSettings
     ) {
     }
+
+    selectedCountry: Country | null = null;
+
+    countries: Country[] = [
+        { name: 'Genesis Testnet', logo:'./../../../assets/img/Genesis_token.png' },
+        { name: 'Genesis Mainet', logo: './../../../assets/img/Genesis_token.png'},
+        { name: 'Polkadot', logo:'./../../../assets/img/polkadot/polkadot_icon.png' },
+    ];
+
     selected_wallet: any = '';
 
     routeClick(section:any) {

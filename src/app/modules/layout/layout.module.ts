@@ -27,6 +27,7 @@ import { BreadcrumbModule } from 'primeng/breadcrumb';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { SplitButtonModule } from 'primeng/splitbutton';
 import { LayoutRoutingModule } from './layout-routing.module';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -53,7 +54,8 @@ import { LayoutRoutingModule } from './layout-routing.module';
     PanelMenuModule,
     BreadcrumbModule,
     ConfirmDialogModule,
-    SplitButtonModule
+    SplitButtonModule,
+    FormsModule
   ],
   exports:[
     LayoutComponent,
