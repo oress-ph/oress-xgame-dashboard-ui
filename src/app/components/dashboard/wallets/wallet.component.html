@@ -1,10 +1,11 @@
 <div class="main-content">
-    <p-card header="" subheader="" [style]="{ width: '400px', margin: 'auto' }">
-        <ng-template pTemplate="header">
-            <img alt="Card" src="https://primefaces.org/cdn/primeng/images/usercard.png" />
+    <p-card header="" subheader="">
+        <ng-template pTemplate="header" class="flex align-items-center">
+            <!-- <img alt="Card" src="https://primefaces.org/cdn/primeng/images/usercard.png" /> -->
+            <img src="./../../../assets/img/XGame_Logo_white.png" height="40" class="mr-2" />
         </ng-template>
         <div *ngIf="selectedWallet == ''">
-            <div class="connect-wallet-title text-center" style="padding-bottom: 20px;">
+            <div class="connect-wallet-title text-center" style="margin-bottom: 40px;">
                 <div class="text-center text-lg">Connect Wallet</div>
                 <span class="text-center text-sm w-full">Start using XGame</span>
             </div>
