@@ -49,4 +49,4 @@ import { LayoutModule } from '../layout/layout.module';
     SecurityRouterActivate
   ]
 })
-export class SecurityModule { }
+export class SecurityModule {}

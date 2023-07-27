@@ -64,4 +64,4 @@ import { LayoutRouterActivate } from './layout-router.activate';
     LayoutRouterActivate
   ]
 })
-export class LayoutModule { }
+export class LayoutModule {}
