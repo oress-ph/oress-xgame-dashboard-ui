@@ -1,1 +1,35 @@
-/* You can add global styles to this file, and also import other style files */
+
+body {
+    margin: 0;
+    font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol";
+    font-size: 1rem;
+    font-weight: 400;
+    line-height: 1.5;
+    color: white;
+    text-align: left;
+    background-color: #fff;
+  
+  background-color: #000;
+      // background-image: url('/assets/img/background_body.png');
+      background-position: 0 0;
+      background-size: cover;
+  }
+  html{
+    scroll-behavior: smooth;
+  }
+
+  @import url('https://fonts.googleapis.com/css2?family=Zen+Dots&display=swap');
+
+  #mainNav {
+    width: 100%;
+    position: fixed;
+    top: 0px;
+    z-index: 9999;
+  }
+  .heading-9 {
+    color: #fff;
+    letter-spacing: 1px;
+    font-family: Zen Dots,sans-serif;
+    font-size: 22px;
+    font-weight: 400;
+}
