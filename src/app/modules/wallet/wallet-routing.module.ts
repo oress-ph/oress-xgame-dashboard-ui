@@ -7,11 +7,9 @@ import { WalletComponent } from './wallet.component';
 const routes: Routes = [
   {
     path: '',
-    canActivate: [WalletRouterActivate],
     component: WalletComponent,
     children: [
-      { path: '',canActivate: [WalletRouterActivate],  component: WalletsComponent },
-
+      { path: '', component: WalletsComponent },
     ],
   },
 ];

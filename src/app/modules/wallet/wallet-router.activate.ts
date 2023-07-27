@@ -10,7 +10,7 @@ export class WalletRouterActivate implements CanActivate {
 
     canActivate() {
       if (localStorage.getItem("token") == null) {
-          this.router.navigate(["/security/login"]);
+        //   this.router.navigate(["/wallet"]);
           return false;
       } else {
           return true;
