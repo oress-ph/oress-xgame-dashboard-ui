@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
 import { MenuItem } from 'primeng/api';
-import { MessageService } from 'primeng/api';
 import { AppSettings } from 'src/app/app-settings';
 
 interface Country {
@@ -17,7 +16,7 @@ export class TopbarComponent {
     header_menu: MenuItem[] | undefined;
     wallet_menu: MenuItem[] | undefined;
 
-    constructor(private messageService: MessageService,
+    constructor(
         private appsetting: AppSettings
     ) {
     }
