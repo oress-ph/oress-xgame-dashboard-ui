@@ -1,1 +1,14 @@
-<p>topbar works!</p>
+<p-menubar [model]="header_menu" id="mainNav" class="centered-menubar">
+    <ng-template pTemplate="start">
+        <img src="./../../../assets/img/XGame_Logo_white.png" height="40" class="mr-2" />
+    </ng-template>
+    <ng-template pTemplate="end" styleClass="wallet">
+        <p-splitButton class="text-net" [label]="selected_wallet.label" [model]="wallet_menu" appendTo="body" styleClass="p-button-sm mr-2 mb-2 my-wallet-menu"></p-splitButton>
+        <p-button class="text-net" label="Connect Wallet" styleClass="p-button-sm"></p-button>
+
+        <p-splitButton class="text-icon" icon="pi pi-globe" [model]="wallet_menu" appendTo="body" styleClass="p-button-sm mr-2 mb-2 my-wallet-menu"></p-splitButton>
+        <p-button class="text-icon" icon="pi pi-wallet" styleClass="p-button-rounded p-button-info"></p-button>
+
+    </ng-template>
+</p-menubar>
+ 

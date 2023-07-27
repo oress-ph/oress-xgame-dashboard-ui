@@ -1,0 +1,90 @@
+footer{
+    background-color: #000;
+    // border-top: 0.5px solid #7c028f;
+    margin-bottom: 0;
+    padding: 80px 100px;
+    display: flex;
+    justify-content: space-between;
+    // margin-top: 125px;
+    @media screen and (max-width: 991px){
+        width: 100%;
+        padding: 20px;
+        flex-direction: column;
+        align-items: center;
+    }
+    @media screen and (max-width: 768px){
+        width: 100%;
+
+    }
+    @media screen and (max-width: 426px){
+        // width: 100%;
+        padding-left: 5px;
+        padding-right: 5px;
+        text-align: center;
+    }
+}
+
+// :host ::ng-deep .heading-9 {
+//     color: #fff;
+//     letter-spacing: 1px;
+//     font-family: Zen Dots,sans-serif !important;
+//     font-size: 22px;
+//     font-weight: 400;
+// }
+.heading-9 {
+    color: #fff;
+    letter-spacing: 1px;
+    font-family: Zen Dots,sans-serif;
+    font-size: 22px;
+    font-weight: 400;
+
+    
+}
+m-0{
+    margin: 0 !important;
+    margin-block: 0;
+}
+
+.text-block-11{
+    font-size: 15px ;
+}
+
+:host ::ng-deep.p-button{
+    background-color: #0038ff;
+    border-top-right-radius: 5px;
+    border-bottom-right-radius: 5px;
+    padding-left: 20px;
+    padding-right: 20px;
+    line-height: 21px;
+}
+
+:host ::ng-deep.p-button:hover{
+    background-color: #0038ff;
+    border-top-right-radius: 5px;
+    border-bottom-right-radius: 5px;
+    padding-left: 20px;
+    padding-right: 20px;
+    line-height: 21px;
+}
+.section{
+    padding-right: 25px;
+    width: 100%;
+    @media screen and (max-width: 991px){
+        margin-bottom: 20px;
+        padding-right: 0px;
+    }
+}
+
+
+.p-inputgroup {
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+    margin-top: 10px;
+    display: flex;
+}
+
+.mt-10{
+    margin-top: 10px
+}
+

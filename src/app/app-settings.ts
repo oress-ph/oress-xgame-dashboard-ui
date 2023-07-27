@@ -2,6 +2,11 @@ import { environment } from "src/environments/environment";
 
 export class AppSettings {
     public APIURLHost = environment.APIURLHost;
+    public UIURLHomePageHost = 'https://xgame.live/home';
+
+    public APIURLHostAuth = 'http://127.0.0.1:3001';
+    public APIURLHostCollection = 'http://127.0.0.1:3002';
+    public APIURLHostNFT = 'http://127.0.0.1:3003';
     public APIUploadURL = this.APIURLHost + '/uploads/'
     public AppVersion = 'Alpha.001';
     // table list date format
