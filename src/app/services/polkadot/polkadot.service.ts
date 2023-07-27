@@ -29,7 +29,6 @@ export class PolkadotService {
             type: accounts[i].type
           });
         }
-        console.log(walletAccounts);
       }
     }
 

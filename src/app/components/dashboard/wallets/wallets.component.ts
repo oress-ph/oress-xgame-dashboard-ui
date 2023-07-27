@@ -48,7 +48,6 @@ export class WalletsComponent {
           type: data[i].type
         });
       }
-      console.log(this.selectedWallet);
     }
 
     this.chooseAccount = true;
