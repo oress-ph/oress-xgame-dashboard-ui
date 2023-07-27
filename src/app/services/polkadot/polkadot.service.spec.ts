@@ -1,13 +1,13 @@
 import { TestBed } from '@angular/core/testing';
 
-import { DashbaordService } from './dashbaord.service';
+import { PolkadotService } from './polkadot.service';
 
-describe('DashbaordService', () => {
-  let service: DashbaordService;
+describe('PolkadotService', () => {
+  let service: PolkadotService;
 
   beforeEach(() => {
     TestBed.configureTestingModule({});
-    service = TestBed.inject(DashbaordService);
+    service = TestBed.inject(PolkadotService);
   });
 
   it('should be created', () => {

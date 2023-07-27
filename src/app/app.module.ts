@@ -7,11 +7,11 @@ import { HttpClientModule } from '@angular/common/http';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { AppSettings } from './app-settings';
-import { MessageService } from 'primeng/api';
+import { DatePipe } from '@angular/common';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
   ],
   imports: [
     BrowserModule,
@@ -19,7 +19,10 @@ import { MessageService } from 'primeng/api';
     BrowserAnimationsModule,
     HttpClientModule,
   ],
-  providers: [AppSettings,MessageService],
+  providers: [
+    DatePipe,
+    AppSettings
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

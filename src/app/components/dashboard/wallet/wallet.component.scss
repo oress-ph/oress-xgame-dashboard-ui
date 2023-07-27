@@ -1,0 +1,9 @@
+.main-content{
+    padding: 80px 100px;
+    // background: url('./../../../../assets/img/background_body.png') center center; 
+    background-size: cover;
+    background-position: 0 0;
+    @media screen and (max-width: 1024px){
+        padding: 20px 20px;
+    }
+}

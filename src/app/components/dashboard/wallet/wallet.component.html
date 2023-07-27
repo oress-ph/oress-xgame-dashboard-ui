@@ -1,0 +1,30 @@
+<div class="main-content">
+    <p-card header="" subheader="" [style]="{ width: '400px', margin: 'auto' }">
+        <ng-template pTemplate="header">
+            <img alt="Card" src="https://primefaces.org/cdn/primeng/images/usercard.png" />
+        </ng-template>
+        <div *ngIf="selectedWallet == ''">
+            <div class="connect-wallet-title text-center">
+                <div class="text-center text-lg">Connect Wallet</div>
+                <span class="text-center text-sm w-full">Start using XGame</span>
+            </div>
+            <div class="connect-wallet-button">
+                <p-button styleClass="p-button-outlined p-button-warning p-button-lg" [style]="{ 'width': '100%' }"
+                    (onClick)="selectPolkadot()">
+                    <img alt="logo" src="./../../../../assets/img/polkadot/polkadot_icon.png" style="width: 1.5rem" />
+                    <span class="ml-2 font-bold">Polkadot(.js)</span>
+                    <div style="position: absolute; float: right; right: 0; padding-right: 20px;">
+                        <i class="pi pi-arrow-right"></i>
+                    </div>
+                </p-button>
+            </div>
+        </div>
+        
+        <ng-template pTemplate="footer">
+            <div class="text-sm text-center">
+                <span>By connecting, I accept XGame’s Terms of Service </span>
+            </div>
+        </ng-template>
+    </p-card>
+    
+</div>

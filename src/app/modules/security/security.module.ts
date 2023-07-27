@@ -49,7 +49,7 @@ import { SecurityRouterActivate } from './security-router.activate';
   declarations: [
     SecurityComponent,
     LoginComponent,
-    RegisterComponent
+    RegisterComponent,
   ],
   imports: [
     CommonModule,
