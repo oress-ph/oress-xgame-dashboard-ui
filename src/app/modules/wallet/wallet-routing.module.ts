@@ -1,15 +1,17 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { DashboardRouterActivate } from './dashboard-router.activate';
-import { DashboardComponent } from './dashboard.component';
+import { WalletRouterActivate } from './wallet-router.activate';
 import { WalletsComponent } from 'src/app/components/dashboard/wallets/wallets.component';
+import { WalletComponent } from './wallet.component';
 
 const routes: Routes = [
   {
     path: '',
-    canActivate: [DashboardRouterActivate],
-    component: DashboardComponent,
+    canActivate: [WalletRouterActivate],
+    component: WalletComponent,
     children: [
+      { path: '',canActivate: [WalletRouterActivate],  component: WalletsComponent },
+
     ],
   },
 ];
@@ -18,4 +20,4 @@ const routes: Routes = [
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule],
 })
-export class DashboardRoutingModule { }
+export class WalletRoutingModule { }
