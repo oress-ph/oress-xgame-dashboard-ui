@@ -9,7 +9,7 @@
         padding: 80px 20px;
     }
 }
-:host ::ng-deep.p-dropdown{
+:host ::ng-deep.currency  .p-dropdown{
     border-radius: 0px;
 }
 
@@ -21,6 +21,10 @@
     flex: 1 0 0;
     border-radius: 10px;
     background: linear-gradient(113deg,#f44097,#3f26d9 87%,#3f26d9);
+    max-width: 50%;
+    @media screen and (max-width: 1024px){
+        max-width: 100%;
+    }
 }
 
 .wallet-icon {
@@ -28,4 +32,197 @@
 }
 :host ::ng-deep.p-button.p-button-text {
     color:white;
+}
+
+:host ::ng-deep .p-dropdown {
+    background: unset;
+    padding: 20px 0px;
+    color: white;
+}
+:host ::ng-deep .p-dropdown .p-dropdown-label {
+    color: white;
+    padding: 0px 12px;
+}
+
+:host ::ng-deep.p-card .p-card-content {
+    padding: 0px;
+}
+:host ::ng-deep.p-button .p-button-label{
+    text-align: left;
+}
+:host ::ng-deep.pi{
+    font-size: 1.3rem;
+}
+
+/* Common styles for both laptop and desktop views */
+.main-content {
+    display: flex;
+  }
+  
+  .sidebar {
+    flex: 1;
+  }
+  
+  .portfolio-content {
+    flex: 2;
+  }
+  
+  /* Mobile View */
+  @media (max-width: 767px) {
+    .main-content {
+      flex-direction: column;
+    }
+  }
+  
+  /* Laptop View */
+  @media (min-width: 768px) and (max-width: 1023px) {
+    .main-content {
+      flex-direction: row;
+    }
+  }
+  
+  /* Desktop View */
+  @media (min-width: 1024px) {
+    /* Sidebar on the left, Portfolio content on the right */
+    .main-content {
+      flex-direction: row;
+    }
+    .sidebar {
+      order: 1;
+      flex: 0.4;
+    }
+    .portfolio-content {
+      order: 2;
+      flex: 2;
+    }
+  }
+  
+/* Mobile View */
+@media (max-width: 767px) {
+    .flex-wrap {
+    //   flex-direction: column;
+    }
+  
+    .collection,
+    .category,
+    .price {
+      width: 100%;
+    }
+  }
+  
+  /* Laptop and Desktop View */
+  @media (min-width: 768px) {
+    .flex-wrap {
+      flex-direction: row;
+    }
+  
+    .collection,
+    .category,
+    .price {
+      flex: 1;
+    }
+  }
+
+  .nft-list{
+    flex: 1 1 calc(19.3333%);
+    min-width: calc(19.3333%);
+    max-width: calc(19.3333%);
+    @media screen and (max-width: 2434px){
+        flex: 1 1 calc(19.25%);
+        min-width: calc(19.25%);
+        max-width: calc(19.25%);
+    }
+    @media screen and (max-width: 2221px){
+        flex: 1 1 calc(19.1%);
+        min-width: calc(19.1%);
+        max-width: calc(19.1%);
+    }
+    @media screen and (max-width: 1937px){
+        flex: 1 1 calc(18.80%);
+        min-width: calc(18.80%);
+        max-width: calc(18.80%);
+    }
+    @media screen and (max-width: 1808px){
+        flex: 1 1 calc(18.75%);
+        min-width: calc(18.75%);
+        max-width: calc(18.75%);
+    }
+    @media screen and (max-width: 1466px){
+        flex: 1 1 calc(23.3333%);
+        min-width: calc(23.3333%);
+        max-width: calc(23.3333%);
+    }
+    @media screen and (max-width: 1169px){
+        flex: 1 1 calc(48.3333%);
+        min-width: calc(48.3333%);
+        max-width: calc(48.3333%);
+    }
+    // @media screen and (max-width: 977px){
+    //     flex: 1 1 calc(100%);
+    //     min-width: calc(100%);
+    //     max-width: calc(100%);
+    // }
+    @media screen and (max-width: 768px){
+        flex: 1 1 calc(31.3333%);
+        min-width: calc(31.3333%);
+        max-width: calc(31.3333%);
+    }
+    @media screen and (max-width: 648px){
+        flex: 1 1 calc(48.3333%);
+        min-width: calc(48.3333%);
+        max-width: calc(48.3333%);
+    }
+    @media screen and (max-width: 582px){
+        flex: 1 1 calc(48.3333%);
+        min-width: calc(48.3333%);
+        max-width: calc(48.3333%);
+    }
+    @media screen and (max-width: 519px){
+        flex: 1 1 calc(47.3333%);
+        min-width: calc(47.3333%);
+        max-width: calc(47.3333%);
+    }
+    @media screen and (max-width: 425px){
+        flex: 1 1 calc(47.3333%);
+        min-width: calc(47.3333%);
+        max-width: calc(47.3333%);
+    }
+    @media screen and (max-width: 398px){
+        flex: 1 1 calc(100%);
+        min-width: calc(100%);
+        max-width: calc(100%);
+    }
+    height: auto;
+    width: 100%;
+    @media screen and (max-width: 1515px){
+        // max-width: 300px;
+    }
+}
+
+:host ::ng-deep .nft-list .p-card {
+    background-color: rgba(255, 255, 255, 0.05);
+    color: white;
+    border: 0.5px white solid;
+}
+
+:host ::ng-deep .p-card:hover {
+    // border: 3px #007BFF solid;
+    border: 0.5px #007BFF solid;
+    outline-style: solid;
+    outline-color: #007BFF;
+}
+:host ::ng-deep .nft-list .p-card-content{
+    padding: 0px;
+}
+:host ::ng-deep .nft-list .p-card .p-card-footer {
+    border-top: 1px white solid
+}
+.logo-and-subheader {
+    display: flex;
+    align-items: center;
+    font-size: 20px;
+    font-weight: bold;
+}
+.subheader{
+    margin: 10px 20px;
 }
