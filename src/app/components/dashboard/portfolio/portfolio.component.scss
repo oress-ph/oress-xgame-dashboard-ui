@@ -89,7 +89,7 @@
     }
     .sidebar {
       order: 1;
-      flex: 0.4;
+      flex: 0.3;
     }
     .portfolio-content {
       order: 2;
@@ -98,7 +98,7 @@
   }
   
 /* Mobile View */
-@media (max-width: 767px) {
+@media (max-width: 1024px) {
     .flex-wrap {
     //   flex-direction: column;
     }
@@ -111,7 +111,7 @@
   }
   
   /* Laptop and Desktop View */
-  @media (min-width: 768px) {
+  @media (min-width: 1024px) {
     .flex-wrap {
       flex-direction: row;
     }
@@ -225,4 +225,11 @@
 }
 .subheader{
     margin: 10px 20px;
+}
+
+.custom-menu-width {
+    width: 100%;
+  }
+  :host ::ng-deep.p-menu{
+    width: 100% !important;
 }
