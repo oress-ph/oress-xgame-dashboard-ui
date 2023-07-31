@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { CanActivate } from "@angular/router";
 
 @Injectable()
-export class DashboardRouterActivate implements CanActivate {
+export class BuyModuleRouterActivate implements CanActivate {
     constructor(
         private router: Router
     ) { }

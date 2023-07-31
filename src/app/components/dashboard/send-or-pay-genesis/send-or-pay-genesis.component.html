@@ -1,173 +1,158 @@
-<div class="main-content">
-    <p-card header="" subheader="" [style]="{ width: '600px',padding: '20px' }">
-        <ng-template pTemplate="header">
-            <!-- <div class="flex flex-wrap">
-                <div class="text-lg text-bold">Back</div>
-                <div class="text-lg text-bold flex-shrink-1"> Send</div>
-            </div> -->
-            <div class="flex justify-between">
-                <div class="text-base flex flex-wrap gap-2 align-items-center absolute cursor-pointer" *ngIf="activeIndex != 0" (click)="backStep()">
-                    <i class="pi pi-chevron-left"></i>
-                    <span>Back</span>
-                </div>
-                <div class="text-lg text-bold flex-center font-bold">Send</div>
-              </div>
-        </ng-template>
-          
-        <div class="step-content" class="flex flex-column gap-6">
-            <p-steps [model]="items" [readonly]="false" [activeIndex]="activeIndex" (activeIndexChange)="onActiveIndexChange($event)"></p-steps>
-            <ng-container *ngIf="activeIndex === 0">
-                <div class="flex flex-column gap-6">
-                    <div class="flex flex-wrap gap-2">
-                        <div class="w-full text-sm">
-                            Account to debit
-                        </div>
-                        <div class="w-full flex flex-wrap justify-content-between border-1 border-solid border-white-500 p-4">
-                            <div class="text-base flex flex-wrap gap-2">
-                                <img alt="logo" src="./../../../../assets/img/polkadot/polkadot_icon.png" style="width: 1.5rem" />
-                                <span>{{wallet_name}}</span>
-                            </div>
-                            <div class="text-base flex flex-wrap gap-2 align-items-center">
-                                <span>{{wallet_amount}}</span>
-                                <span>Genesis</span>
-                                <i class="pi pi-chevron-down"></i>
-                            </div>
-                        </div>
+<div class="main-content flex flex-wrap gap-3" style="padding-top: 100px;">
+    <app-sidebar class="flex-0.5 order-1"></app-sidebar>
+    <div class="flex flex-column portfolio-content justify-content-center flex-1 order-2">
+        <p-card header="" subheader="" [style]="{ width: '600px',padding: '20px' }">
+            <ng-template pTemplate="header">
+                <div class="flex justify-between">
+                    <div class="text-base flex flex-wrap gap-2 align-items-center absolute cursor-pointer" *ngIf="activeIndex != 0" (click)="backStep()">
+                        <i class="pi pi-chevron-left"></i>
+                        <span>Back</span>
                     </div>
-                    <div class="m-auto flex flex-wrap justify-content-center">
-                        <p-button icon="pi pi-arrow-down" styleClass="p-button-rounded p-button-secondary p-button-outlined"></p-button>
-                    </div>
-                    <div class="flex flex-wrap gap-2">
-                        <div class="w-full text-sm">
-                            Account to debit
-                        </div>
-                        <div class="p-inputgroup w-full">
-                            <input type="text" pInputText placeholder="" />
-                            <span class="p-inputgroup-addon">$</span>
-                        </div>
-                        <!-- <div class="w-full flex flex-wrap justify-content-between border-1 border-solid border-white-500 p-4">
-                            <div class="text-base flex flex-wrap gap-2">
-                                <span>56fetgccs455yree6sad2</span>
+                    <div class="text-lg text-bold flex-center font-bold">Send</div>
+                  </div>
+            </ng-template>
+              
+            <div class="step-content" class="flex flex-column gap-6">
+                <p-steps [model]="items" [readonly]="false" [activeIndex]="activeIndex" (activeIndexChange)="onActiveIndexChange($event)"></p-steps>
+                <ng-container *ngIf="activeIndex === 0">
+                    <div class="flex flex-column gap-6">
+                        <div class="flex flex-wrap gap-2">
+                            <div class="w-full text-sm">
+                                Account to debit
                             </div>
-                            <div class="text-base flex flex-wrap gap-2 align-items-center">
-                                <i class="pi pi-qrcode"></i>
+                            <div class="w-full flex flex-wrap justify-content-between border-1 border-solid border-white-500 p-4">
+                                <div class="text-base flex flex-wrap gap-2">
+                                    <img alt="logo" src="./../../../../assets/img/polkadot/polkadot_icon.png" style="width: 1.5rem" />
+                                    <span>{{wallet_name}}</span>
+                                </div>
+                                <div class="text-base flex flex-wrap gap-2 align-items-center">
+                                    <span>{{wallet_amount}}</span>
+                                    <span>Genesis</span>
+                                    <i class="pi pi-chevron-down"></i>
+                                </div>
                             </div>
-                        </div> -->
-                    </div>
-                </div>
-            </ng-container>
-            <ng-container *ngIf="activeIndex === 1">
-                <div class="flex flex-wrap gap-6">
-                    <div class="text-base flex flex-wrap gap-2 align-items-center p-3 w-full" style="background-color: #333436;">
-                        <i class="pi pi-info-circle"></i>
-                        <span>Maximum spendable amount is ~321.435 NMS</span>
-                    </div>
-
-                    <div class="flex flex-wrap gap-2 w-full">
-                        <div class="w-full text-sm">
-                            Account
                         </div>
-                        <div class="flex flex-wrap justify-content-between order-1 flex-1">
-                            <!-- <div class="text-base flex flex-wrap gap-2">
-                                <span>5</span>
+                        <div class="m-auto flex flex-wrap justify-content-center">
+                            <p-button icon="pi pi-arrow-down" styleClass="p-button-rounded p-button-secondary p-button-outlined"></p-button>
+                        </div>
+                        <div class="flex flex-wrap gap-2">
+                            <div class="w-full text-sm">
+                                Account to debit
                             </div>
-                            <div class="text-base flex flex-wrap gap-2 align-items-center">
-                                <span>Genesis</span>
-                            </div> -->
                             <div class="p-inputgroup w-full">
                                 <input type="text" pInputText placeholder="" />
-                                <span class="p-inputgroup-addon">Genesis</span>
-                            </div>
-                        </div>
-                        <div class="flex flex-wrap justify-content-between p-4 order-2">
-                            <i class="pi pi-sort-alt rotate-90"></i>
-                        </div>
-                        <div class="flex flex-wrap justify-content-between flex-1 order-3">
-                            <div class="p-inputgroup w-full">
-                                <input type="text" pInputText placeholder="" />
-                                <span class="p-inputgroup-addon">$</span>
+                                <span class="p-inputgroup-addon"><i class="pi pi-qrcode text-white"></i></span>
                             </div>
                         </div>
                     </div>
-                </div>
-            </ng-container>
-            <ng-container *ngIf="activeIndex === 2">
-                <div class="flex flex-wrap gap-3">
-                    <div class="flex flex-column gap-2">
-                        <p-button icon="pi pi-credit-card" styleClass="p-button-rounded p-button-secondary p-button-outlined"></p-button>
-                        <p-button icon="pi pi-qrcode" styleClass="p-button-rounded p-button-secondary p-button-outlined"></p-button>
-                    </div>
-                    <div class="flex flex-column gap-2">
-                        <div class="flex flex-column">
-                            <span class="text-sm">From</span>
-                            <span class="text-lg flex gap-2"><img alt="logo" src="./../../../../assets/img/polkadot/polkadot_icon.png" style="width: 1.5rem;height: 1.5rem;" />{{wallet_name}}</span>
+                </ng-container>
+                <ng-container *ngIf="activeIndex === 1">
+                    <div class="flex flex-wrap gap-6">
+                        <div class="text-base flex flex-wrap gap-2 align-items-center p-3 w-full" style="background-color: #333436;">
+                            <i class="pi pi-info-circle"></i>
+                            <span>Maximum spendable amount is ~321.435 NMS</span>
                         </div>
-                        <div class="flex flex-column">
-                            <span class="text-sm">To</span>
-                            <span class="text-lg flex gap-2 pl-3">{{wallet_name}}</span>
+    
+                        <div class="flex flex-wrap gap-2 w-full">
+                            <div class="w-full text-sm">
+                                Account
+                            </div>
+                            <div class="flex flex-wrap justify-content-between order-1 flex-1">
+                                <div class="p-inputgroup w-full">
+                                    <input type="text" pInputText placeholder="" />
+                                    <span class="p-inputgroup-addon text-white">Genesis</span>
+                                </div>
+                            </div>
+                            <div class="flex flex-wrap justify-content-between p-2 m-auto order-2">
+                                <i class="pi pi-sort-alt rotate-90"></i>
+                            </div>
+                            <div class="flex flex-wrap justify-content-between flex-1 order-3">
+                                <div class="p-inputgroup w-full">
+                                    <input type="text" pInputText placeholder="" />
+                                    <span class="p-inputgroup-addon text-white">$</span>
+                                </div>
+                            </div>
                         </div>
                     </div>
-                    <div class="flex flex-column pt-3 pb-3 w-full border-top-1 border-bottom-1 border-white-500 gap-3">
-                        <div class="flex justify-content-between w-full">
-                            <div>Amount</div>
+                </ng-container>
+                <ng-container *ngIf="activeIndex === 2">
+                    <div class="flex flex-wrap gap-3">
+                        <div class="flex flex-column gap-2">
+                            <p-button icon="pi pi-credit-card" styleClass="p-button-rounded p-button-secondary p-button-outlined"></p-button>
+                            <p-button icon="pi pi-qrcode" styleClass="p-button-rounded p-button-secondary p-button-outlined"></p-button>
+                        </div>
+                        <div class="flex flex-column gap-2">
                             <div class="flex flex-column">
-                                <span>5 NMS</span>
-                                <span>$23.40</span>
+                                <span class="text-sm">From</span>
+                                <span class="text-lg flex gap-2"><img alt="logo" src="./../../../../assets/img/polkadot/polkadot_icon.png" style="width: 1.5rem;height: 1.5rem;" />{{wallet_name}}</span>
+                            </div>
+                            <div class="flex flex-column">
+                                <span class="text-sm">To</span>
+                                <span class="text-lg flex gap-2 pl-3">{{wallet_name}}</span>
+                            </div>
+                        </div>
+                        <div class="flex flex-column pt-3 pb-3 w-full border-top-1 border-bottom-1 border-white-500 gap-3">
+                            <div class="flex justify-content-between w-full">
+                                <div>Amount</div>
+                                <div class="flex flex-column">
+                                    <span>5 NMS</span>
+                                    <span>$23.40</span>
+                                </div>
+                            </div>
+                            <div class="flex justify-content-between w-full">
+                                <div>Network fees</div>
+                                <div class="flex flex-column">
+                                    <span>0.13578 NMS</span>
+                                    <span class="text-right">$0.4</span>
+                                </div>
                             </div>
                         </div>
                         <div class="flex justify-content-between w-full">
-                            <div>Network fees</div>
+                            <div>Total to debt</div>
                             <div class="flex flex-column">
-                                <span>0.13578 NMS</span>
-                                <span class="text-right">$0.4</span>
+                                <span>5.13578 NMS</span>
+                                <span class="text-right">$25.44</span>
                             </div>
                         </div>
                     </div>
-                    <div class="flex justify-content-between w-full">
-                        <div>Total to debt</div>
-                        <div class="flex flex-column">
-                            <span>5.13578 NMS</span>
-                            <span class="text-right">$25.44</span>
-                        </div>
+                </ng-container>
+                <ng-container *ngIf="activeIndex === 3">
+                    <div class="flex flex-wrap m-auto">
+                        <h1>Successfully Send</h1>
                     </div>
-                </div>
-            </ng-container>
-            <ng-container *ngIf="activeIndex === 3">
-                <div class="flex flex-wrap m-auto">
-                    <h1>Successfully Send</h1>
-                </div>
-            </ng-container>
-        </div>
-        <ng-template pTemplate="footer">
-            <div class="flex justify-content-end" *ngIf="activeIndex === 0">
-                <p-button label="Continue" (click)="nextStep()"></p-button>
+                </ng-container>
             </div>
-            <div class="flex justify-content-between" *ngIf="activeIndex === 1">
-                <div class="text-base flex flex-wrap gap-2">
-                    <div class="h-full flex flex-wrap align-items-center">
-                        <img alt="logo" src="./../../../../assets/img/polkadot/polkadot_icon.png" style="width: 1.5rem;height: 1.5rem;" />
-                    </div>
-                    <div class="flex flex-column">
-                        <span class="text-sm">Network Fees</span>
-                        <span class="text-lg font-bold">0.13578 NMS</span>
-                        <span class="text-sm">$0.08</span>
-                    </div>
-                </div>
-                <div class="flex align-items-center">
+            <ng-template pTemplate="footer">
+                <div class="flex justify-content-end" *ngIf="activeIndex === 0">
                     <p-button label="Continue" (click)="nextStep()"></p-button>
                 </div>
-                
-            </div>
-
-            <div class="flex justify-content-between" *ngIf="activeIndex === 2">
-                <div class="flex align-items-center">
-                    <p-button label="Back" (click)="backStep()"></p-button>
+                <div class="flex justify-content-between" *ngIf="activeIndex === 1">
+                    <div class="text-base flex flex-wrap gap-2">
+                        <div class="h-full flex flex-wrap align-items-center">
+                            <img alt="logo" src="./../../../../assets/img/polkadot/polkadot_icon.png" style="width: 1.5rem;height: 1.5rem;" />
+                        </div>
+                        <div class="flex flex-column">
+                            <span class="text-sm">Network Fees</span>
+                            <span class="text-lg font-bold">0.13578 NMS</span>
+                            <span class="text-sm">$0.08</span>
+                        </div>
+                    </div>
+                    <div class="flex align-items-center">
+                        <p-button label="Continue" (click)="nextStep()"></p-button>
+                    </div>
+                    
                 </div>
-                <div class="flex align-items-center">
-                    <p-button label="Send" (click)="nextStep()"></p-button>
+    
+                <div class="flex justify-content-between" *ngIf="activeIndex === 2">
+                    <div class="flex align-items-center">
+                        <p-button label="Back" (click)="backStep()"></p-button>
+                    </div>
+                    <div class="flex align-items-center">
+                        <p-button label="Send" (click)="nextStep()"></p-button>
+                    </div>
+                    
                 </div>
-                
-            </div>
-        </ng-template>
-    </p-card>
+            </ng-template>
+        </p-card>
+    </div>
 </div>

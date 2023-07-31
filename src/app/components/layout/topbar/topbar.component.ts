@@ -39,6 +39,12 @@ export class TopbarComponent {
     ngOnInit() {
         this.header_menu = [
             {
+                label: '<img src="./../../../assets/img/XGame_Logo_white.png" height="30" class="mr-2" />',
+                escape: false,
+                styleClass: 'logo',
+                disabled:true
+            },
+            {
                 label: 'HOME',
                 command: (event) => { this.routeClick("home") }
             },

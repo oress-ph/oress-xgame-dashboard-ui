@@ -14,6 +14,6 @@ export class SendPayGenesisRouterActivate implements CanActivate {
           return false;
       } else {
           return true;
-      }
+    }
   }
 }

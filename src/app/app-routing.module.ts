@@ -11,7 +11,7 @@ const routes: Routes = [
       ),
   },
   {
-    path: 'dashboard',
+    path: 'portfolio',
     loadChildren: () =>
       import('./modules/dashboard/dashboard.module').then((m) => m.DashboardModule),
   },
@@ -24,6 +24,11 @@ const routes: Routes = [
     path: 'send-pay-genesis',
     loadChildren: () =>
       import('./modules/send-pay-genesis/send-pay-genesis.module').then((m) => m.SendPayGenesisModule),
+  },
+  {
+    path: 'buy',
+    loadChildren: () =>
+      import('./modules/buy-module/buy-module.module').then((m) => m.BuyModuleModule),
   },
 ];
 

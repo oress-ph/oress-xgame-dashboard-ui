@@ -1,10 +1,5 @@
 <div class="main-content flex flex-wrap gap-3" style="padding-top: 100px;">
-    <div class="flex flex-column flex-shrink-0 filter-content sidebar">
-      <div class="w-full filter">
-        <div class="text-2xl text-center">{{wallet_name}}</div>
-        <p-menu class="w-full custom-menu-width" [model]="dashboard_menu"></p-menu>
-      </div>
-    </div>
+    <app-sidebar></app-sidebar>
     <div class="flex flex-column portfolio-content">
       <div class="flex flex-column gap-3 center">
         <div class="p-inputgroup w-full md:w-30rem currency">
@@ -86,7 +81,6 @@
             </p-card>
           </div>
         </div>
-        <!-- <div class="flex flex-column"> -->
           <div class="flex flex-wrap gap-3 center">
             <div class="nft-list" *ngFor="let nft_list of nft_list_diplayed">
               <p-card [style]="{ width: '100%' }">
@@ -112,7 +106,6 @@
               </p-card>
             </div>
           </div>
-        <!-- </div> -->
       </div>
     </div>
 </div>
