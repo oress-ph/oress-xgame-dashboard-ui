@@ -1,0 +1,44 @@
+.main-content{
+    padding: 80px 100px;
+    // background: url('./../../../../assets/img/background_body.png') center center; 
+    background-size: cover;
+    background-position: 0 0;
+
+    @media screen and (max-width: 580px){
+        width: 100%;
+        padding: 80px 20px;
+    }
+}
+:host ::ng-deep.p-card{
+    background-color: unset;
+    width: 100%;
+    color: white;
+    margin: auto;
+    border: 1px solid white;
+    @media screen and (max-width: 440px){
+        width: 100%;
+    }
+}
+
+:host ::ng-deep.p-steps .p-steps-item .p-menuitem-link {
+    background: unset;
+    color: white;
+}
+:host ::ng-deep.p-steps .p-steps-item .p-menuitem-link .p-steps-title {
+    color: white;
+
+}
+:host ::ng-deep.p-disabled{
+    opacity: 1;
+}
+
+.flex-center {
+    flex: 1; /* This will make the "Send" element occupy remaining space and be centered */
+    display: flex;
+    justify-content: center;
+  }
+  
+  
+  
+  
+  

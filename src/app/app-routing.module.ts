@@ -20,6 +20,11 @@ const routes: Routes = [
     loadChildren: () =>
       import('./modules/wallet/wallet.module').then((m) => m.WalletModule),
   },
+  {
+    path: 'send-pay-genesis',
+    loadChildren: () =>
+      import('./modules/send-pay-genesis/send-pay-genesis.module').then((m) => m.SendPayGenesisModule),
+  },
 ];
 
 @NgModule({
