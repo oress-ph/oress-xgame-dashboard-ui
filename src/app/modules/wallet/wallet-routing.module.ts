@@ -9,7 +9,7 @@ const routes: Routes = [
     path: '',
     component: WalletComponent,
     children: [
-      { path: '', component: WalletsComponent },
+      { path: '',canActivate: [WalletRouterActivate], component: WalletsComponent },
     ],
   },
 ];

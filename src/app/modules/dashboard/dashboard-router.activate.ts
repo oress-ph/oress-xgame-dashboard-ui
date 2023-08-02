@@ -9,7 +9,7 @@ export class DashboardRouterActivate implements CanActivate {
     ) { }
 
     canActivate() {
-        if (localStorage.getItem("token") == null) {
+        if (localStorage.getItem("wallet-keypair") == null) {
             this.router.navigate(["/wallet"]);
             return false;
         } else {
