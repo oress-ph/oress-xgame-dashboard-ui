@@ -8,6 +8,7 @@ import { Router } from '@angular/router';
 import { NftService } from 'src/app/services/nft/nft.service';
 import { CollectionService } from 'src/app/services/collection/collection.service';
 import { CategoryService } from 'src/app/services/category/category.service';
+import { PolkadotService } from 'src/app/services/polkadot/polkadot.service';
 
 @Component({
   selector: 'app-portfolio',
@@ -19,7 +20,8 @@ export class PortfolioComponent implements OnInit {
     private router: Router,
     private nftService: NftService,
     private collectionService: CollectionService,
-    private categoryService: CategoryService
+    private categoryService: CategoryService,
+    private polkadotService: PolkadotService,
   ){}
   wallet_name : any = '';
   dashboard_menu: MenuItem[] | undefined;
@@ -58,7 +60,16 @@ export class PortfolioComponent implements OnInit {
     this.filterNFT();
     // this.get_category_json();
   }
-  ngOnInit(): void {
+
+  extractNft() {
+
+  }
+
+  async ngOnInit(): Promise<void> {
+    const contractAddress = await this.polkadotService.getAllSmartContracts();
+    const nftTokens = await this.polkadotService.getAllTokens(contractAddress);
+    // console.log(nftTokens);
+
     this.get_collection_json();
     this.get_category_json();
     this.wallet_name = localStorage.getItem("wallet-meta-name");
@@ -142,12 +153,12 @@ export class PortfolioComponent implements OnInit {
   }
 
   dataSource: any[] = [];
-  
+
   get_nft_json() {
     this.nftService.get_nft_json().subscribe(
       (response) => {
         let data = response;
-        
+
         this.nft_list = data;
         this.filterNFT();
       },
@@ -167,10 +178,13 @@ export class PortfolioComponent implements OnInit {
     if (this.selected_category !== "All") {
       this.nft_list_diplayed = this.nft_list_diplayed.filter(item => item.category === this.selected_category);
     }
-  
+
     setTimeout(() => {
       // this.dataSource = this.formatData(this.nft_list_diplayed);
       // this.is_loading_nft = false;
     }, 100);
   }
+
+  // Get the smart contract in Polkadot-JS
+
 }
