@@ -35,11 +35,17 @@
 :host ::ng-deep .p-menubar-start{
     margin-right: 80px;
 }
-:host ::ng-deep .logo > img{
+:host ::ng-deep .p-menubar-start > img{
     max-height: 23px;
     max-width: 82px;
     margin-top: 5px;
 }
+:host ::ng-deep.p-disabled{
+    opacity: 1;
+}
+// body{
+//     margin: 0;
+// }
 
 :host ::ng-deep .p-menubar {
     height: 75px;
@@ -79,6 +85,7 @@
 }
 
 
+
 :host ::ng-deep .p-menubar.p-menubar-mobile-active .p-menubar-root-list {
     @media screen and (max-width: 960px){
         background-color: #1f0322;
@@ -88,6 +95,7 @@
         border-top: 1px solid #1a1934;
     }
 }
+
 :host ::ng-deep .p-menubar-start{
     @media screen and (max-width: 960px){
         // width: 100%;
@@ -106,15 +114,11 @@
     font-size: 16px;
 }
 
-
 :host ::ng-deep .p-menubar .p-menubar-root-list > .wallet > .p-menuitem-link .p-menuitem-text {
     width: 100%;
     text-align: center;
     letter-spacing: .5px;
     background-color: #3f26d9;
-    // background-image: linear-gradient(113deg,#f44097,#3f26d9 87%,#3f26d9);
-    // border-top-right-radius: 10px;
-    // border-bottom-left-radius: 10px;
     font-family: Zen Dots,sans-serif;
     padding: 9px 15px;
     @media screen and (max-width: 960px){
@@ -125,9 +129,6 @@
         border-top-right-radius: 10px !important;
     border-bottom-left-radius: 10px !important;
     @media screen and (max-width: 960px){
-        // padding: 20px;
-        // border-top-right-radius: 10px !important;
-        // border-bottom-left-radius: 10px !important;
     }
 }
 :host ::ng-deep .p-menubar .p-menubar-root-list > .p-menuitem > .p-menuitem-link {
@@ -136,15 +137,8 @@
 
 :host ::ng-deep .p-menubar ul {
     @media screen and (min-width: 960px){
-        // display: flex;
-        // justify-content: space-between;
     }
 }
-:host ::ng-deep .p-menubar ul {
-    @media screen and (max-width: 960px){
-        // display: none;
-    }
- }
 
 :host ::ng-deep p-menubarsub {
     @media screen and (max-width: 960px){
@@ -156,7 +150,7 @@
 
 :host ::ng-deep .p-menubar .p-menubar-root-list .p-menuitem:hover {
     .p-menuitem-link .p-menuitem-text{
-        color: #0038ff;
+        color: #f54097;
         
     }
 }
@@ -173,9 +167,6 @@ align-items: center;
 margin-right: 5px; /* Adjust the margin as needed */
 }  
 
-:host ::ng-deep.p-button.p-button-icon-only {
-    // padding: unset;
-}
 :host ::ng-deep.p-button.p-button-icon-only.p-button-rounded {
     height: unset;
     margin-left: 10px;
@@ -229,8 +220,4 @@ margin-right: 5px; /* Adjust the margin as needed */
 :host ::ng-deep .p-menubar-end {
     display: flex;
     align-items: center;
-}
-
-:host ::ng-deep.p-disabled{
-    opacity: 1;
 }
