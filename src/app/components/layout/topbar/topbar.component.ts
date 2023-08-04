@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { MenuItem } from 'primeng/api';
 import { AppSettings } from 'src/app/app-settings';
 import { WalletModel } from 'src/app/models/selections/wallet.model';
-
+import { CookiesService } from 'src/app/services/cookies/cookies.service';
 interface Country {
     name: string;
     logo: string;
@@ -15,6 +15,9 @@ interface Country {
 })
 export class TopbarComponent {
     header_menu: MenuItem[] | undefined;
+    profile_menu: MenuItem[] | undefined;
+    is_connect_wallet: boolean= false;
+
     wallet_menu: WalletModel[] = [
         { wallet_net: 'Genesis Testnet', logo:'./../../../assets/img/Genesis_token.png', wallet_url: '',status:true },
         { wallet_net: 'Genesis Mainet', logo: './../../../assets/img/Genesis_token.png',wallet_url: '',status:true},
@@ -23,11 +26,13 @@ export class TopbarComponent {
     selected_wallet: WalletModel | null = null;
 
     constructor(
-        private appsetting: AppSettings
+        private appsetting: AppSettings,
+        private cookiesService: CookiesService
     ) {
     }
 
     selectedCountry: Country | null = null;
+    
 
     countries: Country[] = [
         { name: 'Genesis Testnet', logo:'./../../../assets/img/Genesis_token.png' },
@@ -43,6 +48,30 @@ export class TopbarComponent {
     }
 
     ngOnInit() {
+        this.is_connect_wallet = this.cookiesService.getCookie('wallet-keypair')!='';
+
+        this.wallet_menu.forEach(wallet => {
+            if(wallet.status!=true){
+                this.selected_wallet= wallet;
+                this.cookiesService.setCookie('wallet_url',wallet.wallet_url)
+                stop;
+            }
+        });
+        this.profile_menu = [
+            {
+                label: 'Dashboard',
+                icon: 'pi pi-microsoft',
+                command: () => {
+                }
+            },
+            {
+                label: 'Logout',
+                icon: 'pi pi-sign-out',
+                command: () => {
+                }
+            }
+        ];
+        
         this.header_menu = [
             {
                 label: '<img src="./../../../assets/img/XGame_Logo_white.png" height="30" class="mr-2" />',
@@ -84,4 +113,7 @@ export class TopbarComponent {
         // Perform actions based on the selected wallet menu item
         this.selected_wallet = selectedItem;
     }
+
+
+
 }

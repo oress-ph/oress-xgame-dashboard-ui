@@ -1,6 +1,23 @@
 import { environment } from "src/environments/environment";
 
 export class AppSettings {
+    public AllURL = [
+        {
+            url: "nft.xgame.live"
+        },
+        {
+            url: "dashboard.xgame.live"
+        },
+        {
+            url: "astrochibbi.xgame.live"
+        },
+        {
+            url: "xgame.live"
+        },
+        {
+            url: "localhost"
+        },
+    ]
     public wsProviderEndpoint = 'wss://huminary.humidefi.com';
     public keypair = localStorage.getItem("wallet-keypair") || "";
 

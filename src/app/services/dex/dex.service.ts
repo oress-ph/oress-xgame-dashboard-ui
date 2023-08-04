@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { web3Accounts, web3Enable, web3FromAddress, web3FromSource } from '@polkadot/extension-dapp';
 import { ApiPromise, WsProvider } from '@polkadot/api';
 import { AppSettings } from 'src/app/app-settings';
+import { CookiesService } from '../cookies/cookies.service';
 
 @Injectable({
   providedIn: 'root'
@@ -9,10 +10,13 @@ import { AppSettings } from 'src/app/app-settings';
 export class DexService {
 
   constructor(
-    private appSettings: AppSettings
+    private appSettings: AppSettings,
+    private cookiesService: CookiesService
   ) { }
+  wallet_url:any = this.cookiesService.getCookie('wallet_url')
 
-  wsProvider = new WsProvider(this.appSettings.wsProviderEndpoint);
+
+  wsProvider = new WsProvider(this.wallet_url);
   api = ApiPromise.create({ provider: this.wsProvider });
   keypair = this.appSettings.keypair;
   extensions = web3Enable('humidefi');
