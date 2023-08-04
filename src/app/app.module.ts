@@ -9,7 +9,6 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { AppSettings } from './app-settings';
 import { DatePipe } from '@angular/common';
-
 @NgModule({
   declarations: [
     AppComponent,

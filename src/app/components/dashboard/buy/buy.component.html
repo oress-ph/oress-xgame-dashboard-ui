@@ -1,0 +1,123 @@
+<div class="main-content flex flex-wrap gap-3" style="padding-top: 100px;">
+    <app-sidebar class="flex-0.5 order-1"></app-sidebar>
+    <div class="flex flex-column portfolio-content flex-1 order-2">
+        <p-card header="" subheader="" [style]="{ width: '600px',padding: '20px' }">
+            <ng-template pTemplate="header">
+                <div class="flex justify-between">
+                    <div class="text-base flex flex-wrap gap-2 align-items-center absolute cursor-pointer" *ngIf="activeIndex != 0" (click)="backStep()">
+                        <i class="pi pi-chevron-left"></i>
+                        <span>Back</span>
+                    </div>
+                    <div class="text-lg text-bold flex-center font-bold" *ngIf="activeIndex === 0">Buy</div>
+                    <div class="text-lg text-bold flex-center font-bold" *ngIf="activeIndex === 1">Your Preferences</div>
+                    <div class="text-lg text-bold flex-center font-bold" *ngIf="activeIndex === 2">Enter your details</div>
+                  </div>
+            </ng-template>
+            <div class="step-content" class="flex flex-column gap-6">
+                <ng-container *ngIf="activeIndex === 0">
+                    <div class="flex flex-column gap-6">
+                        <div class="flex flex-wrap gap-2">
+                            <div class="w-full text-sm text-right">
+                                1 Genesis = $867.50
+                            </div>
+                            <div class="p-inputgroup">
+                                <input pInputText placeholder="Spent" />
+                                <span class="p-inputgroup-addon">
+                                    <!-- <i class="pi pi-user"></i> -->
+                                    <p-dropdown [options]="countries" optionLabel="name" styleClass="w-full"></p-dropdown>
+                                </span>
+                            </div>
+                              
+                        </div>
+                    </div>
+                    <div class="flex flex-column gap-6">
+                        <div class="flex flex-wrap gap-2">
+                            <div class="p-inputgroup">
+                                <input pInputText placeholder="Spent" />
+                                <span class="p-inputgroup-addon">
+                                    <span class="text-lg flex gap-2 p-2">Receive<img alt="logo" src="./../../../../assets/img/Genesis_token.png" style="width: 1.5rem;height: 1.5rem;" /></span>
+                                    <!-- <i class="pi pi-user"></i> -->
+                                </span>
+                            </div>
+                              
+                        </div>
+                    </div>
+                </ng-container>
+                <ng-container *ngIf="activeIndex === 1">
+                    <div class="flex flex-column gap-5">
+                        <div class="w-full text-base">
+                            Select Payment method
+                        </div>
+                        <div class="w-full text-sm">
+                            This information will only be used for suggesting eligible service providers and won’t be stored
+                        </div>
+                        <div class="w-full flex flex-wrap justify-content-center">
+                            <img alt="logo" class="cursor-pointer" (click)="nextStep()" src="./../../../../assets/img/Payment Gateway/payment_gateway.png" />
+                        </div>
+                    </div>
+                </ng-container>
+                <ng-container *ngIf="activeIndex === 2">
+                    <div class="flex flex-column gap-5">
+                        <div class="w-full text-sm">
+                            This information will only be used for suggesting eligible service providers and won’t be stored
+                        </div>
+                        <div class="flex flex-wrap w-full gap-3">
+                            <div class="p-inputgroup">
+                                <span class="p-inputgroup-addon p-3">
+                                    <span>Type</span>
+                                </span>
+                                <input pInputText placeholder="Username" />
+                            </div>
+                            <div class="p-inputgroup">
+                                <span class="p-inputgroup-addon p-3">
+                                    <span>Card Number</span>
+                                </span>
+                                <input pInputText placeholder="" />
+                            </div>
+                            <div class="p-inputgroup expiry-input">
+                                <span class="p-inputgroup-addon p-3">
+                                  <span>Expiry Date</span>
+                                </span>
+                                <p-inputMask mask="99/99" placeholder="MM/YY" styleClass="w-full"></p-inputMask>
+                            </div>
+                            <div class="p-inputgroup">
+                                <span class="p-inputgroup-addon p-3">
+                                    <span>Security Code</span>
+                                </span>
+                                <input pInputText placeholder="" />
+                            </div>
+                        </div>
+                    </div>
+                </ng-container>
+                <ng-container *ngIf="activeIndex === 3">
+                    <div class="flex flex-column text-center m-auto">
+                        <!-- <div class="text-xl">Congratulation!</div> -->
+                        <h1>Congratulation</h1>
+                        <div class="text-base">Your Nemesis is on the way</div>
+                    </div>
+                </ng-container>
+            </div>
+            <ng-template pTemplate="footer">
+                <div class="flex justify-content-end" *ngIf="activeIndex === 0">
+                    <p-button label="Pay" (click)="nextStep()"></p-button>
+                </div>
+                <!-- <div class="flex justify-content-between" *ngIf="activeIndex === 1">
+                    <div class="flex align-items-center">
+                        <p-button label="Back" (click)="backStep()"></p-button>
+                    </div>
+                    <div class="flex align-items-center">
+                        <p-button label="Pay" (click)="nextStep()"></p-button>
+                    </div>
+                </div> -->
+                <div class="flex justify-content-between" *ngIf="activeIndex === 2">
+                    <div class="flex align-items-center">
+                        <p-button label="Back" (click)="backStep()"></p-button>
+                    </div>
+                    <div class="flex align-items-center">
+                        <p-button label="Pay" (click)="nextStep()"></p-button>
+                    </div>
+                </div>
+            </ng-template>
+        </p-card>
+    </div>
+</div>

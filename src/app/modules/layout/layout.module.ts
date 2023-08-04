@@ -25,12 +25,16 @@ import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { SplitButtonModule } from 'primeng/splitbutton';
 import { LayoutRoutingModule } from './layout-routing.module';
 import { FormsModule } from '@angular/forms';
+import { OverlayPanelModule } from 'primeng/overlaypanel';
+
+import { SidebarComponent } from 'src/app/components/layout/sidebar/sidebar.component';
 
 @NgModule({
   declarations: [
     LayoutComponent,
     TopbarComponent,
-    FooterComponent
+    FooterComponent,
+    SidebarComponent
   ],
   imports: [
     CommonModule,
@@ -52,12 +56,14 @@ import { FormsModule } from '@angular/forms';
     BreadcrumbModule,
     ConfirmDialogModule,
     SplitButtonModule,
-    FormsModule
+    FormsModule,
+    OverlayPanelModule
   ],
   exports:[
     LayoutComponent,
     TopbarComponent,
-    FooterComponent
+    FooterComponent,
+    SidebarComponent
   ],
   providers:[
     LayoutRouterActivate

@@ -1,0 +1,19 @@
+:host ::ng-deep.active {
+    // background-color: #b8ebf5;
+    // color:#0038FF
+}
+
+:host ::ng-deep.p-menuitem-link.active .p-menuitem-icon,
+:host ::ng-deep.p-menuitem-link.active .p-menuitem-text {
+  color: #0038FF;
+}
+:host ::ng-deep.p-menu {
+  background:unset
+  
+}
+:host ::ng-deep.p-menu .p-menuitem-link .p-menuitem-icon {
+  color: white;
+}
+:host ::ng-deep.p-menu .p-menuitem-link .p-menuitem-text {
+  color: white;
+}

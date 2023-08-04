@@ -1,0 +1,54 @@
+.main-content{
+    padding: 50px;
+    // background: url('./../../../../assets/img/background_body.png') center center; 
+    background-size: cover;
+    background-position: 0 0;
+
+    @media screen and (max-width: 580px){
+        width: 100%;
+        padding: 80px 20px;
+    }
+}
+
+:host ::ng-deep.p-card{
+    background-color: unset;
+    width: 100%;
+    color: white;
+    margin: auto;
+    border: 1px solid white;
+    @media screen and (max-width: 440px){
+        width: 100%;
+    }
+}
+
+.flex-center {
+    flex: 1; /* This will make the "Send" element occupy remaining space and be centered */
+    display: flex;
+    justify-content: center;
+}
+
+:host ::ng-deep.p-inputgroup-addon {
+    padding: 0px;
+}
+
+:host ::ng-deep.p-inputtext{
+    background: unset;
+    color: white;
+    height: 100%;
+}
+:host ::ng-deep.p-inputgroup-addon {
+    background: unset;
+    color: white;
+}
+
+:host ::ng-deep.p-dropdown {
+    background-color: unset;
+    color: white;
+}
+
+:host ::ng-deep.p-inputgroup > .p-element{
+    flex: auto;
+}
+:host ::ng-deep .p-inputgroup input:last-child{
+    border-radius: 0px;
+}

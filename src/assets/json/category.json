@@ -1,0 +1,52 @@
+[
+    {
+      "id": 2,
+      "category": "Weapon",
+      "collection_name": "AstroChibbi Conquest: Galactic Delight"
+    },
+    {
+      "id": 1,
+      "category": "Character",
+      "collection_name": "AstroChibbi Conquest: Galactic Delight"
+    },
+    {
+      "id": 3,
+      "category": "Accessory",
+      "collection_name": "AstroChibbi Conquest: Galactic Delight"
+    },
+    {
+      "id": 4,
+      "category": "Gadget",
+      "collection_name": "AstroChibbi Conquest: Galactic Delight"
+    },
+    {
+      "id": 5,
+      "category": "Character",
+      "collection_name": "NinjaFruit Rumble: Chibi Showdown"
+    },
+    {
+      "id": 6,
+      "category": "Enviroment",
+      "collection_name": "NinjaFruit Rumble: Chibi Showdown"
+    },
+    {
+      "id": 7,
+      "category": "Prop",
+      "collection_name": 3
+    },
+    {
+      "id": 8,
+      "category": "Special Effect",
+      "collection_name": ""
+    },
+    {
+      "id": 9,
+      "category": "Element",
+      "collection_name": ""
+    },
+    {
+      "id": "",
+      "category": "Ability",
+      "collection_name": ""
+    }
+  ]

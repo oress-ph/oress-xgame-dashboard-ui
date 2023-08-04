@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import { MenuItem } from 'primeng/api';
+import { Router, NavigationEnd } from '@angular/router';
 
 @Component({
   selector: 'app-sidebar',
@@ -6,5 +8,45 @@ import { Component } from '@angular/core';
   styleUrls: ['./sidebar.component.scss']
 })
 export class SidebarComponent {
+  wallet_name : any = '';
+  dashboard_menu: MenuItem[] | undefined;
 
+  constructor(private router: Router) {
+    this.router.events.subscribe((event) => {
+      if (event instanceof NavigationEnd) {
+        this.updateActiveMenu();
+      }
+    });
+  }
+  updateActiveMenu() {
+    const currentUrl = this.router.url;
+    if(this.dashboard_menu){
+      this.dashboard_menu.forEach((menuItem) => {
+        menuItem.styleClass = currentUrl === menuItem.routerLink ? 'active' : '';
+      });
+    }
+  }
+  
+  ngOnInit(): void {
+    this.wallet_name = localStorage.getItem("wallet-meta-name");
+
+    this.dashboard_menu = [
+      {
+          label: 'Portfolio',
+          icon: 'pi pi-fw pi-briefcase',
+          styleClass : 'active',
+          routerLink: '/portfolio'
+      },
+      {
+          label: 'Send/ Pay Genesis',
+          icon: 'pi pi-fw pi-arrow-up',
+          routerLink: '/send-pay-genesis'
+      },
+      {
+        label: 'Buy',
+        icon: 'pi pi-fw pi-credit-card',
+        routerLink: '/buy'
+      }
+    ];
+  }
 }

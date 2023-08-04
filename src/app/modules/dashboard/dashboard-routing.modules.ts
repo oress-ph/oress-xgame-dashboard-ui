@@ -11,7 +11,7 @@ const routes: Routes = [
     canActivate: [DashboardRouterActivate],
     component: DashboardComponent,
     children: [
-      { path: 'portfolio',canActivate: [DashboardRouterActivate],  component: PortfolioComponent },
+      { path: '',canActivate: [DashboardRouterActivate],  component: PortfolioComponent },
     ],
   },
 ];
