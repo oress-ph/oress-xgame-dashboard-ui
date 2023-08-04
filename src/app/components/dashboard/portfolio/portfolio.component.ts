@@ -39,6 +39,7 @@ export class PortfolioComponent implements OnInit {
   selectedCountry: any | undefined;
 
   showPopup: boolean = false;
+  balance: any;
 
   togglePopup() {
     this.showPopup = !this.showPopup;
@@ -61,15 +62,12 @@ export class PortfolioComponent implements OnInit {
     // this.get_category_json();
   }
 
-  extractNft() {
-
-  }
-
   async ngOnInit(): Promise<void> {
-    const contractAddress = await this.polkadotService.getAllSmartContracts();
-    const nftTokens = await this.polkadotService.getAllTokens(contractAddress);
+    // const contractAddress = await this.polkadotService.getAllSmartContracts();
+    // const nftTokens = await this.polkadotService.getAllTokens(contractAddress);
+    // this.polkadotService.updateToken();
     // console.log(nftTokens);
-
+    this.balance = await this.polkadotService.getBalance();
     this.get_collection_json();
     this.get_category_json();
     this.wallet_name = localStorage.getItem("wallet-meta-name");

@@ -1,6 +1,6 @@
 {
   "source": {
-    "hash": "0xaef4133398be1588d75da9a1e410b5f0009b70868edbfd49d45709ce247e9385",
+    "hash": "0xc7ec98f36c7e77f5611525012cd5015189d8cffd5248c0bdb8489afa1ec0c380",
     "language": "ink! 4.2.1",
     "compiler": "rustc 1.69.0",
     "build_info": {
@@ -204,6 +204,34 @@
           "The operator can manage all NFTs of the owner."
         ],
         "label": "ApprovalForAll"
+      },
+      {
+        "args": [
+          {
+            "docs": [],
+            "indexed": true,
+            "label": "token_id",
+            "type": {
+              "displayName": [
+                "u32"
+              ],
+              "type": 0
+            }
+          },
+          {
+            "docs": [],
+            "indexed": true,
+            "label": "updated_by",
+            "type": {
+              "displayName": [
+                "AccountId"
+              ],
+              "type": 1
+            }
+          }
+        ],
+        "docs": [],
+        "label": "TokenUpdated"
       }
     ],
     "lang_error": {
@@ -667,6 +695,97 @@
           "type": 22
         },
         "selector": "0x36562924"
+      },
+      {
+        "args": [
+          {
+            "label": "token_id",
+            "type": {
+              "displayName": [
+                "u32"
+              ],
+              "type": 0
+            }
+          },
+          {
+            "label": "new_image_path",
+            "type": {
+              "displayName": [
+                "String"
+              ],
+              "type": 6
+            }
+          },
+          {
+            "label": "new_name",
+            "type": {
+              "displayName": [
+                "String"
+              ],
+              "type": 6
+            }
+          },
+          {
+            "label": "new_description",
+            "type": {
+              "displayName": [
+                "String"
+              ],
+              "type": 6
+            }
+          },
+          {
+            "label": "new_price",
+            "type": {
+              "displayName": [
+                "u32"
+              ],
+              "type": 0
+            }
+          },
+          {
+            "label": "new_is_for_sale",
+            "type": {
+              "displayName": [
+                "bool"
+              ],
+              "type": 7
+            }
+          },
+          {
+            "label": "new_category",
+            "type": {
+              "displayName": [
+                "String"
+              ],
+              "type": 6
+            }
+          },
+          {
+            "label": "new_collection",
+            "type": {
+              "displayName": [
+                "String"
+              ],
+              "type": 6
+            }
+          }
+        ],
+        "default": false,
+        "docs": [
+          " Updates an existing token."
+        ],
+        "label": "update_token",
+        "mutates": true,
+        "payable": false,
+        "returnType": {
+          "displayName": [
+            "ink",
+            "MessageResult"
+          ],
+          "type": 17
+        },
+        "selector": "0x90c3ef3a"
       }
     ]
   },
@@ -1274,6 +1393,10 @@
               {
                 "index": 6,
                 "name": "NotAllowed"
+              },
+              {
+                "index": 7,
+                "name": "Unauthorized"
               }
             ]
           }

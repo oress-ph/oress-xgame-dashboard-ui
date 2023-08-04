@@ -7,10 +7,10 @@ import { Keyring } from '@polkadot/keyring';
 import { ApiPromise } from '@polkadot/api';
 import { WsProvider } from '@polkadot/rpc-provider';
 import { ContractPromise } from '@polkadot/api-contract';
-import { Observable } from 'rxjs';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { AppSettings } from 'src/app/app-settings';
-// import * as jsonData from '../assets/json/sample.json';
+import { formatBalance } from '@polkadot/util';
+import { NFTModel } from 'src/app/models/nft/nft.model';
 
 @Injectable({
   providedIn: 'root'
@@ -19,27 +19,61 @@ export class PolkadotService {
 
   constructor(
     private appSettings: AppSettings,
-    private httpClient: HttpClient
+    private httpClient: HttpClient,
   ) { }
-  // data: any = jsonData;
-  extensions = web3Enable('humidefi');
+  wsProvider = new WsProvider(this.appSettings.wsProviderEndpoint);
+  api = ApiPromise.create({ provider: this.wsProvider });
+  keypair = this.appSettings.keypair;
+  extensions = web3Enable('XGAME DASHBOARD');
   accounts = web3Accounts();
-  contractAddress = '';
-  private abiJSON = 'assets/json/sample.json'
-  abi = '';
+  contractAddress: string = '';
+  nftModel: NFTModel[] = [];
+  abi = require("./../../../assets/json/sample.json");
 
-  getAbi(): Observable<any> {
-    return this.httpClient.get<any>(this.abiJSON);
+  async getBalance() {
+    try {
+      const contractAddress = await this.getAllSmartContracts();
+      const accountData = await this.getAccount(contractAddress);
+
+      if (accountData && accountData.api) {
+        const { api, SENDER, contract } = accountData;
+        const { nonce, data: balance } = await api.query.system.account(SENDER);
+        const chainDecimals = api.registry.chainDecimals[0];
+        formatBalance.setDefaults({ decimals: chainDecimals, unit: 'NMS' });
+        formatBalance.getDefaults();
+        const free = formatBalance(balance.free, { forceUnit: "NMS", withUnit: false });
+        const balances = free.split(',').join('');
+        console.log(`Formatted Balance: ${free.split(',').join('')} ${formatBalance.getDefaults().unit}`);
+        console.log('Balance: ', balance.free.toHuman());
+        console.log('Nonce: ', nonce.toHuman());
+        return balances;
+      } else {
+        console.error('API not available in the returned data.');
+        return undefined;
+      }
+    } catch (error) {
+      console.error('Get account balance error:', error);
+      return undefined;
+    }
   }
 
-  async connect() {
-    const provider = new WsProvider('ws://127.0.0.1:9944');
-    const api = await ApiPromise.create({ provider });
-    return api;
+  async getChainTokens(keypair: string): Promise<string[]> {
+    const api = await this.api;
+    const tokens = api.registry.chainTokens;
+
+    return tokens;
   }
+
+  // async connect() {
+  //   const provider = new WsProvider(this.appSettings.wsProviderEndpoint);
+  //   const api = await ApiPromise.create({ provider });
+  //   await api.isReady;
+  //   return api;
+  // }
 
   async getAllSmartContracts() {
-    const api = await this.connect();
+    // const api = await this.connect();
+    let api = await this.api;
     const allContracts = await api.query.contracts.contractInfoOf.entries();
 
     // Extract contract addresses from the result
@@ -60,13 +94,9 @@ export class PolkadotService {
 
   async getAllTokens(contractAddress: string) {
     try {
-      const abiSubscription = this.getAbi().subscribe((abi)=> {
-        this.abi = abi;
-        abiSubscription.unsubscribe();
-      });
-
       this.contractAddress = contractAddress;
-      const api = await this.connect();
+      // const api = await this.connect();
+      let api = await this.api;
       const contract = await this.getContract(api, this.abi, contractAddress);
       // Get the initial gas limits from system block weights
       const gasLimit = api.registry.createType(
@@ -84,15 +114,12 @@ export class PolkadotService {
       }
 
       const { gasRequired, storageDeposit, result, output } = await contract.query.getAllTokens(
-        this.contractAddress,
+        contractAddress,
         {
           gasLimit: gasLimit
         },
       );
-      var token = output?.toJSON();
-      console.log(token)
-      console.log
-console.log(output?.toJSON());
+
       // Decode the data output
       // const metadata = {
       //   output: output?.,
@@ -103,6 +130,33 @@ console.log(output?.toJSON());
       // return metadata;
     } catch (error) {
       console.error('Metadata is null.');
+      return undefined;
+    }
+  }
+
+  async getAccount(contractAddress: any) {
+    try {
+      let accounts = [];
+
+      do {
+        await web3Enable('XGAME DASHBOARD');
+        accounts = await web3Accounts();
+        if (accounts.length === 0) {
+          console.log('No accounts found. Waiting for accounts to be available...');
+          await new Promise(resolve => setTimeout(resolve, 1000));
+        }
+      } while (accounts.length === 0);
+      const account = accounts[0];
+      const SENDER = account.address;
+      const injector = await web3FromAddress(SENDER);
+      // const api = await this.connect();
+      let api = await this.api;
+      const contract = await this.getContract(api, this.abi, contractAddress);
+
+      // Returns the data
+      return { api, SENDER, injector, contract };
+    } catch (error) {
+      console.error('Get account error: ' + error);
       return undefined;
     }
   }
