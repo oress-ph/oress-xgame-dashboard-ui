@@ -51,7 +51,7 @@ export class CookiesService {
     
     try{
       this.all_site.forEach((sites:any) => {
-        this.cookieService.deleteAll();
+        this.cookieService.deleteAll('/',sites.url);
       });
       return true;
     }catch(e){
