@@ -1,7 +1,7 @@
 <div class="main-content flex flex-wrap gap-3" style="padding-top: 100px;">
     <app-sidebar class="flex-0.5 order-1"></app-sidebar>
     <div class="flex flex-column portfolio-content justify-content-center flex-1 order-2">
-        <p-card header="" subheader="" [style]="{ width: '600px',padding: '20px' }">
+        <p-card header="" subheader="" styleClass="content-body">
             <ng-template pTemplate="header">
                 <div class="flex justify-between">
                     <div class="text-base flex flex-wrap gap-2 align-items-center absolute cursor-pointer" *ngIf="activeIndex != 0" (click)="backStep()">

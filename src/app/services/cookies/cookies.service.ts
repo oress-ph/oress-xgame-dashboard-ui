@@ -47,4 +47,16 @@ export class CookiesService {
       return null
     }
   }
+  deleteAllCookie(){
+    
+    try{
+      this.all_site.forEach((sites:any) => {
+        this.cookieService.deleteAll();
+      });
+      return true;
+    }catch(e){
+      console.log(e);
+      return null;
+    }
+  }
 }

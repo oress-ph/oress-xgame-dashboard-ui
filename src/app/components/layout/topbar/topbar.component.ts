@@ -3,6 +3,7 @@ import { MenuItem } from 'primeng/api';
 import { AppSettings } from 'src/app/app-settings';
 import { WalletModel } from 'src/app/models/selections/wallet.model';
 import { CookiesService } from 'src/app/services/cookies/cookies.service';
+import { Router } from '@angular/router';
 interface Country {
     name: string;
     logo: string;
@@ -27,7 +28,8 @@ export class TopbarComponent {
 
     constructor(
         private appsetting: AppSettings,
-        private cookiesService: CookiesService
+        private cookiesService: CookiesService,
+        private router: Router
     ) {
     }
 
@@ -45,6 +47,14 @@ export class TopbarComponent {
     routeClick(section:any) {
         let redirectTo = '?section=' + section;
         window.location.href = this.appsetting.UIURLHomePageHost + redirectTo;
+    }
+    logout(){
+        console.log('test');
+        const logout = this.cookiesService.deleteAllCookie();
+        console.log(logout);
+        if (logout){
+            this.router.navigate(["/wallet"]);
+        }
     }
 
     ngOnInit() {
@@ -68,17 +78,18 @@ export class TopbarComponent {
                 label: 'Logout',
                 icon: 'pi pi-sign-out',
                 command: () => {
+                    this.logout();
                 }
             }
         ];
         
         this.header_menu = [
-            {
-                label: '<img src="./../../../assets/img/XGame_Logo_white.png" height="30" class="mr-2" />',
-                escape: false,
-                styleClass: 'logo',
-                disabled:true
-            },
+            // {
+            //     label: '<img src="./../../../assets/img/XGame_Logo_white.png" height="30" class="mr-2" />',
+            //     escape: false,
+            //     styleClass: 'logo',
+            //     disabled:true
+            // },
             {
                 label: 'HOME',
                 command: (event) => { this.routeClick("home") }

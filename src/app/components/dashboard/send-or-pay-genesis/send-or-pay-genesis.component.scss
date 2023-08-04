@@ -46,3 +46,22 @@
   :host ::ng-deep.p-inputgroup-addon {
     background: unset;
   }
+
+  :host ::ng-deep.p-menu{
+    width: 100% !important;
+}
+
+    /* Mobile View */
+@media (max-width: 767px) {
+    .main-content {
+        flex-direction: column;
+    }
+}
+.content-body{
+    max-width: 600px;
+    padding: 20px;
+    @media(max-width: 767px){
+        width: 100%;
+        padding: 0px;
+    }
+}
