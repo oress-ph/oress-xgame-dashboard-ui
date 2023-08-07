@@ -120,14 +120,26 @@ export class PolkadotService {
         },
       );
 
-      // Decode the data output
-      // const metadata = {
-      //   output: output?.,
-      //   result: result?.toJSON(),
-      //   gasRequired: gasRequired?.toHuman(),
-      //   storageDeposit: storageDeposit?.toHuman(),
-      // };
-      // return metadata;
+      const toks: any = output?.toJSON(); // Save first the output to any
+      console.log(toks.ok[0].tokenId); // Sample query of token ID
+      if (toks.ok.length != 0) {
+        for (const tokenData of toks.ok) {
+          const token: NFTModel = {
+            id: tokenData.tokenId,
+            image_path: tokenData.imagePath,
+            name: tokenData.name,
+            description: tokenData.description,
+            price: tokenData.price,
+            is_for_sale: tokenData.isForSale,
+            category: tokenData.category,
+            collection: tokenData.collection,
+            category_id: ''
+          };
+          this.nftModel.push(token);
+        }
+        console.log(this.nftModel);
+      }
+      return this.nftModel;
     } catch (error) {
       console.error('Metadata is null.');
       return undefined;
@@ -204,6 +216,116 @@ export class PolkadotService {
 
     return false;
   }
+
+  async mint() {
+    try {
+      // Get the account from extensions
+      const accountData = await this.getAccount(this.contractAddress);
+      if (accountData && accountData.api) {
+        const { api, SENDER, injector, contract } = accountData;
+        // These are optional
+        const imagePath = 'bafybeieu2vxywq6ylvrj6ldvarcvovzdyie5psjplydkby2d4tdwxlyk44';
+        const name = 'Sample #2';
+        const description = 'This is a sample description for NFT #1';
+        const price = 1;
+        const isForSale = true;
+        const category = 'Anything';
+        const collection = 'Critic';
+
+        // These are required and changeable
+        const REFTIME = 10000000000;
+        const PROOFSIZE = 500000;
+        const storageDepositLimit = null;
+
+        // Send the transaction to the contract using signAndSend
+        if (contract !== undefined) {
+          const result = await contract.tx.mint(
+            { storageDepositLimit,
+              gasLimit: api?.registry.createType(
+                'WeightV2',
+                { refTime: REFTIME,
+                  proofSize: PROOFSIZE,
+                },
+              )
+            },
+            imagePath,
+            name,
+            description,
+            price,
+            isForSale,
+            category,
+            collection,
+          ).signAndSend(SENDER, { signer: injector.signer }, result => {
+            if (result.status.isInBlock) {
+              console.log('in a block');
+              console.log(result.toHuman());
+            } else if (result.status.isFinalized) {
+              console.log('finalized');
+            }
+          });
+          console.log('Transaction result:', result);
+        }
+      }
+    } catch (error) {
+      console.error('Mint error:', error);
+    }
+  }
+
+  async updateToken() {
+    try {
+      const accountData = await this.getAccount(this.contractAddress);
+      if (accountData && accountData.api) {
+        const { api, SENDER, injector, contract } = accountData;
+
+        // Input data for changes
+        const token_id = 1;
+        const new_image_path = 'newImagePath';
+        const new_name = 'newName';
+        const new_description = 'newDescription';
+        const new_price = 100;
+        const new_is_for_sale = true;
+        const new_category = 'newCategory';
+        const new_collection = 'newCollection';
+
+        // These are required and changeable
+        const REFTIME = 10000000000;
+        const PROOFSIZE = 500000;
+        const storageDepositLimit = null;
+
+        if (contract !== undefined) {
+          const result = await contract.tx.updateToken(
+            { storageDepositLimit,
+              gasLimit: api?.registry.createType(
+                'WeightV2',
+                { refTime: REFTIME,
+                  proofSize: PROOFSIZE,
+                },
+              )
+            },
+            token_id,
+            new_image_path,
+            new_name,
+            new_description,
+            new_price,
+            new_is_for_sale,
+            new_category,
+            new_collection
+          ).signAndSend(SENDER, { signer: injector.signer }, result => {
+            if (result.status.isInBlock) {
+              console.log('in a block');
+              console.log(result.toHuman());
+            } else if (result.status.isFinalized) {
+              console.log('finalized');
+            }
+          });
+          console.log('Transaction result:', result);
+        }
+      }
+    } catch (error) {
+      console.error('Error updating token:', error);
+    }
+  }
+
   async generateKeypair(address: string): Promise<string> {
     const keyring = new Keyring({ type: 'sr25519', ss58Format: 0 });
     const hexPair = keyring.addFromAddress(address);
