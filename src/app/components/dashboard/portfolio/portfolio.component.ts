@@ -65,7 +65,7 @@ export class PortfolioComponent implements OnInit {
   async ngOnInit(): Promise<void> {
     const contractAddress = await this.polkadotService.getAllSmartContracts();
     const nftTokens = await this.polkadotService.getAllTokens(contractAddress);
-    await this.polkadotService.mint();
+    // await this.polkadotService.mint();
     // this.polkadotService.updateToken();
     // console.log(nftTokens);
     this.balance = await this.polkadotService.getBalance();

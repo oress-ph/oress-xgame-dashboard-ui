@@ -119,7 +119,7 @@ export class PolkadotService {
           gasLimit: gasLimit
         },
       );
-
+        console.log(result.toJSON());
       const toks: any = output?.toJSON(); // Save first the output to any
       console.log(toks.ok[0].tokenId); // Sample query of token ID
       if (toks.ok.length != 0) {
@@ -141,7 +141,7 @@ export class PolkadotService {
       }
       return this.nftModel;
     } catch (error) {
-      console.error('Metadata is null.');
+      console.error('Get all tokens error: ' + error);
       return undefined;
     }
   }

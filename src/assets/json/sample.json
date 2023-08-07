@@ -1,6 +1,6 @@
 {
   "source": {
-    "hash": "0xc7ec98f36c7e77f5611525012cd5015189d8cffd5248c0bdb8489afa1ec0c380",
+    "hash": "0x2e6e3ae97cd356d53c97cef12f7e551a916b40eed7a983fa315a3d9540ad2928",
     "language": "ink! 4.2.1",
     "compiler": "rustc 1.69.0",
     "build_info": {
@@ -210,10 +210,10 @@
           {
             "docs": [],
             "indexed": true,
-            "label": "token_id",
+            "label": "id",
             "type": {
               "displayName": [
-                "u32"
+                "TokenId"
               ],
               "type": 0
             }
@@ -221,7 +221,7 @@
           {
             "docs": [],
             "indexed": true,
-            "label": "updated_by",
+            "label": "operator",
             "type": {
               "displayName": [
                 "AccountId"
