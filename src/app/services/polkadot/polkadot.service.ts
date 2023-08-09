@@ -11,6 +11,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { AppSettings } from 'src/app/app-settings';
 import { formatBalance } from '@polkadot/util';
 import { NFTModel } from 'src/app/models/nft/nft.model';
+import { CookiesService } from '../cookies/cookies.service';
 
 @Injectable({
   providedIn: 'root'
@@ -20,13 +21,14 @@ export class PolkadotService {
   constructor(
     private appSettings: AppSettings,
     private httpClient: HttpClient,
+    private cookiesService: CookiesService
   ) { }
   wsProvider = new WsProvider(this.appSettings.wsProviderEndpoint);
   api = ApiPromise.create({ provider: this.wsProvider });
   keypair = this.appSettings.keypair;
   extensions = web3Enable('XGAME DASHBOARD');
   accounts = web3Accounts();
-  contractAddress: string = '';
+  // contractAddress: string = '';
   nftModel: NFTModel[] = [];
   abi = require("./../../../assets/json/sample.json");
 
@@ -78,11 +80,12 @@ export class PolkadotService {
 
     // Extract contract addresses from the result
     const contractAddresses = allContracts.map(([key, _]) => key.args[0].toJSON());
-    this.contractAddress = contractAddresses[0];
-    return contractAddresses[0];
+    // this.contractAddress = contractAddresses[0];
+    this.cookiesService.setCookie('smart_contract',contractAddresses[0]);
+    // return contractAddresses[0];
   }
 
-  async getContract(api: any, abi: any, contractAddress: string) {
+  async getContract(api: any, abi: any, contractAddress: any) {
     try {
       const contract = new ContractPromise(api, abi, contractAddress);
       return contract;
@@ -92,12 +95,14 @@ export class PolkadotService {
     }
   }
 
-  async getAllTokens(contractAddress: string) {
+  async getAllTokens() {
     try {
-      this.contractAddress = contractAddress;
+      
+      const contractCookie = this.cookiesService.getCookie('smart_contract');
+
       // const api = await this.connect();
       let api = await this.api;
-      const contract = await this.getContract(api, this.abi, contractAddress);
+      const contract = await this.getContract(api, this.abi, contractCookie);
       // Get the initial gas limits from system block weights
       const gasLimit = api.registry.createType(
         'WeightV2',
@@ -113,33 +118,38 @@ export class PolkadotService {
         throw new Error('getAllTokens function not found in the contract ABI.');
       }
 
-      const { gasRequired, storageDeposit, result, output } = await contract.query.getAllTokens(
-        contractAddress,
-        {
-          gasLimit: gasLimit
-        },
-      );
-        console.log(result.toJSON());
-      const toks: any = output?.toJSON(); // Save first the output to any
-      console.log(toks.ok[0].tokenId); // Sample query of token ID
-      if (toks.ok.length != 0) {
-        for (const tokenData of toks.ok) {
-          const token: NFTModel = {
-            id: tokenData.tokenId,
-            image_path: tokenData.imagePath,
-            name: tokenData.name,
-            description: tokenData.description,
-            price: tokenData.price,
-            is_for_sale: tokenData.isForSale,
-            category: tokenData.category,
-            collection: tokenData.collection,
-            category_id: ''
-          };
-          this.nftModel.push(token);
+      if (contractCookie !== null) {
+        const { gasRequired, storageDeposit, result, output } = await contract.query.getAllTokens(
+          contractCookie,
+          {
+            gasLimit: gasLimit
+          },
+        );
+        // console.log(result.toJSON());
+        const toks: any = output?.toJSON(); // Save first the output to any
+        // console.log(toks.ok[0].tokenId); // Sample query of token ID
+        if (toks.ok.length != 0) {
+          for (const tokenData of toks.ok) {
+            const token: NFTModel = {
+              id: tokenData.tokenId,
+              image_path: tokenData.imagePath,
+              name: tokenData.name,
+              description: tokenData.description,
+              price: tokenData.price,
+              is_for_sale: tokenData.isForSale,
+              category: tokenData.category,
+              collection: tokenData.collection,
+              category_id: ''
+            };
+            this.nftModel.push(token);
+          }
+          console.log(this.nftModel);
         }
-        console.log(this.nftModel);
+        return this.nftModel;
+      } else {
+        console.error('Contract cookie not found');
+        return undefined
       }
-      return this.nftModel;
     } catch (error) {
       console.error('Get all tokens error: ' + error);
       return undefined;
@@ -220,7 +230,7 @@ export class PolkadotService {
   async mint() {
     try {
       // Get the account from extensions
-      const accountData = await this.getAccount(this.contractAddress);
+      const accountData = await this.getAccount(this.cookiesService.getCookie('smart_contract'));
       if (accountData && accountData.api) {
         const { api, SENDER, injector, contract } = accountData;
         // These are optional
@@ -273,7 +283,7 @@ export class PolkadotService {
 
   async updateToken() {
     try {
-      const accountData = await this.getAccount(this.contractAddress);
+      const accountData = await this.getAccount(this.cookiesService.getCookie('smart_contract'));
       if (accountData && accountData.api) {
         const { api, SENDER, injector, contract } = accountData;
 

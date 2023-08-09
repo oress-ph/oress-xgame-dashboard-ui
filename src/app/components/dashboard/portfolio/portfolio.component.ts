@@ -9,6 +9,8 @@ import { NftService } from 'src/app/services/nft/nft.service';
 import { CollectionService } from 'src/app/services/collection/collection.service';
 import { CategoryService } from 'src/app/services/category/category.service';
 import { PolkadotService } from 'src/app/services/polkadot/polkadot.service';
+import { CookiesService } from 'src/app/services/cookies/cookies.service';
+import { WalletInfoModel } from 'src/app/models/wallet/wallet-info.model';
 
 @Component({
   selector: 'app-portfolio',
@@ -22,6 +24,7 @@ export class PortfolioComponent implements OnInit {
     private collectionService: CollectionService,
     private categoryService: CategoryService,
     private polkadotService: PolkadotService,
+    private cookiesService: CookiesService
   ){}
   wallet_name : any = '';
   dashboard_menu: MenuItem[] | undefined;
@@ -30,6 +33,7 @@ export class PortfolioComponent implements OnInit {
   collection_list: CollectionModel[] = [];
   nft_list: NFTModel[] = [];
   nft_list_diplayed: NFTModel[] = [];
+  wallet_info: WalletInfoModel = new WalletInfoModel();
 
   selected_game: string = '';
   selected_category: string = 'All';
@@ -39,7 +43,6 @@ export class PortfolioComponent implements OnInit {
   selectedCountry: any | undefined;
 
   showPopup: boolean = false;
-  balance: any;
 
   togglePopup() {
     this.showPopup = !this.showPopup;
@@ -63,12 +66,12 @@ export class PortfolioComponent implements OnInit {
   }
 
   async ngOnInit(): Promise<void> {
-    const contractAddress = await this.polkadotService.getAllSmartContracts();
-    const nftTokens = await this.polkadotService.getAllTokens(contractAddress);
+    
+    const nftTokens = await this.polkadotService.getAllTokens();
     // await this.polkadotService.mint();
     // this.polkadotService.updateToken();
     // console.log(nftTokens);
-    this.balance = await this.polkadotService.getBalance();
+    this.wallet_info.wallet_balance_nms = await this.polkadotService.getBalance();
     this.get_collection_json();
     this.get_category_json();
     this.wallet_name = localStorage.getItem("wallet-meta-name");

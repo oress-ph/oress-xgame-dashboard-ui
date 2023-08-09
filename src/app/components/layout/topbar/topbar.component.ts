@@ -1,9 +1,13 @@
 import { Component } from '@angular/core';
 import { MenuItem } from 'primeng/api';
 import { AppSettings } from 'src/app/app-settings';
-import { WalletModel } from 'src/app/models/selections/wallet.model';
+import { WalletModel } from 'src/app/models/wallet/wallet.model';
 import { CookiesService } from 'src/app/services/cookies/cookies.service';
 import { Router } from '@angular/router';
+import { WalletInfoModel } from 'src/app/models/wallet/wallet-info.model';
+import { WalletsComponent } from '../../dashboard/wallets/wallets.component';
+import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
+import { PolkadotService } from 'src/app/services/polkadot/polkadot.service';
 interface Country {
     name: string;
     logo: string;
@@ -15,9 +19,20 @@ interface Country {
     styleUrls: ['./topbar.component.scss']
 })
 export class TopbarComponent {
+    constructor(
+        private appsetting: AppSettings,
+        private cookiesService: CookiesService,
+        private router: Router,
+        public dialogService: DialogService,
+        private ref: DynamicDialogRef,
+        private polkadotService: PolkadotService
+    ) {
+    }
+
     header_menu: MenuItem[] | undefined;
     profile_menu: MenuItem[] | undefined;
     is_connect_wallet: boolean= false;
+    wallet_info: WalletInfoModel = new WalletInfoModel();
 
     wallet_menu: WalletModel[] = [
         { wallet_net: 'Genesis Testnet', logo:'./../../../assets/img/Genesis_token.png', wallet_url: '',status:true },
@@ -25,13 +40,6 @@ export class TopbarComponent {
         { wallet_net: 'Genesis Devnet', logo:'./../../../assets/img/Genesis_token.png',wallet_url: 'wss://humidefi-dev.zeeve.net/para',status:false},
     ]
     selected_wallet: WalletModel | null = null;
-
-    constructor(
-        private appsetting: AppSettings,
-        private cookiesService: CookiesService,
-        private router: Router
-    ) {
-    }
 
     selectedCountry: Country | null = null;
     
@@ -57,7 +65,24 @@ export class TopbarComponent {
         }
     }
 
-    ngOnInit() {
+    connectWallet() {
+        this.ref = this.dialogService.open(WalletsComponent, {
+            header: '',
+            width: '400px',
+            contentStyle: {
+              'max-height': '100%',
+              overflow: 'auto',
+              'border-radius': '0 0 6px 6px',
+            },
+            baseZIndex: 10000,
+            // data: { data: module },
+          });
+          this.ref.onClose.subscribe(() => {
+            // this.isDispalyGame = true;
+          });
+    }
+
+    async ngOnInit(): Promise<void> {
         this.is_connect_wallet = this.cookiesService.getCookie('wallet-keypair')!='';
 
         this.wallet_menu.forEach(wallet => {
@@ -117,7 +142,9 @@ export class TopbarComponent {
             //   styleClass: 'wallet mr-0'
             // }
         ];
-
+        this.cookiesService.getCookie('wallet-keypair')!=undefined? this.wallet_info.wallet_keypair = this.cookiesService.getCookie('wallet-keypair'):this.wallet_info.wallet_keypair= '';
+        this.cookiesService.getCookie('wallet-meta-name')!=undefined? this.wallet_info.wallet_meta_name = this.cookiesService.getCookie('wallet-meta-name'):this.wallet_info.wallet_meta_name= '';
+        this.cookiesService.getCookie('wallet-keypair')!=undefined? this.wallet_info.wallet_balance_nms = await this.polkadotService.getBalance() : '';
         
     }
     onWalletMenuItemClick(selectedItem: any): void {
