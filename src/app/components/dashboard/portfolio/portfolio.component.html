@@ -69,12 +69,12 @@
             <p-card *ngIf="showPopup" class="w-full">
               <div style="display: flex; background-color: rgba(255, 255, 255, 0.0196);" fxLayoutGap="5px">
                 <div class="p-inputgroup" style="height: 35px;">
-                  <input type="text" pInputText placeholder="0" style="padding: 10px; font-size: 14px;" />
+                  <input type="text" [(ngModel)]="minPrice" (ngModelChange)="filterNFT()" pInputText placeholder="0" style="padding: 10px; font-size: 14px;" />
                   <span class="p-inputgroup-addon">min</span>
                 </div>
                 <div style="margin-top: 5px !important;">To</div>
                 <div class="p-inputgroup" style="height: 35px;">
-                  <input type="text" pInputText placeholder="0" />
+                  <input type="text" [(ngModel)]="maxPrice" (ngModelChange)="filterNFT()" pInputText placeholder="0" />
                   <span class="p-inputgroup-addon">max</span>
                 </div>
               </div>

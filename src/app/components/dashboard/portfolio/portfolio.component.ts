@@ -43,6 +43,8 @@ export class PortfolioComponent implements OnInit {
   selectedCountry: any | undefined;
 
   showPopup: boolean = false;
+  minPrice: number = 0;
+  maxPrice: number = 0;
 
   togglePopup() {
     this.showPopup = !this.showPopup;
@@ -177,14 +179,17 @@ export class PortfolioComponent implements OnInit {
 
   filterNFT() {
     let _filtered_nft = this.nft_list;
-    if (this.selected_game === "All") {
-      this.nft_list_diplayed = _filtered_nft;
-    } else {
-      this.nft_list_diplayed = this.nft_list_diplayed.filter(item => item.collection === this.selected_game);
-    }
-    if (this.selected_category !== "All") {
-      this.nft_list_diplayed = this.nft_list_diplayed.filter(item => item.category === this.selected_category);
-    }
+    this.nft_list_diplayed = _filtered_nft.filter(item => {
+      if (this.selected_game === "All" || item.collection === this.selected_game) {
+        if (this.selected_category === "All" || item.category === this.selected_category) {
+          if ((this.minPrice === 0 || item.price >= this.minPrice) &&
+              (this.maxPrice === 0 || item.price <= this.maxPrice)) {
+            return true;
+          }
+        }
+      }
+      return false;
+    });
 
     setTimeout(() => {
       // this.dataSource = this.formatData(this.nft_list_diplayed);
