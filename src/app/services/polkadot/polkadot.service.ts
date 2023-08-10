@@ -31,14 +31,15 @@ export class PolkadotService {
   // contractAddress: string = '';
   nftModel: NFTModel[] = [];
   abi = require("./../../../assets/json/sample.json");
+  sender = this.cookiesService.getCookie('wallet-keypair');
 
   async getBalance() {
     try {
       const contractAddress = await this.getAllSmartContracts();
       const accountData = await this.getAccount(contractAddress);
-
-      if (accountData && accountData.api) {
-        const { api, SENDER, contract } = accountData;
+      let SENDER = this.sender;
+      if (accountData && accountData.api && SENDER !== null) {
+        const { api, contract } = accountData;
         const { nonce, data: balance } = await api.query.system.account(SENDER);
         const chainDecimals = api.registry.chainDecimals[0];
         formatBalance.setDefaults({ decimals: chainDecimals, unit: 'NMS' });
@@ -95,11 +96,9 @@ export class PolkadotService {
     }
   }
 
-  async getAllTokens() {
+  async getUserNfts() {
     try {
-      
       const contractCookie = this.cookiesService.getCookie('smart_contract');
-
       // const api = await this.connect();
       let api = await this.api;
       const contract = await this.getContract(api, this.abi, contractCookie);
@@ -119,11 +118,12 @@ export class PolkadotService {
       }
 
       if (contractCookie !== null) {
-        const { gasRequired, storageDeposit, result, output } = await contract.query.getAllTokens(
+        const { output } = await contract.query.getUserNft(
           contractCookie,
           {
             gasLimit: gasLimit
           },
+          this.sender
         );
         // console.log(result.toJSON());
         const toks: any = output?.toJSON(); // Save first the output to any
@@ -158,25 +158,17 @@ export class PolkadotService {
 
   async getAccount(contractAddress: any) {
     try {
-      let accounts = [];
+      if (this.sender !== null) {
+        const injector = await web3FromAddress(this.sender);
+        // const api = await this.connect();
+        let api = await this.api;
+        const contract = await this.getContract(api, this.abi, contractAddress);
 
-      do {
-        await web3Enable('XGAME DASHBOARD');
-        accounts = await web3Accounts();
-        if (accounts.length === 0) {
-          console.log('No accounts found. Waiting for accounts to be available...');
-          await new Promise(resolve => setTimeout(resolve, 1000));
-        }
-      } while (accounts.length === 0);
-      const account = accounts[0];
-      const SENDER = account.address;
-      const injector = await web3FromAddress(SENDER);
-      // const api = await this.connect();
-      let api = await this.api;
-      const contract = await this.getContract(api, this.abi, contractAddress);
-
-      // Returns the data
-      return { api, SENDER, injector, contract };
+        // Returns the data
+        return { api, injector, contract };
+      } else {
+        return console.error('No logged in account was found.')
+      }
     } catch (error) {
       console.error('Get account error: ' + error);
       return undefined;
@@ -232,7 +224,7 @@ export class PolkadotService {
       // Get the account from extensions
       const accountData = await this.getAccount(this.cookiesService.getCookie('smart_contract'));
       if (accountData && accountData.api) {
-        const { api, SENDER, injector, contract } = accountData;
+        const { api, injector, contract } = accountData;
         // These are optional
         const imagePath = 'bafybeieu2vxywq6ylvrj6ldvarcvovzdyie5psjplydkby2d4tdwxlyk44';
         const name = 'Sample #2';
@@ -248,7 +240,7 @@ export class PolkadotService {
         const storageDepositLimit = null;
 
         // Send the transaction to the contract using signAndSend
-        if (contract !== undefined) {
+        if (contract !== undefined && this.sender != null) {
           const result = await contract.tx.mint(
             { storageDepositLimit,
               gasLimit: api?.registry.createType(
@@ -265,7 +257,7 @@ export class PolkadotService {
             isForSale,
             category,
             collection,
-          ).signAndSend(SENDER, { signer: injector.signer }, result => {
+          ).signAndSend(this.sender, { signer: injector.signer }, result => {
             if (result.status.isInBlock) {
               console.log('in a block');
               console.log(result.toHuman());
@@ -285,7 +277,7 @@ export class PolkadotService {
     try {
       const accountData = await this.getAccount(this.cookiesService.getCookie('smart_contract'));
       if (accountData && accountData.api) {
-        const { api, SENDER, injector, contract } = accountData;
+        const { api, injector, contract } = accountData;
 
         // Input data for changes
         const token_id = 1;
@@ -302,7 +294,7 @@ export class PolkadotService {
         const PROOFSIZE = 500000;
         const storageDepositLimit = null;
 
-        if (contract !== undefined) {
+        if (contract !== undefined && this.sender !== null) {
           const result = await contract.tx.updateToken(
             { storageDepositLimit,
               gasLimit: api?.registry.createType(
@@ -320,7 +312,7 @@ export class PolkadotService {
             new_is_for_sale,
             new_category,
             new_collection
-          ).signAndSend(SENDER, { signer: injector.signer }, result => {
+          ).signAndSend(this.sender, { signer: injector.signer }, result => {
             if (result.status.isInBlock) {
               console.log('in a block');
               console.log(result.toHuman());

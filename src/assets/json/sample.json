@@ -1,6 +1,6 @@
 {
   "source": {
-    "hash": "0x2e6e3ae97cd356d53c97cef12f7e551a916b40eed7a983fa315a3d9540ad2928",
+    "hash": "0x47cdb0e3f20ec9899815dffb7d66f105ed80589c18a88a68396000812aecc7e5",
     "language": "ink! 4.2.1",
     "compiler": "rustc 1.69.0",
     "build_info": {
@@ -543,6 +543,52 @@
       {
         "args": [
           {
+            "label": "from",
+            "type": {
+              "displayName": [
+                "AccountId"
+              ],
+              "type": 1
+            }
+          },
+          {
+            "label": "to",
+            "type": {
+              "displayName": [
+                "AccountId"
+              ],
+              "type": 1
+            }
+          },
+          {
+            "label": "id",
+            "type": {
+              "displayName": [
+                "TokenId"
+              ],
+              "type": 0
+            }
+          }
+        ],
+        "default": false,
+        "docs": [
+          " Transfer approved or owned token without approval."
+        ],
+        "label": "transfer_from_without_approval",
+        "mutates": true,
+        "payable": false,
+        "returnType": {
+          "displayName": [
+            "ink",
+            "MessageResult"
+          ],
+          "type": 17
+        },
+        "selector": "0x151184b7"
+      },
+      {
+        "args": [
+          {
             "label": "image_path",
             "type": {
               "displayName": [
@@ -598,6 +644,15 @@
           },
           {
             "label": "collection",
+            "type": {
+              "displayName": [
+                "String"
+              ],
+              "type": 6
+            }
+          },
+          {
+            "label": "atlas_images",
             "type": {
               "displayName": [
                 "String"
@@ -699,6 +754,136 @@
       {
         "args": [
           {
+            "label": "wallet_address",
+            "type": {
+              "displayName": [
+                "AccountId"
+              ],
+              "type": 1
+            }
+          },
+          {
+            "label": "category",
+            "type": {
+              "displayName": [
+                "String"
+              ],
+              "type": 6
+            }
+          },
+          {
+            "label": "collection",
+            "type": {
+              "displayName": [
+                "String"
+              ],
+              "type": 6
+            }
+          }
+        ],
+        "default": false,
+        "docs": [
+          " Retieve NFTs by wallet address, collection id, and category"
+        ],
+        "label": "get_user_nft_by_attributes",
+        "mutates": false,
+        "payable": false,
+        "returnType": {
+          "displayName": [
+            "ink",
+            "MessageResult"
+          ],
+          "type": 22
+        },
+        "selector": "0x3c04066b"
+      },
+      {
+        "args": [
+          {
+            "label": "category",
+            "type": {
+              "displayName": [
+                "String"
+              ],
+              "type": 6
+            }
+          }
+        ],
+        "default": false,
+        "docs": [
+          " Retieve NFTs by category"
+        ],
+        "label": "get_user_nft_by_category",
+        "mutates": false,
+        "payable": false,
+        "returnType": {
+          "displayName": [
+            "ink",
+            "MessageResult"
+          ],
+          "type": 22
+        },
+        "selector": "0xc71d66c1"
+      },
+      {
+        "args": [
+          {
+            "label": "collection",
+            "type": {
+              "displayName": [
+                "String"
+              ],
+              "type": 6
+            }
+          }
+        ],
+        "default": false,
+        "docs": [
+          " Retieve NFTs by collection"
+        ],
+        "label": "get_user_nft_by_collection",
+        "mutates": false,
+        "payable": false,
+        "returnType": {
+          "displayName": [
+            "ink",
+            "MessageResult"
+          ],
+          "type": 22
+        },
+        "selector": "0x98817467"
+      },
+      {
+        "args": [
+          {
+            "label": "wallet_address",
+            "type": {
+              "displayName": [
+                "AccountId"
+              ],
+              "type": 1
+            }
+          }
+        ],
+        "default": false,
+        "docs": [
+          " Retieve NFTs by wallet address"
+        ],
+        "label": "get_user_nft",
+        "mutates": false,
+        "payable": false,
+        "returnType": {
+          "displayName": [
+            "ink",
+            "MessageResult"
+          ],
+          "type": 22
+        },
+        "selector": "0x71104cc3"
+      },
+      {
+        "args": [
+          {
             "label": "token_id",
             "type": {
               "displayName": [
@@ -763,6 +948,15 @@
           },
           {
             "label": "new_collection",
+            "type": {
+              "displayName": [
+                "String"
+              ],
+              "type": 6
+            }
+          },
+          {
+            "label": "new_atlas_images",
             "type": {
               "displayName": [
                 "String"
@@ -993,6 +1187,11 @@
               },
               {
                 "name": "collection",
+                "type": 6,
+                "typeName": "String"
+              },
+              {
+                "name": "atlas_images",
                 "type": 6,
                 "typeName": "String"
               },

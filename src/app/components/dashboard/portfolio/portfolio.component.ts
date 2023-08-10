@@ -66,11 +66,6 @@ export class PortfolioComponent implements OnInit {
   }
 
   async ngOnInit(): Promise<void> {
-    
-    const nftTokens = await this.polkadotService.getAllTokens();
-    // await this.polkadotService.mint();
-    // this.polkadotService.updateToken();
-    // console.log(nftTokens);
     this.wallet_info.wallet_balance_nms = await this.polkadotService.getBalance();
     this.get_collection_json();
     this.get_category_json();
@@ -156,18 +151,28 @@ export class PortfolioComponent implements OnInit {
 
   dataSource: any[] = [];
 
-  get_nft_json() {
-    this.nftService.get_nft_json().subscribe(
-      (response) => {
-        let data = response;
-
-        this.nft_list = data;
-        this.filterNFT();
-      },
-      (error) => {
-        console.error('Error fetching JSON data:', error);
-      }
-    );
+  async get_nft_json() {
+    const nftTokens = await this.polkadotService.getUserNfts();
+    if (nftTokens !== undefined) {
+      this.nft_list = nftTokens;
+    } else {
+      console.error('No NFTs was found.');
+    }
+    this.filterNFT();
+    // this.nftService.get_nft_json().subscribe(
+    //   async (response) => {
+    //     let data = response;
+    //     const nftTokens = await this.polkadotService.getUserNfts();
+    //     if (nftTokens !== undefined) {
+    //       this.nft_list = nftTokens;
+    //     }
+    //     this.nft_list = data;
+    //     this.filterNFT();
+    //   },
+    //   (error) => {
+    //     console.error('Error fetching JSON data:', error);
+    //   }
+    // );
   }
 
   filterNFT() {
@@ -175,7 +180,7 @@ export class PortfolioComponent implements OnInit {
     if (this.selected_game === "All") {
       this.nft_list_diplayed = _filtered_nft;
     } else {
-      this.nft_list_diplayed = _filtered_nft.filter(item => item.collection === this.selected_game);
+      this.nft_list_diplayed = this.nft_list_diplayed.filter(item => item.collection === this.selected_game);
     }
     if (this.selected_category !== "All") {
       this.nft_list_diplayed = this.nft_list_diplayed.filter(item => item.category === this.selected_category);
