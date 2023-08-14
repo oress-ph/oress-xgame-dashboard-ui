@@ -1,4 +1,5 @@
 import { environment } from "src/environments/environment";
+import { LabelModel } from "./models/label/label.model";
 
 export class AppSettings {
     public AllURL = [
@@ -37,6 +38,8 @@ export class AppSettings {
     public APIURLHostAuth = 'http://127.0.0.1:3001';
     public APIURLHostCollection = 'http://127.0.0.1:3002';
     public APIURLHostNFT = 'http://127.0.0.1:3003';
+    public APIURLHostLabel = 'http://127.0.0.1:3004';
+
     public APIUploadURL = this.APIURLHost + '/uploads/'
     public AppVersion = 'Alpha.001';
     // table list date format
@@ -98,5 +101,21 @@ export class AppSettings {
         return formatted_time;
     }
 
+    // Translation
+    public translation_list: LabelModel[] = [];
 
+    translate(value:any){
+        if(this.translation_list.filter(translation=> translation.label=== value)[0]!=undefined){
+            return this.translation_list.filter(translation=> translation.label=== value)[0].displayed_label
+        }else{
+            return value;
+        }
+    }
+    translate_to_english(value:any){
+        if(this.translation_list.filter(translation=> translation.displayed_label=== value)[0]!=undefined){
+        return this.translation_list.filter(translation=> translation.displayed_label=== value)[0].label
+        }else{
+            return value;
+        }
+    }
 }
