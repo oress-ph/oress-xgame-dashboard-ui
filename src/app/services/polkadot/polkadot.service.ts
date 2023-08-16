@@ -1,6 +1,6 @@
-import { Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import { WalletAccountsModel } from 'src/app/models/dashboard/polkadot.model';
-import { web3Accounts, web3Enable, web3FromAddress, web3FromSource } from '@polkadot/extension-dapp';
+import { web3Accounts, web3AccountsSubscribe, web3Enable, web3FromAddress, web3FromSource } from '@polkadot/extension-dapp';
 import { cryptoWaitReady, decodeAddress, signatureVerify } from '@polkadot/util-crypto';
 import { stringToHex, stringToU8a, u8aToHex } from '@polkadot/util';
 import { Keyring } from '@polkadot/keyring';
@@ -196,13 +196,14 @@ export class PolkadotService {
     return walletAccounts;
   }
   async signAndVerify(walletAccount: WalletAccountsModel): Promise<boolean> {
+    this.clearPendingSignature();
     const injector = await web3FromSource(String(walletAccount.metaSource));
     const signRaw = injector?.signer?.signRaw;
 
     if (!!signRaw) {
       await cryptoWaitReady();
 
-      const message: string = 'Please sign before you proceed. Thank you!';
+      const message: string = 'Please sign before you proceeds. Thank you!';
       const { signature } = await signRaw({
         address: walletAccount.address,
         data: stringToHex(message),
@@ -213,10 +214,26 @@ export class PolkadotService {
       let hexPublicKey = u8aToHex(publicKey);
 
       let { isValid } = signatureVerify(message, signature, hexPublicKey);
+
+
       return isValid;
     }
-
+    
     return false;
+  }
+  async clearPendingSignature() {
+    try {
+      await (await this.api).isReady;
+      
+      console.log((await this.api).isReady);
+      // const pendingExtrinsics = (await this.api).query.system.pendingExtrinsics();
+      const pendingExtrinsics = (await this.api).rpc.author.pendingExtrinsics();
+ 
+      console.log(pendingExtrinsics);
+      console.log('Pending signature cleared successfully.');
+    } catch (error) {
+      console.error('Error clearing pending signature:', error);
+    }
   }
 
   async mint() {
