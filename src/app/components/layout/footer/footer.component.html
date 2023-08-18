@@ -1,20 +1,51 @@
 <footer>
     <div class="section">
-        <div class="m-0 heading-9">Don't Miss Out, Stay Updated</div>
-        <div class="text-block-11"><p class="text-block-11">Subscribe and follow our social media channels for daily updates.</p></div>
+        <div class="flex flex-column gap-4">
+            <div class="flex flex-column gap-2">
+                <p-menu [model]="items"></p-menu>
+            </div>
+        </div>
+        <!-- <div class="m-0 heading-9">{{appSettings.translate("Don't Miss Out, Stay Updated")}}</div>
+        <div class="text-block-11"><p class="text-block-11">{{appSettings.translate("Subscribe and follow our social media channels for daily updates.")}}</p></div>
         <div class="p-inputgroup">
             <input type="text" pInputText placeholder="" />
-            <button type="button" pButton label="Search"></button>
-        </div>
+            <button type="button" pButton label="{{appSettings.translate('Search')}}"></button>
+        </div> -->
     </div>
     <div class="section">
-        <div class="text-block-11 m-0">Suhosin Wars is an MMORPG set in the middle ages of magic and steel where humanoid guardians protect the balance of their magical world from evil forces trying to destroy peaceful harmony.</div>
+        <!-- <div class="text-block-11 m-0">{{appSettings.translate("Suhosin Wars is an MMORPG set in the middle ages of magic and steel where humanoid guardians protect the balance of their magical world from evil forces trying to destroy peaceful harmony.")}}</div>
         <div class="text-block-11 mt-10">
             <p-button icon="pi pi-twitter px-5"></p-button>&nbsp;
             <p-button icon="pi pi-instagram"></p-button>&nbsp;
             <p-button icon="pi pi-facebook"></p-button>&nbsp;
             <p-button icon="pi pi-discord"></p-button>&nbsp;
             <p-button icon="pi pi-telegram"></p-button>&nbsp;
+        </div> -->
+        <div class="flex flex-column gap-4">
+            <div class="flex flex-column gap-2" style="padding: 12px 20px;">
+                <div class="text-lg">
+                    <img src="./../../../assets/img/XGame_Logo_white.webp" height="40" class="mr-2" />
+                </div>
+                <div class="text-lg">
+                    123 Anywhere St., Any City
+                    Any State, Country
+                </div>
+                <div class="text-lg">
+                    (123) 456 7890
+                </div>
+            </div>
+            <div class="flex flex-column" style="padding-left: 12px;">
+                <div class="text-lg font-bold" style="color: #FF107B;">
+                    hello@xgame.live
+                </div>
+            </div>
+            <div class="flex flex-wrap gap-2" style="padding-left: 12px;">
+                <p-button icon="pi pi-twitter" styleClass="p-button-rounded p-button-outlined"></p-button>
+                <p-button icon="pi pi-instagram" styleClass="p-button-rounded p-button-outlined"></p-button>
+                <p-button icon="pi pi-facebook" styleClass="p-button-rounded p-button-outlined"></p-button>
+                <p-button icon="pi pi-discord" styleClass="p-button-rounded p-button-outlined"></p-button>
+                <p-button icon="pi pi-telegram" styleClass="p-button-rounded p-button-outlined"></p-button>
+            </div>
         </div>
     </div>
 </footer>

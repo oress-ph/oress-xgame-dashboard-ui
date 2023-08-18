@@ -1,4 +1,5 @@
 import { environment } from "src/environments/environment";
+import { LabelModel } from "./models/label/label.model";
 
 export class AppSettings {
     public AllURL = [
@@ -18,7 +19,7 @@ export class AppSettings {
             url: "localhost"
         },
     ]
-    public wsProviderEndpoint = 'wss://huminary.humidefi.com';
+    public wsProviderEndpoint = 'wss://humidefi-dev.zeeve.net/para';
     public keypair = localStorage.getItem("wallet-keypair") || "";
 
     public dexAccount = '5HNfKk7JdZRiwt9UZVpJRmpFpt4fPDhnh1uPEeFEQhZtggQt';
@@ -37,6 +38,8 @@ export class AppSettings {
     public APIURLHostAuth = 'http://127.0.0.1:3001';
     public APIURLHostCollection = 'http://127.0.0.1:3002';
     public APIURLHostNFT = 'http://127.0.0.1:3003';
+    public APIURLHostLabel = 'http://127.0.0.1:3004';
+
     public APIUploadURL = this.APIURLHost + '/uploads/'
     public AppVersion = 'Alpha.001';
     // table list date format
@@ -71,20 +74,20 @@ export class AppSettings {
 
     convertTime12to24 = (time12h:any) => {
         const [time, modifier] = time12h.split(' ');
-        
+
         let [hours, minutes] = time.split(':');
-        
+
         if (hours === '12') {
             hours = '00';
         }
-        
+
         if (modifier === 'PM') {
             hours = parseInt(hours, 10) + 12;
         }
-        
+
         return `${hours}:${minutes}`;
     }
-    
+
     convertTime24to12 (time:any) {
         const time_part_array = time.split(":");
         let ampm = 'AM';
@@ -98,5 +101,21 @@ export class AppSettings {
         return formatted_time;
     }
 
+    // Translation
+    public translation_list: LabelModel[] = [];
 
+    translate(value:any){
+        if(this.translation_list.filter(translation=> translation.label=== value)[0]!=undefined){
+            return this.translation_list.filter(translation=> translation.label=== value)[0].displayed_label
+        }else{
+            return value;
+        }
+    }
+    translate_to_english(value:any){
+        if(this.translation_list.filter(translation=> translation.displayed_label=== value)[0]!=undefined){
+        return this.translation_list.filter(translation=> translation.displayed_label=== value)[0].label
+        }else{
+            return value;
+        }
+    }
 }

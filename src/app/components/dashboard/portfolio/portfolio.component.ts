@@ -9,6 +9,8 @@ import { NftService } from 'src/app/services/nft/nft.service';
 import { CollectionService } from 'src/app/services/collection/collection.service';
 import { CategoryService } from 'src/app/services/category/category.service';
 import { PolkadotService } from 'src/app/services/polkadot/polkadot.service';
+import { CookiesService } from 'src/app/services/cookies/cookies.service';
+import { WalletInfoModel } from 'src/app/models/wallet/wallet-info.model';
 
 @Component({
   selector: 'app-portfolio',
@@ -22,6 +24,7 @@ export class PortfolioComponent implements OnInit {
     private collectionService: CollectionService,
     private categoryService: CategoryService,
     private polkadotService: PolkadotService,
+    private cookiesService: CookiesService
   ){}
   wallet_name : any = '';
   dashboard_menu: MenuItem[] | undefined;
@@ -30,6 +33,7 @@ export class PortfolioComponent implements OnInit {
   collection_list: CollectionModel[] = [];
   nft_list: NFTModel[] = [];
   nft_list_diplayed: NFTModel[] = [];
+  wallet_info: WalletInfoModel = new WalletInfoModel();
 
   selected_game: string = '';
   selected_category: string = 'All';
@@ -39,6 +43,8 @@ export class PortfolioComponent implements OnInit {
   selectedCountry: any | undefined;
 
   showPopup: boolean = false;
+  minPrice: number = 0;
+  maxPrice: number = 0;
 
   togglePopup() {
     this.showPopup = !this.showPopup;
@@ -61,15 +67,8 @@ export class PortfolioComponent implements OnInit {
     // this.get_category_json();
   }
 
-  extractNft() {
-
-  }
-
   async ngOnInit(): Promise<void> {
-    const contractAddress = await this.polkadotService.getAllSmartContracts();
-    const nftTokens = await this.polkadotService.getAllTokens(contractAddress);
-    // console.log(nftTokens);
-
+    this.wallet_info.wallet_balance_nms = await this.polkadotService.getBalance();
     this.get_collection_json();
     this.get_category_json();
     this.wallet_name = localStorage.getItem("wallet-meta-name");
@@ -154,30 +153,43 @@ export class PortfolioComponent implements OnInit {
 
   dataSource: any[] = [];
 
-  get_nft_json() {
-    this.nftService.get_nft_json().subscribe(
-      (response) => {
-        let data = response;
-
-        this.nft_list = data;
-        this.filterNFT();
-      },
-      (error) => {
-        console.error('Error fetching JSON data:', error);
-      }
-    );
+  async get_nft_json() {
+    const nftTokens = await this.polkadotService.getUserNfts();
+    if (nftTokens !== undefined) {
+      this.nft_list = nftTokens;
+    } else {
+      console.error('No NFTs was found.');
+    }
+    this.filterNFT();
+    // this.nftService.get_nft_json().subscribe(
+    //   async (response) => {
+    //     let data = response;
+    //     const nftTokens = await this.polkadotService.getUserNfts();
+    //     if (nftTokens !== undefined) {
+    //       this.nft_list = nftTokens;
+    //     }
+    //     this.nft_list = data;
+    //     this.filterNFT();
+    //   },
+    //   (error) => {
+    //     console.error('Error fetching JSON data:', error);
+    //   }
+    // );
   }
 
   filterNFT() {
     let _filtered_nft = this.nft_list;
-    if (this.selected_game === "All") {
-      this.nft_list_diplayed = _filtered_nft;
-    } else {
-      this.nft_list_diplayed = _filtered_nft.filter(item => item.collection === this.selected_game);
-    }
-    if (this.selected_category !== "All") {
-      this.nft_list_diplayed = this.nft_list_diplayed.filter(item => item.category === this.selected_category);
-    }
+    this.nft_list_diplayed = _filtered_nft.filter(item => {
+      if (this.selected_game === "All" || item.collection === this.selected_game) {
+        if (this.selected_category === "All" || item.category === this.selected_category) {
+          if ((this.minPrice === 0 || item.price >= this.minPrice) &&
+              (this.maxPrice === 0 || item.price <= this.maxPrice)) {
+            return true;
+          }
+        }
+      }
+      return false;
+    });
 
     setTimeout(() => {
       // this.dataSource = this.formatData(this.nft_list_diplayed);

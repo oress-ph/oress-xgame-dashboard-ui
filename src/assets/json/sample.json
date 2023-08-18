@@ -1,6 +1,6 @@
 {
   "source": {
-    "hash": "0xaef4133398be1588d75da9a1e410b5f0009b70868edbfd49d45709ce247e9385",
+    "hash": "0x47cdb0e3f20ec9899815dffb7d66f105ed80589c18a88a68396000812aecc7e5",
     "language": "ink! 4.2.1",
     "compiler": "rustc 1.69.0",
     "build_info": {
@@ -204,6 +204,34 @@
           "The operator can manage all NFTs of the owner."
         ],
         "label": "ApprovalForAll"
+      },
+      {
+        "args": [
+          {
+            "docs": [],
+            "indexed": true,
+            "label": "id",
+            "type": {
+              "displayName": [
+                "TokenId"
+              ],
+              "type": 0
+            }
+          },
+          {
+            "docs": [],
+            "indexed": true,
+            "label": "operator",
+            "type": {
+              "displayName": [
+                "AccountId"
+              ],
+              "type": 1
+            }
+          }
+        ],
+        "docs": [],
+        "label": "TokenUpdated"
       }
     ],
     "lang_error": {
@@ -515,6 +543,52 @@
       {
         "args": [
           {
+            "label": "from",
+            "type": {
+              "displayName": [
+                "AccountId"
+              ],
+              "type": 1
+            }
+          },
+          {
+            "label": "to",
+            "type": {
+              "displayName": [
+                "AccountId"
+              ],
+              "type": 1
+            }
+          },
+          {
+            "label": "id",
+            "type": {
+              "displayName": [
+                "TokenId"
+              ],
+              "type": 0
+            }
+          }
+        ],
+        "default": false,
+        "docs": [
+          " Transfer approved or owned token without approval."
+        ],
+        "label": "transfer_from_without_approval",
+        "mutates": true,
+        "payable": false,
+        "returnType": {
+          "displayName": [
+            "ink",
+            "MessageResult"
+          ],
+          "type": 17
+        },
+        "selector": "0x151184b7"
+      },
+      {
+        "args": [
+          {
             "label": "image_path",
             "type": {
               "displayName": [
@@ -570,6 +644,15 @@
           },
           {
             "label": "collection",
+            "type": {
+              "displayName": [
+                "String"
+              ],
+              "type": 6
+            }
+          },
+          {
+            "label": "atlas_images",
             "type": {
               "displayName": [
                 "String"
@@ -667,6 +750,236 @@
           "type": 22
         },
         "selector": "0x36562924"
+      },
+      {
+        "args": [
+          {
+            "label": "wallet_address",
+            "type": {
+              "displayName": [
+                "AccountId"
+              ],
+              "type": 1
+            }
+          },
+          {
+            "label": "category",
+            "type": {
+              "displayName": [
+                "String"
+              ],
+              "type": 6
+            }
+          },
+          {
+            "label": "collection",
+            "type": {
+              "displayName": [
+                "String"
+              ],
+              "type": 6
+            }
+          }
+        ],
+        "default": false,
+        "docs": [
+          " Retieve NFTs by wallet address, collection id, and category"
+        ],
+        "label": "get_user_nft_by_attributes",
+        "mutates": false,
+        "payable": false,
+        "returnType": {
+          "displayName": [
+            "ink",
+            "MessageResult"
+          ],
+          "type": 22
+        },
+        "selector": "0x3c04066b"
+      },
+      {
+        "args": [
+          {
+            "label": "category",
+            "type": {
+              "displayName": [
+                "String"
+              ],
+              "type": 6
+            }
+          }
+        ],
+        "default": false,
+        "docs": [
+          " Retieve NFTs by category"
+        ],
+        "label": "get_user_nft_by_category",
+        "mutates": false,
+        "payable": false,
+        "returnType": {
+          "displayName": [
+            "ink",
+            "MessageResult"
+          ],
+          "type": 22
+        },
+        "selector": "0xc71d66c1"
+      },
+      {
+        "args": [
+          {
+            "label": "collection",
+            "type": {
+              "displayName": [
+                "String"
+              ],
+              "type": 6
+            }
+          }
+        ],
+        "default": false,
+        "docs": [
+          " Retieve NFTs by collection"
+        ],
+        "label": "get_user_nft_by_collection",
+        "mutates": false,
+        "payable": false,
+        "returnType": {
+          "displayName": [
+            "ink",
+            "MessageResult"
+          ],
+          "type": 22
+        },
+        "selector": "0x98817467"
+      },
+      {
+        "args": [
+          {
+            "label": "wallet_address",
+            "type": {
+              "displayName": [
+                "AccountId"
+              ],
+              "type": 1
+            }
+          }
+        ],
+        "default": false,
+        "docs": [
+          " Retieve NFTs by wallet address"
+        ],
+        "label": "get_user_nft",
+        "mutates": false,
+        "payable": false,
+        "returnType": {
+          "displayName": [
+            "ink",
+            "MessageResult"
+          ],
+          "type": 22
+        },
+        "selector": "0x71104cc3"
+      },
+      {
+        "args": [
+          {
+            "label": "token_id",
+            "type": {
+              "displayName": [
+                "u32"
+              ],
+              "type": 0
+            }
+          },
+          {
+            "label": "new_image_path",
+            "type": {
+              "displayName": [
+                "String"
+              ],
+              "type": 6
+            }
+          },
+          {
+            "label": "new_name",
+            "type": {
+              "displayName": [
+                "String"
+              ],
+              "type": 6
+            }
+          },
+          {
+            "label": "new_description",
+            "type": {
+              "displayName": [
+                "String"
+              ],
+              "type": 6
+            }
+          },
+          {
+            "label": "new_price",
+            "type": {
+              "displayName": [
+                "u32"
+              ],
+              "type": 0
+            }
+          },
+          {
+            "label": "new_is_for_sale",
+            "type": {
+              "displayName": [
+                "bool"
+              ],
+              "type": 7
+            }
+          },
+          {
+            "label": "new_category",
+            "type": {
+              "displayName": [
+                "String"
+              ],
+              "type": 6
+            }
+          },
+          {
+            "label": "new_collection",
+            "type": {
+              "displayName": [
+                "String"
+              ],
+              "type": 6
+            }
+          },
+          {
+            "label": "new_atlas_images",
+            "type": {
+              "displayName": [
+                "String"
+              ],
+              "type": 6
+            }
+          }
+        ],
+        "default": false,
+        "docs": [
+          " Updates an existing token."
+        ],
+        "label": "update_token",
+        "mutates": true,
+        "payable": false,
+        "returnType": {
+          "displayName": [
+            "ink",
+            "MessageResult"
+          ],
+          "type": 17
+        },
+        "selector": "0x90c3ef3a"
       }
     ]
   },
@@ -874,6 +1187,11 @@
               },
               {
                 "name": "collection",
+                "type": 6,
+                "typeName": "String"
+              },
+              {
+                "name": "atlas_images",
                 "type": 6,
                 "typeName": "String"
               },
@@ -1274,6 +1592,10 @@
               {
                 "index": 6,
                 "name": "NotAllowed"
+              },
+              {
+                "index": 7,
+                "name": "Unauthorized"
               }
             ]
           }

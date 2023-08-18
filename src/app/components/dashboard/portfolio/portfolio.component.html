@@ -20,14 +20,14 @@
                   </div>
               </ng-template>
           </p-dropdown>
-        </div>  
+        </div>
         <div class="w-full" class="wallet-panel">
           <p-button icon="pi pi-wallet" styleClass="p-button-rounded p-button-text border-circle bg-white-alpha-30"></p-button>
           <div class="font-bold">
               <div class="text-sm">Total</div>
               <div class="flex flex-row gap-4 text-lg">
-                  <div>USD:</div>
-                  <div>$0.00</div>
+                  <div>NMS:</div>
+                  <div>{{ wallet_info.wallet_balance_nms }}</div>
               </div>
           </div>
         </div>
@@ -58,23 +58,23 @@
         </div>
         <div class="flex flex-wrap gap-2">
           <p-dropdown class="collection w-full" [options]="collection_list" [(ngModel)]="selected_game"
-            (ngModelChange)="onSelectCategory($event)" placeholder="Collection" optionLabel="name" optionValue="name"
-            optionValue="category" [style]="{ 'width': '100%' }"></p-dropdown>
+              (ngModelChange)="onSelectGame($event)" placeholder="Collection" optionLabel="name" optionValue="name"
+              [style]="{ 'width': '100%' }"></p-dropdown>
           <p-dropdown class="category" [options]="category_list" [(ngModel)]="selected_category"
-            (ngModelChange)="onSelectCategory($event)" placeholder="Category" optionLabel="category"
-            optionValue="category" [style]="{ 'width': '100%' }"></p-dropdown>
+              (ngModelChange)="onSelectCategory($event)" placeholder="Category" optionLabel="category"
+              optionValue="category" [style]="{ 'width': '100%' }"></p-dropdown>
           <div class="price">
             <button class="price-range" pButton type="button" label="Price Range" icon="pi pi-angle-down" (click)="togglePopup()" iconPos="right"
               class="p-button-outlined p-button-secondary w-full" style="padding: 20px 10px; color: white;"></button>
             <p-card *ngIf="showPopup" class="w-full">
               <div style="display: flex; background-color: rgba(255, 255, 255, 0.0196);" fxLayoutGap="5px">
                 <div class="p-inputgroup" style="height: 35px;">
-                  <input type="text" pInputText placeholder="0" style="padding: 10px; font-size: 14px;" />
+                  <input type="text" [(ngModel)]="minPrice" (ngModelChange)="filterNFT()" pInputText placeholder="0" style="padding: 10px; font-size: 14px;" />
                   <span class="p-inputgroup-addon">min</span>
                 </div>
                 <div style="margin-top: 5px !important;">To</div>
                 <div class="p-inputgroup" style="height: 35px;">
-                  <input type="text" pInputText placeholder="0" />
+                  <input type="text" [(ngModel)]="maxPrice" (ngModelChange)="filterNFT()" pInputText placeholder="0" />
                   <span class="p-inputgroup-addon">max</span>
                 </div>
               </div>
@@ -86,7 +86,7 @@
               <p-card [style]="{ width: '100%' }">
                 <ng-template pTemplate="header">
                   <div class="header-container" (click)="navigateToCollection(nft_list.id)" style="cursor: pointer;">
-    
+
                     <img alt="Card" [src]="nft_list.image_path" />
                     <div class="header">
                       <span class="subheader" style="margin-right: 10px;">{{nft_list.name}}</span>
