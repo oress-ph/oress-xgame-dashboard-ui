@@ -3,6 +3,19 @@
         <img src="./../../../assets/img/XGame_Logo_white.png" height="40" class="mr-2" />
     </ng-template>
     <ng-template pTemplate="end" styleClass="wallet">
+        <p-dropdown [options]="language_list" [(ngModel)]="selected_language" appendTo="body" optionLabel="language"  optionDisabled="status" class="language_dropdown" (onChange)="onChangeLanguage($event)"*ngIf="language_list.length>0">
+            <ng-template pTemplate="selectedItem" >
+                <div class="flex align-items-center gap-2" *ngIf="selected_language" style="display: flex;">
+                    <img [src]="selected_language.flag_image_url" width="auto" height="20" class="image-icon"/>
+            </div>
+            </ng-template>
+            <ng-template let-language  pTemplate="item">
+                <div class="capitalize">
+                    <img [src]="language.flag_image_url" width="auto" height="20" class="image-icon" />
+                    {{ appSettings.translate(language.language) }}
+                </div>
+            </ng-template>
+        </p-dropdown>
         <div *ngIf="!is_connect_wallet">
             <!-- <p-dropdown [options]="wallet_menu" [(ngModel)]="selected_wallet" optionLabel="wallet_net"  optionDisabled="status">
                 <ng-template pTemplate="selectedItem" >

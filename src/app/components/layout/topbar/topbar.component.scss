@@ -226,3 +226,12 @@
         cursor: not-allowed; /* Example: Change the cursor to indicate disabled state */
         /* Add other styles as needed for disabled options */
     }
+
+    // Language Button
+
+:host ::ng-deep .language_dropdown > .p-dropdown {
+    background-color: unset;
+}
+:host ::ng-deep .language_dropdown .p-dropdown .p-dropdown-trigger {
+    display: none;
+}

@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { MenuItem } from 'primeng/api';
 import { Router, NavigationEnd } from '@angular/router';
+import { AppSettings } from 'src/app/app-settings';
 
 @Component({
   selector: 'app-sidebar',
@@ -11,7 +12,10 @@ export class SidebarComponent {
   wallet_name : any = '';
   dashboard_menu: MenuItem[] | undefined;
 
-  constructor(private router: Router) {
+  constructor(
+    private router: Router,
+    public appSettings:AppSettings
+    ) {
     this.router.events.subscribe((event) => {
       if (event instanceof NavigationEnd) {
         this.updateActiveMenu();
@@ -32,18 +36,18 @@ export class SidebarComponent {
 
     this.dashboard_menu = [
       {
-          label: 'Portfolio',
+          label: this.appSettings.translate("Portfolio"),
           icon: 'pi pi-fw pi-briefcase',
           styleClass : 'active',
           routerLink: '/portfolio'
       },
       {
-          label: 'Send/ Pay Genesis',
+          label: this.appSettings.translate('Send/ Pay Genesis'),
           icon: 'pi pi-fw pi-arrow-up',
           routerLink: '/send-pay-genesis'
       },
       {
-        label: 'Buy',
+        label: this.appSettings.translate("Buy"),
         icon: 'pi pi-fw pi-credit-card',
         routerLink: '/buy'
       }

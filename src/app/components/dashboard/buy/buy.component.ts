@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { AppSettings } from 'src/app/app-settings';
 
 @Component({
   selector: 'app-buy',
@@ -6,6 +7,11 @@ import { Component } from '@angular/core';
   styleUrls: ['./buy.component.scss']
 })
 export class BuyComponent {
+  constructor(
+    public appSettings:AppSettings
+  ){
+
+  }
   activeIndex: number = 0;
   countries: any[] | undefined;
   selectedCountry: any | undefined;

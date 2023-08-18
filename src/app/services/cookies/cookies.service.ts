@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import * as CryptoJS from 'crypto-js';
+import * as CryptoJS from 'crypto-js'
 import { CookieService } from 'ngx-cookie-service';
 import { AppSettings } from 'src/app/app-settings';
 
@@ -48,14 +48,21 @@ export class CookiesService {
     }
   }
   deleteAllCookie(){
-    
+    const excludedCookies = ['language'];
     try{
       this.all_site.forEach((sites:any) => {
-        this.cookieService.deleteAll('/',sites.url);
+        const cookies = this.cookieService.getAll();
+        console.log(cookies);
+        for (const cookieName in cookies) {
+          if (cookies.hasOwnProperty(cookieName)) {
+            if (!excludedCookies.includes(cookieName)) {
+              this.cookieService.delete(cookieName, '/', sites.url);
+            }
+          }
+        }
       });
       return true;
     }catch(e){
-      console.log(e);
       return null;
     }
   }
@@ -95,4 +102,5 @@ export class CookiesService {
       console.log(e);
     }
   }
+
 }

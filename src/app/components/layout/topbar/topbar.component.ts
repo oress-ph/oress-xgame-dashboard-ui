@@ -8,6 +8,10 @@ import { WalletInfoModel } from 'src/app/models/wallet/wallet-info.model';
 import { WalletsComponent } from '../../dashboard/wallets/wallets.component';
 import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
 import { PolkadotService } from 'src/app/services/polkadot/polkadot.service';
+import { LanguageService } from 'src/app/services/language/language.service';
+import { LanguageModel } from 'src/app/models/language/language.model';
+import { MessageService } from 'primeng/api';
+
 interface Country {
     name: string;
     logo: string;
@@ -20,12 +24,15 @@ interface Country {
 })
 export class TopbarComponent {
     constructor(
-        private appsetting: AppSettings,
+        public appSettings: AppSettings,
         private cookiesService: CookiesService,
         private router: Router,
         public dialogService: DialogService,
         private ref: DynamicDialogRef,
-        private polkadotService: PolkadotService
+        private polkadotService: PolkadotService,
+        private languageService: LanguageService,
+        private messageService: MessageService,
+
     ) {
     }
 
@@ -33,6 +40,8 @@ export class TopbarComponent {
     profile_menu: MenuItem[] | undefined;
     is_connect_wallet: boolean= false;
     wallet_info: WalletInfoModel = new WalletInfoModel();
+    language_list: LanguageModel[] = [];
+    selected_language: LanguageModel  =  new LanguageModel();
 
     wallet_menu: WalletModel[] = [
         { wallet_net: 'Genesis Testnet', logo:'./../../../assets/img/Genesis_token.png', wallet_url: '',status:true },
@@ -54,7 +63,7 @@ export class TopbarComponent {
 
     routeClick(section:any) {
         let redirectTo = '?section=' + section;
-        window.location.href = this.appsetting.UIURLHomePageHost + redirectTo;
+        window.location.href = this.appSettings.UIURLHomePageHost + redirectTo;
     }
     logout(){
         console.log('test');
@@ -82,7 +91,56 @@ export class TopbarComponent {
           });
     }
 
+    get_language_list(){
+        this.languageService.language_dropdown().subscribe(
+          (response:any)=>{
+            let results = response;
+            if (results[0] == true) {
+              this.language_list = response[1];
+                if(this.cookiesService.getCookie('language')==''){
+                    this.cookiesService.setCookieArray('language',this.language_list[0]);
+                }
+            //   this.get_language_list();
+            } else {
+
+              this.messageService.add({
+                severity: results[1] == 401 ? 'info' : 'error',
+                summary: results[1],
+                detail: results[1] == 401 ? 'Unauthorized' : 'Server Error',
+              });
+            }
+          }
+        )
+    }
+
+    // Language
+    onChangeLanguage(event:any) {
+        const language = JSON.stringify(event.value);
+        this.cookiesService.setCookie('language',language);
+        window.location.reload();
+    }
+
     async ngOnInit(): Promise<void> {
+        // this.get_language_list();  
+        this.language_list = [
+            {
+                id: '1',
+                language:'English',
+                flag_image_url: 'https://cdn.britannica.com/33/4833-004-828A9A84/Flag-United-States-of-America.jpg'
+            },
+            {
+                id: '1',
+                language:'Korean',
+                flag_image_url: 'https://cdn.britannica.com/49/1949-004-8818300C/Flag-South-Korea.jpg'
+            },
+            {
+                id: '1',
+                language:'Japanese',
+                flag_image_url: 'https://cdn.britannica.com/91/1791-004-DA3579A5/Flag-Japan.jpg'
+            }
+        ]
+        this.selected_language = this.cookiesService.getCookie('language')==''? this.cookiesService.setCookieArray('language',this.language_list[0]) : this.cookiesService.getCookieArray('language');
+
         this.is_connect_wallet = this.cookiesService.getCookie('wallet-keypair')!='';
 
         this.wallet_menu.forEach(wallet => {

@@ -11,6 +11,7 @@ import { CategoryService } from 'src/app/services/category/category.service';
 import { PolkadotService } from 'src/app/services/polkadot/polkadot.service';
 import { CookiesService } from 'src/app/services/cookies/cookies.service';
 import { WalletInfoModel } from 'src/app/models/wallet/wallet-info.model';
+import { AppSettings } from 'src/app/app-settings';
 
 @Component({
   selector: 'app-portfolio',
@@ -24,7 +25,8 @@ export class PortfolioComponent implements OnInit {
     private collectionService: CollectionService,
     private categoryService: CategoryService,
     private polkadotService: PolkadotService,
-    private cookiesService: CookiesService
+    private cookiesService: CookiesService,
+    public appSettings: AppSettings
   ){}
   wallet_name : any = '';
   dashboard_menu: MenuItem[] | undefined;

@@ -14,10 +14,10 @@ export class WalletsComponent {
 
   constructor(
     private polkadotService: PolkadotService,
-    private appSettings: AppSettings,
+    public appSettings: AppSettings,
     private router: Router,
     private dexService: DexService,
-    private cookiesService:CookiesService
+    private cookiesService:CookiesService,
   ){}
 
   selectedWallet = "";

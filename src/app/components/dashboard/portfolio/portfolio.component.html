@@ -4,7 +4,7 @@
       <div class="flex flex-column gap-3 center">
         <div class="p-inputgroup w-full md:w-30rem currency">
           <span class="p-inputgroup-addon">
-              Currency
+              {{appSettings.translate("Currency")}}
           </span>
           <p-dropdown [options]="countries" [(ngModel)]="selectedCountry" optionLabel="name" placeholder="Select a Currency" styleClass="w-full">
               <ng-template pTemplate="selectedItem">
@@ -24,7 +24,7 @@
         <div class="w-full" class="wallet-panel">
           <p-button icon="pi pi-wallet" styleClass="p-button-rounded p-button-text border-circle bg-white-alpha-30"></p-button>
           <div class="font-bold">
-              <div class="text-sm">Total</div>
+              <div class="text-sm">{{appSettings.translate("Total")}}</div>
               <div class="flex flex-row gap-4 text-lg">
                   <div>NMS:</div>
                   <div>{{ wallet_info.wallet_balance_nms }}</div>
@@ -35,15 +35,15 @@
           <p-table [value]="token_transaction">
               <ng-template pTemplate="header">
                   <tr>
-                      <th>Token</th>
-                      <th>Price</th>
-                      <th>Balance</th>
-                      <th>Value</th>
+                      <th>{{appSettings.translate("Token")}}</th>
+                      <th>{{appSettings.translate("Price")}}</th>
+                      <th>{{appSettings.translate("Balance")}}</th>
+                      <th>{{appSettings.translate("Value")}}</th>
                   </tr>
               </ng-template>
               <ng-template pTemplate="body" *ngIf="token_transaction.length==0">
                   <tr>
-                      <td>No Transaction Record</td>
+                      <td>{{appSettings.translate("No Transaction Record")}}</td>
                   </tr>
               </ng-template>
               <ng-template pTemplate="body" let-token *ngIf="token_transaction.length>0">
@@ -70,12 +70,12 @@
               <div style="display: flex; background-color: rgba(255, 255, 255, 0.0196);" fxLayoutGap="5px">
                 <div class="p-inputgroup" style="height: 35px;">
                   <input type="text" [(ngModel)]="minPrice" (ngModelChange)="filterNFT()" pInputText placeholder="0" style="padding: 10px; font-size: 14px;" />
-                  <span class="p-inputgroup-addon">min</span>
+                  <span class="p-inputgroup-addon">{{appSettings.translate("min")}}</span>
                 </div>
                 <div style="margin-top: 5px !important;">To</div>
                 <div class="p-inputgroup" style="height: 35px;">
                   <input type="text" [(ngModel)]="maxPrice" (ngModelChange)="filterNFT()" pInputText placeholder="0" />
-                  <span class="p-inputgroup-addon">max</span>
+                  <span class="p-inputgroup-addon">{{appSettings.translate("max")}}</span>
                 </div>
               </div>
             </p-card>
@@ -100,7 +100,7 @@
                 </ng-template>
                 <ng-template pTemplate="footer">
                   <div (click)="buy_collection()" style="cursor: pointer;">
-                    <i class="pi pi-wallet"></i> Buy
+                    <i class="pi pi-wallet"></i> {{appSettings.translate("Buy")}}
                   </div>
                 </ng-template>
               </p-card>
