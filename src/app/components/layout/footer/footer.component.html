@@ -1,6 +1,10 @@
 <footer>
     <div class="section">
-        <p-menu [model]="items"></p-menu>
+        <div class="flex flex-column gap-4">
+            <div class="flex flex-column gap-2">
+                <p-menu [model]="items"></p-menu>
+            </div>
+        </div>
         <!-- <div class="m-0 heading-9">{{appSettings.translate("Don't Miss Out, Stay Updated")}}</div>
         <div class="text-block-11"><p class="text-block-11">{{appSettings.translate("Subscribe and follow our social media channels for daily updates.")}}</p></div>
         <div class="p-inputgroup">
@@ -18,7 +22,7 @@
             <p-button icon="pi pi-telegram"></p-button>&nbsp;
         </div> -->
         <div class="flex flex-column gap-4">
-            <div class="flex flex-column gap-2">
+            <div class="flex flex-column gap-2" style="padding: 12px 20px;">
                 <div class="text-lg">
                     <img src="./../../../assets/img/XGame_Logo_white.webp" height="40" class="mr-2" />
                 </div>
@@ -30,12 +34,12 @@
                     (123) 456 7890
                 </div>
             </div>
-            <div class="flex flex-column">
+            <div class="flex flex-column" style="padding-left: 12px;">
                 <div class="text-lg font-bold" style="color: #FF107B;">
                     hello@xgame.live
                 </div>
             </div>
-            <div class="flex flex-wrap gap-2">
+            <div class="flex flex-wrap gap-2" style="padding-left: 12px;">
                 <p-button icon="pi pi-twitter" styleClass="p-button-rounded p-button-outlined"></p-button>
                 <p-button icon="pi pi-instagram" styleClass="p-button-rounded p-button-outlined"></p-button>
                 <p-button icon="pi pi-facebook" styleClass="p-button-rounded p-button-outlined"></p-button>
