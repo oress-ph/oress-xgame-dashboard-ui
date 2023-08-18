@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { MenuItem } from 'primeng/api';
+import { AppSettings } from 'src/app/app-settings';
 
 @Component({
   selector: 'app-footer',
@@ -8,10 +9,15 @@ import { MenuItem } from 'primeng/api';
 })
 export class FooterComponent {
   items: MenuItem[] | undefined;
+  constructor(
+    public appSettings:AppSettings
+  ){
+
+  }
   ngOnInit() {
     this.items = [
       {
-          label: '<span class="text-base font-bold">About</span>',
+          label: '<span class="text-base font-bold">{{appSettings.translate("About"}}</span>',
           escape: false,
           // icon: 'pi pi-refresh',
           iconClass: 'text-base'

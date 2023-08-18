@@ -6,8 +6,8 @@
         </ng-template>
         <div *ngIf="selectedWallet == ''">
             <div class="connect-wallet-title text-center" style="margin-bottom: 40px;">
-                <div class="text-center text-lg">Connect Wallet</div>
-                <span class="text-center text-sm w-full">Start using XGame</span>
+                <div class="text-center text-lg">{{appSettings.translate("Connect Wallet")}}</div>
+                <span class="text-center text-sm w-full">{{appSettings.translate("Start using XGame")}}</span>
             </div>
             <div class="connect-wallet-button">
                 <p-button styleClass="p-button-outlined p-button-warning p-button-lg" [style]="{ 'width': '100%' }"
@@ -36,7 +36,7 @@
                 <div class="connect-wallet-title">
                     <div class="text-center" style="font-size: 20px; margin-bottom: 5px;">
                         <span>
-                            Choose Account
+                            {{appSettings.translate("Choose Account")}}
                         </span>
                     </div>
                 </div>
@@ -73,7 +73,7 @@
         
         <ng-template pTemplate="footer">
             <div class="text-sm text-center">
-                <span>By connecting, I accept XGame’s Terms of Service </span>
+                <span>{{appSettings.translate("By connecting, I accept XGame’s Terms of Service")}} </span>
             </div>
         </ng-template>
     </p-card>

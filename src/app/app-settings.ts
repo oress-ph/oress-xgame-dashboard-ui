@@ -39,6 +39,7 @@ export class AppSettings {
     public APIURLHostCollection = 'http://127.0.0.1:3002';
     public APIURLHostNFT = 'http://127.0.0.1:3003';
     public APIURLHostLabel = 'http://127.0.0.1:3004';
+    public APIURLHostLanguage = 'http://127.0.0.1:3006';
 
     public APIUploadURL = this.APIURLHost + '/uploads/'
     public AppVersion = 'Alpha.001';
