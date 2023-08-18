@@ -34,6 +34,9 @@ export class AppSettings {
 
     public APIURLHost = environment.APIURLHost;
     public UIURLHomePageHost = 'https://xgame.live/home';
+    public UIURLMarketplaceHost = 'https://nft.xgame.live/';
+    public UIURLDashboardlaceHost = 'https://dashboard.xgame.live/';
+
 
     public APIURLHostAuth = 'http://127.0.0.1:3001';
     public APIURLHostCollection = 'http://127.0.0.1:3002';
