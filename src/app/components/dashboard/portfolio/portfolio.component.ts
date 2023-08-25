@@ -28,8 +28,8 @@ export class PortfolioComponent implements OnInit {
     private polkadotService: PolkadotService,
     private cookiesService: CookiesService,
     public appSettings: AppSettings
-  ){}
-  wallet_name : any = '';
+  ) { }
+  wallet_name: any = '';
   dashboard_menu: MenuItem[] | undefined;
   token_transaction: TokenTransactionModel[] = [];
   category_list: CategoryModel[] = [];
@@ -52,7 +52,7 @@ export class PortfolioComponent implements OnInit {
   togglePopup() {
     this.showPopup = !this.showPopup;
   }
-  buy_collection(){
+  buy_collection() {
 
   }
   navigateToCollection(id: number) {
@@ -70,57 +70,21 @@ export class PortfolioComponent implements OnInit {
     // this.get_category_json();
   }
 
-  async ngOnInit(): Promise<void> {
-    this.wallet_info.wallet_balance_nms = await this.polkadotService.getBalance();
-    this.token_transaction.push(
-      {
-        token:  '',
-        price: '20 USD',
-        balance: this.wallet_info.wallet_balance_nms == undefined ?'0' : this.wallet_info.wallet_balance_nms,
-        value: '',
-      }
-    );
-    this.get_collection_json();
-    this.get_category_json();
-    this.get_nft_json();
-    this.wallet_name = localStorage.getItem("wallet-meta-name");
-    this.dashboard_menu = [
-        {
-            label: 'Portfolio',
-            icon: 'pi pi-fw pi-briefcase',
-        },
-        {
-            label: 'Send/ Pay Genesis',
-            icon: 'pi pi-fw pi-arrow-up'
-        },
-        {
-          label: 'Buy',
-          icon: 'pi pi-fw pi-credit-card'
-      }
-    ];
-    this.countries = [
-      { name: 'Australia', code: 'AU' },
-      { name: 'Brazil', code: 'BR' },
-      { name: 'China', code: 'CN' },
-      { name: 'Egypt', code: 'EG' },
-      { name: 'France', code: 'FR' },
-      { name: 'Germany', code: 'DE' },
-      { name: 'India', code: 'IN' },
-      { name: 'Japan', code: 'JP' },
-      { name: 'Spain', code: 'ES' },
-      { name: 'United States', code: 'US' }
-  ];
-  }
+
 
   get_collection_json() {
     this.collectionService.get_collection_json().subscribe(
-      (data) => {
-        data.forEach((data:any) => {
-          if(data.collection!=''){
+      (response) => {
+        response.forEach((data: any) => {
+          if (data.collection != '') {
             this.collection_list.push(data);
           }
         });
-        // this.get_category_json();
+
+        if (this.collection_list.length > 0) {
+          this.selected_game = this.collection_list[0].name;
+          this.get_nft_json();
+        }
       },
       (error) => {
         console.error('Error fetching JSON data:', error);
@@ -131,8 +95,8 @@ export class PortfolioComponent implements OnInit {
   get_category_json() {
     this.categoryService.get_category_json().subscribe(
       (data) => {
-        data.forEach((data:any) => {
-          if(data.category!=''){
+        data.forEach((data: any) => {
+          if (data.category != '') {
             this.category_list.push(data);
           }
         });
@@ -153,10 +117,12 @@ export class PortfolioComponent implements OnInit {
         if (results[0] == true) {
           data = await results[1];
           this.nft_list = data;
+
+          this.filterNFT();
         }
       }
     );
-    this.filterNFT();
+    
   }
 
   displayBalance() {
@@ -170,14 +136,14 @@ export class PortfolioComponent implements OnInit {
         this.selected_game === '' ||
         this.selected_game === null ||
         item.collection === this.selected_game
-        ) {
+      ) {
         if (
           this.selected_category === '' ||
           this.selected_category === null ||
           item.category === this.selected_category
-          ) {
+        ) {
           if ((this.minPrice === 0 || item.price >= this.minPrice) &&
-              (this.maxPrice === 0 || item.price <= this.maxPrice)) {
+            (this.maxPrice === 0 || item.price <= this.maxPrice)) {
             return true;
           }
         }
@@ -190,7 +156,59 @@ export class PortfolioComponent implements OnInit {
       // this.is_loading_nft = false;
     }, 100);
   }
-
+  refreshTokenList: boolean = false;
   // Get the smart contract in Polkadot-JS
+  async ngOnInit(): Promise<void> {
+    await this.polkadotService.getBalance().then(data => {
+      this.wallet_info.wallet_balance_nms = data;
+      this.refreshTokenList = false;
+      if (this.wallet_info.wallet_balance_nms) {
+        let value = 20 * Number(this.wallet_info.wallet_balance_nms);
+        this.token_transaction.push(
+          {
+            token: 'NMS',
+            price: '20 USD',
+            balance: this.wallet_info.wallet_balance_nms == undefined ? '0' : this.wallet_info.wallet_balance_nms,
+            value: value.toString(),
+          }
+        );
+        setTimeout(() => {
+          this.refreshTokenList = true;
+        }, 100);
+      }
 
+    });
+
+
+    this.get_collection_json();
+    this.get_category_json();
+    this.get_nft_json();
+    this.wallet_name = localStorage.getItem("wallet-meta-name");
+    this.dashboard_menu = [
+      {
+        label: 'Portfolio',
+        icon: 'pi pi-fw pi-briefcase',
+      },
+      {
+        label: 'Send/ Pay Genesis',
+        icon: 'pi pi-fw pi-arrow-up'
+      },
+      {
+        label: 'Buy',
+        icon: 'pi pi-fw pi-credit-card'
+      }
+    ];
+    this.countries = [
+      { name: 'Australia', code: 'AU' },
+      { name: 'Brazil', code: 'BR' },
+      { name: 'China', code: 'CN' },
+      { name: 'Egypt', code: 'EG' },
+      { name: 'France', code: 'FR' },
+      { name: 'Germany', code: 'DE' },
+      { name: 'India', code: 'IN' },
+      { name: 'Japan', code: 'JP' },
+      { name: 'Spain', code: 'ES' },
+      { name: 'United States', code: 'US' }
+    ];
+  }
 }

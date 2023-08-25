@@ -38,15 +38,15 @@ export class TopbarComponent {
 
     header_menu: MenuItem[] | undefined;
     profile_menu: MenuItem[] | undefined;
-    is_connect_wallet: boolean= false;
+    is_connect_wallet: boolean = false;
     wallet_info: WalletInfoModel = new WalletInfoModel();
     language_list: LanguageModel[] = [];
-    selected_language: LanguageModel  =  new LanguageModel();
+    selected_language: LanguageModel = new LanguageModel();
 
     wallet_menu: WalletModel[] = [
-        { wallet_net: 'Genesis Testnet', logo:'./../../../assets/img/Genesis_token.png', wallet_url: '',status:true },
-        { wallet_net: 'Genesis Mainet', logo: './../../../assets/img/Genesis_token.png',wallet_url: '',status:true},
-        { wallet_net: 'Genesis Devnet', logo:'./../../../assets/img/Genesis_token.png',wallet_url: 'wss://humidefi-dev.zeeve.net/para',status:false},
+        { wallet_net: 'Genesis Testnet', logo: './../../../assets/img/Genesis_token.png', wallet_url: '', status: true },
+        { wallet_net: 'Genesis Mainet', logo: './../../../assets/img/Genesis_token.png', wallet_url: '', status: true },
+        { wallet_net: 'Genesis Devnet', logo: './../../../assets/img/Genesis_token.png', wallet_url: 'wss://humidefi-dev.zeeve.net/para', status: false },
     ]
     selected_wallet: WalletModel | null = null;
 
@@ -54,22 +54,22 @@ export class TopbarComponent {
 
 
     countries: Country[] = [
-        { name: 'Genesis Testnet', logo:'./../../../assets/img/Genesis_token.png' },
-        { name: 'Genesis Mainet', logo: './../../../assets/img/Genesis_token.png'},
-        { name: 'Polkadot', logo:'./../../../assets/img/polkadot/polkadot_icon.png' },
+        { name: 'Genesis Testnet', logo: './../../../assets/img/Genesis_token.png' },
+        { name: 'Genesis Mainet', logo: './../../../assets/img/Genesis_token.png' },
+        { name: 'Polkadot', logo: './../../../assets/img/polkadot/polkadot_icon.png' },
     ];
 
 
 
-    routeClick(section:any) {
+    routeClick(section: any) {
         let redirectTo = '?section=' + section;
         window.location.href = this.appSettings.UIURLHomePageHost + redirectTo;
     }
-    logout(){
+    logout() {
         console.log('test');
         const logout = this.cookiesService.deleteAllCookie();
         console.log(logout);
-        if (logout){
+        if (logout) {
             this.router.navigate(["/wallet"]);
         }
     }
@@ -79,44 +79,44 @@ export class TopbarComponent {
             header: '',
             width: '400px',
             contentStyle: {
-              'max-height': '100%',
-              overflow: 'auto',
-              'border-radius': '0 0 6px 6px',
+                'max-height': '100%',
+                overflow: 'auto',
+                'border-radius': '0 0 6px 6px',
             },
             baseZIndex: 10000,
             // data: { data: module },
-          });
-          this.ref.onClose.subscribe(() => {
+        });
+        this.ref.onClose.subscribe(() => {
             // this.isDispalyGame = true;
-          });
+        });
     }
 
-    get_language_list(){
+    get_language_list() {
         this.languageService.language_dropdown().subscribe(
-          (response:any)=>{
-            let results = response;
-            if (results[0] == true) {
-              this.language_list = response[1];
-                if(this.cookiesService.getCookie('language')==''){
-                    this.cookiesService.setCookieArray('language',this.language_list[0]);
-                }
-            //   this.get_language_list();
-            } else {
+            (response: any) => {
+                let results = response;
+                if (results[0] == true) {
+                    this.language_list = response[1];
+                    if (this.cookiesService.getCookie('language') == '') {
+                        this.cookiesService.setCookieArray('language', this.language_list[0]);
+                    }
+                    //   this.get_language_list();
+                } else {
 
-              this.messageService.add({
-                severity: results[1] == 401 ? 'info' : 'error',
-                summary: results[1],
-                detail: results[1] == 401 ? 'Unauthorized' : 'Server Error',
-              });
+                    this.messageService.add({
+                        severity: results[1] == 401 ? 'info' : 'error',
+                        summary: results[1],
+                        detail: results[1] == 401 ? 'Unauthorized' : 'Server Error',
+                    });
+                }
             }
-          }
         )
     }
 
     // Language
-    onChangeLanguage(event:any) {
+    onChangeLanguage(event: any) {
         const language = JSON.stringify(event.value);
-        this.cookiesService.setCookie('language',language);
+        this.cookiesService.setCookie('language', language);
         window.location.reload();
     }
 
@@ -125,28 +125,28 @@ export class TopbarComponent {
         this.language_list = [
             {
                 id: '1',
-                language:'English',
+                language: 'English',
                 flag_image_url: 'https://cdn.britannica.com/33/4833-004-828A9A84/Flag-United-States-of-America.jpg'
             },
             {
                 id: '1',
-                language:'Korean',
+                language: 'Korean',
                 flag_image_url: 'https://cdn.britannica.com/49/1949-004-8818300C/Flag-South-Korea.jpg'
             },
             {
                 id: '1',
-                language:'Japanese',
+                language: 'Japanese',
                 flag_image_url: 'https://cdn.britannica.com/91/1791-004-DA3579A5/Flag-Japan.jpg'
             }
         ]
-        this.selected_language = this.cookiesService.getCookie('language')==''? this.cookiesService.setCookieArray('language',this.language_list[0]) : this.cookiesService.getCookieArray('language');
+        this.selected_language = this.cookiesService.getCookie('language') == '' ? this.cookiesService.setCookieArray('language', this.language_list[0]) : this.cookiesService.getCookieArray('language');
 
-        this.is_connect_wallet = this.cookiesService.getCookie('wallet-keypair')!='';
+        this.is_connect_wallet = this.cookiesService.getCookie('wallet-keypair') != '';
 
         this.wallet_menu.forEach(wallet => {
-            if(wallet.status!=true){
-                this.selected_wallet= wallet;
-                this.cookiesService.setCookie('wallet_url',wallet.wallet_url)
+            if (wallet.status != true) {
+                this.selected_wallet = wallet;
+                this.cookiesService.setCookie('wallet_url', wallet.wallet_url)
                 stop;
             }
         });
@@ -202,11 +202,12 @@ export class TopbarComponent {
         ];
         var wallet_address = this.cookiesService.getCookie('wallet-keypair')
         if (wallet_address != null && wallet_address.length > 5) {
-          wallet_address = wallet_address.substring(0, 5) + "...";
+            wallet_address = wallet_address.substring(0, 5) + "..." + wallet_address.substring(wallet_address.length - 5, wallet_address.length);
+
         }
-        this.cookiesService.getCookie('wallet-keypair')!=undefined? this.wallet_info.wallet_keypair = wallet_address:this.wallet_info.wallet_keypair= '';
-        this.cookiesService.getCookie('wallet-meta-name')!=undefined? this.wallet_info.wallet_meta_name = this.cookiesService.getCookie('wallet-meta-name'):this.wallet_info.wallet_meta_name= '';
-        this.cookiesService.getCookie('wallet-keypair')!=undefined? this.wallet_info.wallet_balance_nms = await this.polkadotService.getBalance() : '';
+        this.cookiesService.getCookie('wallet-keypair') != undefined ? this.wallet_info.wallet_keypair = wallet_address : this.wallet_info.wallet_keypair = '';
+        this.cookiesService.getCookie('wallet-meta-name') != undefined ? this.wallet_info.wallet_meta_name = this.cookiesService.getCookie('wallet-meta-name') : this.wallet_info.wallet_meta_name = '';
+        this.cookiesService.getCookie('wallet-keypair') != undefined ? this.wallet_info.wallet_balance_nms = await this.polkadotService.getBalance() : '';
 
     }
     onWalletMenuItemClick(selectedItem: any): void {
