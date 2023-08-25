@@ -51,7 +51,7 @@ export class TopbarComponent {
     selected_wallet: WalletModel | null = null;
 
     selectedCountry: Country | null = null;
-    
+
 
     countries: Country[] = [
         { name: 'Genesis Testnet', logo:'./../../../assets/img/Genesis_token.png' },
@@ -165,7 +165,7 @@ export class TopbarComponent {
                 }
             }
         ];
-        
+
         this.header_menu = [
             // {
             //     label: '<img src="./../../../assets/img/XGame_Logo_white.png" height="30" class="mr-2" />',
@@ -200,10 +200,14 @@ export class TopbarComponent {
             //   styleClass: 'wallet mr-0'
             // }
         ];
-        this.cookiesService.getCookie('wallet-keypair')!=undefined? this.wallet_info.wallet_keypair = this.cookiesService.getCookie('wallet-keypair'):this.wallet_info.wallet_keypair= '';
+        var wallet_address = this.cookiesService.getCookie('wallet-keypair')
+        if (wallet_address != null && wallet_address.length > 5) {
+          wallet_address = wallet_address.substring(0, 5) + "...";
+        }
+        this.cookiesService.getCookie('wallet-keypair')!=undefined? this.wallet_info.wallet_keypair = wallet_address:this.wallet_info.wallet_keypair= '';
         this.cookiesService.getCookie('wallet-meta-name')!=undefined? this.wallet_info.wallet_meta_name = this.cookiesService.getCookie('wallet-meta-name'):this.wallet_info.wallet_meta_name= '';
         this.cookiesService.getCookie('wallet-keypair')!=undefined? this.wallet_info.wallet_balance_nms = await this.polkadotService.getBalance() : '';
-        
+
     }
     onWalletMenuItemClick(selectedItem: any): void {
         // Perform actions based on the selected wallet menu item

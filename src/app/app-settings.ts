@@ -19,7 +19,7 @@ export class AppSettings {
             url: "localhost"
         },
     ]
-    public wsProviderEndpoint = 'wss://humidefi-dev.zeeve.net/para';
+    public wsProviderEndpoint = 'ws://127.0.0.1:9944';
     public keypair = localStorage.getItem("wallet-keypair") || "";
 
     public dexAccount = '5HNfKk7JdZRiwt9UZVpJRmpFpt4fPDhnh1uPEeFEQhZtggQt';

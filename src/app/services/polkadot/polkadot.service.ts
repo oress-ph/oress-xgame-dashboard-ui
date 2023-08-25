@@ -12,6 +12,14 @@ import { AppSettings } from 'src/app/app-settings';
 import { formatBalance } from '@polkadot/util';
 import { NFTModel } from 'src/app/models/nft/nft.model';
 import { CookiesService } from '../cookies/cookies.service';
+import { Observable } from 'rxjs';
+
+const httpOptions = {
+  headers: new HttpHeaders({
+    'Content-Type': ['application/json', 'application/x-www-form-urlencoded'],
+    Authorization: 'Bearer ' + localStorage.getItem('token'),
+  }),
+};
 
 @Injectable({
   providedIn: 'root'
@@ -20,9 +28,11 @@ export class PolkadotService {
 
   constructor(
     private appSettings: AppSettings,
-    private httpClient: HttpClient,
-    private cookiesService: CookiesService
+    private http: HttpClient,
+    private cookiesService: CookiesService,
+
   ) { }
+  public defaultAPIURLHost: string = this.appSettings.APIURLHostNFT;
   wsProvider = new WsProvider(this.appSettings.wsProviderEndpoint);
   api = ApiPromise.create({ provider: this.wsProvider });
   keypair = this.appSettings.keypair;
@@ -31,7 +41,7 @@ export class PolkadotService {
   // contractAddress: string = '';
   nftModel: NFTModel[] = [];
   abi = require("./../../../assets/json/sample.json");
-  sender = this.cookiesService.getCookie('wallet-keypair');
+  sender = this.cookiesService.getCookie('wallet-address');
 
   async getBalance() {
     try {
@@ -139,7 +149,10 @@ export class PolkadotService {
               is_for_sale: tokenData.isForSale,
               category: tokenData.category,
               collection: tokenData.collection,
-              category_id: ''
+              atlas_file_path: tokenData.atlasFilePath,
+              network: tokenData.network,
+              blockchain_id: tokenData.blockchainId,
+              collection_id: tokenData.collectionId,
             };
             this.nftModel.push(token);
           }
@@ -195,6 +208,7 @@ export class PolkadotService {
 
     return walletAccounts;
   }
+
   async signAndVerify(walletAccount: WalletAccountsModel): Promise<boolean> {
     this.clearPendingSignature();
     const injector = await web3FromSource(String(walletAccount.metaSource));
@@ -236,60 +250,6 @@ export class PolkadotService {
     }
   }
 
-  async mint() {
-    try {
-      // Get the account from extensions
-      const accountData = await this.getAccount(this.cookiesService.getCookie('smart_contract'));
-      if (accountData && accountData.api) {
-        const { api, injector, contract } = accountData;
-        // These are optional
-        const imagePath = 'bafybeieu2vxywq6ylvrj6ldvarcvovzdyie5psjplydkby2d4tdwxlyk44';
-        const name = 'Sample #2';
-        const description = 'This is a sample description for NFT #1';
-        const price = 1;
-        const isForSale = true;
-        const category = 'Anything';
-        const collection = 'Critic';
-
-        // These are required and changeable
-        const REFTIME = 10000000000;
-        const PROOFSIZE = 500000;
-        const storageDepositLimit = null;
-
-        // Send the transaction to the contract using signAndSend
-        if (contract !== undefined && this.sender != null) {
-          const result = await contract.tx.mint(
-            { storageDepositLimit,
-              gasLimit: api?.registry.createType(
-                'WeightV2',
-                { refTime: REFTIME,
-                  proofSize: PROOFSIZE,
-                },
-              )
-            },
-            imagePath,
-            name,
-            description,
-            price,
-            isForSale,
-            category,
-            collection,
-          ).signAndSend(this.sender, { signer: injector.signer }, result => {
-            if (result.status.isInBlock) {
-              console.log('in a block');
-              console.log(result.toHuman());
-            } else if (result.status.isFinalized) {
-              console.log('finalized');
-            }
-          });
-          console.log('Transaction result:', result);
-        }
-      }
-    } catch (error) {
-      console.error('Mint error:', error);
-    }
-  }
-
   async updateToken() {
     try {
       const accountData = await this.getAccount(this.cookiesService.getCookie('smart_contract'));
@@ -298,7 +258,7 @@ export class PolkadotService {
 
         // Input data for changes
         const token_id = 1;
-        const new_image_path = 'newImagePath';
+        const new_image_file_path = 'newImagePath';
         const new_name = 'newName';
         const new_description = 'newDescription';
         const new_price = 100;
@@ -322,7 +282,7 @@ export class PolkadotService {
               )
             },
             token_id,
-            new_image_path,
+            new_image_file_path,
             new_name,
             new_description,
             new_price,
@@ -348,7 +308,18 @@ export class PolkadotService {
   async generateKeypair(address: string): Promise<string> {
     const keyring = new Keyring({ type: 'sr25519', ss58Format: 0 });
     const hexPair = keyring.addFromAddress(address);
-
+    const keyPairJson = JSON.stringify(hexPair);
+    localStorage.setItem("keypair", keyPairJson);
     return hexPair.address;
+  }
+
+  async signRaw() {
+    let stringSign: any;
+    if (this.sender !== null) {
+      const injector = await web3FromAddress(this.sender);
+      const signin: any = injector?.signer?.signRaw;
+      stringSign = this.cookiesService.getCookie('wallet-keypair')
+    }
+    return stringSign;
   }
 }

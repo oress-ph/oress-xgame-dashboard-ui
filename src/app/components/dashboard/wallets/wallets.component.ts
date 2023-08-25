@@ -29,7 +29,7 @@ export class WalletsComponent {
     this.selectedWallet = "PolkadotJS";
 
     this.web3Wallets = [];
-    
+
     this.selectedWalletAccount = new WalletAccountsModel();
 
     this.getWeb3Accounts();
@@ -68,12 +68,15 @@ export class WalletsComponent {
       this.generateKeypair();
     }
   }
+
   async generateKeypair(): Promise<void> {
     let generateKeypair: Promise<string> = this.polkadotService.generateKeypair(this.selectedWalletAccount.address);
     let keypair = (await generateKeypair);
     if (keypair != "") {
+      console.log('THIS IS KEYPAIR', keypair);
       this.cookiesService.setCookie("wallet-meta-name",String(this.selectedWalletAccount.metaName))
-      this.cookiesService.setCookie("wallet-keypair",keypair)
+      this.cookiesService.setCookie("wallet-address",String(this.selectedWalletAccount.address))
+      this.cookiesService.setCookie("wallet-keypair", keypair);
       // localStorage.setItem("wallet-meta-name", String(this.selectedWalletAccount.metaName));
       // localStorage.setItem("wallet-keypair", keypair);
       location.reload();

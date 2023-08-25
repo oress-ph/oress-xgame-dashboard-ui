@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { MenuItem } from 'primeng/api';
 import { Router, NavigationEnd } from '@angular/router';
+import { CookiesService } from 'src/app/services/cookies/cookies.service';
 import { AppSettings } from 'src/app/app-settings';
 
 @Component({
@@ -10,10 +11,12 @@ import { AppSettings } from 'src/app/app-settings';
 })
 export class SidebarComponent {
   wallet_name : any = '';
+  wallet_address : any = '';
   dashboard_menu: MenuItem[] | undefined;
 
   constructor(
     private router: Router,
+    private cookiesService: CookiesService,
     public appSettings:AppSettings
     ) {
     this.router.events.subscribe((event) => {
@@ -30,10 +33,13 @@ export class SidebarComponent {
       });
     }
   }
-  
+
   ngOnInit(): void {
     this.wallet_name = localStorage.getItem("wallet-meta-name");
-
+    this.wallet_address = this.cookiesService.getCookie("wallet-keypair");
+    if (this.wallet_address.length > 5) {
+      this.wallet_address = this.wallet_address.substring(0, 5) + "...";
+    }
     this.dashboard_menu = [
       {
           label: this.appSettings.translate("Portfolio"),

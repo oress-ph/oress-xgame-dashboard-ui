@@ -11,6 +11,7 @@ import { CategoryService } from 'src/app/services/category/category.service';
 import { PolkadotService } from 'src/app/services/polkadot/polkadot.service';
 import { CookiesService } from 'src/app/services/cookies/cookies.service';
 import { WalletInfoModel } from 'src/app/models/wallet/wallet-info.model';
+import { web3FromAddress } from '@polkadot/extension-dapp';
 import { AppSettings } from 'src/app/app-settings';
 
 @Component({
@@ -38,7 +39,7 @@ export class PortfolioComponent implements OnInit {
   wallet_info: WalletInfoModel = new WalletInfoModel();
 
   selected_game: string = '';
-  selected_category: string = 'All';
+  selected_category: string = '';
 
   countries: any[] | undefined;
 
@@ -71,8 +72,17 @@ export class PortfolioComponent implements OnInit {
 
   async ngOnInit(): Promise<void> {
     this.wallet_info.wallet_balance_nms = await this.polkadotService.getBalance();
+    this.token_transaction.push(
+      {
+        token:  '',
+        price: '20 USD',
+        balance: this.wallet_info.wallet_balance_nms == undefined ?'0' : this.wallet_info.wallet_balance_nms,
+        value: '',
+      }
+    );
     this.get_collection_json();
     this.get_category_json();
+    this.get_nft_json();
     this.wallet_name = localStorage.getItem("wallet-meta-name");
     this.dashboard_menu = [
         {
@@ -104,23 +114,12 @@ export class PortfolioComponent implements OnInit {
 
   get_collection_json() {
     this.collectionService.get_collection_json().subscribe(
-
       (data) => {
-        this.collection_list.push({
-          id: "0",
-          name: "All",
-          description: "test",
-          banner_image_url: "test",
-          logo_image_url: "test",
-          is_live: true
-        })
         data.forEach((data:any) => {
-          if(data.category!=''){
+          if(data.collection!=''){
             this.collection_list.push(data);
           }
         });
-        this.selected_game = this.collection_list[0].name;
-
         // this.get_category_json();
       },
       (error) => {
@@ -132,20 +131,11 @@ export class PortfolioComponent implements OnInit {
   get_category_json() {
     this.categoryService.get_category_json().subscribe(
       (data) => {
-        this.category_list.push({
-          category: "All",
-          collection_name: "",
-          id: 0
-        })
         data.forEach((data:any) => {
           if(data.category!=''){
             this.category_list.push(data);
           }
         });
-        this.selected_category = this.category_list[0].category
-        // this.is_loading_nft = false;
-
-        this.get_nft_json();
       },
       (error) => {
         console.error('Error fetching JSON data:', error);
@@ -155,35 +145,37 @@ export class PortfolioComponent implements OnInit {
 
   dataSource: any[] = [];
 
-  async get_nft_json() {
-    const nftTokens = await this.polkadotService.getUserNfts();
-    if (nftTokens !== undefined) {
-      this.nft_list = nftTokens;
-    } else {
-      console.error('No NFTs was found.');
-    }
+  async get_nft_json(): Promise<void> {
+    let data: any[] = [];
+    this.nftService.getUserNfts().subscribe(
+      async (response: any) => {
+        let results = response;
+        if (results[0] == true) {
+          data = await results[1];
+          this.nft_list = data;
+        }
+      }
+    );
     this.filterNFT();
-    // this.nftService.get_nft_json().subscribe(
-    //   async (response) => {
-    //     let data = response;
-    //     const nftTokens = await this.polkadotService.getUserNfts();
-    //     if (nftTokens !== undefined) {
-    //       this.nft_list = nftTokens;
-    //     }
-    //     this.nft_list = data;
-    //     this.filterNFT();
-    //   },
-    //   (error) => {
-    //     console.error('Error fetching JSON data:', error);
-    //   }
-    // );
+  }
+
+  displayBalance() {
+
   }
 
   filterNFT() {
     let _filtered_nft = this.nft_list;
     this.nft_list_diplayed = _filtered_nft.filter(item => {
-      if (this.selected_game === "All" || item.collection === this.selected_game) {
-        if (this.selected_category === "All" || item.category === this.selected_category) {
+      if (
+        this.selected_game === '' ||
+        this.selected_game === null ||
+        item.collection === this.selected_game
+        ) {
+        if (
+          this.selected_category === '' ||
+          this.selected_category === null ||
+          item.category === this.selected_category
+          ) {
           if ((this.minPrice === 0 || item.price >= this.minPrice) &&
               (this.maxPrice === 0 || item.price <= this.maxPrice)) {
             return true;
