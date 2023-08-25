@@ -1,6 +1,6 @@
 {
   "source": {
-    "hash": "0x47cdb0e3f20ec9899815dffb7d66f105ed80589c18a88a68396000812aecc7e5",
+    "hash": "0x7bdcaf32ffe007eace09c95908d200fb45d19192fbf6336905f798d6747489c7",
     "language": "ink! 4.2.1",
     "compiler": "rustc 1.69.0",
     "build_info": {
@@ -659,6 +659,24 @@
               ],
               "type": 6
             }
+          },
+          {
+            "label": "network",
+            "type": {
+              "displayName": [
+                "String"
+              ],
+              "type": 6
+            }
+          },
+          {
+            "label": "blockchain_id",
+            "type": {
+              "displayName": [
+                "u32"
+              ],
+              "type": 0
+            }
           }
         ],
         "default": false,
@@ -884,6 +902,43 @@
       {
         "args": [
           {
+            "label": "min",
+            "type": {
+              "displayName": [
+                "u32"
+              ],
+              "type": 0
+            }
+          },
+          {
+            "label": "max",
+            "type": {
+              "displayName": [
+                "u32"
+              ],
+              "type": 0
+            }
+          }
+        ],
+        "default": false,
+        "docs": [
+          " Retieve NFTs by price"
+        ],
+        "label": "get_user_nft_by_price",
+        "mutates": false,
+        "payable": false,
+        "returnType": {
+          "displayName": [
+            "ink",
+            "MessageResult"
+          ],
+          "type": 22
+        },
+        "selector": "0x5d61f1a5"
+      },
+      {
+        "args": [
+          {
             "label": "token_id",
             "type": {
               "displayName": [
@@ -962,6 +1017,24 @@
                 "String"
               ],
               "type": 6
+            }
+          },
+          {
+            "label": "new_network",
+            "type": {
+              "displayName": [
+                "String"
+              ],
+              "type": 6
+            }
+          },
+          {
+            "label": "new_blockchain_id",
+            "type": {
+              "displayName": [
+                "u32"
+              ],
+              "type": 0
             }
           }
         ],
@@ -1151,7 +1224,7 @@
           "composite": {
             "fields": [
               {
-                "name": "token_id",
+                "name": "nft_token_id",
                 "type": 0,
                 "typeName": "TokenId"
               },
@@ -1194,6 +1267,16 @@
                 "name": "atlas_images",
                 "type": 6,
                 "typeName": "String"
+              },
+              {
+                "name": "network",
+                "type": 6,
+                "typeName": "String"
+              },
+              {
+                "name": "blockchain_id",
+                "type": 0,
+                "typeName": "u32"
               },
               {
                 "name": "token_owner",

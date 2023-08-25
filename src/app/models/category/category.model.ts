@@ -1,5 +1,5 @@
 export class CategoryModel {
-    id: number= 0;
+    id: string = '';
     category: string = '';
     collection_name: string = '';
 }

@@ -35,6 +35,19 @@
             <!-- <p-button class="text-icon" icon="pi pi-wallet" styleClass="p-button-rounded p-button-info" (click)="connectWallet()"></p-button> -->
         </div>
 
+        <p-dropdown [options]="wallet_menu" [(ngModel)]="selected_wallet" optionLabel="wallet_net"  optionDisabled="status" *ngIf="is_connect_wallet">
+            <ng-template pTemplate="selectedItem" >
+                <div class="flex align-items-center gap-2" *ngIf="selected_wallet" style="display: flex;">
+                    <img [src]="selected_wallet.logo" width="auto" height="20" class="image-icon"/>
+                    <div class="text-net">{{ selected_wallet.wallet_net }}</div>
+              </div>
+            </ng-template>
+            <ng-template let-option  pTemplate="item">
+                <img [src]="option.logo" width="auto" height="20" class="image-icon" />
+                {{ option.wallet_net }}
+              </ng-template>
+        </p-dropdown>
+
         <p-button (click)="op.toggle($event)" icon="pi pi-user" styleClass="p-button-rounded p-button-text" [style]="{ 'background-color': 'unset' }" *ngIf="is_connect_wallet"></p-button>
         
         <p-overlayPanel #op>

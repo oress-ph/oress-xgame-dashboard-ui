@@ -19,7 +19,10 @@ export class AppSettings {
             url: "localhost"
         },
     ]
+
     public wsProviderEndpoint = 'wss://humidefi-dev.zeeve.net/para';
+    public APIURLHostNFT = 'https://astrochibbi-nft-api.xgame.live';
+
     public keypair = localStorage.getItem("wallet-keypair") || "";
 
     public dexAccount = '5HNfKk7JdZRiwt9UZVpJRmpFpt4fPDhnh1uPEeFEQhZtggQt';
@@ -34,10 +37,12 @@ export class AppSettings {
 
     public APIURLHost = environment.APIURLHost;
     public UIURLHomePageHost = 'https://xgame.live/home';
+    public UIURLMarketplaceHost = 'https://nft.xgame.live/';
+    public UIURLDashboardlaceHost = 'https://dashboard.xgame.live/';
+
 
     public APIURLHostAuth = 'http://127.0.0.1:3001';
     public APIURLHostCollection = 'http://127.0.0.1:3002';
-    public APIURLHostNFT = 'http://127.0.0.1:3003';
     public APIURLHostLabel = 'http://127.0.0.1:3004';
     public APIURLHostLanguage = 'http://127.0.0.1:3006';
 
@@ -45,7 +50,7 @@ export class AppSettings {
     public AppVersion = 'Alpha.001';
     // table list date format
     public date_list_format = 'dd MMM yyyy';
-    public time_list_format ='hh:mm a'
+    public time_list_format = 'hh:mm a'
 
     // p-calendar date format
     public date_detail_format_ts = 'dd MMM yyyy';
@@ -58,14 +63,14 @@ export class AppSettings {
     public date_format_laravel = 'yyyy/MM/dd';
     public time_format_laravel = 'hh:mm:ss';
 
-    public default_date_format =  'yyyy/MM/dd hh:mm'
+    public default_date_format = 'yyyy/MM/dd hh:mm'
 
-    public company_logo: string = '../../../assets/images/new-assets/jkslogo3.png';
     constructor() {
         let hostName = window.location.hostname;
         switch (hostName) {
-            case 'template-ui-demo.hiro-test.net':
-                this.company_logo = '../../../assets/images/logo/new-assets/jkslogo3.png';
+            case 'localhost':
+                // this.wsProviderEndpoint = 'ws://127.0.0.1:9944';
+                this.wsProviderEndpoint = 'wss://humidefi-dev.zeeve.net/para';
                 break;
             default:
                 break;
@@ -73,7 +78,7 @@ export class AppSettings {
         }
     }
 
-    convertTime12to24 = (time12h:any) => {
+    convertTime12to24 = (time12h: any) => {
         const [time, modifier] = time12h.split(' ');
 
         let [hours, minutes] = time.split(':');
@@ -89,7 +94,7 @@ export class AppSettings {
         return `${hours}:${minutes}`;
     }
 
-    convertTime24to12 (time:any) {
+    convertTime24to12(time: any) {
         const time_part_array = time.split(":");
         let ampm = 'AM';
         if (time_part_array[0] >= 12) {
@@ -105,17 +110,17 @@ export class AppSettings {
     // Translation
     public translation_list: LabelModel[] = [];
 
-    translate(value:any){
-        if(this.translation_list.filter(translation=> translation.label=== value)[0]!=undefined){
-            return this.translation_list.filter(translation=> translation.label=== value)[0].displayed_label
-        }else{
+    translate(value: any) {
+        if (this.translation_list.filter(translation => translation.label === value)[0] != undefined) {
+            return this.translation_list.filter(translation => translation.label === value)[0].displayed_label
+        } else {
             return value;
         }
     }
-    translate_to_english(value:any){
-        if(this.translation_list.filter(translation=> translation.displayed_label=== value)[0]!=undefined){
-        return this.translation_list.filter(translation=> translation.displayed_label=== value)[0].label
-        }else{
+    translate_to_english(value: any) {
+        if (this.translation_list.filter(translation => translation.displayed_label === value)[0] != undefined) {
+            return this.translation_list.filter(translation => translation.displayed_label === value)[0].label
+        } else {
             return value;
         }
     }
