@@ -120,6 +120,13 @@ export class TopbarComponent {
         window.location.reload();
     }
 
+    openNFTMarketplace() {
+        window.location.href = this.appSettings.UIURLMarketplaceHost+'marketplace';    
+    }
+    openHomepage(direction: string) {
+        window.location.href = this.appSettings.UIURLHomePageHost+direction;    
+    }
+
     async ngOnInit(): Promise<void> {
         // this.get_language_list();  
         this.language_list = [
@@ -166,40 +173,55 @@ export class TopbarComponent {
             }
         ];
 
+        
+
         this.header_menu = [
-            // {
-            //     label: '<img src="./../../../assets/img/XGame_Logo_white.png" height="30" class="mr-2" />',
-            //     escape: false,
-            //     styleClass: 'logo',
-            //     disabled:true
-            // },
             {
-                label: 'HOME',
-                command: (event) => { this.routeClick("home") }
+                label: this.appSettings.translate('XGame'),
+                // routerLink: '/home', 
+                command: (event) => { this.openHomepage('home') },
             },
             {
-                label: 'XGAME',
-                command: (event) => { this.routeClick("xgame") }
+                label: this.appSettings.translate('Explore'),
+                // routerLink: '/home', 
+                // command: (event) => { this.routeClick("xgame") },
+                items:[
+                    {
+                        label: 'Games',  
+                        // routerLink: '/games', 
+                        command: (event) => { this.openHomepage('games') },
+                    },
+                    {
+                        label: 'Tokenomics',  
+                        // routerLink: '/tokenomics', 
+                        command: (event) => { this.openHomepage('tokenomics') },
+                    }
+                ]
             },
             {
-                label: 'TOKENS',
-                tabindex: '#3',
-                command: (event) => { this.routeClick("token") }
+                label: this.appSettings.translate('Community'),
+                // routerLink: '/home', 
+                // command: (event) => { this.routeClick("xgame") },
+                items:[
+                    {
+                        label: 'Blogs',  
+                        // routerLink: '/blogs', 
+                        command: (event) => { this.openHomepage('blogs') },
+                    },
+                ]
             },
             {
-                label: 'NFT',
-                command: (event) => { this.routeClick("nft") }
+                label: this.appSettings.translate('Marketplace'),
+                // routerLink: '/home', 
+                command: (event) => { this.openNFTMarketplace() },
             },
             {
-                label: 'PARACHAIN',
-                command: (event) => { this.routeClick("parachain") }
-                // styleClass: 'mr-0'
+                label: this.appSettings.translate('NFT'),
+                routerLink: '/home', 
+                // command: (event) => { this.routeClick("xgame") },
             },
-            // {
-            //   label: 'Connect Wallet',
-            //   styleClass: 'wallet mr-0'
-            // }
         ];
+
         var wallet_address = this.cookiesService.getCookie('wallet-keypair')
         if (wallet_address != null && wallet_address.length > 5) {
             wallet_address = wallet_address.substring(0, 5) + "..." + wallet_address.substring(wallet_address.length - 5, wallet_address.length);
