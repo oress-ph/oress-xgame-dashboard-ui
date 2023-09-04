@@ -58,26 +58,28 @@ export class NftDetailComponent {
     }
     console.log(this.updateModel);
 
-    try {
-      this.nftService.updateNft(this.nft_model).subscribe(
-        async (response) => {
-          if (response[0]) {
-            this.messageService.add({
-              severity: 'success',
-              summary: 'Success',
-              detail: 'NFT updated successfully.',
-            });
-          } else {
-            this.handleErrorResponse(response);
+    await new Promise(async (resolve, reject) => {
+      try {
+        this.nftService.updateNft(this.nft_model).subscribe(
+          async (response) => {
+            if (response[0]) {
+              this.messageService.add({
+                severity: 'success',
+                summary: 'Success',
+                detail: 'NFT updated successfully.',
+              });
+              this.loading_button = false;
+              this.ref.close();
+              resolve;
+            } else {
+              reject(this.handleErrorResponse(response));
+            }
           }
-        }
-      );
-    } catch (error) {
-      throw new Error('An error has occured: ' + error)
-    } finally {
-      this.loading_button = false;
-      this.ref.close();
-    }
+        );
+      } catch (error) {
+        reject(new Error('An error has occured: ' + error));
+      }
+    });
   }
 
   handleErrorResponse(response: any) {
