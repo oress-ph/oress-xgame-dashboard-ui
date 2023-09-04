@@ -217,8 +217,8 @@ export class TopbarComponent {
             },
             {
                 label: this.appSettings.translate('NFT'),
-                routerLink: '/home', 
-                // command: (event) => { this.routeClick("xgame") },
+                // routerLink: '/home', 
+                command: (event) => { this.openHomepage('home') },
             },
         ];
 
