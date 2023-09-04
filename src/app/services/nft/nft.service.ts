@@ -32,6 +32,79 @@ export class NftService {
     return this.httpClient.get<any>(this.nft_json);
   }
 
+  getNftById(id:number): Observable<[boolean, any]> {
+    return new Observable<[boolean, any]>((observer) => {
+      let nft_model: NFTModel;
+
+      this.httpClient
+        .get<any>(
+          this.defaultAPIURLHost + '/nfts/id/' + id,
+          httpOptions
+        )
+        .subscribe(
+          (response) => {
+            if (response != null) {
+              nft_model = {
+                id: response.nftTokenId,
+                name: response.name,
+                description:response.description,
+                category:response.category,
+                // category_id: '',
+                collection: response.collection,
+                collection_id:response.collectionId,
+                image_path: response.imagePath,
+                price: response.price,
+                is_for_sale: response.isForSale,
+                atlas_file_path: response.atlasFilePath==''?'-':response.atlasFilePath,
+                network: response.network==''?'-':response.network,
+                blockchain_id: response.blockchainId==''?'-':response.blockchainId,
+                token_owner: response.tokenOwner==''?'-':response.tokenOwner,
+              };
+            }
+
+            observer.next([true, nft_model]);
+            observer.complete();
+          },
+          (error) => {
+            observer.next([false, error.status]);
+            observer.complete();
+          }
+        );
+    });
+  }
+
+  updateNft(data: NFTModel): Observable<[boolean, NFTModel]> {
+    let id = data.id;
+    let updateModel = {
+      name: data.name == '' ? '-' : data.name,
+      description: data.description == '' ? '-' : data.description,
+      category: data.category,
+      collection: data.collection,
+      image_path: data.image_path == '' ? '-' : data.image_path,
+      price: data.price == 0 ? 0 : data.price,
+      is_for_sale: data.is_for_sale,
+      atlas_images: data.atlas_file_path == '' ? '-' : data.atlas_file_path,
+    };
+
+    return new Observable<[boolean, NFTModel]>((observer) => {
+      this.httpClient.put<NFTModel>(
+        this.defaultAPIURLHost + '/nfts/' + id,
+        updateModel,
+        httpOptions
+      ).subscribe({
+        next: (response) => {
+          let data = response;
+          observer.next([true, data]);
+          observer.complete();
+        },
+        error: (error) => {
+          observer.next([false, error]);
+          observer.complete();
+        }
+      });
+    });
+  }
+
   getUserNfts() {
     return new Observable<[boolean, NFTModel]>((observer) => {
       let nftModel: NFTModel[] = [];
@@ -63,6 +136,7 @@ export class NftService {
                   network: data[i].network,
                   blockchain_id: data[i].blockchainId,
                   collection_id: data[i].collectionId,
+                  token_owner: data[i].tokenOwner,
                 });
               }
             }

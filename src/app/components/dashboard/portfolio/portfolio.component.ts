@@ -9,10 +9,10 @@ import { NftService } from 'src/app/services/nft/nft.service';
 import { CollectionService } from 'src/app/services/collection/collection.service';
 import { CategoryService } from 'src/app/services/category/category.service';
 import { PolkadotService } from 'src/app/services/polkadot/polkadot.service';
-import { CookiesService } from 'src/app/services/cookies/cookies.service';
 import { WalletInfoModel } from 'src/app/models/wallet/wallet-info.model';
-import { web3FromAddress } from '@polkadot/extension-dapp';
 import { AppSettings } from 'src/app/app-settings';
+import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
+import { NftDetailComponent } from '../nft-detail/nft-detail.component';
 
 @Component({
   selector: 'app-portfolio',
@@ -26,9 +26,11 @@ export class PortfolioComponent implements OnInit {
     private collectionService: CollectionService,
     private categoryService: CategoryService,
     private polkadotService: PolkadotService,
-    private cookiesService: CookiesService,
-    public appSettings: AppSettings
+    public appSettings: AppSettings,
+    private ref: DynamicDialogRef,
+    public dialogService: DialogService,
   ) { }
+
   wallet_name: any = '';
   dashboard_menu: MenuItem[] | undefined;
   token_transaction: TokenTransactionModel[] = [];
@@ -37,14 +39,10 @@ export class PortfolioComponent implements OnInit {
   nft_list: NFTModel[] = [];
   nft_list_diplayed: NFTModel[] = [];
   wallet_info: WalletInfoModel = new WalletInfoModel();
-
   selected_game: string = '';
   selected_category: string = '';
-
   countries: any[] | undefined;
-
   selectedCountry: any | undefined;
-
   showPopup: boolean = false;
   minPrice: number = 0;
   maxPrice: number = 0;
@@ -54,10 +52,6 @@ export class PortfolioComponent implements OnInit {
   }
   buy_collection() {
 
-  }
-  navigateToCollection(id: number) {
-    // Assuming you have the collectionId available in your component, replace 'collectionIdValue' with the actual collectionId.
-    this.router.navigate(['/collection', id]);
   }
 
   onSelectCategory(event: any) {
@@ -70,8 +64,6 @@ export class PortfolioComponent implements OnInit {
     // this.get_category_json();
   }
 
-
-
   get_collection_json() {
     this.collectionService.get_collection_json().subscribe(
       (response) => {
@@ -83,7 +75,7 @@ export class PortfolioComponent implements OnInit {
 
         if (this.collection_list.length > 0) {
           this.selected_game = this.collection_list[0].name;
-          this.get_nft_json();
+          this.getNfts();
         }
       },
       (error) => {
@@ -109,7 +101,7 @@ export class PortfolioComponent implements OnInit {
 
   dataSource: any[] = [];
 
-  async get_nft_json(): Promise<void> {
+  async getNfts(): Promise<void> {
     let data: any[] = [];
     this.nftService.getUserNfts().subscribe(
       async (response: any) => {
@@ -122,7 +114,7 @@ export class PortfolioComponent implements OnInit {
         }
       }
     );
-    
+
   }
 
   displayBalance() {
@@ -156,6 +148,7 @@ export class PortfolioComponent implements OnInit {
       // this.is_loading_nft = false;
     }, 100);
   }
+
   refreshTokenList: boolean = false;
   // Get the smart contract in Polkadot-JS
   async ngOnInit(): Promise<void> {
@@ -182,7 +175,7 @@ export class PortfolioComponent implements OnInit {
 
     this.get_collection_json();
     this.get_category_json();
-    this.get_nft_json();
+    this.getNfts();
     this.wallet_name = localStorage.getItem("wallet-meta-name");
     this.dashboard_menu = [
       {
@@ -210,5 +203,27 @@ export class PortfolioComponent implements OnInit {
       { name: 'Spain', code: 'ES' },
       { name: 'United States', code: 'US' }
     ];
+  }
+
+  editNft(id:number){
+    this.nftService.getNftById(id).subscribe(
+      async (response: any) => {
+        let results = response[1];
+        this.ref = this.dialogService.open(NftDetailComponent, {
+          header: 'Update NFT',
+          width: '480px',
+          contentStyle: {
+            'max-height': '600px',
+            overflow: 'auto',
+            'border-radius': '0 0 6px 6px',
+          },
+          baseZIndex: 10000,
+          data: { data: results },
+        });
+        this.ref.onClose.subscribe((data) => {
+          this.getNfts();
+        })
+      }
+    );
   }
 }

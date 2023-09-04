@@ -46,12 +46,13 @@ import { LoginComponent } from 'src/app/components/security/login/login.componen
 import { RegisterComponent } from 'src/app/components/security/register/register.component';
 import { DashboardRoutingModule } from './dashboard-routing.modules';
 import { PortfolioComponent } from 'src/app/components/dashboard/portfolio/portfolio.component';
-
+import { NftDetailComponent } from 'src/app/components/dashboard/nft-detail/nft-detail.component';
 
 @NgModule({
   declarations: [
     DashboardComponent,
-    PortfolioComponent
+    PortfolioComponent,
+    NftDetailComponent,
   ],
   imports: [
     CommonModule,
