@@ -56,7 +56,6 @@ export class NftDetailComponent {
       is_for_sale: this.nft_model.is_for_sale,
       atlas_images: this.nft_model.atlas_file_path,
     }
-    console.log(this.updateModel);
 
     await new Promise(async (resolve, reject) => {
       try {
@@ -68,18 +67,24 @@ export class NftDetailComponent {
                 summary: 'Success',
                 detail: 'NFT updated successfully.',
               });
-              this.loading_button = false;
-              this.ref.close();
+              this.refClose();
               resolve;
             } else {
+              this.refClose();
               reject(this.handleErrorResponse(response));
             }
           }
         );
       } catch (error) {
+        this.refClose();
         reject(new Error('An error has occured: ' + error));
       }
     });
+  }
+
+  refClose() {
+    this.loading_button = false;
+    this.ref.close();
   }
 
   handleErrorResponse(response: any) {
