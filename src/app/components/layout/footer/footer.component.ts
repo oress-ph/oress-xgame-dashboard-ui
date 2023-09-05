@@ -42,7 +42,8 @@ export class FooterComponent {
       {
           label: '<span class="text-base">Home</span>',
           escape: false,
-          iconClass: 'text-base'
+          iconClass: 'text-base',
+          command: (event) => { this.routerClick(this.appSettings.UIURLHomePageHost+'home'); }
       },
       {
           label: '<span class="text-base">About</span>',
@@ -52,25 +53,27 @@ export class FooterComponent {
       {
         label: '<span class="text-base" >Game Catalog</span>',
         escape: false,
-        iconClass: 'text-base'
+        iconClass: 'text-base',
+        command: (event) => { this.routerClick(this.appSettings.UIURLHomePageHost+'games'); }// as per ernest xgame.live/games : Game Catalog
       },
       {
         label: '<span class="text-base ">Web 3 Wallet</span>',
         escape: false,
         iconClass: 'text-base',
-        command: (event) => { this.routerClick(this.appSettings.UIURLDashboardlaceHost+'portfolio'); }
+        // command: (event) => { this.routerClick(this.appSettings.UIURLDashboardlaceHost+'portfolio'); }
+        command: (event) => { this.routerClick(this.appSettings.UIURLHomePageHost+'games'); }// as per ernest xgame.live/web3 : web3 wallet ,
       },
       {
         label: '<span class="text-base">Tokens</span>',
         escape: false,
         iconClass: 'text-base',
-        command: (event) => { this.routeClick("token") }
+        command: (event) => { this.routerClick(this.appSettings.UIURLHomePageHost+'tokenomics');}
       },
       {
         label: '<span class="text-base">NFT Marketplace</span>',
         escape: false,
         iconClass: 'text-base',
-        command: (event) => { this.routerClick(this.appSettings.UIURLMarketplaceHost); }
+        command: (event) => { this.routerClick(this.appSettings.UIURLHomePageHost+'home');  }
       }
     ];
     
@@ -88,7 +91,8 @@ export class FooterComponent {
       {
         label: '<span class="text-base" >Blogs</span>',
         escape: false,
-        iconClass: 'text-base'
+        iconClass: 'text-base',
+        command: (event) => { this.routerClick(this.appSettings.UIURLHomePageHost+'home'); }
       }
     ];
     
