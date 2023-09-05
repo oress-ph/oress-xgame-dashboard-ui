@@ -19,7 +19,6 @@ export class NftDetailComponent {
     public nftService: NftService,
   ){}
 
-  keywords: string = '';
   nft_model: NFTModel = new NFTModel();
   isContentShown:boolean = false;
   is_for_saleOptions = [
@@ -28,8 +27,6 @@ export class NftDetailComponent {
   ];
   selectedIsForSale: boolean = false;
   loading_button: boolean = false;
-  uploadedFiles: File[] = [];
-  atlas: any[] = [];
   updateModel: UpdateModel = new UpdateModel();
 
   loadModuleDetails() {
@@ -67,24 +64,19 @@ export class NftDetailComponent {
                 summary: 'Success',
                 detail: 'NFT updated successfully.',
               });
-              this.refClose();
+              this.close();
               resolve;
             } else {
-              this.refClose();
+              this.close();
               reject(this.handleErrorResponse(response));
             }
           }
         );
       } catch (error) {
-        this.refClose();
+        this.close();
         reject(new Error('An error has occured: ' + error));
       }
     });
-  }
-
-  refClose() {
-    this.loading_button = false;
-    this.ref.close();
   }
 
   handleErrorResponse(response: any) {
@@ -100,6 +92,7 @@ export class NftDetailComponent {
   }
 
   close(){
+    this.loading_button = false;
     this.ref.close();
   }
 

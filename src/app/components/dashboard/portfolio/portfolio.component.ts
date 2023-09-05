@@ -13,6 +13,7 @@ import { WalletInfoModel } from 'src/app/models/wallet/wallet-info.model';
 import { AppSettings } from 'src/app/app-settings';
 import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
 import { NftDetailComponent } from '../nft-detail/nft-detail.component';
+import { MessageService } from 'primeng/api';
 
 @Component({
   selector: 'app-portfolio',
@@ -29,6 +30,7 @@ export class PortfolioComponent implements OnInit {
     public appSettings: AppSettings,
     private ref: DynamicDialogRef,
     public dialogService: DialogService,
+    public messageService: MessageService
   ) { }
 
   wallet_name: any = '';
@@ -106,11 +108,18 @@ export class PortfolioComponent implements OnInit {
     this.nftService.getUserNfts().subscribe(
       async (response: any) => {
         let results = response;
-        if (results[0] == true) {
-          data = await results[1];
-          this.nft_list = data;
-
-          this.filterNFT();
+        if (results[0]) {
+          if (results[1] != null) {
+            data = await results[1];
+            this.nft_list = data;
+            this.filterNFT();
+          } else {
+            this.messageService.add({
+              severity: 'info',
+              summary: 'No NFTs',
+              detail: 'There\'s no NFT was found!',
+            });
+          }
         }
       }
     );

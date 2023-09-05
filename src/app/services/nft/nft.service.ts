@@ -139,6 +139,8 @@ export class NftService {
                   token_owner: data[i].tokenOwner,
                 });
               }
+            } else {
+              data = [];
             }
           }
           data = nftModel;
