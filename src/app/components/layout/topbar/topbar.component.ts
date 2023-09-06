@@ -127,6 +127,10 @@ export class TopbarComponent {
         window.location.href = this.appSettings.UIURLHomePageHost+direction;    
     }
 
+    dashboard_connect_wallet(){
+        this.router.navigate(['/wallet']);
+    }
+
     async ngOnInit(): Promise<void> {
         // this.get_language_list();  
         this.language_list = [
@@ -174,51 +178,50 @@ export class TopbarComponent {
         ];
 
         
-
         this.header_menu = [
             {
-                label: this.appSettings.translate('XGame'),
-                // routerLink: '/home', 
-                command: (event) => { this.openHomepage('home') },
+                label: this.appSettings.translate('About'),
+                routerLink: '/home', 
+                command: (event) => { this.routeClick("about") }
             },
             {
-                label: this.appSettings.translate('Explore'),
+                label: this.appSettings.translate('Assets'),
+                command: (event) => { this.routeClick("assets") }
                 // routerLink: '/home', 
                 // command: (event) => { this.routeClick("xgame") },
-                items:[
-                    {
-                        label: 'Games',  
-                        // routerLink: '/games', 
-                        command: (event) => { this.openHomepage('games') },
-                    },
-                    {
-                        label: 'Tokenomics',  
-                        // routerLink: '/tokenomics', 
-                        command: (event) => { this.openHomepage('tokenomics') },
-                    }
-                ]
+                // items:[
+                //     {
+                //         label: 'Games',  
+                //         routerLink: '/games', 
+                //     },
+                //     {
+                //         label: 'Tokenomics',  
+                //         routerLink: '/tokenomics', 
+                //     }
+                // ]
             },
             {
-                label: this.appSettings.translate('Community'),
+                label: this.appSettings.translate('Play'),
+                command: (event) => { this.routeClick("play") }
                 // routerLink: '/home', 
                 // command: (event) => { this.routeClick("xgame") },
-                items:[
-                    {
-                        label: 'Blogs',  
-                        // routerLink: '/blogs', 
-                        command: (event) => { this.openHomepage('blogs') },
-                    },
-                ]
+                // items:[
+                //     {
+                //         label: 'Blogs',  
+                //         routerLink: '/blogs', 
+                //     },
+                // ]
             },
             {
-                label: this.appSettings.translate('Marketplace'),
+                label: this.appSettings.translate('Blogs'),
                 // routerLink: '/home', 
-                command: (event) => { this.openNFTMarketplace() },
+                command: (event) => { this.routeClick("blogs") }
+                // routerLink: '/blogs', 
             },
             {
-                label: this.appSettings.translate('NFT'),
-                // routerLink: '/home', 
-                command: (event) => { this.openHomepage('home') },
+                label: this.appSettings.translate('Contact'),
+                command: (event) => { this.routeClick("contact") }
+                // command: (event) => { this.routeClick("xgame") },
             },
         ];
 

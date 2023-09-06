@@ -2,6 +2,7 @@
     max-height: 23px;
     max-width: 82px;
     margin-top: 5px;
+    margin-right: 20px;
 }
 
 :host ::ng-deep .p-menubar > p-menubarsub{
@@ -40,7 +41,6 @@
 :host ::ng-deep.p-menubar .p-menubar-end{
     display: flex;
     gap: 1rem;
-    margin-left: 20px;
     @media screen and (max-width: 960px){
         margin-left: unset;
         gap: unset
@@ -58,31 +58,31 @@
 
 :host ::ng-deep .p-menubar-start{
     @media screen and (max-width: 960px){
-        margin-right: 78%;
-    }
-    @media screen and (max-width: 860px){
-        margin-right: 73%;
-    }
-    @media screen and (max-width: 760px){
-        margin-right: 68%;
-    }
-    @media screen and (max-width: 660px){
-        margin-right: 63%;
-    }
-    @media screen and (max-width: 560px){
         margin-right: 58%;
     }
-    @media screen and (max-width: 460px){
+    @media screen and (max-width: 860px){
         margin-right: 53%;
+    }
+    @media screen and (max-width: 760px){
+        margin-right: 48%;
+    }
+    @media screen and (max-width: 660px){
+        margin-right: 38%;
+    }
+    @media screen and (max-width: 560px){
+        margin-right: 28%;
+    }
+    @media screen and (max-width: 500px){
+        margin-right: 18%;
     }    
-    @media screen and (max-width: 360px){
-        margin-right: 43%;
+    @media screen and (max-width: 450px){
+        margin-right: 13%;
     }
-    @media screen and (max-width: 260px){
-        margin-right: 38%;
+    @media screen and (max-width: 420px){
+        margin-right: 0%;
     }
-    @media screen and (max-width: 160px){
-        margin-right: 38%;
+    @media screen and (max-width: 400px){
+        margin-right: 50%;
     }
 }
 
@@ -140,13 +140,14 @@
 }
 :host ::ng-deep.p-dropdown-panel .p-dropdown-items .p-dropdown-item.p-highlight {
     color: white;
-    background: #0038FF;
+    // background: #0038FF;
+    background: linear-gradient(0deg, rgba(255, 255, 255, 0.1) 0%, rgba(255, 255, 255, 0.1) 100%), #212428;
 }
 :host ::ng-deep.p-dropdown-panel .p-dropdown-items .p-dropdown-item {
     color: white;
 }
 :host ::ng-deep.p-dropdown-panel .p-dropdown-items .p-dropdown-item:hover {
-    background-color: #212428;
+    background: linear-gradient(0deg, rgba(255, 255, 255, 0.1) 0%, rgba(255, 255, 255, 0.1) 100%), #212428;
     color: white;
 }
 :host ::ng-deep.p-button.p-button-text {
@@ -164,7 +165,7 @@
 
 
 :host ::ng-deep.p-dropdown {
-    background-color: #0038FF;
+    background-color: unset;
     border: unset;
     color: white;
     font-weight: bold;
@@ -196,12 +197,31 @@
 
 .ellipsis{
     display: none;
-    @media screen and (max-width: 1024px){
+    @media screen and (max-width: 1100px){
         display: unset;
     }
 }
 .not-ellipsis{
-    @media screen and (max-width: 1024px){
+    @media screen and (max-width: 1100px){
         display: none;
     }
+}
+:host ::ng-deep.p-dropdown-panel .p-dropdown-items .p-dropdown-item:not(.p-highlight):not(.p-disabled):hover {
+    color: #495057;
+    background: linear-gradient(0deg, rgba(255, 255, 255, 0.1) 0%, rgba(255, 255, 255, 0.1) 100%), #212428;
+}
+.network{
+    @media screen and (max-width: 400px){
+        display: none;
+    }
+}
+.network-hide{
+    display: none;
+    @media screen and (max-width: 400px){
+        display: unset;
+    }
+}
+
+:host ::ng-deep .p-overlayPanel-element .language_dropdown .p-dropdown .p-dropdown-trigger {
+    display: none !important;
 }

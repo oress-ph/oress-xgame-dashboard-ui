@@ -1,147 +1,170 @@
 
 body {
-    margin: 0;
-    font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol";
-    font-size: 1rem;
-    font-weight: 400;
-    line-height: 1.5;
-    color: white;
-    text-align: left;
-    background-color: #fff;
-  
-  background-color: #1A1124;
-      // background-image: url('/assets/img/background_body.png');
-      background-position: 0 0;
-      background-size: cover;
+  margin: 0;
+  font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol";
+  font-size: 1rem;
+  font-weight: 400;
+  line-height: 1.5;
+  color: white;
+  text-align: left;
+  background-color: #fff;
+
+  background-color: #212428;
+  background-image: url('/assets/img/homepage_background/background.webp');
+  background-position: 0 0;
+  background-size: cover;
+}
+html{
+  scroll-behavior: smooth;
+}
+
+@import url('https://fonts.googleapis.com/css2?family=Zen+Dots&display=swap');
+#mainNav {
+  width: 100%;
+  position: sticky;
+  top: 0px;
+  z-index: 900;
+}
+
+.container{
+  padding: 100px;
+  @media screen and (max-width: 1024px){
+    padding: 50px;
   }
-  html{
-    scroll-behavior: smooth;
+  @media screen and (max-width: 768px){
+    padding: 20px;
   }
-  
-  @import url('https://fonts.googleapis.com/css2?family=Zen+Dots&display=swap');
-  #mainNav {
-    width: 100%;
-    position: sticky;
-    top: 0px;
-    z-index: 9999;
+  @media screen and (max-width: 425px){
+    padding: 15px;
+    // margin: 20px 0;
   }
-  
-  .p-datatable .p-datatable-tbody > tr {
-    color: #ffffff;
-    background: transparent;
+  @media screen and (max-width: 375px){
+    padding: 10px;
+  }
+  @media screen and (max-width: 320px){
+    padding: 10px 5px ;
+  }
+}
+.header-font{
+  font-family: Zen Dots,sans-serif;
+}
+
+.content{
+  min-width: 1600px;
+  max-width: 1600px;
+  @media screen and (max-width: 1980px){
+    min-width: 1500px;
+    max-width: 1500px;
+  }
+  @media screen and (max-width: 1700px){
+    min-width: 1300px;
+    max-width: 1300px;
+  }
+  @media screen and (max-width: 1440px){
+    min-width: 1100px;
+    max-width: 1100px;
+  }
+  @media screen and (max-width: 1200px){
+    min-width: 1000px;
+    max-width: 1000px;
+  }
+  @media screen and (max-width: 1100px){
+    min-width: 900px;
+    max-width: 900px;
+  }
+  @media screen and (max-width: 1024px){
+    min-width: 100%;
+    max-width: 100%;
+  }
+  @media screen and (max-width: 948px){
+    min-width: 100%;
+    max-width: 100%;
+    margin: 50px 0;
+  }
+  @media screen and (max-width: 834px){
+    min-width: 100%;
+    max-width: 100%;
+    margin: 50px 0;
+  }
+  @media screen and (max-width: 600px){
+    min-width: 500px;
+    max-width: 500px;
+  }
+  @media screen and (max-width: 580px){
+    min-width: 400px;
+    max-width: 400px;
+  }
+  @media screen and (max-width: 480px){
+    min-width: 300px;
+  }
+}
+
+.text-2xl{
+  @media screen and (max-width: 768px){
+    font-size: 1rem !important;
+  }
+  @media screen and (max-width: 320px){
+    font-size: 0.75rem;
+  }
+}
+.text-lg{
+  @media screen and (max-width: 1024px){
+    font-size: 1rem !important;
+  }
+  @media screen and (max-width: 425px){
+    font-size: 0.75rem;
+  }
+}
+
+.text-6xl{
+  @media screen and (max-width: 2260px){
+    font-size: 2.5rem !important;
+  }
+  @media screen and (max-width: 1960px){
+    font-size: 2rem !important;
+  }
+  @media screen and (max-width: 1660px){
+    font-size: 1.75rem !important;
+  }
+  @media screen and (max-width: 1360px){
+    font-size: 1.5rem !important;
+  }
+  @media screen and (max-width: 1060px){
+    font-size: 1.25rem !important;
+  }
+}
+.text-2xl{
+  @media screen and (max-width: 2260px){
+    font-size: 2rem !important;
+  }
+  @media screen and (max-width: 1960px){
+    font-size: 1.5rem !important;
+  }
+  @media screen and (max-width: 1660px){
+    font-size: 1.25rem !important;
+  }
+  @media screen and (max-width: 1360px){
+    font-size: 1.115rem !important;
+  }
+  @media screen and (max-width: 1060px){
+    font-size: 1rem !important;
+  }
+}
+
+.text-xl{
+  @media screen and (max-width: 1440px){
+    font-size: 1.125rem !important;
   }
 
-  .container{
-    padding: 100px;
-    @media screen and (max-width: 1024px){
-      padding: 50px;
-    }
-    @media screen and (max-width: 768px){
-      padding: 20px;
-    }
-    @media screen and (max-width: 425px){
-      padding: 15px;
-      // margin: 20px 0;
-    }
-    @media screen and (max-width: 375px){
-      padding: 10px;
-    }
-    @media screen and (max-width: 320px){
-      padding: 10px 5px ;
-    }
-    
-  }
-  .header-font{
-    font-family: Zen Dots,sans-serif;
-  }
-  
-  .content{
-    min-width: 1600px;
-    max-width: 1600px;
-    @media screen and (max-width: 1980px){
-      min-width: 1500px;
-      max-width: 1500px;
-    }
-    @media screen and (max-width: 1700px){
-      min-width: 1300px;
-      max-width: 1300px;
-    }
-    @media screen and (max-width: 1440px){
-      min-width: 1100px;
-      max-width: 1100px;
-    }
-    @media screen and (max-width: 1200px){
-      min-width: 1000px;
-      max-width: 1000px;
-    }
-    @media screen and (max-width: 1100px){
-      min-width: 900px;
-      max-width: 900px;
-    }
-    @media screen and (max-width: 1024px){
-      min-width: 100%;
-      max-width: 100%;
-    }
-    @media screen and (max-width: 948px){
-      min-width: 100%;
-      max-width: 100%;
-      margin: 50px 0;
-    }
-    @media screen and (max-width: 834px){
-      min-width: 100%;
-      max-width: 100%;
-      margin: 50px 0;
-    }
-    @media screen and (max-width: 600px){
-      min-width: 500px;
-      max-width: 500px;
-    }
-    @media screen and (max-width: 580px){
-      min-width: 400px;
-      max-width: 400px;
-    }
-    @media screen and (max-width: 480px){
-      min-width: 300px;
-    }
-  }
-  
-  .text-2xl{
-    @media screen and (max-width: 768px){
-      font-size: 1rem !important;
-    }
-    @media screen and (max-width: 320px){
-      font-size: 0.75rem;
-    }
-  }
-  .text-lg{
-    @media screen and (max-width: 1024px){
-      font-size: 1rem !important;
-    }
-    @media screen and (max-width: 425px){
-      font-size: 0.75rem;
-    }
-  }
-  
-  .text-6xl{
-    @media screen and (max-width: 2260px){
-      font-size: 2.5rem !important;
-    }
-    @media screen and (max-width: 1960px){
-      font-size: 2rem !important;
-    }
-    @media screen and (max-width: 1660px){
-      font-size: 1.75rem !important;
-    }
-    @media screen and (max-width: 1360px){
-      font-size: 1.5rem !important;
-    }
-    @media screen and (max-width: 1060px){
-      font-size: 1.25rem !important;
-    }
-  }
-  
-  .text-xl{
-    @media screen and (max-width: 1440px){
-      font-size: 1.125rem !important;
-    }
-  }
+
+  // @media screen and (max-width: 1060px){
+  //   font-size: 0.75rem !important;
+  // }
+  // @media screen and (max-width: 760px){
+  //   font-size: .5rem !important;
+  // }
+}
+
+.layer-m {
+  background-color: rgba(23, 46, 98, 0.5);
+}

@@ -1,26 +1,24 @@
-<footer>
-    <div class="flex flex-column gap-3 container">
-        <div class="flex flex-wrap gap-2">
+<footer id="contact">
+    <div class="container flex flex-wrap justify-content-center">
+        <div class="flex flex-wrap gap-2 content">
             <div class="flex flex-column flex-1 order-1">
-                <!-- <div *ngFor="let item of first_col_menu" class="col-12 md:col-12 lg:col-12"  >
-                    <div class="text-center p-2 border-round-sm" style="text-align: left!important;">
+                <div *ngFor="let item of first_col_menu" class="col-12 md:col-12 lg:col-12">
+                    <div class="text-center border-round-sm" style="text-align: left!important;">
                         <label class="hoverable-label text-md" [innerHTML]="item.label"></label>
                     </div>
-                </div> -->
-                <p-menu #firstColumnMenu [model]="first_col_menu"></p-menu>
+                </div>
             </div>
-            <div class="flex flex-column gap-3 flex-1 order-2">
-                <!-- <div *ngFor="let item of second_col_menu" class="col-12 md:col-12 lg:col-12"  >
-                    <div class="text-center p-2 border-round-sm" style="text-align: left!important;">
+            <div class="flex flex-column flex-1 order-2">
+                <div *ngFor="let item of second_col_menu" class="col-12 md:col-12 lg:col-12">
+                    <div class="text-center border-round-sm" style="text-align: left!important;">
                         <label class="hoverable-label text-md" [innerHTML]="item.label"></label>
                     </div>
-                </div> -->
-                <p-menu #secondColumnMenu [model]="second_col_menu"></p-menu>
+                </div>
             </div>
             <div class="flex flex-column gap-4 flex-1 order-3">
-                <div class="flex flex-column gap-2" style="padding: 12px 20px;">
+                <div class="flex flex-column gap-2">
                     <div class="text-lg">
-                        <img src="./../../../assets/img/XGame_Logo_white.webp" height="40" class="mr-2" />
+                        <img src="./../../../assets/img/xGame_Logo_white_new.webp" height="40" class="mr-2" />
                     </div>
                     <div class="text-lg">
                         308-309 Arcada 5, Lopez Jaena St., Tipolo
@@ -29,19 +27,19 @@
                         (032) 505 2433
                     </div>
                 </div>
-                <div class="flex flex-column" style="padding-left: 12px;">
+                <div class="flex flex-column">
                     <div class="text-lg font-bold" style="color: #FF107B;">
-                        next7gens@gmail.com
+                        admin@x-game.com
                     </div>
                 </div>
-                <div class="flex flex-wrap gap-2" style="padding-left: 12px;">
-                    <p-button icon="pi pi-twitter" styleClass="p-button-rounded p-button-outlined"></p-button>
-                    <p-button icon="pi pi-instagram" styleClass="p-button-rounded p-button-outlined"></p-button>
-                    <p-button icon="pi pi-facebook" styleClass="p-button-rounded p-button-outlined"></p-button>
-                    <p-button icon="pi pi-discord" styleClass="p-button-rounded p-button-outlined"></p-button>
-                    <p-button icon="pi pi-telegram" styleClass="p-button-rounded p-button-outlined"></p-button>
+                <div class="flex flex-wrap gap-2">
+                    <p-button icon="pi pi-twitter" styleClass="p-button-rounded p-button-outlined" class="flex-1"></p-button>
+                    <p-button icon="pi pi-instagram" styleClass="p-button-rounded p-button-outlined" class="flex-1"></p-button>
+                    <p-button icon="pi pi-facebook" styleClass="p-button-rounded p-button-outlined" class="flex-1"></p-button>
+                    <p-button icon="pi pi-discord" styleClass="p-button-rounded p-button-outlined" class="flex-1"></p-button>
+                    <p-button icon="pi pi-telegram" styleClass="p-button-rounded p-button-outlined" class="flex-1"></p-button>
                 </div>
-            </div> 
+            </div>
         </div>
     </div>
     <div class="flex flex-column legal-section">
