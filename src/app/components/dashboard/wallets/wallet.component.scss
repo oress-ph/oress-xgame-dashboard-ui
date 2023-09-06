@@ -10,7 +10,7 @@
     }
 }
 :host ::ng-deep.p-card{
-    background-color: #20132B;
+    background: linear-gradient(0deg, rgba(255, 255, 255, 0.1) 0%, rgba(255, 255, 255, 0.1) 100%), #212428;
     width: 400px;
     margin: auto;
     @media screen and (max-width: 440px){

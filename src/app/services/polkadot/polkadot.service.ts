@@ -153,6 +153,7 @@ export class PolkadotService {
               network: tokenData.network,
               blockchain_id: tokenData.blockchainId,
               collection_id: tokenData.collectionId,
+              token_owner: tokenData.tokenOwner,
             };
             this.nftModel.push(token);
           }
@@ -232,17 +233,17 @@ export class PolkadotService {
 
       return isValid;
     }
-    
+
     return false;
   }
   async clearPendingSignature() {
     try {
       await (await this.api).isReady;
-      
+
       console.log((await this.api).isReady);
       // const pendingExtrinsics = (await this.api).query.system.pendingExtrinsics();
       const pendingExtrinsics = (await this.api).rpc.author.pendingExtrinsics();
- 
+
       console.log(pendingExtrinsics);
       console.log('Pending signature cleared successfully.');
     } catch (error) {

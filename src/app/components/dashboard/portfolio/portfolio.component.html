@@ -45,7 +45,7 @@
               <th style="text-align: right;">{{appSettings.translate("Value")}}</th>
             </tr>
           </ng-template>
-         
+
           <ng-template pTemplate="body" let-token>
             <tr>
               <td>{{ token.token }}</td>
@@ -89,7 +89,7 @@
         <div class="nft-list" *ngFor="let nft_list of nft_list_diplayed">
           <p-card [style]="{ width: '100%' }">
             <ng-template pTemplate="header">
-              <div class="header-container" (click)="navigateToCollection(nft_list.id)" style="cursor: pointer;">
+              <div class="header-container" (click)="editNft(nft_list.id)" style="cursor: pointer;">
 
                 <img alt="Card" [src]="nft_list.image_path" />
                 <div class="header">

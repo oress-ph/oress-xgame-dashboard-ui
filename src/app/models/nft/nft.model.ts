@@ -11,4 +11,5 @@ export class NFTModel {
     network: string = ''
     blockchain_id: string = ''
     collection_id: string = '';
+    token_owner: string = '';
 }

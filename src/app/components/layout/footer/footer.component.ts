@@ -9,21 +9,25 @@ import { Router } from '@angular/router';
   styleUrls: ['./footer.component.scss']
 })
 export class FooterComponent {
-  items: MenuItem[] | undefined;
+  first_col_menu: MenuItem[] | undefined;
+  second_col_menu: MenuItem[] | undefined;
+  footer_options: MenuItem[] | undefined;
+
   constructor(
     public appSettings:AppSettings,
     private router: Router,
   ){
 
   }
+
   public routeClick(route: any): void {
     
     if (route == 'home')
         this.router.navigate(['/home']).then(() => {
             window.scrollTo(0, 0);
         });
-    
-        // this.router.navigate(route);
+    else
+        this.router.navigate(route);
         // this.publicService.routeChange(route);
 
         // window.location.href = route;
@@ -32,49 +36,87 @@ export class FooterComponent {
   public routerClick(route:any):void{
     window.location.href=route
   }
-  
+
   ngOnInit() {
-    this.items = [
+    this.first_col_menu = [
       {
-          label: '<span class="text-base font-bold">About</span>',
+          label: '<span class="text-base">Home</span>',
           escape: false,
-          // icon: 'pi pi-refresh',
+          iconClass: 'text-base',
+          command: (event) => { this.routerClick(this.appSettings.UIURLHomePageHost+'home'); }
+      },
+      {
+          label: '<span class="text-base">About</span>',
+          escape: false,
           iconClass: 'text-base'
       },
       {
-        label: '<span class="text-base font-bold">Game Catalog</span>',
+        label: '<span class="text-base" >Game Catalog</span>',
         escape: false,
-        // icon: 'pi pi-refresh',
-        iconClass: 'text-base'
+        iconClass: 'text-base',
+        command: (event) => { this.routerClick(this.appSettings.UIURLHomePageHost+'games'); }// as per ernest xgame.live/games : Game Catalog
       },
       {
-        label: '<span class="text-base font-bold">Web 3 Wallet</span>',
+        label: '<span class="text-base ">Web 3 Wallet</span>',
         escape: false,
-        // icon: 'pi pi-refresh',
         iconClass: 'text-base',
-        command: (event) => { this.routerClick(this.appSettings.UIURLDashboardlaceHost+'portfolio'); }
+        // command: (event) => { this.routerClick(this.appSettings.UIURLDashboardlaceHost+'portfolio'); }
+        command: (event) => { this.routerClick(this.appSettings.UIURLHomePageHost+'games'); }// as per ernest xgame.live/web3 : web3 wallet ,
       },
       {
-        label: '<span class="text-base font-bold">Tokens</span>',
+        label: '<span class="text-base">Tokens</span>',
         escape: false,
-        // icon: 'pi pi-refresh',
         iconClass: 'text-base',
-        command: (event) => { this.routerClick(this.appSettings.UIURLHomePageHost); }
+        command: (event) => { this.routerClick(this.appSettings.UIURLHomePageHost+'tokenomics');}
       },
       {
-        label: '<span class="text-base font-bold">NFT Marketplace</span>',
+        label: '<span class="text-base">NFT Marketplace</span>',
         escape: false,
-        // icon: 'pi pi-refresh',
         iconClass: 'text-base',
-        command: (event) => { this.routerClick(this.appSettings.UIURLMarketplaceHost); }
+        command: (event) => { this.routerClick(this.appSettings.UIURLHomePageHost+'home');  }
+      }
+    ];
+    
+    this.second_col_menu = [
+      {
+          label: '<span class="text-base">Community</span>',
+          escape: false,
+          iconClass: 'text-base'
       },
       {
-        label: '<span class="text-base font-bold">Dashboard</span>',
+          label: '<span class="text-base">Discord</span>',
+          escape: false,
+          iconClass: 'text-base'
+      },
+      {
+        label: '<span class="text-base" >Blogs</span>',
         escape: false,
-        // icon: 'pi pi-refresh',
         iconClass: 'text-base',
-        command: (event) => { this.routerClick(this.appSettings.UIURLDashboardlaceHost+'portfolio'); }
+        command: (event) => { this.routerClick(this.appSettings.UIURLHomePageHost+'home'); }
+      }
+    ];
+    
+    this.footer_options = [
+      {
+          label: '<span class="text-base text-500" >Copyright Notice</span>',
+          escape: false,
+      },
+      {
+        label: '<span class="text-base text-500" >Privacy Policy</span>',
+        escape: false,
+      },
+      {
+        label: '<span class="text-base text-500">Terms of Use</span>',
+        escape: false,
+      },
+      {
+        label: '<span class="text-base text-500">Cookie Policy</span>',
+        escape: false,
+      },
+      {
+        label: '<span class="text-base text-500">Legal Disclaimer</span>',
+        escape: false,
       },
     ];
-}
+  }
 }
