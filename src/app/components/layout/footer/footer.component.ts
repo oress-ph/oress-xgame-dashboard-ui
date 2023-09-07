@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
-import { MenuItem } from 'primeng/api';
 import { AppSettings } from 'src/app/app-settings';
-import { Router } from '@angular/router';
+import { MenuItem } from 'primeng/api';
+import { Router, RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-footer',
@@ -20,60 +20,43 @@ export class FooterComponent {
 
   }
 
-  public routeClick(route: any): void {
-    
-    if (route == 'home')
-        this.router.navigate(['/home']).then(() => {
-            window.scrollTo(0, 0);
-        });
-    else
-        this.router.navigate(route);
-        // this.publicService.routeChange(route);
 
-        // window.location.href = route;
-
-  }
   public routerClick(route:any):void{
+    console.log(route);
     window.location.href=route
   }
 
   ngOnInit() {
     this.first_col_menu = [
       {
-          label: '<span class="text-base">Home</span>',
-          escape: false,
-          iconClass: 'text-base',
-          command: (event) => { this.routerClick(this.appSettings.UIURLHomePageHost+'home'); }
-      },
-      {
           label: '<span class="text-base">About</span>',
           escape: false,
-          iconClass: 'text-base'
+          iconClass: 'text-base',
+          routerLink:this.appSettings.UIURLHomePageHost+'home'
       },
       {
         label: '<span class="text-base" >Game Catalog</span>',
         escape: false,
         iconClass: 'text-base',
-        command: (event) => { this.routerClick(this.appSettings.UIURLHomePageHost+'games'); }// as per ernest xgame.live/games : Game Catalog
+        routerLink:this.appSettings.UIURLHomePageHost+'games'
       },
       {
         label: '<span class="text-base ">Web 3 Wallet</span>',
         escape: false,
         iconClass: 'text-base',
-        // command: (event) => { this.routerClick(this.appSettings.UIURLDashboardlaceHost+'portfolio'); }
-        command: (event) => { this.routerClick(this.appSettings.UIURLHomePageHost+'games'); }// as per ernest xgame.live/web3 : web3 wallet ,
+        routerLink:this.appSettings.UIURLHomePageHost+'web3'
       },
       {
-        label: '<span class="text-base">Tokens</span>',
+        label: '<span class="text-base">Tokenomics</span>',
         escape: false,
         iconClass: 'text-base',
-        command: (event) => { this.routerClick(this.appSettings.UIURLHomePageHost+'tokenomics');}
+        routerLink:this.appSettings.UIURLHomePageHost+'tokenomics'
       },
       {
         label: '<span class="text-base">NFT Marketplace</span>',
         escape: false,
         iconClass: 'text-base',
-        command: (event) => { this.routerClick(this.appSettings.UIURLHomePageHost+'home');  }
+        routerLink:this.appSettings.UIURLMarketplaceHost+'marketplace'
       }
     ];
     
@@ -81,18 +64,20 @@ export class FooterComponent {
       {
           label: '<span class="text-base">Community</span>',
           escape: false,
-          iconClass: 'text-base'
+          iconClass: 'text-base',
+          routerLink:''
       },
       {
           label: '<span class="text-base">Discord</span>',
           escape: false,
-          iconClass: 'text-base'
+          iconClass: 'text-base',
+          routerLink:'https://discord.com/invite/3yasNXQ7'
       },
       {
         label: '<span class="text-base" >Blogs</span>',
         escape: false,
         iconClass: 'text-base',
-        command: (event) => { this.routerClick(this.appSettings.UIURLHomePageHost+'home'); }
+        routerLink:this.appSettings.UIURLHomePageHost+'/blogs'
       }
     ];
     

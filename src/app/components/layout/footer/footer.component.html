@@ -4,21 +4,22 @@
             <div class="flex flex-column flex-1 order-1">
                 <div *ngFor="let item of first_col_menu" class="col-12 md:col-12 lg:col-12">
                     <div class="text-center border-round-sm" style="text-align: left!important;">
-                        <label class="hoverable-label text-md" [innerHTML]="item.label"></label>
+                        <label class="hoverable-label text-md" [innerHTML]="item.label" style="cursor: pointer;" (click)="routerClick(item.routerLink)"></label>
+
                     </div>
                 </div>
             </div>
             <div class="flex flex-column flex-1 order-2">
                 <div *ngFor="let item of second_col_menu" class="col-12 md:col-12 lg:col-12">
                     <div class="text-center border-round-sm" style="text-align: left!important;">
-                        <label class="hoverable-label text-md" [innerHTML]="item.label"></label>
+                        <label class="hoverable-label text-md" [innerHTML]="item.label" style="cursor: pointer;" (click)="item.routerLink && routerClick(item.routerLink)"></label>
                     </div>
                 </div>
             </div>
             <div class="flex flex-column gap-4 flex-1 order-3">
                 <div class="flex flex-column gap-2">
                     <div class="text-lg">
-                        <img src="./../../../assets/img/xGame_Logo_white_new.webp" height="40" class="mr-2" />
+                        <img src="./../../../assets/img/xGame_Logo_white_new.webp" height="40" class="mr-2" (click)="routerClick(appSettings.UIURLHomePageHost)" style="cursor: pointer;"/>
                     </div>
                     <div class="text-lg">
                         308-309 Arcada 5, Lopez Jaena St., Tipolo
@@ -29,7 +30,7 @@
                 </div>
                 <div class="flex flex-column">
                     <div class="text-lg font-bold" style="color: #FF107B;">
-                        admin@x-game.com
+                        admin@xgame.com
                     </div>
                 </div>
                 <div class="flex flex-wrap gap-2">
