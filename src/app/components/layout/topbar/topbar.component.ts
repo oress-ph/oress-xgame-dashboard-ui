@@ -63,7 +63,7 @@ export class TopbarComponent {
 
     routeClick(section: any) {
         let redirectTo = '?section=' + section;
-        window.location.href = this.appSettings.UIURLHomePageHost + redirectTo;
+        window.location.href = this.appSettings.UIURLHomePageHost+'home'+ redirectTo;
     }
     logout() {
         console.log('test');

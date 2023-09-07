@@ -2,7 +2,8 @@
     <p-card header="" subheader="">
         <ng-template pTemplate="header" class="flex align-items-center">
             <!-- <img alt="Card" src="https://primefaces.org/cdn/primeng/images/usercard.png" /> -->
-            <img src="./../../../assets/img/XGame_Logo_white.png" height="40" class="mr-2" />
+            <!-- <img src="./../../../assets/img/XGame_Logo_white.png" height="40" class="mr-2" /> -->
+            <img src="./../../../../assets/img/xGame_Logo_white_new.webp" height="40" class="mr-2" />
         </ng-template>
         <div *ngIf="selectedWallet == ''">
             <div class="connect-wallet-title text-center" style="margin-bottom: 40px;">
@@ -70,12 +71,12 @@
             </div>
             <br />
         </div>
-        
+
         <ng-template pTemplate="footer">
             <div class="text-sm text-center">
                 <span>{{appSettings.translate("By connecting, I accept XGame’s Terms of Service")}} </span>
             </div>
         </ng-template>
     </p-card>
-    
+
 </div>

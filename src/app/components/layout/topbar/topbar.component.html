@@ -20,7 +20,7 @@
                         </div>
                     </ng-template>
                 </p-dropdown>
-                
+
                 <p-dropdown [options]="wallet_menu" [(ngModel)]="selected_wallet" optionLabel="wallet_net"  optionDisabled="status" class="network-hide">
                     <ng-template pTemplate="selectedItem" >
                         <div class="flex align-items-center gap-2" *ngIf="selected_wallet">
@@ -33,7 +33,7 @@
                         </div>
                       </ng-template>
                 </p-dropdown>
-    
+
                 <p-button icon="pi pi-wallet" (click)="!is_connect_wallet ? dashboard_connect_wallet() : op.toggle($event)"
                 styleClass="p-button-rounded p-button-text"
                 [pTooltip]="!is_connect_wallet ? 'Connect Wallet' : ''"
@@ -50,7 +50,8 @@
                 <div class="flex align-items-center gap-2" *ngIf="selected_language" >
                     <!-- <span class="pi pi-language"></span> -->
                     <div class="text-white">
-                        {{appSettings.translate(selected_language.language)}}
+                        <!-- {{appSettings.translate(selected_language.language)}} -->
+                        <img [src]="selected_language.flag_image_url" width="40" height="20" class="image-icon" />
                     </div>
                 </div>
             </ng-template>
@@ -61,7 +62,7 @@
                 </div>
             </ng-template>
         </p-dropdown>
-        
+
 
         <p-dropdown [options]="wallet_menu" [(ngModel)]="selected_wallet" optionLabel="wallet_net"  optionDisabled="status" class="network">
             <ng-template pTemplate="selectedItem" >
@@ -77,7 +78,7 @@
         </p-dropdown>
 
         <p-button icon="pi pi-wallet" (click)="!is_connect_wallet ? dashboard_connect_wallet() : op.toggle($event)"
-        styleClass="p-button-rounded p-button-text" class="not-ellipsis" 
+        styleClass="p-button-rounded p-button-text" class="not-ellipsis"
         [pTooltip]="!is_connect_wallet ? 'Connect Wallet' : ''"
         tooltipPosition="bottom" >
       </p-button>
