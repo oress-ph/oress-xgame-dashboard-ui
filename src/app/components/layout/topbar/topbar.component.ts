@@ -11,6 +11,7 @@ import { PolkadotService } from 'src/app/services/polkadot/polkadot.service';
 import { LanguageService } from 'src/app/services/language/language.service';
 import { LanguageModel } from 'src/app/models/language/language.model';
 import { MessageService } from 'primeng/api';
+import { ViewportScroller, Location } from "@angular/common";
 
 interface Country {
     name: string;
@@ -32,7 +33,7 @@ export class TopbarComponent {
         private polkadotService: PolkadotService,
         private languageService: LanguageService,
         private messageService: MessageService,
-
+        private scroller: ViewportScroller,
     ) {
     }
 
@@ -64,6 +65,11 @@ export class TopbarComponent {
     routeClick(section: any) {
         let redirectTo = '?section=' + section;
         window.location.href = this.appSettings.UIURLHomePageHost+'home'+ redirectTo;
+    }
+    public routerClick(section: string): void {
+        setTimeout(() => {
+            this.scroller.scrollToAnchor(section);
+        }, 100);
     }
     logout() {
         console.log('test');
@@ -187,30 +193,10 @@ export class TopbarComponent {
             {
                 label: this.appSettings.translate('Assets'),
                 command: (event) => { this.routeClick("assets") }
-                // routerLink: '/home', 
-                // command: (event) => { this.routeClick("xgame") },
-                // items:[
-                //     {
-                //         label: 'Games',  
-                //         routerLink: '/games', 
-                //     },
-                //     {
-                //         label: 'Tokenomics',  
-                //         routerLink: '/tokenomics', 
-                //     }
-                // ]
             },
             {
                 label: this.appSettings.translate('Play'),
                 command: (event) => { this.routeClick("play") }
-                // routerLink: '/home', 
-                // command: (event) => { this.routeClick("xgame") },
-                // items:[
-                //     {
-                //         label: 'Blogs',  
-                //         routerLink: '/blogs', 
-                //     },
-                // ]
             },
             {
                 label: this.appSettings.translate('Blogs'),
@@ -220,8 +206,7 @@ export class TopbarComponent {
             },
             {
                 label: this.appSettings.translate('Contact'),
-                command: (event) => { this.routeClick("contact") }
-                // command: (event) => { this.routeClick("xgame") },
+                command: (event) => { this.routerClick("contact") }
             },
         ];
 

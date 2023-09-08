@@ -1,6 +1,6 @@
 <p-menubar [model]="header_menu" id="mainNav">
     <ng-template pTemplate="start">
-        <img src="./../../../assets/img/xGame_Logo_white_new.webp" height="40"/>
+        <img src="./../../../assets/img/xGame_Logo_white_new.webp" height="40" (click)="routeClick('about')" style="cursor: pointer;"/>
     </ng-template>
 
     <ng-template pTemplate="end">
@@ -10,8 +10,11 @@
                 <p-dropdown [options]="language_list" [(ngModel)]="selected_language" optionLabel="language"  optionDisabled="status" class="language_dropdown" (onChange)="onChangeLanguage($event)"*ngIf="language_list.length>0">
                     <ng-template pTemplate="selectedItem" >
                         <div class="flex align-items-center gap-2" *ngIf="selected_language" >
-                            <span class="pi pi-language"></span>
-                    </div>
+                            <!-- <span class="pi pi-language"></span> -->
+                            <div class="flex">
+                                <img [src]="selected_language.flag_image_url" width="40" height="20" class="image-icon" />
+                            </div>
+                        </div>
                     </ng-template>
                     <ng-template let-language  pTemplate="item">
                         <div class="capitalize">
@@ -20,7 +23,7 @@
                         </div>
                     </ng-template>
                 </p-dropdown>
-
+                
                 <p-dropdown [options]="wallet_menu" [(ngModel)]="selected_wallet" optionLabel="wallet_net"  optionDisabled="status" class="network-hide">
                     <ng-template pTemplate="selectedItem" >
                         <div class="flex align-items-center gap-2" *ngIf="selected_wallet">
@@ -33,8 +36,8 @@
                         </div>
                       </ng-template>
                 </p-dropdown>
-
-                <p-button icon="pi pi-wallet" (click)="!is_connect_wallet ? dashboard_connect_wallet() : op.toggle($event)"
+    
+                <p-button icon="pi pi-wallet" (click)="!is_connect_wallet ? connectWallet() : op.toggle($event)"
                 styleClass="p-button-rounded p-button-text"
                 [pTooltip]="!is_connect_wallet ? 'Connect Wallet' : ''"
                 tooltipPosition="bottom">
@@ -49,8 +52,7 @@
             <ng-template pTemplate="selectedItem" >
                 <div class="flex align-items-center gap-2" *ngIf="selected_language" >
                     <!-- <span class="pi pi-language"></span> -->
-                    <div class="text-white">
-                        <!-- {{appSettings.translate(selected_language.language)}} -->
+                    <div class="flex">
                         <img [src]="selected_language.flag_image_url" width="40" height="20" class="image-icon" />
                     </div>
                 </div>
@@ -62,7 +64,7 @@
                 </div>
             </ng-template>
         </p-dropdown>
-
+        
 
         <p-dropdown [options]="wallet_menu" [(ngModel)]="selected_wallet" optionLabel="wallet_net"  optionDisabled="status" class="network">
             <ng-template pTemplate="selectedItem" >
@@ -77,8 +79,8 @@
               </ng-template>
         </p-dropdown>
 
-        <p-button icon="pi pi-wallet" (click)="!is_connect_wallet ? dashboard_connect_wallet() : op.toggle($event)"
-        styleClass="p-button-rounded p-button-text" class="not-ellipsis"
+        <p-button icon="pi pi-wallet" (click)="!is_connect_wallet ? connectWallet() : op.toggle($event)"
+        styleClass="p-button-rounded p-button-text" class="not-ellipsis" 
         [pTooltip]="!is_connect_wallet ? 'Connect Wallet' : ''"
         tooltipPosition="bottom" >
       </p-button>
