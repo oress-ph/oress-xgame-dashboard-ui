@@ -154,6 +154,11 @@ export class TopbarComponent {
                 id: '1',
                 language: 'Japanese',
                 flag_image_url: 'https://cdn.britannica.com/91/1791-004-DA3579A5/Flag-Japan.jpg'
+            },
+            {
+                id: '1',
+                language: '',
+                flag_image_url: 'https://cdn.britannica.com/90/7490-004-BAD4AA72/Flag-China.jpg'
             }
         ]
         this.selected_language = this.cookiesService.getCookie('language') == '' ? this.cookiesService.setCookieArray('language', this.language_list[0]) : this.cookiesService.getCookieArray('language');
