@@ -212,6 +212,8 @@ export class PortfolioComponent implements OnInit {
       { name: 'Spain', code: 'ES' },
       { name: 'United States', code: 'US' }
     ];
+
+    this.polkadotService.checkCookie();
   }
 
   editNft(id:number){

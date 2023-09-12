@@ -69,14 +69,14 @@ export class CookiesService {
   getCookieArray(name: any) {
     try {
       const cookie_value = this.cookieService.get(name);
-  
+
       if (!cookie_value) {
         return null; // No need to decrypt and parse if the cookie value is empty
       }
-  
+
       const secretKey = 'x_game_encryption_password';
       const decrypt_value = this.decryptData(cookie_value, secretKey);
-  
+
       try {
         return JSON.parse(decrypt_value as string);
       } catch (e) {
@@ -88,7 +88,7 @@ export class CookiesService {
       return null;
     }
   }
-  
+
   setCookieArray(name: any,value:any){
     try{
       const secretKey = 'x_game_encryption_password';
@@ -103,4 +103,18 @@ export class CookiesService {
     }
   }
 
+  getRaw(cookieName: string) {
+    return this.cookieService.get(cookieName);
+  }
+
+  isExpired(cookie: string) {
+    const isCookieValid = this.cookieService.check(cookie);
+    if (isCookieValid) {
+      console.log('The cookie is still valid.');
+      return false;
+    } else {
+      console.log('The cookie has expired.');
+      return true;
+    }
+  }
 }

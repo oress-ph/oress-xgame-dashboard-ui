@@ -13,6 +13,7 @@ import { formatBalance } from '@polkadot/util';
 import { NFTModel } from 'src/app/models/nft/nft.model';
 import { CookiesService } from '../cookies/cookies.service';
 import { Observable } from 'rxjs';
+import { Router } from '@angular/router';
 
 const httpOptions = {
   headers: new HttpHeaders({
@@ -30,7 +31,7 @@ export class PolkadotService {
     private appSettings: AppSettings,
     private http: HttpClient,
     private cookiesService: CookiesService,
-
+    private router: Router
   ) { }
   public defaultAPIURLHost: string = this.appSettings.APIURLHostNFT;
   wsProvider = new WsProvider(this.appSettings.wsProviderEndpoint);
@@ -322,5 +323,12 @@ export class PolkadotService {
       stringSign = this.cookiesService.getCookie('wallet-keypair')
     }
     return stringSign;
+  }
+
+  async checkCookie() {
+    if (this.cookiesService.isExpired('wallet-keypair')) {
+      this.cookiesService.deleteAllCookie();
+      await this.router.navigate(["/wallet"]);
+    }
   }
 }
