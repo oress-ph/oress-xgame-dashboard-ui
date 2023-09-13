@@ -2,13 +2,18 @@ import { Injectable } from '@angular/core';
 import * as CryptoJS from 'crypto-js'
 import { CookieService } from 'ngx-cookie-service';
 import { AppSettings } from 'src/app/app-settings';
+import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root'
 })
 export class CookiesService {
 
-  constructor(private cookieService:CookieService,private appSettings:AppSettings) { }
+  constructor(
+    private cookieService:CookieService,
+    private appSettings:AppSettings,
+    private router: Router
+  ) { }
 
   all_site:any = this.appSettings.AllURL;
 
@@ -103,8 +108,11 @@ export class CookiesService {
     }
   }
 
-  getRaw(cookieName: string) {
-    return this.cookieService.get(cookieName);
+  async checkCookie() {
+    if (this.isExpired('wallet-keypair')) {
+      this.deleteAllCookie();
+      await this.router.navigate(["/wallet"]);
+    }
   }
 
   isExpired(cookie: string) {

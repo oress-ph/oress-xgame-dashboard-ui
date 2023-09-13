@@ -325,10 +325,5 @@ export class PolkadotService {
     return stringSign;
   }
 
-  async checkCookie() {
-    if (this.cookiesService.isExpired('wallet-keypair')) {
-      this.cookiesService.deleteAllCookie();
-      await this.router.navigate(["/wallet"]);
-    }
-  }
+
 }
