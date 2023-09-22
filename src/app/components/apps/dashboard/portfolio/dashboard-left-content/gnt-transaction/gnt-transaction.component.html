@@ -11,133 +11,23 @@
           <tr>
             <th class="f-light" style="min-width: 20px;">GNT</th>
             <th class="f-light">Price</th>
-            <!-- <th class="f-light">24h Change</th> -->
             <th class="f-light">Total Balance</th>
             <th class="f-light">Total GNT</th>
-            <!-- <th class="f-light">Action</th> -->
           </tr>
         </thead>
         <tbody>
           <tr *ngFor="let item of currencies">
             <td style="min-width: 80px;">
               <div class="d-flex align-items-center gap-2">
-                <!-- <div class="currency-icon {{ item.colorClass }}">
-                  <svg>
-                    <use attr.xlink:href="assets/svg/icon-sprite.svg#{{ item.icon }}"></use>
-                  </svg>
-                </div> -->
                 <div>
                   <h6 class="f-14 mb-0 f-w-400">{{ item.currenciesName }} GNT</h6>
                 </div>
               </div>
             </td>
             <td style="min-width: 120px;">$ {{ item.price }}</td>
-            <!-- <td>
-              <div class="change-currency" [ngClass]="item.arrow === 'trending-up' ? 'font-success' : 'font-secondary'">
-                <i class="me-1">
-                  <app-feather-icons [icon]="item.arrow"></app-feather-icons> </i
-                >{{ item.growth }}
-              </div>
-            </td> -->
             <td style="min-width: 150px;">{{ item.totalBalance }} GNT</td>
             <td style="min-width: 150px;">{{ item.totalCoin }} GNT</td>
-            <!-- <td>
-              <button class="btn badge-light-primary">Trade</button>
-            </td> -->
           </tr>
-
-          <!-- <tr> 
-             <td>
-               <div class="d-flex align-items-center gap-2">
-                 <div class="currency-icon success">
-                   <svg>
-                     <use href="assets/svg/icon-sprite.svg#ltc"></use>
-                   </svg>
-                 </div>
-                 <div> 
-                   <h6 class="f-14 mb-0 f-w-400">Litecoin</h6>
-                 </div>
-               </div>
-             </td>
-             <td>$11,098.04</td>
-             <td>
-               <div class="change-currency font-secondary"><i class="me-1" data-feather="trending-down"></i>2.90</div>
-             </td>
-             <td>$87,897.098</td>
-             <td>1.09675432</td>
-             <td> 
-               <button class="btn badge-light-primary">Trade</button>
-             </td>
-           </tr>
-           <tr> 
-             <td>
-               <div class="d-flex align-items-center gap-2">
-                 <div class="currency-icon primary">
-                   <svg>
-                     <use href="assets/svg/icon-sprite.svg#eth"></use>
-                   </svg>
-                 </div>
-                 <div> 
-                   <h6 class="f-14 mb-0 f-w-400">Eathereum</h6>
-                 </div>
-               </div>
-             </td>
-             <td>$45,198.09</td>
-             <td>
-               <div class="change-currency font-success"><i class="me-1" data-feather="trending-up"></i>0.12</div>
-             </td>
-             <td>$45,178.010</td>
-             <td>1.41557127</td>
-             <td> 
-               <button class="btn badge-light-primary">Trade</button>
-             </td>
-           </tr>
-           <tr> 
-             <td>
-               <div class="d-flex align-items-center gap-2">
-                 <div class="currency-icon secondary">
-                   <svg>
-                     <use href="assets/svg/icon-sprite.svg#bin"></use>
-                   </svg>
-                 </div>
-                 <div> 
-                   <h6 class="f-14 mb-0 f-w-400">Binance</h6>
-                 </div>
-               </div>
-             </td>
-             <td>$35,098.34</td>
-             <td>
-               <div class="change-currency font-success"><i class="me-1" data-feather="trending-up"></i>3.56</div>
-             </td>
-             <td>$64,100.066</td>
-             <td>1.78142254</td>
-             <td> 
-               <button class="btn badge-light-primary">Trade</button>
-             </td>
-           </tr>
-           <tr> 
-             <td>
-               <div class="d-flex align-items-center gap-2">
-                 <div class="currency-icon dark-green">
-                   <svg>
-                     <use href="assets/svg/icon-sprite.svg#te"></use>
-                   </svg>
-                 </div>
-                 <div> 
-                   <h6 class="f-14 mb-0 f-w-400">Tether</h6>
-                 </div>
-               </div>
-             </td>
-             <td>$56,898.91</td>
-             <td>
-               <div class="change-currency font-secondary"><i class="me-1" data-feather="trending-down"></i>1.23</div>
-             </td>
-             <td>$61,574.218</td>
-             <td>1.574215</td>
-             <td> 
-               <button class="btn badge-light-primary">Trade</button>
-             </td>
-           </tr> -->
         </tbody>
       </table>
     </div>
