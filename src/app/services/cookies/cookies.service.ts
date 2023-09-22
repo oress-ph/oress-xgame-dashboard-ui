@@ -109,20 +109,32 @@ export class CookiesService {
   }
 
   async checkCookie() {
-    if (this.isExpired('wallet-keypair')) {
-      this.deleteAllCookie();
-      await this.router.navigate(["/wallet"]);
+    let walletAddress = 'wallet-keypair';
+    if (this.isExpired(walletAddress)) {
+      this.all_site.forEach((sites:any) => {
+        const cookies = this.cookieService.getAll();
+        for (const cookieName in cookies) {
+          if (cookies.hasOwnProperty(walletAddress)) {
+            this.cookieService.delete(cookieName, '/', sites.url);
+            if (this.isExpired(walletAddress)) {
+              setTimeout(() => {
+                window.location.reload();
+              }, 100);
+            }
+          }
+        }
+      });
     }
   }
 
   isExpired(cookie: string) {
     const isCookieValid = this.cookieService.check(cookie);
-    if (isCookieValid) {
-      console.log('The cookie is still valid.');
-      return false;
-    } else {
-      console.log('The cookie has expired.');
+    if (!isCookieValid) {
+      // console.log('The cookie has expired.');
       return true;
+    } else {
+      // console.log('The cookie is still valid.');
+      return false;
     }
   }
 }

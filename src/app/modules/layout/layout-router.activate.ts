@@ -9,11 +9,12 @@ export class LayoutRouterActivate implements CanActivate {
     ) { }
 
     canActivate() {
-        if (localStorage.getItem("token") == null) {
-            this.router.navigate(["/security/login"]);
-            return false;
-        } else {
-            return true;
-        }
+        // if (localStorage.getItem("token") == null) {
+        //     this.router.navigate(["/security/login"]);
+        //     return false;
+        // } else {
+        //     return true;
+        // }
+        return false;
     }
 }

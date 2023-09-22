@@ -14,16 +14,16 @@ describe('AppComponent', () => {
     expect(app).toBeTruthy();
   });
 
-  it(`should have as title 'xgame-dashboard-ui'`, () => {
+  it(`should have as title 'xgames-marketplace-ui'`, () => {
     const fixture = TestBed.createComponent(AppComponent);
     const app = fixture.componentInstance;
-    expect(app.title).toEqual('xgame-dashboard-ui');
+    expect(app.title).toEqual('xgames-marketplace-ui');
   });
 
   it('should render title', () => {
     const fixture = TestBed.createComponent(AppComponent);
     fixture.detectChanges();
     const compiled = fixture.nativeElement as HTMLElement;
-    expect(compiled.querySelector('.content span')?.textContent).toContain('xgame-dashboard-ui app is running!');
+    expect(compiled.querySelector('.content span')?.textContent).toContain('xgames-marketplace-ui app is running!');
   });
 });

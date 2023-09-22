@@ -1,8 +1,9 @@
 import { Injectable } from '@angular/core';
 import { AppSettings } from 'src/app/app-settings';
 import { Observable } from 'rxjs';
+import { LanguageModel } from 'src/app/models/language/langauge.model';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { LanguageModel } from 'src/app/models/language/language.model';
+
 @Injectable({
   providedIn: 'root'
 })

@@ -1,0 +1,68 @@
+<app-breadcrumb [title]="'NFT Details'" [items]="['Marketplace']" [active_item]="'NFT Details'"></app-breadcrumb>
+<div class="container-fluid">
+  <div style="width: 100%; display: flex; justify-content: space-between;">
+    <a href="marketplace/nft" style="display: flex;"><app-feather-icons class="close-btn" [icon]="'arrow-left'"></app-feather-icons> Go Back</a>
+    <span class="f-w-600 m-r-5">Balance: <span style="color: var(--theme-deafult);">{{appSettings.wallet_info.wallet_balance_nms}} GNT</span></span>
+  </div>
+  <div>
+    <div class="row product-page-main p-0">
+      <div class="col-xxl-4 col-md-6 box-col-12">
+        <div class="card">
+          <div class="card-body">
+            <section>
+              <div class="col-xxl-12 col-md-12 box-col-12"><img style="min-width: 100%;" class="img-fluid sm-100-w" [src]="nft_detail.imagePath" alt="" /></div>
+            </section>
+          </div>
+        </div>
+      </div>
+      <div class="col-xxl-8 col-md-6 box-col-6 order-xxl-0 order-1">
+        <div class="card">
+          <div class="card-body">
+            <div class="product-page-details">
+              <h3>{{nft_detail.name}}</h3>
+            </div>
+            <div class="product-price">
+              {{nft_detail.price}} NMS
+              <!-- <del>$560.00 </del> -->
+            </div>
+            <hr />
+            <p>{{nft_detail.description}}</p>
+            <hr />
+            <div>
+              <table class="product-page-width">
+                <tbody>
+                  <tr>
+                    <td><b>Games &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:</b></td>
+                    <td>{{nft_detail.collection}}</td>
+                  </tr>
+                  <tr>
+                    <td><b>Category &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:</b></td>
+                    <td>{{nft_detail.category}}</td>
+                  </tr>
+                  <tr>
+                    <td><b>Token ID &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:</b></td>
+                    <td>{{nft_detail.nftTokenId}}</td>
+                  </tr>
+                  <tr>
+                    <td><b>Chain &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:</b></td>
+                    <td>{{nft_detail.network}}</td>
+                  </tr>
+                  <tr>
+                    <td><b>Contract Address &nbsp;&nbsp;:</b></td>
+                    <td>{{tokenOwner}}</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <hr />
+            <div class="m-t-15 btn-showcase">
+              <!-- <a class="btn btn-primary" type="button" title=""><i class="fa fa-shopping-basket me-1"></i>Add To Cart</a> -->
+              <a class="btn btn-success" type="button" title=""><i class="icofont icofont-wallet"></i>Buy Now</a>
+              <!-- <a class="btn btn-secondary" href="javascript:void(0);"> <i class="fa fa-heart me-1"></i>Add To WishList</a> -->
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

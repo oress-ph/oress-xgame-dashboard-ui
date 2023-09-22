@@ -1,0 +1,43 @@
+.config-popup {
+    display: block;
+    border-bottom: none;
+}
+
+
+.btn{
+    padding: 0.375rem 1rem;
+}
+.form-control:focus {
+    color: black !important;
+}
+.receiver{
+    width: 100%;
+    max-width: 280px;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem !important;
+    align-content: flex-end;
+    flex-wrap: wrap;
+    padding: 20px;
+}
+.sender{
+    width: 100%;
+    max-width: 280px;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem !important;
+    align-content: flex-start;
+    flex-wrap: wrap;
+    border: 1px solid #f4f4f4;
+    border-radius: 10px;
+    border-top-left-radius: 0;
+    padding: 20px;
+}
+
+.customizer-links .nav-link span {
+    background-color: var(--sidebar-border);
+    padding: 7px 15px;
+}
+.customizer-links .nav-link span {
+
+}

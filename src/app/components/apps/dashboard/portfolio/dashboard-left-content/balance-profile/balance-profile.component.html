@@ -1,0 +1,29 @@
+<div class="row">
+  <div class="col-xl-12 box-col-12">
+    <div class=" md-sidebar-aside">
+      <div class="card">
+        <div class="card-body">
+          <div class="email-app-sidebar left-bookmark custom-scrollbar">
+            <div class="d-flex align-items-center m-b-10">
+              <div class="media-size-email"><i class="icofont icofont-wallet f-50"></i></div>
+              <div class="flex-grow-1">
+                <h6 class="f-w-600">Mark Jecno</h6>
+                <p>Markjecno@gmail.com</p>
+              </div>
+            </div>
+            <div class="balance-profile">
+              <span class="f-light d-block">GNT Balance: </span>
+              <h5 class="mt-1">768,987.90 GNT</h5>
+            </div>
+            <hr>
+            <div class="row icon-lists" style="display: flex; flex-direction: column;">
+              <div class="col-sm-12 col-md-12 col-xl-12"  *ngFor="let menu of dashboard_menuItems" (click)="redirectTo(menu.path)" style="width: 100% !important; max-width: unset;">
+                <span>{{menu.title}}</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
