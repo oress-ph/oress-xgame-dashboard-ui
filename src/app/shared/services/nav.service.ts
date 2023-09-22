@@ -107,8 +107,8 @@ export class NavService implements OnDestroy {
   ];
   DASHBOARDITEMS: Menu[] = [
     { path: "https://xgame.live/home?section=about", title: "Portfolio", icon: "home", type: "link" },
-    { path: "https://xgame.live/home?section=assets", title: "Buy/Send GNT", icon: "gem", type: "link" },
-    { path: "https://xgame.live/home?section=play", title: "Buy", icon: "games", type: "link" },
+    { path: "https://xgame.live/home?section=assets", title: "Buy Tokens", icon: "gem", type: "link" },
+    // { path: "https://xgame.live/home?section=play", title: "Buy", icon: "games", type: "link" },
   ];
 
   // Array

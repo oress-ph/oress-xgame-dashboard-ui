@@ -72,7 +72,6 @@ export class NFTComponent implements OnInit {
     setTimeout(() => {
       feather.replace();
     });
-    this.grid3s();
   }
 
   onPriceSelect(event: Event) {
@@ -219,17 +218,7 @@ export class NFTComponent implements OnInit {
   }
 
   toggleListView(val) {
-    if(val==true){
-      this.gridOpens();
-      this.listView = val;
-      this.min_height = 300;
-      this.max_height = 300;
-    }else{
-      this.min_height = 400;
-      this.max_height = 400;
-      this.grid3s();
-
-    }
+    this.listView = val;
   }
 
   sidebarToggle() {

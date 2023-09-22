@@ -115,9 +115,27 @@ body.dark-only .customizer-footer > .mb-3 > form .input-group > .form-control:fo
     margin-top: 80px;
 }
 
-
+.toggle-sidebar{
+    display: none;    
+    @media screen and (max-width: 990px){
+        display: flex;
+    }
+}
+.status_toggle{
+    display: none;
+    @media screen and (max-width: 1000px){
+        display: flex;
+    }
+}
+body.dark-only .page-wrapper.horizontal-wrapper .page-body-wrapper .sidebar-wrapper {
+    display: none;
+    @media screen and (max-width: 990px){
+        display: flex;
+    }
+}
 /* Animation */
 .anim-typewriter{
     animation: typewriter 4s steps(44) 1s 1 normal both,
                blinkTextCursor 500ms steps(44) infinite normal;
 }
+
