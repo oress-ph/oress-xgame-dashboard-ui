@@ -139,3 +139,10 @@ body.dark-only .customizer-footer > .mb-3 > form .input-group > .form-control:fo
                blinkTextCursor 500ms steps(44) infinite normal;
 }
 
+
+.page-wrapper .page-body-wrapper .page-body {
+    display: flex;
+    flex-wrap: wrap;
+    align-content: center;
+    justify-content: center;
+}

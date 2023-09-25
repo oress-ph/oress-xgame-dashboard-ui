@@ -5,7 +5,6 @@ import { AppSettings } from 'src/app/app-settings';
 import { Router } from '@angular/router';
 import { DexService } from 'src/app/services/dex/dex.service';
 import { CookiesService } from 'src/app/services/cookies/cookies.service';
-import { MessageService } from 'primeng/api';
 
 @Component({
   selector: 'app-wallet',
@@ -20,7 +19,6 @@ export class WalletsComponent {
     private router: Router,
     private dexService: DexService,
     private cookiesService: CookiesService,
-    private messageService: MessageService
   ){}
 
   selectedWallet = "";
@@ -80,7 +78,7 @@ export class WalletsComponent {
       // localStorage.setItem("wallet-meta-name", String(this.selectedWalletAccount.metaName));
       // localStorage.setItem("wallet-keypair", keypair);
 
-      this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Thank you for connecting your wallet' });
+      // this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Thank you for connecting your wallet' });
       setTimeout(() => {
         location.reload();
       }, 1500);

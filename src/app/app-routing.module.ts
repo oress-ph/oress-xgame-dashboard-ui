@@ -6,6 +6,7 @@ import { full } from "./shared/routes/full.routes";
 import { content } from "./shared/routes/routes";
 
 import { AdminGuard } from './shared/guard/admin.guard';
+import { WalletGuard } from './shared/guard/wallet.guard';
 
 const routes: Routes = [
   {
@@ -13,20 +14,16 @@ const routes: Routes = [
     redirectTo: 'dashboard/portfolio',
     pathMatch: 'full'
   },
-  // {
-  //   path: 'auth/login',
-  //   component: LoginComponent
-  // },
   {
     path: '',
     component: ContentComponent,
-    canActivate: [],
+    canActivate: [AdminGuard],
     children: content
   },
   {
     path: '',
     component: FullComponent,
-    canActivate: [],
+    canActivate: [WalletGuard],
     children: full
   },
   {

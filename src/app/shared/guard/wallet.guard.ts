@@ -5,7 +5,7 @@ import { CookiesService } from "../services/cookies.service";
 @Injectable({
   providedIn: "root",
 })
-export class AdminGuard  {
+export class WalletGuard  {
   constructor(
     public router: Router,
     private cookiesService: CookiesService
@@ -15,10 +15,13 @@ export class AdminGuard  {
     // Guard for user is login or not
     let user = JSON.parse(localStorage.getItem("user"));
     let wallet = this.cookiesService.getCookie("wallet-keypair");
-    if (!wallet || wallet === null||wallet=="") {
-      this.router.navigate(["/wallet"]);
+    if (wallet || wallet !== null||wallet!="") {
+      this.router.navigate(["/dashboard/portfolio"]);
       return true;
-    } 
- 
+    }
+    // else {
+    //   this.router.navigate(["/dashboard/portfolio"]);
+    //   return true;
+    // }
   }
 }

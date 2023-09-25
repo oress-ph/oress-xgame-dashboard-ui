@@ -19,6 +19,7 @@ import { LoadingBarRouterModule } from '@ngx-loading-bar/router';
 import { LoadingBarModule } from '@ngx-loading-bar/core';
 
 import { AdminGuard } from './shared/guard/admin.guard';
+import { WalletGuard } from './shared/guard/wallet.guard';
 import { CookieService } from 'ngx-cookie-service';
 
 import { AppComponent } from './app.component';
@@ -63,7 +64,7 @@ export function HttpLoaderFactory(http: HttpClient) {
   // for Core use:
     LoadingBarModule
   ],
-  providers: [ AdminGuard, CookieService,AppSettings,DatePipe],
+  providers: [ AdminGuard, WalletGuard ,CookieService,AppSettings,DatePipe],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

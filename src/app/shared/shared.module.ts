@@ -46,7 +46,7 @@ import { GamesService } from "./services/games.service";
 import { NftService } from "./services/nft.service";
 import { LanguageService } from "./services/language.service";
 import { WalletInfoComponent } from './components/wallet/wallet-info/wallet-info.component';
-import { WalletListComponent } from './components/wallet/wallet-list/wallet-list.component';
+// import { WalletListComponent } from './components/wallet/wallet-list/wallet-list.component';
 import { SafePipe } from './pipes/safe.pipe'
 import { PolkadotService } from "./services/polkadot.service";
 import { LabelService } from './services/label.service';
@@ -80,7 +80,7 @@ import { ChatBotService } from './services/chatbot.service'
     SwiperComponent,
     NetworkComponent,
     WalletInfoComponent,
-    WalletListComponent,
+    // WalletListComponent,
     SafePipe
   ],
   imports: [
