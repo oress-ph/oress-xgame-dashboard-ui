@@ -15,7 +15,8 @@ export class WalletGuard  {
     // Guard for user is login or not
     let user = JSON.parse(localStorage.getItem("user"));
     let wallet = this.cookiesService.getCookie("wallet-keypair");
-    if (wallet || wallet !== null||wallet!="") {
+    console.log(wallet)
+    if (wallet!="") {
       this.router.navigate(["/dashboard/portfolio"]);
       return true;
     }
