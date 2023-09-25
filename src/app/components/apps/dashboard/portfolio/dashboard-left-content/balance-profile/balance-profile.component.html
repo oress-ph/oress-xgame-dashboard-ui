@@ -7,17 +7,17 @@
             <div class="d-flex align-items-center m-b-10">
               <div class="media-size-email"><i class="icofont icofont-wallet f-50"></i></div>
               <div class="flex-grow-1">
-                <h6 class="f-w-600">Mark Jecno</h6>
-                <p>Markjecno@gmail.com</p>
+                <h6 class="f-w-600">{{appSettings.wallet_info.wallet_meta_name}}</h6>
+                <p>{{appSettings.wallet_info.wallet_keypair_display}}</p>
               </div>
             </div>
             <div class="balance-profile">
               <span class="f-light d-block">GNT Balance: </span>
-              <h5 class="mt-1">768,987.90 GNT</h5>
+              <h5 class="mt-1">{{appSettings.wallet_info.wallet_balance_nms}} GNT</h5>
             </div>
             <hr>
             <div class="row icon-lists" style="display: flex; flex-direction: column;">
-              <div class="col-sm-12 col-md-12 col-xl-12"  *ngFor="let menu of dashboard_menuItems" (click)="redirectTo(menu.path)" style="width: 100% !important; max-width: unset;">
+              <div class="col-sm-12 col-md-12 col-xl-12"  *ngFor="let menu of dashboard_menuItems" (click)="redirectTo(menu.path)" style="width: 100% !important; max-width: unset;"[ngClass]="{'active_dashboard': router.url.includes(menu.title.toLowerCase())}">
                 <span>{{menu.title}}</span>
               </div>
             </div>

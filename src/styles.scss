@@ -127,7 +127,7 @@ body.dark-only .customizer-footer > .mb-3 > form .input-group > .form-control:fo
         display: flex;
     }
 }
-body.dark-only .page-wrapper.horizontal-wrapper .page-body-wrapper .sidebar-wrapper {
+.page-wrapper.horizontal-wrapper .page-body-wrapper .sidebar-wrapper {
     display: none;
     @media screen and (max-width: 990px){
         display: flex;

@@ -2,10 +2,13 @@ import { Component, Input, Output, OnInit, ViewChild } from "@angular/core";
 import * as feather from "feather-icons";
 import { NgbModal } from "@ng-bootstrap/ng-bootstrap";
 import {NFTModel} from "../../../../../../shared/model/nft.model";
+import {TokenTransactionModel} from "../../../../../../shared/model/token_transaction.model";
 import {NftService} from "../../../../../../shared/services/nft.service"
 import {GamesService} from "../../../../../../shared/services/games.service"
 import { GameModel,Categories } from '../../../../../../shared/model/games.model';
 import { AppSettings } from "src/app/app-settings";
+import { PolkadotService } from "src/app/shared/services/polkadot.service";
+import { WalletInfoModel } from "src/app/shared/model/wallet-info.model";
 
 
 @Component({
@@ -59,12 +62,15 @@ export class NFTComponent implements OnInit {
   public max_height: number = 300;
   public min_height: number = 300;
 
+  public wallet_info: WalletInfoModel = new WalletInfoModel();
+  public token_transaction: TokenTransactionModel[] = [];
 
   constructor(
     private modalService: NgbModal,
     private nftService: NftService,
     private gameService: GamesService,
-    public appSettings: AppSettings
+    public appSettings: AppSettings,
+    private polkadotService: PolkadotService
   ) {}
 
   ngOnInit() {
@@ -82,6 +88,8 @@ export class NFTComponent implements OnInit {
   onSearch() {
     this.filterNFT();
   }
+
+
 
   toggleCategorySelection(category: Categories) {
     const index = this.selected_categories.findIndex(c => c.id === category.id);
@@ -184,7 +192,6 @@ export class NFTComponent implements OnInit {
     this.filterNFT(); // This will trigger the filtering process
   }
   filterNFT() {
-    console.log(this.selected_game);
     let _filtered_nft = this.nft_list;
     
     if(this.selected_game?.game_name){

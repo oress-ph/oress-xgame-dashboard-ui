@@ -3,6 +3,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { NFTModel } from '../model/nft.model';
 import { AppSettings } from '../../app-settings';
+import { CookiesService } from './cookies.service';
 
 const httpOptions = {
   headers: new HttpHeaders({
@@ -17,7 +18,8 @@ const httpOptions = {
 export class NftService {
   constructor(
     private appSettings: AppSettings,
-    private httpClient: HttpClient
+    private httpClient: HttpClient,
+    private cookiesService: CookiesService
   ) { }
 
   public defaultAPIURLHost: string = this.appSettings.APIURLHostNFT;
@@ -92,6 +94,56 @@ export class NftService {
               nft = results;
             }
             observer.next([true, nft]);
+            observer.complete();
+          },
+          error: (error) => {
+            observer.next([false, error.status]);
+            observer.complete();
+          }
+        });
+      });
+    }
+
+    getUserNfts() {
+      return new Observable<[boolean, NFTModel]>((observer) => {
+        let nftModel: NFTModel[] = [];
+        // let data = this.mint();
+  
+        let requestBody = this.cookiesService.getCookie('wallet-address');
+        this.httpClient.get<any>(
+          this.defaultAPIURLHost +
+          '/nfts/' +
+          requestBody,
+          httpOptions
+        ).subscribe({
+          next: (response) => {
+            let result = response;
+            if (result != null) {
+              var data = result;
+              if (data.length > 0) {
+                for (let i = 0; i <= data.length - 1; i++) {
+                  nftModel.push({
+                    nftTokenId: data[i].nftTokenId,
+                    imagePath: data[i].imagePath,
+                    name:data[i].name,
+                    description: data[i].description,
+                    price: data[i].price,
+                    isForSale: data[i].isForSale,
+                    category: data[i].category,
+                    collection: data[i].collection,
+                    atlasFilePath: data[i].atlasFilePath,
+                    network: data[i].network,
+                    blockchainId: data[i].blockchainId,
+                    collectionId: data[i].collectionId,
+                    tokenOwner: data[i].tokenOwner,
+                  });
+                }
+              } else {
+                data = [];
+              }
+            }
+            data = nftModel;
+            observer.next([true, data]);
             observer.complete();
           },
           error: (error) => {
