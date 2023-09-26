@@ -156,7 +156,7 @@ export class NFTComponent implements OnInit {
 
   async getNft() {
     this.loading = true;
-    this.nftService.getAllNft()
+    this.nftService.getUserNfts()
     .subscribe({
       next: (response) => {
         let data = response[1];
@@ -186,6 +186,7 @@ export class NFTComponent implements OnInit {
       }
     });
   }
+
   onPriceInputChange() {
     // Add any additional logic you want to perform when the input changes
     // This function will be called whenever the user inputs a number
@@ -194,7 +195,7 @@ export class NFTComponent implements OnInit {
   filterNFT() {
     let _filtered_nft = this.nft_list;
     
-    if(this.selected_game?.game_name){
+    if(this.selected_game?.game_name&&this.selected_game.game_name!="All"){
           // Apply collection filter
       _filtered_nft = _filtered_nft.filter(item => item.collection === this.selected_game.game_name);
     }

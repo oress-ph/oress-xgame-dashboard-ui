@@ -1,5 +1,13 @@
 [
   {
+    "id": 0,
+    "game_name": "All",
+    "description": "",
+    "background image": "",
+    "logo": "",
+    "is_live": true
+  },
+  {
     "id": 1,
     "game_name": "Suhosin Wars: Guardians of Gems",
     "description": "\"Suhosin Wars: Guardians of Gems,\" embark on an epic MMORPG adventure in the enchanting realm of Suhosin, where you, as one of the twelve Chinese Zodiac Guardians, must wield elemental forces to thwart the nefarious dark owl Amoenyss and protect the sacred Gems, preserving the realm's delicate balance and the lives of its diverse inhabitants.",

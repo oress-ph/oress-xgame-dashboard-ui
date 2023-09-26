@@ -105,24 +105,26 @@ export class NftService {
     }
 
     getUserNfts() {
-      return new Observable<[boolean, NFTModel]>((observer) => {
-        let nftModel: NFTModel[] = [];
-        // let data = this.mint();
-  
+      return new Observable<[boolean, any]>((observer) => {
+
+        let nft_list: NFTModel[] = [];
         let requestBody = this.cookiesService.getCookie('wallet-address');
+        let collection_id = this.collectionId;
         this.httpClient.get<any>(
           this.defaultAPIURLHost +
           '/nfts/' +
           requestBody,
           httpOptions
         ).subscribe({
-          next: (response) => {
-            let result = response;
-            if (result != null) {
-              var data = result;
-              if (data.length > 0) {
+            next: (response) => {
+            let results = response;
+
+            // let result_data = results['data'];
+            if (results != null) {
+                var data = results;
+                if (data.length > 0) {
                 for (let i = 0; i <= data.length - 1; i++) {
-                  nftModel.push({
+                    nft_list.push({
                     nftTokenId: data[i].nftTokenId,
                     imagePath: data[i].imagePath,
                     name:data[i].name,
@@ -136,22 +138,21 @@ export class NftService {
                     blockchainId: data[i].blockchainId,
                     collectionId: data[i].collectionId,
                     tokenOwner: data[i].tokenOwner,
-                  });
+                    });
                 }
-              } else {
-                data = [];
-              }
+                } else {
+                nft_list = [];
+                }
             }
-            data = nftModel;
-            observer.next([true, data]);
+            observer.next([true, nft_list]);
             observer.complete();
-          },
-          error: (error) => {
+            },
+            error: (error) => {
             observer.next([false, error.status]);
             observer.complete();
-          }
+            }
         });
-      });
+        });
     }
 
 }

@@ -74,6 +74,7 @@ export class WalletListComponent {
     let keypair = (await generateKeypair);
     if (keypair != "") {
       this.cookiesService.setCookie("wallet-meta-name",String(this.selectedWalletAccount.metaName))
+      this.cookiesService.setCookie("wallet-address",String(this.selectedWalletAccount.address))
       this.cookiesService.setCookie("wallet-keypair",keypair)
       // localStorage.setItem("wallet-meta-name", String(this.selectedWalletAccount.metaName));
       // localStorage.setItem("wallet-keypair", keypair);

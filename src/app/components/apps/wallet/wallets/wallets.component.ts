@@ -73,14 +73,16 @@ export class WalletsComponent {
     let generateKeypair: Promise<string> = this.polkadotService.generateKeypair(this.selectedWalletAccount.address);
     let keypair = (await generateKeypair);
     if (keypair != "") {
+      console.log(this.selectedWalletAccount);
       this.cookiesService.setCookie("wallet-meta-name",String(this.selectedWalletAccount.metaName))
+      this.cookiesService.setCookie("wallet-address",String(this.selectedWalletAccount.address))
       this.cookiesService.setCookie("wallet-keypair",keypair)
       // localStorage.setItem("wallet-meta-name", String(this.selectedWalletAccount.metaName));
       // localStorage.setItem("wallet-keypair", keypair);
 
       // this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Thank you for connecting your wallet' });
       setTimeout(() => {
-        location.reload();
+        // location.reload();
       }, 1500);
       // if (this.isLogin == false) {
       //   await this.dexService.loadDexConfigs();
