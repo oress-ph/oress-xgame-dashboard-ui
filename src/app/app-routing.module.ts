@@ -11,7 +11,7 @@ import { WalletGuard } from './shared/guard/wallet.guard';
 const routes: Routes = [
   {
     path: '',
-    redirectTo: 'dashboard/portfolio',
+    redirectTo: 'portfolio',
     pathMatch: 'full'
   },
   {
