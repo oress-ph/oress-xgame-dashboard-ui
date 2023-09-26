@@ -223,6 +223,7 @@ export class NFTComponent implements OnInit {
     }
   
     this.nft_list_filter = _filtered_nft;
+    console.log(this.nft_list_filter);
   }
 
   toggleListView(val) {

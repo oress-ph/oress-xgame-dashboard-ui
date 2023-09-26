@@ -107,10 +107,10 @@ export class NavService implements OnDestroy {
   ];
   DASHBOARDITEMS: Menu[] = [
     { path: "/portfolio", title: "Portfolio", icon: "home", type: "link" },
-    { path: "/swap", title: "Swap", icon: "home", type: "link" },
+    // { path: "/swap", title: "Swap", icon: "home", type: "link" },
     { path: "/cash-in", title: "Cash-In", icon: "gem", type: "link" },
-    { path: "/cash-out", title: "Cash-Out", icon: "games", type: "link" },
-    { path: "/invests", title: "Investments", icon: "games", type: "link" },
+    // { path: "/cash-out", title: "Cash-Out", icon: "games", type: "link" },
+    // { path: "/invests", title: "Investments", icon: "games", type: "link" },
   ];
 
   // Array

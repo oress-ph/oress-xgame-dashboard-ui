@@ -17,7 +17,7 @@ export class WalletGuard  {
     let wallet = this.cookiesService.getCookie("wallet-keypair");
     console.log(wallet)
     if (wallet!="") {
-      this.router.navigate(["/dashboard/portfolio"]);
+      this.router.navigate(["/portfolio"]);
       return true;
     }
     // else {

@@ -91,8 +91,8 @@
           <div class="card">
             <div class="product-box">
               <div class="product-img">
-                <!-- <div class="ribbon ribbon-danger" *ngIf="product.status == 'sale'">{{ product.status }}</div> -->
-                <!-- <div class="ribbon ribbon-success ribbon-right" *ngIf="product.status == '50%'">{{ product.status }}</div> -->
+                <div *ngIf="product.isForSale" class="ribbon ribbon-danger">Sale</div>
+                <div *ngIf="!product.isForSale" class="ribbon ribbon-success">Not for Sale</div>
                 <img class="img-fluid" src="{{ product.imagePath }}" alt="" [style.max-height.px]="max_height" [style.min-height.px]="min_height"/>
                 <div class="product-hover">
                   <ul>
@@ -104,6 +104,9 @@
                     </li> -->
                     <li placement="top" ngbTooltip="Details">
                       <a href="https://nft.xgame.live/marketplace/nft-details/{{product.nftTokenId}}"><i class="icon-eye"></i></a>
+                    </li>
+                    <li placement="top" ngbTooltip="Edit">
+                      <a href="https://nft.xgame.live/marketplace/nft-details/{{product.nftTokenId}}"><i class="icon-pencil"></i></a>
                     </li>
                     <ng-template #content let-modal>
                       <div class="modal-body" style="padding: 0%">
