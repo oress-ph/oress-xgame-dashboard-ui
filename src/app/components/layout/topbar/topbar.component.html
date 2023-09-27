@@ -1,6 +1,6 @@
 <p-menubar [model]="header_menu" id="mainNav">
     <ng-template pTemplate="start">
-        <img src="./../../../assets/img/xGame_Logo_white_new.webp" height="40" (click)="routeClick('about')" style="cursor: pointer;"/>
+        <img src="./../../../assets/img/xGame_Logo_white_new.webp" height="40" routerLink="/" style="cursor: pointer;"/>
     </ng-template>
 
     <ng-template pTemplate="end">
@@ -37,11 +37,13 @@
                       </ng-template>
                 </p-dropdown>
     
-                <p-button icon="pi pi-wallet" (click)="!is_connect_wallet ? connectWallet() : op.toggle($event)"
-                styleClass="p-button-rounded p-button-text"
+                <p-button icon="pi pi-wallet"
+                (click)="!is_connect_wallet ? connectWallet() : op.toggle($event)"
+                styleClass="p-button-rounded p-button-text wallet_connect"
                 [pTooltip]="!is_connect_wallet ? 'Connect Wallet' : ''"
-                tooltipPosition="bottom">
-              </p-button>
+                tooltipPosition="bottom"
+                [style]="{'background-color': is_connect_wallet ? '#0FFEFF' : '', 'color': is_connect_wallet ? 'white' : ''}"
+                ></p-button>
 
             </div>
         </p-overlayPanel>
@@ -79,11 +81,15 @@
               </ng-template>
         </p-dropdown>
 
-        <p-button icon="pi pi-wallet" (click)="!is_connect_wallet ? connectWallet() : op.toggle($event)"
-        styleClass="p-button-rounded p-button-text" class="not-ellipsis" 
-        [pTooltip]="!is_connect_wallet ? 'Connect Wallet' : ''"
-        tooltipPosition="bottom" >
-      </p-button>
+
+        <p-button icon="pi pi-wallet"
+            (click)="!is_connect_wallet ? connectWallet() : op.toggle($event)"
+            class="not-ellipsis"
+            styleClass="p-button-rounded p-button-text wallet_connect"
+            [pTooltip]="!is_connect_wallet ? 'Connect Wallet' : ''"
+            tooltipPosition="bottom"
+            [style]="{'background-color': is_connect_wallet ? '#0FFEFF' : ''}"
+        ></p-button>
 
         <!-- WAllet info -->
         <!-- <p-button (click)="op.toggle($event)" icon="pi pi-wallet" class="not-ellipsis" styleClass="p-button-rounded p-button-text" [style]="{ 'background-color': 'unset' }" *ngIf="is_connect_wallet"></p-button> -->

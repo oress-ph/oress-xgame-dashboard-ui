@@ -14,6 +14,7 @@ import { AppSettings } from 'src/app/app-settings';
 import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
 import { NftDetailComponent } from '../nft-detail/nft-detail.component';
 import { MessageService } from 'primeng/api';
+import { CookiesService } from 'src/app/services/cookies/cookies.service';
 
 @Component({
   selector: 'app-portfolio',
@@ -30,7 +31,8 @@ export class PortfolioComponent implements OnInit {
     public appSettings: AppSettings,
     private ref: DynamicDialogRef,
     public dialogService: DialogService,
-    public messageService: MessageService
+    public messageService: MessageService,
+    private cookiesService: CookiesService,
   ) { }
 
   wallet_name: any = '';
@@ -212,6 +214,8 @@ export class PortfolioComponent implements OnInit {
       { name: 'Spain', code: 'ES' },
       { name: 'United States', code: 'US' }
     ];
+
+    this.cookiesService.checkCookie();
   }
 
   editNft(id:number){
