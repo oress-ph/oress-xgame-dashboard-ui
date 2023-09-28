@@ -25,6 +25,64 @@ export class NftService {
   public defaultAPIURLHost: string = this.appSettings.APIURLHostNFT;
   private collectionId = this.appSettings.collectionId;
 
+  transferNft(data: any): Observable<[boolean, any]> {
+    let params = {
+      from: data.from,
+      to: data.to,
+      id: data.id
+    }
+
+    return new Observable<[boolean, any]>((observer) => {
+      this.httpClient.post<any>(
+        this.defaultAPIURLHost + '/nfts/transferfromwoa',
+        params,
+        httpOptions
+      ).subscribe({
+        next: (response) => {
+          let data = response;
+          observer.next([true, data]);
+          observer.complete();
+        },
+        error: (error) => {
+          observer.next([false, error]);
+          observer.complete();
+        }
+      });
+    });
+  }
+
+  updateNft(data: any): Observable<[boolean, any]> {
+    let id = data.id;
+    let updateModel = {
+      name: data.name == '' ? '-' : data.name,
+      description: data.description == '' ? '-' : data.description,
+      category: data.category,
+      collection: data.collection,
+      image_path: data.image_path == '' ? '-' : data.image_path,
+      price: data.price == 0 ? 0 : data.price,
+      is_for_sale: data.is_for_sale,
+      atlas_images: data.atlas_file_path == undefined ? '-' : data.atlas_file_path,
+    };
+
+    return new Observable<[boolean, any]>((observer) => {
+      this.httpClient.put<any>(
+        this.defaultAPIURLHost + '/nfts/' + id,
+        updateModel,
+        httpOptions
+      ).subscribe({
+        next: (response) => {
+          let data = response;
+          observer.next([true, data]);
+          observer.complete();
+        },
+        error: (error) => {
+          observer.next([false, error]);
+          observer.complete();
+        }
+      });
+    });
+  }
+
     getAllNft(): Observable<[boolean, any]> {
         return new Observable<[boolean, any]>((observer) => {
 
@@ -77,7 +135,7 @@ export class NftService {
 
     getNftById(id: number): Observable<[boolean, any]> {
       return new Observable<[boolean, any]>((observer) => {
-  
+
         let nft: NFTModel[] = [];
         let nftTokenId = id.toString();
         this.httpClient.get<any>(
@@ -88,7 +146,7 @@ export class NftService {
         ).subscribe({
           next: (response) => {
             let results = response;
-  
+
             // let result_data = results['data'];
             if (results != null) {
               nft = results;
