@@ -9,10 +9,8 @@ import { FormsModule } from "@angular/forms";
 import { SharedModule } from "../../../../shared/shared.module";
 import { GoogleMapsModule } from "@angular/google-maps";
 import { PortfolioComponent } from "./../portfolio/portfolio.component"
-import { DashboardLeftContentComponent } from "./../portfolio/dashboard-left-content/dashboard-left-content.component";
 import { DashboardMiddleContentComponent } from "./../portfolio/dashboard-middle-content/dashboard-middle-content.component";
 import { DashboardRightContentComponent } from "./../portfolio/dashboard-right-content/dashboard-right-content.component";
-import { BalanceProfileComponent } from "./../portfolio/dashboard-left-content/balance-profile/balance-profile.component";
 import { GNTTransactionComponent } from "./../portfolio/dashboard-middle-content/gnt-transaction/gnt-transaction.component";
 import { GemTransactionComponent } from "./../portfolio/dashboard-right-content/gem-transaction/gem-transaction.component";
 import { GemProfileComponent } from "./../portfolio/dashboard-right-content/gem-profile/gem-profile.component";
@@ -21,10 +19,8 @@ import { PortfolioRoutingModule } from "./portfolio-routing-module";
 @NgModule({
   declarations: [
     PortfolioComponent,
-    DashboardLeftContentComponent,
     DashboardMiddleContentComponent,
     DashboardRightContentComponent,
-    BalanceProfileComponent,
     GNTTransactionComponent,
     GemTransactionComponent,
     GemProfileComponent,
