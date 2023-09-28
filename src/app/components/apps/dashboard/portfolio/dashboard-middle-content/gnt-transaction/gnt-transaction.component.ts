@@ -19,7 +19,6 @@ export class GNTTransactionComponent implements OnInit{
   async transaction(): Promise<void> {
     await this.polkadotService.getBalance().then(data => {
       this.appSettings.wallet_info.wallet_balance_nms = data;
-      console.log(data);
       // this.refreshTokenList = false;
       if (this.appSettings.wallet_info.wallet_balance_nms) {
         let value = 20 * Number(this.appSettings.wallet_info.wallet_balance_nms);
