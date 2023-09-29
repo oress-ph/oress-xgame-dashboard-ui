@@ -6,7 +6,7 @@ export const content: Routes = [
     loadChildren: () => import("../../components/apps/dashboard/portfolio/portfolio.module").then((m) => m.PortfolioModule),
   },
   {
-    path: "buy",
+    path: "cash-in",
     loadChildren: () => import("../../components/apps/dashboard/cash-in/cash-in.module").then((m) => m.CashInModule),
   },
 ];
