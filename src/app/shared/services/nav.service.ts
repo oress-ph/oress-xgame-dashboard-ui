@@ -37,7 +37,7 @@ export class NavService implements OnDestroy {
   public megaMenuColapse: boolean = window.innerWidth < 1199 ? true : false;
 
   // Collapse Sidebar
-  public collapseSidebar: boolean = window.innerWidth < 991 ? true : false;
+  public collapseSidebar: boolean = window.innerWidth < 991 ? true : true;
 
   // For Horizontal Layout Mobile
   public horizontal: boolean = window.innerWidth < 991 ? false : true;
@@ -107,10 +107,10 @@ export class NavService implements OnDestroy {
   ];
   DASHBOARDITEMS: Menu[] = [
     { path: "/portfolio", title: "Portfolio", icon: "widget", type: "link" },
-    // { path: "/swap", title: "Swap", icon: "home", type: "link" },
-    { path: "/buy", title: "Buy", icon: "tokens", type: "link" },
-    // { path: "/cash-out", title: "Cash-Out", icon: "games", type: "link" },
-    // { path: "/invests", title: "Investments", icon: "games", type: "link" },
+    { path: "/swap", title: "Swap", icon: "home", type: "link" },
+    { path: "/cash-in", title: "Cash-in", icon: "tokens", type: "link" },
+    { path: "/cash-out", title: "Cash-Out", icon: "games", type: "link" },
+    { path: "/invests", title: "Investments", icon: "games", type: "link" },
   ];
 
   // Array
