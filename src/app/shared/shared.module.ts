@@ -50,7 +50,8 @@ import { WalletInfoComponent } from './components/wallet/wallet-info/wallet-info
 import { SafePipe } from './pipes/safe.pipe'
 import { PolkadotService } from "./services/polkadot.service";
 import { LabelService } from './services/label.service';
-import { ChatBotService } from './services/chatbot.service'
+import { ChatBotService } from './services/chatbot.service';
+import { BalanceProfileComponent } from "./../components/apps/dashboard/portfolio/dashboard-left-content/balance-profile/balance-profile.component"
 @NgModule({
   declarations: [
     HeaderComponent,
@@ -80,8 +81,9 @@ import { ChatBotService } from './services/chatbot.service'
     SwiperComponent,
     NetworkComponent,
     WalletInfoComponent,
-    // WalletListComponent,
-    SafePipe
+    BalanceProfileComponent,
+    SafePipe,
+    
   ],
   imports: [
     CommonModule, 
