@@ -1,39 +1,43 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { ContentComponent } from "./shared/components/layout/content/content.component";
+import { FullComponent } from "./shared/components/layout/full/full.component";
+import { full } from "./shared/routes/full.routes";
+import { content } from "./shared/routes/routes";
+
+import { AdminGuard } from './shared/guard/admin.guard';
+import { WalletGuard } from './shared/guard/wallet.guard';
 
 const routes: Routes = [
-  { path: '', redirectTo: '/wallet', pathMatch: 'full' },
   {
-    path: 'security',
-    loadChildren: () =>
-      import('./modules/security/security.module').then(
-        (m) => m.SecurityModule
-      ),
+    path: '',
+    redirectTo: 'portfolio',
+    pathMatch: 'full'
   },
   {
-    path: 'portfolio',
-    loadChildren: () =>
-      import('./modules/dashboard/dashboard.module').then((m) => m.DashboardModule),
+    path: '',
+    component: ContentComponent,
+    canActivate: [AdminGuard],
+    children: content
   },
   {
-    path: 'wallet',
-    loadChildren: () =>
-      import('./modules/wallet/wallet.module').then((m) => m.WalletModule),
+    path: '',
+    component: FullComponent,
+    canActivate: [WalletGuard],
+    children: full
   },
   {
-    path: 'send-pay-genesis',
-    loadChildren: () =>
-      import('./modules/send-pay-genesis/send-pay-genesis.module').then((m) => m.SendPayGenesisModule),
-  },
-  {
-    path: 'buy',
-    loadChildren: () =>
-      import('./modules/buy-module/buy-module.module').then((m) => m.BuyModuleModule),
-  },
+    path: '**',
+    redirectTo: ''
+  }
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes)],
-  exports: [RouterModule],
+  imports: [[RouterModule.forRoot(routes, {
+    anchorScrolling: 'enabled',
+    scrollPositionRestoration: 'enabled',
+})],
+],
+  exports: [RouterModule]
 })
-export class AppRoutingModule {}
+export class AppRoutingModule { }

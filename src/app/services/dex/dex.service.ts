@@ -13,9 +13,7 @@ export class DexService {
     private appSettings: AppSettings,
     private cookiesService: CookiesService
   ) { }
-  wallet_url:any = this.cookiesService.getCookie('wallet_url')
-
-
+  wallet_url:any = this.cookiesService.getCookieArray('wallet').wallet_url
   wsProvider = new WsProvider(this.wallet_url);
   api = ApiPromise.create({ provider: this.wsProvider });
   keypair = this.appSettings.keypair;
@@ -23,7 +21,10 @@ export class DexService {
   accounts = web3Accounts();
 
   async loadDexConfigs(): Promise<void> {
+
     const api = await this.api;
+    console.log(api.query);
+    console.log(api.query['dexModule']);
     const dexModule = api.query['dexModule'];
 
     if (dexModule != null) {
@@ -34,6 +35,8 @@ export class DexService {
       const umiLiquidityDataStore = (await dexModule['umiLiquidityDataStore']()).toHuman();
       const swapFeesDataStore = (await dexModule['swapFeesDataStore']()).toHuman();
       const tickerDataStore = (await dexModule['tickerDataStore']()).toHuman();
+
+      console.log(phpuDataStore);
 
       localStorage.setItem('phpu-contract-address', String(phpuDataStore));
       localStorage.setItem('lphpu-account-address', String(phpuLiquidityAccountDataStore));

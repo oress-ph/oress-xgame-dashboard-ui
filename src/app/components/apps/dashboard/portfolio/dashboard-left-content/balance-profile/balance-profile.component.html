@@ -1,0 +1,117 @@
+<div class="row">
+  <div class="col-xl-12 box-col-12">
+    <div class=" md-sidebar-aside">
+      <div class="card">
+        <div class="card-body">
+          <div class="email-app-sidebar left-bookmark custom-scrollbar">
+            <div class="d-flex align-items-center m-b-10">
+              <div class="media-size-email"><i class="icofont icofont-wallet f-50"></i></div>
+              <div class="flex-grow-1">
+                <h6 class="f-w-600">{{appSettings.wallet_info.wallet_meta_name}}</h6>
+                <p>{{appSettings.wallet_info.wallet_keypair_display}}</p>
+              </div>
+            </div>
+            <div class="balance-profile">
+              <span class="f-light d-block">GNT Balance: </span>
+              <h5 class="mt-1">{{appSettings.wallet_info.wallet_balance_nms}} GNT</h5>
+            </div>
+            <hr>
+              <div class="row">
+                <!-- <div class="col-xxl-12 col-xl-7 col-sm-6 box-col-6">
+                  <div class="portfolio-chart-container">
+                    <div id="portfolio-chart">
+                      <apx-chart [series]="portfolio.series" [chart]="portfolio.chart" [plotOptions]="portfolio.plotOptions" [colors]="portfolio.colors" [labels]="portfolio.labels" [fill]="portfolio.fill" [responsive]="portfolio.responsive"></apx-chart>
+                    </div>
+                  </div>
+                </div> -->
+                <div class="col-xxl-12 col-xl-12 col-sm-12 col-md-12 box-col-12">
+                  <div class="portfolio-table recent-table table-responsive">
+                    <table class="table">
+                      <tbody>
+                        <tr>
+                          <td>
+                            <div class="d-flex align-items-center gap-2">
+                              <!-- <div class="currency-icon warning">
+                                <svg>
+                                  <use href="assets/svg/icon-sprite.svg#beta"></use>
+                                </svg>
+                              </div> -->
+                              <div>
+                                <h6 class="f-14 mb-1">EGEM</h6>
+                                <div class="d-flex align-items-center gap-1"><span class="status bg-success"></span><span class="f-light">EGEM</span></div>
+                              </div>
+                            </div>
+                          </td>
+                          <td class="text-end">
+                            <h6 class="f-14 f-w-400 mb-1">EGEM 0.00876543</h6>
+                            <span class="font-success">14,987.13 GNT</span>
+                          </td>
+                        </tr>
+                        <tr>
+                          <td>
+                            <div class="d-flex align-items-center gap-2">
+                              <!-- <div class="currency-icon success">
+                                <svg>
+                                  <use href="assets/svg/icon-sprite.svg#ltc"></use>
+                                </svg>
+                              </div> -->
+                              <div>
+                                <h6 class="f-14 mb-1">ALXD</h6>
+                                <div class="d-flex align-items-center gap-1"><span class="status bg-danger"></span><span class="f-light">ALXD</span></div>
+                              </div>
+                            </div>
+                          </td>
+                          <td class="text-end">
+                            <h6 class="f-14 f-w-400 mb-1">ALXD 1.60876543</h6>
+                            <span class="font-danger">49,987.13 GNT</span>
+                          </td>
+                        </tr>
+                        <tr>
+                          <td>
+                            <div class="d-flex align-items-center gap-2">
+                              <!-- <div class="currency-icon light-blue">
+                                <svg>
+                                  <use href="assets/svg/icon-sprite.svg#dash"></use>
+                                </svg>
+                              </div> -->
+                              <div>
+                                <h6 class="f-14 mb-1">AMBR</h6>
+                                <div class="d-flex align-items-center gap-1"><span class="status bg-success"></span><span class="f-light">AMBR</span></div>
+                              </div>
+                            </div>
+                          </td>
+                          <td class="text-end">
+                            <h6 class="f-14 f-w-400 mb-1">AMBR 1.80741510</h6>
+                            <span class="font-success">17,047.30 GNT</span>
+                          </td>
+                        </tr>
+                        <tr>
+                          <td>
+                            <div class="d-flex align-items-center gap-2">
+                              <!-- <div class="currency-icon primary">
+                                <svg>
+                                  <use href="assets/svg/icon-sprite.svg#eth"></use>
+                                </svg>
+                              </div> -->
+                              <div>
+                                <h6 class="f-14 mb-1">AMYS</h6>
+                                <div class="d-flex align-items-center gap-1"><span class="status bg-success"></span><span class="f-light">AMYS</span></div>
+                              </div>
+                            </div>
+                          </td>
+                          <td class="text-end">
+                            <h6 class="f-14 f-w-400 mb-1">AMYS 1.60876543</h6>
+                            <span class="font-success">35,571.25 GNT</span>
+                          </td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

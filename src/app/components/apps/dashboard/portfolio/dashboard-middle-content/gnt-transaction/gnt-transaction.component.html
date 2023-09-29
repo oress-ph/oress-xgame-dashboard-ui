@@ -1,0 +1,35 @@
+<div class="card">
+  <div class="card-header card-no-border">
+    <div class="header-top">
+      <h5>GNT Transaction</h5>
+    </div>
+  </div>
+  <div class="card-body pt-0">
+    <div class="recent-table table-responsive currency-table">
+      <table class="table">
+        <thead>
+          <tr>
+            <th class="f-light" style="min-width: 20px;">GNT</th>
+            <th class="f-light">Price</th>
+            <th class="f-light">Total Balance</th>
+            <th class="f-light">Total GNT</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let item of token_transaction">
+            <td style="min-width: 80px;">
+              <div class="d-flex align-items-center gap-2">
+                <div>
+                  <h6 class="f-14 mb-0 f-w-400">{{ item.token }}</h6>
+                </div>
+              </div>
+            </td>
+            <td style="min-width: 120px;">$ {{ item.price }}</td>
+            <td style="min-width: 150px;">{{ item.balance }} GNT</td>
+            <td style="min-width: 150px;">{{ item.value }} GNT</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,57 @@
+<!-- footer start-->
+<div class="container-fluid">
+  <div class="row" style="justify-content: center">
+      <div class="col-xm-6 col-sm-6 col-md-4 col-l-4 col-xl-4">
+        <div class="row icon-lists">
+          <div class="col-sm-9 col-md-9 col-xl-9" *ngFor="let menu of footer_menuItems; let first = first" (click)="redirectTo(menu.path)">
+            <span>{{menu.title}}</span>
+            <ng-container *ngIf="first">
+                <img class="img-fluid for-light" src="assets/images/logo/logo.webp" alt="" (click)="redirectTo(appSettings.UIURLHomePageHost)" style="width: 25%;"/>
+                <img class="img-fluid for-dark" src="assets/images/logo/logo_dark.webp" alt="" (click)="redirectTo(appSettings.UIURLHomePageHost)" style="width: 25%;"/>
+            </ng-container>
+        </div>
+        </div>
+      </div>
+      <div class="col-xs-6 col-sm-6 col-md-4 col-l-4 col-xl-4">
+        <div class="row icon-lists">
+          <div class="col-sm-12 col-md-9 col-xl-9"  *ngFor="let menu of community_menuItems" (click)="redirectTo(menu.path)">
+            <span>{{menu.title}}</span>
+          </div>
+        </div>
+        <div class="col-sm-12 col-md-12 col-xl-12" style="line-height: 25px;">
+          <span>Join our Community</span>
+          <div style="display: flex; gap: 0.5rem;flex-wrap: wrap;">
+            <button class="btn btn-pill btn-light button-back-wallet" ><i class="icofont icofont-social-twitter f-20"></i></button>
+            <button class="btn btn-pill btn-light button-back-wallet" ><i class="icofont icofont-social-instagram f-20"></i></button>
+            <button class="btn btn-pill btn-light button-back-wallet" ><i class="icofont icofont-social-facebook f-20"></i></button>
+            <button class="btn btn-pill btn-light button-back-wallet" ><i class="fa fa-flickr"></i></button>
+            <button class="btn btn-pill btn-light button-back-wallet" ><i class="icofont icofont-social-telegram f-20"></i></button>
+          </div>
+        </div>
+      </div>
+      <div class="col-sm-12 col-md-4 col-l-4 col-xl-4">
+        <div style="display: flex; gap: 1rem; flex-direction: column; ">
+          <div>
+            <img class="img-fluid for-light" src="assets/images/logo/logo.webp" alt="" (click)="redirectTo(appSettings.UIURLHomePageHost)"/>
+            <img class="img-fluid for-dark" src="assets/images/logo/logo_dark.webp" alt="" (click)="redirectTo(appSettings.UIURLHomePageHost)"/>
+          </div>
+          <div>
+            <div>308-309 Arcada 5, Lopez Jaena St., Tipolo</div>
+            <div>(032) 505 2433</div>
+          </div>
+          <div style="color: var(--theme-deafult);">admin@xgame.co</div>
+        </div>
+      </div>
+    <hr class="m-t-15">
+    <div class="col-sm-12 col-md-12 col-xl-12 footer-copyright text-center">
+      <div class="row">
+        <div class="row icon-lists" style="display: flex;justify-content: space-between;">
+          <div class="col-sm-4 col-md-2 col-xl-2" *ngFor="let legal of legal_menuItems" (click)="redirectTo(legal.path)">
+              <span>{{legal.title}}</span>
+          </div>
+        </div>
+      </div>
+      <p class="mb-0 m-t-10">Copyright {{ today | date:'y'}} © XGame by NexGen </p>
+    </div>
+  </div>
+</div>

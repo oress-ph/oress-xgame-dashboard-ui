@@ -1,0 +1,31 @@
+[
+    {
+        "id":1,
+        "language":  "English",
+        "code": "en",
+        "type":"EN",
+        "icon": "us"
+
+    },
+    {
+        "id":1,
+        "language":  "Chinese",
+        "code": "zh",
+        "type":"ZH",
+        "icon": "cn"
+    },
+    {
+        "id":1,
+        "language":  "Japanese",
+        "code": "jp",
+        "type":"JA",
+        "icon": "jp"
+    },
+    {
+        "id":1,
+        "language":  "Korean",
+        "code": "kr",
+        "type":"KO",
+        "icon": "kr"
+    }
+]

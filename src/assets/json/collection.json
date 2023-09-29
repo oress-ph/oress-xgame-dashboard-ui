@@ -1,7 +1,15 @@
 [
   {
+    "id": 0,
+    "game_name": "All",
+    "description": "",
+    "background image": "",
+    "logo": "",
+    "is_live": true
+  },
+  {
     "id": 1,
-    "name": "Suhosin Wars: Guardians of Gems",
+    "game_name": "Suhosin Wars: Guardians of Gems",
     "description": "\"Suhosin Wars: Guardians of Gems,\" embark on an epic MMORPG adventure in the enchanting realm of Suhosin, where you, as one of the twelve Chinese Zodiac Guardians, must wield elemental forces to thwart the nefarious dark owl Amoenyss and protect the sacred Gems, preserving the realm's delicate balance and the lives of its diverse inhabitants.",
     "background image": "",
     "logo": "",
@@ -9,7 +17,7 @@
   },
   {
     "id": 2,
-    "name": "AstroChibbi Conquest: Galactic Delight",
+    "game_name": "AstroChibbi Conquest: Galactic Delight",
     "description": "In a distant galaxy, mischievous alien Chibbis have invaded peaceful alien planets, causing chaos and disruption. As a brave Astronaut hero, players embark on a mission to capture the Chibbis, protect the innocent alien species, and restore harmony across the galaxy. Explore unique alien worlds, battle against the mischievous Chibbis, and uncover the mysteries of the invasion",
     "background image": "",
     "logo": "",
@@ -17,7 +25,7 @@
   },
   {
     "id": 3,
-    "name": "NinjaFruit Rumble: Chibi Showdown",
+    "game_name": "NinjaFruit Rumble: Chibi Showdown",
     "description": "NinjaFruit Rumble: Chibi Showdown\" is an action-packed top-down game that combines the cuteness of chibi characters, intense ninja combat, and a chaotic fruit invasion. Players embark on a thrilling adventure as heroic chibi ninjas, defending their village from mischievous fruits. Engage in fast-paced battles, navigate treacherous environments, and unlock powerful abilities to become the ultimate fruity ninja warrior",
     "background image": "",
     "logo": "",
@@ -25,7 +33,7 @@
   },
   {
     "id": 4,
-    "name": "Lost Realm Raiders: An Epic Adventure Awaits",
+    "game_name": "Lost Realm Raiders: An Epic Adventure Awaits",
     "description": "Lost Realm Raiders\" takes players on an exhilarating journey as a fearless team of treasure hunters who venture into ancient ruins and mystical realms. In this captivating top-down game, players will embark on thrilling expeditions, combining exploration, puzzle-solving, and strategic combat. As the players delve deeper into the lost realms, they will uncover hidden secrets, face formidable challenges, and unlock powerful artifacts. The game's immersive art style brings the mystical environments and ancient ruins to life, providing a visually stunning experience for casual players, hardcore gamers, and NFT enthusiasts",
     "background image": "",
     "logo": "",
@@ -33,7 +41,7 @@
   },
   {
     "id": 5,
-    "name": "Cozy Paws Cafe: A Heartwarming Animal Cafe Adventure",
+    "game_name": "Cozy Paws Cafe: A Heartwarming Animal Cafe Adventure",
     "description": "Cozy Paws Cafe is an immersive top-down simulation game where players have the opportunity to run their own cozy cafe while also providing a loving sanctuary for stray cats and dogs. As the owner of the cafe, players can choose their preferred animal cafe theme, whether it's a cat-centric cafe or a dog haven. The game combines the delightful experience of managing a cafe with the joy of rescuing and caring for adorable animals.",
     "background image": "",
     "logo": "",
@@ -41,7 +49,7 @@
   },
   {
     "id": 6,
-    "name": "Caffeine Rush",
+    "game_name": "Caffeine Rush",
     "description": "Caffeine Rush is an addictive top-down game that puts players in the role of a coffee enthusiast on a quest to make and drink as much coffee as possible without breaking the machine or the pot. The game's core mechanic revolves around the increasing difficulty and twitchiness of making coffee as the player consumes more pots. Players can choose between two gameplay options: Free-to-Play (F2P) or NFT Player. The F2P players engage in the campaign and earn in-game resources (coins) through gameplay, while NFT players have the advantage of earning the game's main crypto coin, which is exclusive to them.",
     "background image": "",
     "logo": "",
@@ -49,7 +57,7 @@
   },
   {
     "id": 7,
-    "name": "Fallout Town: Survive the Nuclear Chaos",
+    "game_name": "Fallout Town: Survive the Nuclear Chaos",
     "description": "Fallout Town is a multiplayer game set in a post-apocalyptic world where players awaken in a desolate nuclear test town. The objective is to find a hiding place or shelter to survive the periodic detonations while competing against other players. Nukes go off every 2 minutes, ravaging different areas of the town, creating a constantly changing and dangerous environment. The ultimate goal is to be the last survivor standing, earning the title of the sole survivor.",
     "background image": "",
     "logo": "",
@@ -57,7 +65,7 @@
   },
   {
     "id": 8,
-    "name": "Pixel Pets: Quest for Friendship Link",
+    "game_name": "Pixel Pets: Quest for Friendship Link",
     "description": "Pixel Pets: Quest for Friendship is an immersive 3D game that combines exploration, friendship-building, and strategic battles. Players embark on a journey through a colorful world filled with adorable Pixel Pets, aiming to restore harmony and strengthen the bonds of friendship. Each Pixel Pet belongs to one of six elemental categories: Air, Bio, Earth, Fire, Venom, or Water. With unique attributes, descriptions, and classes, players can strategically build their team and overcome challenges. With a captivating story, diverse gameplay features, and enhanced pet interactions, the game entices both casual and hardcore players.",
     "background image": "",
     "logo": "",
@@ -65,7 +73,7 @@
   },
   {
     "id": 9,
-    "name": "MechStorm: The Ultimate Robo Showdown",
+    "game_name": "MechStorm: The Ultimate Robo Showdown",
     "description": "MechStorm is a multiplayer top-down game where players control powerful mechs and engage in thrilling battles against other players. The core concept revolves around strategic combat, extensive customization, and the integration of NFTs for unique in-game assets.",
     "background image": "",
     "logo": "",
@@ -73,7 +81,7 @@
   },
   {
     "id": 10,
-    "name": "Cosmic City Builders",
+    "game_name": "Cosmic City Builders",
     "description": "Cosmic City Builders\" is a 3D casual mobile/web game where players explore the cosmos, colonize and manage futuristic cities on different planets, and interact with various alien species. The core concept revolves around balancing city development, meeting the diverse needs of the alien population, and navigating unpredictable space events while creating a sustainable intergalactic civilization.",
     "background image": "",
     "logo": "",
@@ -81,7 +89,7 @@
   },
   {
     "id": 11,
-    "name": "Beast Dominion",
+    "game_name": "Beast Dominion",
     "description": "Beast Dominion\" is an immersive monster-collecting and battling game set in a vast and diverse world. Players will embark on an adventure, exploring different regions, capturing unique creatures, and evolving them into powerful forms. Engage in turn-based battles against other trainers and NPCs, utilizing your creatures' abilities and strengths. The game also features city building, resource management, quests, storyline, PvP battles, mini-games, challenges, and online connectivity for trading, events, and social interaction.",
     "background image": "",
     "logo": "",
@@ -89,7 +97,7 @@
   },
   {
     "id": 12,
-    "name": "Pixel Pioneers",
+    "game_name": "Pixel Pioneers",
     "description": "\"Pixel Pioneers\" is an exciting NFT Tower Defense game where players must defend their pixelated world from relentless waves of invading monsters. The game combines strategic tower placement with the exploration and trading of NFT pixel art characters, each possessing unique abilities and strengths. Engage in an immersive experience as you defend your realm and uncover rare and powerful characters to enhance your defensive strategies.",
     "background image": "",
     "logo": "",
@@ -97,7 +105,7 @@
   },
   {
     "id": 13,
-    "name": "Arcane Citadel",
+    "game_name": "Arcane Citadel",
     "description": "Concept: Defend a mystical citadel from hordes of magical creatures using a variety of towers and spells. Collect and trade NFT creatures with unique abilities to enhance your defenses.",
     "background image": "",
     "logo": "",
@@ -105,7 +113,7 @@
   },
   {
     "id": 14,
-    "name": "Steampunk Siege",
+    "game_name": "Steampunk Siege",
     "description": " \"Steampunk Siege\" is an immersive tower defense game set in a steampunk universe. Players are tasked with defending their steampunk city from relentless airship raids and ground assaults. The game offers a unique twist by introducing NFT steam-powered weaponry, allowing players to customize and upgrade their defenses with rare and valuable NFT components. With each wave of enemies becoming more challenging, players must strategize, manage resources, and strategically place their defenses to survive the onslaught.\r",
     "background image": "",
     "logo": "",
@@ -113,7 +121,7 @@
   },
   {
     "id": 15,
-    "name": "Mythical Guardians",
+    "game_name": "Mythical Guardians",
     "description": " \"Mythical Guardians\" is a 2D tower-defense game designed for both mobile and web platforms. In this game, players take on the role of a guardian tasked with protecting ancient realms from mythical monsters. The game incorporates a unique feature of collecting and trading NFT creature cards, each possessing distinct abilities and strengths. Players strategically summon and command these mythical creatures to create powerful combinations and devise effective defense strategies.",
     "background image": "",
     "logo": "",
@@ -121,7 +129,7 @@
   },
   {
     "id": 16,
-    "name": "Snail Dash",
+    "game_name": "Snail Dash",
     "description": "Snail Dash is an exhilarating mobile racing game that puts players in control of speedy snails, delivering a unique and fast-paced experience. With a range of snail characters to choose from, each possessing distinct attributes, players can engage in thrilling races against both AI opponents and real players. The game offers various race modes, including intense Player vs. Player (PvP) showdowns and challenging Player vs. AI races, catering to both competitive multiplayer enthusiasts and solo players seeking exciting challenges.",
     "background image": "",
     "logo": "",
@@ -129,7 +137,7 @@
   },
   {
     "id": 17,
-    "name": "Velocity Rivals: Grand Prix Showdown",
+    "game_name": "Velocity Rivals: Grand Prix Showdown",
     "description": "Velocity Rivals: Grand Prix Showdown is a fast-paced 2D casual racing game that combines the thrill of multiplayer racing with collectible virtual cars. Players compete in high-speed races, bet on races using in-game currency and even have the opportunity to engage in NFT and crypto features. With a variety of customizable cars, exciting tournaments, and regular updates, Velocity Rivals offers an exhilarating racing experience with unique blockchain integration.\r",
     "background image": "",
     "logo": "",
@@ -137,7 +145,7 @@
   },
   {
     "id": 18,
-    "name": "Beast Circuit: Epic Racing Adventure",
+    "game_name": "Beast Circuit: Epic Racing Adventure",
     "description": "Beast Circuit: Epic Racing Adventure is an immersive 2D casual racing game that combines the excitement of competitive multiplayer races with the innovative features of NFTs and crypto. Players will collect and train powerful NFT beasts, explore captivating race tracks, place bets on races, and climb the global leaderboards. With regular updates introducing new beasts, tracks, and game modes, players will constantly discover fresh challenges and experiences.\r",
     "background image": "",
     "logo": "",
@@ -145,7 +153,7 @@
   },
   {
     "id": 19,
-    "name": "Pet Speedsters: Racing Showdown",
+    "game_name": "Pet Speedsters: Racing Showdown",
     "description": "Pet Speedsters: Racing Showdown is an engaging 2D mobile and web-based casual game that combines the excitement of multiplayer racing with collectible Non-Fungible Token (NFT) pets. Players will immerse themselves in a vibrant world where they can collect, train, trade, and customize unique pets with distinct attributes. They will participate in real-time multiplayer races, compete in various game modes, and even place bets using in-game currency. With regular updates introducing new pet breeds, accessories, and race tracks, Pet Speedsters aims to provide an entertaining and addictive gaming experience.\r",
     "background image": "",
     "logo": "",
@@ -153,7 +161,7 @@
   },
   {
     "id": 20,
-    "name": "Wild Drift: Creature Rally Racing",
+    "game_name": "Wild Drift: Creature Rally Racing",
     "description": "Wild Drift: Creature Rally Racing is an exciting 2D mobile and web-based casual game that combines the thrill of rally racing with the uniqueness of NFT (Non-Fungible Token) creatures and crypto features. Players will embark on an adrenaline-fueled adventure, competing against other players, betting on races, and experiencing a wide variety of off-road tracks. The game offers both casual and hardcore gameplay modes, providing an engaging experience for all players.",
     "background image": "",
     "logo": "",

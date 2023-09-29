@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { LayoutComponent } from './layout.component';
 import { TopbarComponent } from 'src/app/components/layout/topbar/topbar.component';
 import { FooterComponent } from 'src/app/components/layout/footer/footer.component';
+import { LayoutRoutingModule } from './layout-routing.module';
 import { LayoutRouterActivate } from './layout-router.activate';
 
 // PRIMENG MODULES
@@ -18,23 +19,22 @@ import { TableModule } from 'primeng/table';
 import { DropdownModule } from 'primeng/dropdown';
 import { InputNumberModule } from 'primeng/inputnumber';
 import { RadioButtonModule } from 'primeng/radiobutton';
+import { DialogModule } from 'primeng/dialog';
+import { InputTextareaModule } from 'primeng/inputtextarea';
+import { MessageService } from 'primeng/api';
 import { ToastModule } from 'primeng/toast';
 import {PanelMenuModule} from 'primeng/panelmenu';
 import { BreadcrumbModule } from 'primeng/breadcrumb';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { SplitButtonModule } from 'primeng/splitbutton';
-import { LayoutRoutingModule } from './layout-routing.module';
 import { FormsModule } from '@angular/forms';
 import { OverlayPanelModule } from 'primeng/overlaypanel';
-
-import { SidebarComponent } from 'src/app/components/layout/sidebar/sidebar.component';
 
 @NgModule({
   declarations: [
     LayoutComponent,
     TopbarComponent,
-    FooterComponent,
-    SidebarComponent
+    FooterComponent
   ],
   imports: [
     CommonModule,
@@ -62,8 +62,7 @@ import { SidebarComponent } from 'src/app/components/layout/sidebar/sidebar.comp
   exports:[
     LayoutComponent,
     TopbarComponent,
-    FooterComponent,
-    SidebarComponent
+    FooterComponent
   ],
   providers:[
     LayoutRouterActivate

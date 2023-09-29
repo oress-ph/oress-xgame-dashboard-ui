@@ -1,0 +1,208 @@
+<app-breadcrumb [title]="'Marketplace'" [items]="['Marketplace']" [active_item]="'NFT'"></app-breadcrumb>
+<!-- Container-fluid starts-->
+<div class="container-fluid product-wrapper" [class.sidebaron]="openSidebar">
+  <div class="product-grid">
+    <div class="feature-products">
+      <div class="row">
+        <div class="col-md-6 products-total">
+          <div class="square-product-setting d-inline-block" (click)="toggleListView(false)">
+            <a class="icon-grid grid-layout-view" href="javascript:void(0);">
+              <app-feather-icons class="close-btn" [icon]="'grid'"></app-feather-icons>
+            </a>
+          </div>
+          <div class="square-product-setting d-inline-block" (click)="toggleListView(true)">
+            <a class="icon-grid m-0 list-layout-view" href="javascript:void(0);">
+              <app-feather-icons class="close-btn" [icon]="'list'"></app-feather-icons>
+            </a>
+          </div>
+          <span class="d-none-productlist filter-toggle" (click)="sidebarToggle()">
+            Filters
+            <span class="ms-2">
+              <i class="toggle-data" data-feather="chevron-down"></i>
+            </span>
+          </span>
+          <div class="grid-options d-inline-block">
+            <ul>
+              <li (click)="grid2s()">
+                <a class="product-2-layout-view" href="javascript:void(0);"><span class="line-grid line-grid-1 bg-primary"></span><span class="line-grid line-grid-2 bg-primary"></span></a>
+              </li>
+              <li (click)="grid3s()">
+                <a class="product-3-layout-view" href="javascript:void(0);"><span class="line-grid line-grid-3 bg-primary"></span><span class="line-grid line-grid-4 bg-primary"></span><span class="line-grid line-grid-5 bg-primary"></span></a>
+              </li>
+              <li (click)="gridOpens()">
+                <a class="product-4-layout-view" href="javascript:void(0);"><span class="line-grid line-grid-6 bg-primary"></span><span class="line-grid line-grid-7 bg-primary"></span><span class="line-grid line-grid-8 bg-primary"></span><span class="line-grid line-grid-9 bg-primary"></span></a>
+              </li>
+              <li (click)="grid6s()">
+                <a class="product-6-layout-view" href="javascript:void(0);"
+                  ><span class="line-grid line-grid-10 bg-primary"></span><span class="line-grid line-grid-11 bg-primary"></span><span class="line-grid line-grid-12 bg-primary"></span><span class="line-grid line-grid-13 bg-primary"></span><span class="line-grid line-grid-14 bg-primary"></span
+                  ><span class="line-grid line-grid-15 bg-primary"></span
+                ></a>
+              </li>
+            </ul>
+          </div>
+        </div>
+        <div class="col-md-6 text-sm-end">
+          <span class="f-w-600 m-r-5">Showing NFT 1 - {{nft_list_filter.length}} Of {{nft_list_filter.length}} Results</span>
+          <div class="select2-drpdwn-product select-options d-inline-block">
+            <select class="form-control btn-square" name="select" [(ngModel)]="price_rank" (change)="onGameSelect($event)">
+              <option value="featured">Featured</option>
+              <option value="lowest">Lowest Prices</option>
+              <option value="highest">Highest Prices</option>
+            </select>
+          </div>
+          <span class="f-w-600 m-l-5">Balance: <span style="color: var(--theme-deafult);">{{appSettings.wallet_info.wallet_balance_nms}} GNT</span></span>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-xl-3 col-md-4">
+          <div class="product-sidebar" [class.open]="openSidebar">
+            <div class="filter-section">
+              <div class="card">
+                <div class="card-header" (click)="sidebarToggle()">
+                  <h6 class="mb-0 f-w-600">
+                    Filters<span class="pull-right"><i class="fa fa-chevron-down toggle-data"></i></span>
+                  </h6>
+                </div>
+                <div class="left-filter scroll-bar-wra[]">
+                  <div class="card-body filter-cards-view animate-chk scroll-demo">
+                    <div class="product-filter">
+                      <h6 class="f-w-600">Collection</h6>
+                      <div class="checkbox-animated mt-0">
+                        <select class="form-control btn-pill digits" id="exampleFormControlSelect7" [(ngModel)]="selected_game" (change)="onGameSelect($event)">
+                          <option *ngFor="let games of games_list" [ngValue]="games">{{games.game_name}}</option>
+                        </select>
+                      </div>
+                    </div>
+                    <div class="product-filter">
+                      <h6 class="f-w-600">Category</h6>
+                      <div class="checkbox-animated mt-0" *ngIf="category_list.length>0">
+                        <label class="d-block" for="chk-ani{{category.id}}" *ngFor="let category of category_list"> 
+                          <input class="checkbox_animated" id="chk-ani{{category.id}}" type="checkbox" data-original-title="" title="" (change)="toggleCategorySelection(category)"/> {{category.category_name}} 
+                        </label>
+                      </div>
+                    </div>
+                    <div class="product-filter">
+                      <h6 class="f-w-600">Price</h6>
+                      <div class="checkbox-animated mt-0">
+                        <div class="input-group">
+                          <input class="form-control" type="text" placeholder="0" data-bts-min="1" aria-label="0" [(ngModel)]="min_price" (input)="onPriceInputChange()"/>
+                          <span class="input-group-text">min</span>
+                          <span class="m-2" style="display: flex;
+                          flex-wrap: wrap;
+                          align-content: center;">To</span>
+                          <input class="form-control" type="text" placeholder="0" aria-label="0" [(ngModel)]="max_price" (input)="onPriceInputChange()"/>
+                          <span class="input-group-text">max</span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-xl-9 col-md-8">
+          <form #searchForm="ngForm" (ngSubmit)="onSearch()">
+            <div class="form-group m-0"><input class="form-control" type="search" placeholder="Search.." [(ngModel)]="search_nft" data-original-title="" title="" /><i class="fa fa-search"></i></div>
+          </form>
+        </div>
+      </div>
+    </div>
+    <div class="row" *ngif="loading">
+      <div class="loader-box">
+        <div class="loader-16"></div>
+      </div>
+    </div>
+    <div class="product-wrapper-grid" [class.list-view]="listView">
+      <div class="row">
+        <div [class.col-xl-3]="col_xl_3" [class.col-xl-4]="xl_4" [class.col-sm-3]="col_sm_3" [class.col-xl-4]="col_xl_4" [class.col-sm-4]="col_sm_4" [class.col-xl-6]="col_xl_6" [class.col-sm-6]="col_sm_6" [class.col-xl-12]="col_xl_12" [class.col-xl-2]="col_xl_2" *ngFor="let product of nft_list_filter">
+          <div class="card">
+            <div class="product-box">
+              <div class="product-img">
+                <!-- <div class="ribbon ribbon-danger" *ngIf="product.status == 'sale'">{{ product.status }}</div> -->
+                <!-- <div class="ribbon ribbon-success ribbon-right" *ngIf="product.status == '50%'">{{ product.status }}</div> -->
+                <img class="img-fluid" src="{{ product.imagePath }}" alt="" />
+                <div class="product-hover">
+                  <ul>
+                    <!-- <li>
+                      <a [routerLink]="['/ecommerce/cart']"><i class="icon-shopping-cart"></i></a>
+                    </li> -->
+                    <li placement="top" ngbTooltip="Buy">
+                      <a (click)="openProductDetail(content, product)"><i class="icon-wallet"></i></a>
+                    </li>
+                    <li placement="top" ngbTooltip="Details">
+                      <a href="marketplace/nft-details/{{product.nftTokenId}}"><i class="icon-eye"></i></a>
+                    </li>
+                    <ng-template #content let-modal>
+                      <div class="modal-body" style="padding: 0%">
+                        <app-quick-view [productDetail]="productDetail"></app-quick-view>
+                        <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
+                      </div>
+                    </ng-template>
+                  </ul>
+                </div>
+              </div>
+              <div class="modal fade" id="exampleModalCenter16">
+                <div class="modal-dialog modal-lg modal-dialog-centered">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <div class="product-box row">
+                        <div class="product-img col-lg-6"><img class="img-fluid" src="{{ product.imagePath }}" alt="" /></div>
+                        <div class="product-details col-lg-6 text-start">
+                          <a href="marketplace/nft-details/{{product.nftTokenId}}">
+                            <h4>{{ product.name }}</h4></a
+                          >
+                          <div class="product-price">
+                            $26.00
+                            <del>$35.00</del>
+                          </div>
+                          <div class="product-view">
+                            <h6 class="f-w-600">Product Details</h6>
+                            <p class="mb-0">Sed ut perspiciatis, unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam eaque ipsa, quae ab illo.</p>
+                          </div>
+                          <div class="product-size">
+                            <ul>
+                              <li>
+                                <button class="btn btn-outline-light" type="button">M</button>
+                              </li>
+                              <li>
+                                <button class="btn btn-outline-light" type="button">L</button>
+                              </li>
+                              <li>
+                                <button class="btn btn-outline-light" type="button">Xl</button>
+                              </li>
+                            </ul>
+                          </div>
+                          <div class="product-qnty">
+                            <h6 class="f-w-600">Quantity</h6>
+                            <fieldset>
+                              <div class="input-group">
+                                <input class="touchspin text-center" type="text" value="5" />
+                              </div>
+                            </fieldset>
+                            <div class="addcart-btn"><a class="btn btn-primary me-3" href="marketplace/cart">Add to Cart </a><a class="btn btn-primary" href="marketplace/product-page">View Details</a></div>
+                          </div>
+                        </div>
+                      </div>
+                      <button class="btn-close" type="button" aria-label="Close"></button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="product-details">
+                <a href="ecommerce/product-page">
+                  <h4>{{ product.name }}</h4></a
+                >
+                <p>{{ product.collection }}</p>
+                <div class="product-price">
+                  {{ product.price }} NMS
+                  <!-- <del>${{ product.discountPrice }}</del> -->
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
