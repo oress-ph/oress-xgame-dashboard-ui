@@ -48,8 +48,8 @@
                     <div class="product-filter">
                       <h6 class="f-w-600">Category</h6>
                       <div class="checkbox-animated mt-0" *ngIf="category_list.length>0">
-                        <label class="d-block" for="chk-ani{{category.id}}" *ngFor="let category of category_list"> 
-                          <input class="checkbox_animated" id="chk-ani{{category.id}}" type="checkbox" data-original-title="" title="" (change)="toggleCategorySelection(category)"/> {{category.category_name}} 
+                        <label class="d-block" for="chk-ani{{category.id}}" *ngFor="let category of category_list">
+                          <input class="checkbox_animated" id="chk-ani{{category.id}}" type="checkbox" data-original-title="" title="" (change)="toggleCategorySelection(category)"/> {{category.category_name}}
                         </label>
                       </div>
                     </div>
@@ -106,12 +106,75 @@
                       <a href="https://nft.xgame.live/marketplace/nft-details/{{product.nftTokenId}}"><i class="icon-eye"></i></a>
                     </li>
                     <li placement="top" ngbTooltip="Edit">
-                      <a href="https://nft.xgame.live/marketplace/nft-details/{{product.nftTokenId}}"><i class="icon-pencil"></i></a>
+                      <a (click)="editItem(listitem)"><i class="icon-pencil"></i></a>
                     </li>
+
                     <ng-template #content let-modal>
                       <div class="modal-body" style="padding: 0%">
                         <app-quick-view [productDetail]="productDetail"></app-quick-view>
                         <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
+                      </div>
+                    </ng-template>
+
+                    <ng-template #listitem let-modal>
+                      <div class="modal-body" style="padding: 0%; margin: 20px">
+                        <div class="modal-header">
+                          <h4 class="modal-title text-center">{{ product.name }}</h4>
+                          <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
+                        </div>
+                        <div class="modal-body" style="margin: 20px;">
+
+                          <ul ngbNav #nav="ngbNav" [(activeId)]="selectedAction" class="nav-tabs">
+                            <li [ngbNavItem]="1" [disabled]="isLoading">
+                              <button ngbNavLink>List Item</button>
+                              <ng-template ngbNavContent>
+                              <br>
+                              <div class="row">
+                                  <h5>For Sale</h5>
+                                  <hr>
+                                  <div class="flex flex-column gap-3">
+                                    <div class="form-check">
+                                      <input class="form-check-input" type="radio"
+                                        name="paymentMethod" id="listYes" [checked]="product.isForSale"
+                                        (click)="listItem('Yes')" value="No">
+                                      <label class="form-check-label"
+                                        for="listYes">Yes</label>
+                                    </div>
+                                    <div class="form-check">
+                                      <input class="form-check-input" type="radio"
+                                        name="paymentMethod" id="listNo" [checked]="!product.isForSale"
+                                        (click)="listItem('No')" value="No">
+                                      <label class="form-check-label"
+                                        for="listNo">No</label>
+                                    </div>
+                                  </div>
+                                </div>
+                              </ng-template>
+                            </li>
+                            <li [ngbNavItem]="2" [disabled]="isLoading">
+                              <button ngbNavLink>Transfer</button>
+                              <ng-template ngbNavContent>
+                              <br>
+                              <h5>Transfer NFT to</h5>
+                              <hr>
+                              <div>
+                                <input class="inputAddress" type="text" [(ngModel)]="transferTo"
+                                  (ngModelChange)="onTransferChange($event)" [class.invalid]="invalidAddress" >
+                              </div>
+                              </ng-template>
+                            </li>
+                          </ul>
+                          <div [ngbNavOutlet]="nav" class="mt-2"></div>
+
+                        </div>
+                        <div class="modal-footer">
+                          <button class="btn btn-success" (click)="updateForSale(product)"
+                            *ngIf="selectedAction === 1">Update</button>
+                          <button class="btn btn-success" (click)="transferNFT(product)"
+                            *ngIf="selectedAction === 2" [disabled]="invalidAddress">Transfer</button>
+                          <button type="button" class="btn btn-outline-dark"
+                            (click)="modal.close('Close click')">Cancel</button>
+                        </div>
                       </div>
                     </ng-template>
                   </ul>
@@ -181,3 +244,5 @@
     </div>
   </div>
 </div>
+
+

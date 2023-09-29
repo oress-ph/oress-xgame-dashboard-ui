@@ -2,8 +2,8 @@ import { Injectable } from '@angular/core';
 import { WalletAccountsModel } from './../model/polkadot.model';
 import { web3Accounts, web3Enable, web3FromAddress, web3FromSource } from '@polkadot/extension-dapp';
 import { cryptoWaitReady, decodeAddress, signatureVerify } from '@polkadot/util-crypto';
-import { stringToHex, stringToU8a, u8aToHex } from '@polkadot/util';
-import { Keyring } from '@polkadot/keyring';
+import { hexToU8a, isHex, stringToHex, stringToU8a, u8aToHex } from '@polkadot/util';
+import { Keyring, encodeAddress } from '@polkadot/keyring';
 import { ApiPromise } from '@polkadot/api';
 import { WsProvider } from '@polkadot/rpc-provider';
 // import { ContractPromise } from '@polkadot/api-contract';
@@ -117,7 +117,7 @@ export class PolkadotService {
     try {
       const contractAddress = await this.getAllSmartContracts();
       const accountData = await this.getAccount(contractAddress);
-  
+
       if (accountData && accountData.api) {
         const { api, SENDER, contract } = accountData;
         const accountInfo: any = await api.query.system.account(SENDER);
@@ -137,9 +137,9 @@ export class PolkadotService {
       return undefined;
     }
   }
-  
-  
-  
+
+
+
 
   async getWeb3Accounts(): Promise<WalletAccountsModel[]> {
     let walletAccounts: WalletAccountsModel[] = [];
@@ -259,5 +259,19 @@ export class PolkadotService {
         }
       });
     });
+  }
+
+  isAddressValid(walletAddress: string) {
+    try {
+      encodeAddress(
+        isHex(walletAddress)
+          ? hexToU8a(walletAddress)
+          : decodeAddress(walletAddress)
+      );
+      return true;
+    } catch (error) {
+      console.error(error);
+      return false;
+    }
   }
 }

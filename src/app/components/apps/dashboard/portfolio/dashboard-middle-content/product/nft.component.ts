@@ -9,7 +9,8 @@ import { GameModel,Categories } from '../../../../../../shared/model/games.model
 import { AppSettings } from "src/app/app-settings";
 import { PolkadotService } from "src/app/shared/services/polkadot.service";
 import { WalletInfoModel } from "src/app/shared/model/wallet-info.model";
-
+import { CookiesService } from "src/app/shared/services/cookies.service";
+import { Observable, firstValueFrom } from "rxjs";
 
 @Component({
   selector: "app-nft",
@@ -58,20 +59,88 @@ export class NFTComponent implements OnInit {
 
   public min_price : number = 1;
   public max_price: number = 100;
-  
+
   public max_height: number = 300;
   public min_height: number = 300;
 
   public wallet_info: WalletInfoModel = new WalletInfoModel();
   public token_transaction: TokenTransactionModel[] = [];
 
+  listItemSelected: boolean = false;
+  isLoading: boolean = false;
+  invalidAddress: boolean = false;
+  selectedAction = 1;
+  transferTo: string = ''
+
   constructor(
     private modalService: NgbModal,
     private nftService: NftService,
     private gameService: GamesService,
     public appSettings: AppSettings,
-    private polkadotService: PolkadotService
+    private polkadotService: PolkadotService,
+    private cookiesService: CookiesService
   ) {}
+
+  onTransferChange(event: any) {
+    if (!this.polkadotService.isAddressValid(event)) {
+      this.invalidAddress = true;
+    } else {
+      this.invalidAddress = false;
+    }
+  }
+
+  async transaction(method: string, params: any) {
+    this.isLoading = true;
+    const nftService = this.nftService as unknown as {
+      [key: string]: (params: any) => Observable<any>
+    };
+    const response = await firstValueFrom(nftService[method](params));
+    if (response[0]) {
+      //
+    } else {
+      //
+    }
+    this.isLoading = false;
+    this.modalService.dismissAll();
+    window.location.reload();
+  }
+
+  async updateForSale(nft: any) {
+    this.isLoading = true;
+    let transactionMethod = 'updateNft';
+    let  transactionParams = {
+      id: nft.nftTokenId,
+      name: nft.name,
+      category: nft.category,
+      collection: nft.collection,
+      description: nft.description,
+      image_path: nft.imagePath,
+      price: nft.price,
+      is_for_sale: this.listItemSelected,
+      atlas_images: nft.atlasFilePath,
+    }
+    await this.transaction(transactionMethod, transactionParams);
+  }
+
+  async transferNFT(nft: any) {
+    this.isLoading = true;
+    let transactionMethod = 'transferNft';
+    let transactionParams = {
+      from: nft.tokenOwner,
+      to: this.transferTo,
+      id: nft.nftTokenId
+    }
+    console.log(transactionParams);
+    await this.transaction(transactionMethod, transactionParams);
+  }
+
+  listItem(data: string) {
+    this.listItemSelected = data === 'Yes' ? true : false;
+  }
+
+  async editItem(content: any) {
+    this.modalService.open(content, { centered: true, size: "md" });
+  }
 
   ngOnInit() {
     this.get_games_list();
@@ -194,12 +263,12 @@ export class NFTComponent implements OnInit {
   }
   filterNFT() {
     let _filtered_nft = this.nft_list;
-    
+
     if(this.selected_game?.game_name&&this.selected_game.game_name!="All"){
           // Apply collection filter
       _filtered_nft = _filtered_nft.filter(item => item.collection === this.selected_game.game_name);
     }
-  
+
     // If selected_categories is not empty, apply category filtering
     if (this.selected_categories.length > 0) {
       _filtered_nft = _filtered_nft.filter(item => this.selected_categories.some(cat => item.category.includes(cat.category_name)));
@@ -207,7 +276,7 @@ export class NFTComponent implements OnInit {
 
     if (this.search_nft) {
       const search_term = this.search_nft.toLowerCase();
-      _filtered_nft = _filtered_nft.filter(item => 
+      _filtered_nft = _filtered_nft.filter(item =>
         item.name.toLowerCase().includes(search_term)
       );
     }
@@ -221,7 +290,7 @@ export class NFTComponent implements OnInit {
     } else if (this.price_rank === 'highest') {
       _filtered_nft.sort((a, b) => b.price - a.price);
     }
-  
+
     this.nft_list_filter = _filtered_nft;
     console.log(this.nft_list_filter);
   }
