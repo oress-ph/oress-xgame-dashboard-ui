@@ -51,7 +51,7 @@ import { SafePipe } from './pipes/safe.pipe'
 import { PolkadotService } from "./services/polkadot.service";
 import { LabelService } from './services/label.service';
 import { ChatBotService } from './services/chatbot.service';
-import { BalanceProfileComponent } from "./../components/apps/dashboard/portfolio/dashboard-left-content/balance-profile/balance-profile.component"
+import { BalanceProfileComponent } from "./../components/apps/dashboard/portfolio/dashboard-left-content/balance-profile/balance-profile.component";
 @NgModule({
   declarations: [
     HeaderComponent,
@@ -81,9 +81,8 @@ import { BalanceProfileComponent } from "./../components/apps/dashboard/portfoli
     SwiperComponent,
     NetworkComponent,
     WalletInfoComponent,
-    BalanceProfileComponent,
     SafePipe,
-    
+    BalanceProfileComponent
   ],
   imports: [
     CommonModule, 
@@ -95,7 +94,7 @@ import { BalanceProfileComponent } from "./../components/apps/dashboard/portfoli
     TranslateModule.forRoot(),
     CarouselModule,
     SwiperModule],
-  providers: [NavService, ChatService, LayoutService, TableService, DecimalPipe, GamesService, NftService,LanguageService,PolkadotService,LabelService,ChatBotService],
+  providers: [NavService, ChatService, LayoutService, TableService, DecimalPipe, GamesService, NftService,LanguageService,PolkadotService,LabelService,ChatBotService,],
   exports: [NgbModule, FormsModule, ReactiveFormsModule,
     TranslateModule,
     LoaderComponent, 
@@ -108,7 +107,7 @@ import { BalanceProfileComponent } from "./../components/apps/dashboard/portfoli
     NgbdSortableHeader, 
     SvgIconComponent, 
     SwiperModule,
-    
+    BalanceProfileComponent
   ],
 })
 export class SharedModule {}

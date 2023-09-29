@@ -23,7 +23,7 @@ export class SidebarComponent {
 
   constructor(private router: Router, public navServices: NavService,
     public layout: LayoutService) {
-    this.navServices.footer_items.subscribe(menuItems => {
+    this.navServices.dashboard_items.subscribe(menuItems => {
       this.menuItems = menuItems;
       this.router.events.subscribe((event) => {
         if (event instanceof NavigationEnd) {

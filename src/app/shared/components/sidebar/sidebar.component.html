@@ -52,7 +52,7 @@
                     </div>
                   </a>
                   <!-- Link -->
-                  <a [href]="!menuItem.type ? null : [menuItem.path]" routerLinkActive="active" class="sidebar-link sidebar-title" [class.link-nav]="!menuItem.children" [ngClass]="{ active: menuItem.active }" *ngIf="menuItem.type === 'link'">
+                  <a [routerLink]="!menuItem.type ? null : [menuItem.path]" routerLinkActive="active" class="sidebar-link sidebar-title" [class.link-nav]="!menuItem.children" [ngClass]="{ active: menuItem.active }" *ngIf="menuItem.type === 'link'">
                     <app-svg-icon [icon]="menuItem.icon"></app-svg-icon>
                     <span>{{ menuItem.title | translate }}</span>
                     <div class="according-menu">

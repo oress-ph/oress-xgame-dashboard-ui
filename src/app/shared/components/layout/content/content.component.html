@@ -9,19 +9,7 @@
       </div>
       <div class="page-body">
         <main [@fadeInAnimation]="getRouterOutletState(o)">
-          <app-breadcrumb [title]="'Dashboard'" [items]="['Dashboard']" [active_item]="'Portfolio'"></app-breadcrumb>
-          <!-- <router-outlet #o="outlet"></router-outlet> -->
-          <div class="container-fluid">
-            <div class="row">
-              <div class="col-xxl-3 col-xl-3 box-col-4">
-                <!-- <app-dashboard-left-content></app-dashboard-left-content> -->
-                <app-balance-profile></app-balance-profile>
-              </div>
-              <div class="col-xxl-9 col-xl-9 box-col-8e">
-                <router-outlet #o="outlet"></router-outlet>
-              </div>
-            </div>
-          </div>
+          <router-outlet #o="outlet"></router-outlet>
           
         </main>
       </div>
