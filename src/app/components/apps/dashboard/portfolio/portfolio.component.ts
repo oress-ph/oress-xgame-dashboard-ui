@@ -9,4 +9,9 @@ export class PortfolioComponent {
   @Input() color: any;
 
   tab:number = 1;
+
+  
+  selectTab(tabNumber: number) {
+    this.tab = tabNumber;
+  }
 }

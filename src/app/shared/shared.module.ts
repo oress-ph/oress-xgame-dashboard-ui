@@ -49,7 +49,9 @@ import { SafePipe } from './pipes/safe.pipe'
 import { PolkadotService } from "./services/polkadot.service";
 import { LabelService } from './services/label.service';
 import { ChatBotService } from './services/chatbot.service';
-import { BalanceProfileComponent } from "./../components/apps/dashboard/portfolio/dashboard-left-content/balance-profile/balance-profile.component"
+import { BalanceProfileComponent } from "./../components/apps/dashboard/portfolio/dashboard-middle-content/balance-profile/balance-profile.component"
+import { WalletInfoComponent } from "./components/wallet/wallet-info/wallet-info.component";
+
 @NgModule({
   declarations: [
     HeaderComponent,
@@ -80,6 +82,7 @@ import { BalanceProfileComponent } from "./../components/apps/dashboard/portfoli
     NetworkComponent,
     BalanceProfileComponent,
     SafePipe,
+    WalletInfoComponent,
     
   ],
   imports: [
@@ -105,6 +108,7 @@ import { BalanceProfileComponent } from "./../components/apps/dashboard/portfoli
     SvgIconComponent, 
     SwiperModule,
     BalanceProfileComponent,
+    WalletInfoComponent
   ],
 })
 export class SharedModule {}

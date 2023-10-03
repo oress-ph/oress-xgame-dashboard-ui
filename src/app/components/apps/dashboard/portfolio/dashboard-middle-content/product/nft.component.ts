@@ -60,8 +60,8 @@ export class NFTComponent implements OnInit {
   public min_price : number = 1;
   public max_price: number = 100;
 
-  public max_height: number = 300;
-  public min_height: number = 300;
+  public max_height: number = 400;
+  public min_height: number = 400;
 
   public wallet_info: WalletInfoModel = new WalletInfoModel();
   public token_transaction: TokenTransactionModel[] = [];

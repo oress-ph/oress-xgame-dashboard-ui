@@ -18,6 +18,7 @@ import { GemTransactionComponent } from "./../portfolio/dashboard-right-content/
 import { GemProfileComponent } from "./../portfolio/dashboard-right-content/gem-profile/gem-profile.component";
 import { NFTComponent } from "./../portfolio/dashboard-middle-content/product/nft.component";
 import { PortfolioRoutingModule } from "./portfolio-routing-module";
+import { PortfolioProfileComponent } from './dashboard-middle-content/portfolio-profile/portfolio-profile.component';
 @NgModule({
   declarations: [
     PortfolioComponent,
@@ -28,6 +29,7 @@ import { PortfolioRoutingModule } from "./portfolio-routing-module";
     GemTransactionComponent,
     GemProfileComponent,
     NFTComponent,
+    PortfolioProfileComponent,
     // BalanceProfileComponent
   ],
   imports: [CommonModule, ChartistModule, CarouselModule, NgChartsModule, NgApexchartsModule, SharedModule, GoogleMapsModule, NgbModule, FormsModule, PortfolioRoutingModule],

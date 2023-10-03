@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { Menu, NavService } from './../../../../../../shared/services/nav.service';
 import { NavigationEnd, Router } from '@angular/router';
-import { AppSettings } from 'src/app/app-settings';
+import { AppSettings } from './../../../../../../app-settings';
 
 @Component({
   selector: 'app-balance-profile',

@@ -109,41 +109,6 @@
     justify-content: center;
     
 }
-
-// body.dark-only .customizer-footer > .mb-3 > form .input-group > .form-control:focus {
-//     color: black !important;
-// }
-
-// .page-wrapper.horizontal-wrapper .page-body-wrapper .page-body {
-//     margin-top: 80px;
-// }
-
-// .toggle-sidebar{
-//     display: none;    
-//     @media screen and (max-width: 990px){
-//         display: flex;
-//     }
-// }
-// .status_toggle{
-//     display: none;
-//     @media screen and (max-width: 1000px){
-//         display: flex;
-//     }
-// }
-
-// .anim-typewriter{
-//     animation: typewriter 4s steps(44) 1s 1 normal both,
-//                blinkTextCursor 500ms steps(44) infinite normal;
-// }
-
-
-// .page-wrapper .page-body-wrapper .page-body {
-//     display: flex;
-//     flex-wrap: wrap;
-//     align-content: center;
-//     justify-content: center;
-// }
-
-// .ribbon-primary {
-//     background: var(--theme-deafult);
-// }
+body.dark-only .page-wrapper .page-body-wrapper .page-body .card:not(.email-body).balance-box {
+    background-blend-mode: unset;
+}
