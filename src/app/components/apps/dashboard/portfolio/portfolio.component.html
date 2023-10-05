@@ -1,13 +1,21 @@
 <app-breadcrumb [title]="'Portfolio'" [items]="['Dashboard']" [active_item]="'Portfolio'"></app-breadcrumb>
+
+
 <div class="container-fluid">
   <div class="row">
-    <div class="col-xxl-3 col-xl-4 col-md-5 col-sm-12 box-col-4">
-      <!-- <app-dashboard-left-content></app-dashboard-left-content> -->
-      <app-balance-profile></app-balance-profile>
-    </div>
-    <div class="col-xxl-9 col-xl-8 col-md-7 col-sm-12 box-col-8e">
-      <app-dashboard-middle-content></app-dashboard-middle-content>
-    </div>
+    <ul ngbNav #nav7="ngbNav" [activeId]="1" class="pull-right nav nav-tabs border-tab nav-{{color}}">
+      <li [ngbNavItem]="1" (click)="selectTab(1)">
+        <a ngbNavLink><i class="icofont icofont-ui-home"></i>Asset</a>
+        <ng-template ngbNavContent>
+        </ng-template>
+      </li>
+      <li [ngbNavItem]="2" (click)="selectTab(2)">
+        <a ngbNavLink><i class="icofont icofont-archive"></i>NFT</a>
+        <ng-template ngbNavContent>
+        </ng-template>
+      </li>
+    </ul>
+    <app-dashboard-middle-content *ngIf="tab==1"></app-dashboard-middle-content>
+    <app-nft *ngIf="tab==2"></app-nft>
   </div>
 </div>
-<!-- <app-dashboard-middle-content></app-dashboard-middle-content> -->

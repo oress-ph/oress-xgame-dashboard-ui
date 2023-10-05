@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-portfolio',
@@ -6,5 +6,12 @@ import { Component } from '@angular/core';
   styleUrls: ['./portfolio.component.scss']
 })
 export class PortfolioComponent {
+  @Input() color: any;
 
+  tab:number = 1;
+
+  
+  selectTab(tabNumber: number) {
+    this.tab = tabNumber;
+  }
 }

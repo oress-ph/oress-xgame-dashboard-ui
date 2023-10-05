@@ -11,6 +11,7 @@ import { PolkadotService } from "src/app/shared/services/polkadot.service";
 import { WalletInfoModel } from "src/app/shared/model/wallet-info.model";
 import { CookiesService } from "src/app/shared/services/cookies.service";
 import { Observable, firstValueFrom } from "rxjs";
+import Swal from 'sweetalert2'
 
 @Component({
   selector: "app-nft",
@@ -60,8 +61,8 @@ export class NFTComponent implements OnInit {
   public min_price : number = 1;
   public max_price: number = 100;
 
-  public max_height: number = 300;
-  public min_height: number = 300;
+  public max_height: number = 400;
+  public min_height: number = 400;
 
   public wallet_info: WalletInfoModel = new WalletInfoModel();
   public token_transaction: TokenTransactionModel[] = [];
@@ -81,6 +82,29 @@ export class NFTComponent implements OnInit {
     private cookiesService: CookiesService
   ) {}
 
+  pageToast(success: boolean, swalTitle: string, swalText: string) {
+    const Toast = Swal.mixin({
+      toast: true,
+      position: 'top-end',
+      showConfirmButton: false,
+      timer: 3000,
+      didOpen: (toast) => {
+        toast.addEventListener('mouseenter', Swal.stopTimer)
+        toast.addEventListener('mouseleave', Swal.resumeTimer)
+      },
+      didClose: () => {
+        window.location.reload();
+        this.isLoading = false;
+        this.modalService.dismissAll();
+      },
+    });
+    Toast.fire({
+      icon: success ? 'success' : 'error',
+      title: swalTitle,
+      text: swalText
+    });
+  }
+
   onTransferChange(event: any) {
     if (!this.polkadotService.isAddressValid(event)) {
       this.invalidAddress = true;
@@ -96,13 +120,18 @@ export class NFTComponent implements OnInit {
     };
     const response = await firstValueFrom(nftService[method](params));
     if (response[0]) {
-      //
+      this.pageToast(
+        true,
+        response[1].status,
+        response[1].message,
+      );
     } else {
-      //
+      this.pageToast(
+        false,
+        response[1].status,
+        response[1].message
+      );
     }
-    this.isLoading = false;
-    this.modalService.dismissAll();
-    window.location.reload();
   }
 
   async updateForSale(nft: any) {

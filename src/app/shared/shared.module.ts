@@ -45,13 +45,13 @@ import { NetworkComponent } from './components/header/elements/network/network.c
 import { GamesService } from "./services/games.service";
 import { NftService } from "./services/nft.service";
 import { LanguageService } from "./services/language.service";
-import { WalletInfoComponent } from './components/wallet/wallet-info/wallet-info.component';
-// import { WalletListComponent } from './components/wallet/wallet-list/wallet-list.component';
 import { SafePipe } from './pipes/safe.pipe'
 import { PolkadotService } from "./services/polkadot.service";
 import { LabelService } from './services/label.service';
 import { ChatBotService } from './services/chatbot.service';
-import { BalanceProfileComponent } from "./../components/apps/dashboard/portfolio/dashboard-left-content/balance-profile/balance-profile.component"
+import { BalanceProfileComponent } from "./../components/apps/dashboard/portfolio/dashboard-middle-content/balance-profile/balance-profile.component"
+import { WalletInfoComponent } from "./components/wallet/wallet-info/wallet-info.component";
+
 @NgModule({
   declarations: [
     HeaderComponent,
@@ -80,9 +80,9 @@ import { BalanceProfileComponent } from "./../components/apps/dashboard/portfoli
     SvgIconComponent,
     SwiperComponent,
     NetworkComponent,
-    WalletInfoComponent,
     BalanceProfileComponent,
     SafePipe,
+    WalletInfoComponent,
     
   ],
   imports: [
@@ -91,7 +91,6 @@ import { BalanceProfileComponent } from "./../components/apps/dashboard/portfoli
     FormsModule,
     ReactiveFormsModule,
     NgbModule,
-    // DragulaModule.forRoot(),
     TranslateModule.forRoot(),
     CarouselModule,
     SwiperModule],
@@ -108,7 +107,8 @@ import { BalanceProfileComponent } from "./../components/apps/dashboard/portfoli
     NgbdSortableHeader, 
     SvgIconComponent, 
     SwiperModule,
-    BalanceProfileComponent
+    BalanceProfileComponent,
+    WalletInfoComponent
   ],
 })
 export class SharedModule {}
