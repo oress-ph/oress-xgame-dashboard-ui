@@ -1,7 +1,7 @@
-<div class="card">
+<!-- <div class="card">
   <div class="card-header card-no-border">
     <div class="header-top">
-      <h5>Gem Transaction</h5>
+      <h5>Transaction</h5>
     </div>
   </div>
   <div class="card-body pt-0">
@@ -9,10 +9,11 @@
       <table class="table">
         <thead>
           <tr>
-            <th class="f-light" style="min-width: 20px;">GEM</th>
-            <th class="f-light">Price</th>
-            <th class="f-light">Total Balance</th>
-            <th class="f-light">Total GEM</th>
+            <th class="f-light" style="min-width: 20px;">Assets</th>
+            <th class="f-light">Date</th>
+            <th class="f-light">Transaction</th>
+            <th class="f-light">Wallet Address</th>
+            <th class="f-light">Qty</th>
           </tr>
         </thead>
         <tbody>
@@ -24,12 +25,109 @@
                 </div>
               </div>
             </td>
+            <td style="min-width: 120px;">25 Mar, 2022</td>
             <td style="min-width: 120px;">{{ item.price }} GNT</td>
-            <td style="min-width: 150px;">{{ item.totalBalance }}</td>
+            <td style="min-width: 120px;">{{ item.price }} GNT</td>
             <td style="min-width: 150px;">{{ item.totalCoin }}</td>
           </tr>
         </tbody>
       </table>
+    </div>
+  </div>
+</div> -->
+
+<div class="card tranaction-card">
+  <div class="card-header card-no-border">
+    <div class="header-top">
+      <h5>Transactions</h5>
+      <ul class="nav nav-tabs custom-tab" id="myTab" role="tablist">
+        <li class="nav-item" role="presentation">
+          <button class="nav-link" type="button" [ngClass]="{'active show': openTab == 'All'}" (click)="tabbed('All')">All</button>
+        </li>
+        <li class="nav-item" role="presentation">
+          <button class="nav-link" type="button" [ngClass]="{'active show': openTab == 'Buy'}" (click)="tabbed('Buy')">Receive</button>
+        </li>
+        <li class="nav-item" role="presentation">
+          <button class="nav-link" type="button" [ngClass]="{'active show': openTab == 'Sell'}" (click)="tabbed('Sell')">Send</button>
+        </li>
+      </ul>
+    </div>
+  </div>
+  <div class="card-body pt-0">
+    <div class="tab-content" id="myTabContent">
+      <div class="tab-pane fade show active" id="all" role="tabpanel" aria-labelledby="all-tab">
+        <div class="table-responsive recent-table transaction-table">
+          <table class="table">
+            <thead>
+              <tr>
+                <th class="f-light" style="min-width: 20px;">Assets</th>
+                <th class="f-light">Date</th>
+                <th class="f-light">Transaction</th>
+                <th class="f-light">Wallet Address</th>
+                <th class="f-light" style="text-align: right;">Qty</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td style="min-width: 80px;">
+                  <div class="d-flex align-items-center gap-2">
+                    <div>
+                      <h6 class="f-14 mb-0 f-w-400">EGEM</h6>
+                    </div>
+                  </div>
+                </td>
+                <td style="min-width: 120px;">25 Mar, 2022</td>
+                <td>
+                  <div class="d-flex">
+                    <i class="me-2" class="font-success" >
+                     <app-feather-icons [icon]="arrow_down"></app-feather-icons>
+                    </i>
+                    <div>
+                      <h6 class="f-14 mb-0">Receive</h6>
+                      <span class="f-light">12:00 PM
+                      </span>
+                    </div>
+                  </div>
+                </td>
+                <td>
+                  1q5AwoFnEEeNbqjSsoD6fm4Dvcp61NZGN5y4xDwqdas23
+                </td>
+                <td>
+                  <span class="f-light f-w-500">40</span>
+                </td>
+              </tr>
+              <tr>
+                <td style="min-width: 80px;">
+                  <div class="d-flex align-items-center gap-2">
+                    <div>
+                      <h6 class="f-14 mb-0 f-w-400">GNT</h6>
+                    </div>
+                  </div>
+                </td>
+                <td style="min-width: 120px;">25 Mar, 2022</td>
+                <td>
+                  <div class="d-flex">
+                    <i class="me-2" class="font-light" >
+                     <app-feather-icons [icon]="arrow_up"></app-feather-icons>
+                    </i>
+                    <div>
+                      <h6 class="f-14 mb-0">Send</h6>
+                      <span class="f-light">12:00 PM
+                      </span>
+                    </div>
+                  </div>
+                </td>
+                <td>
+                  1q5AwoFnEEeNdDSA2edm4Dvcp61NZGN5y4xDwqdas23
+                </td>
+                <td>
+                  <span class="f-light f-w-500">24</span>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
     </div>
   </div>
 </div>
