@@ -9,6 +9,10 @@ export class GemTransactionComponent {
 
   constructor() {}
 
+  public openTab: string = "All";
+  public arrow_down: string = 'arrow-down';
+  public arrow_up: string = 'arrow-up';
+
   public currencies = [
     {
       colorClass: "warning",
@@ -54,7 +58,8 @@ export class GemTransactionComponent {
       totalCoin: "1.78142254",
       gem: "AMYS"
     },
-
-    
   ]
+  public tabbed(val: string) {
+    this.openTab = val;
+  }
 }

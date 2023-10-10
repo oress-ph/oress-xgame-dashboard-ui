@@ -110,7 +110,7 @@ export class NavService implements OnDestroy {
     { path: "/swap", title: "Swap", icon: "swap", type: "link" },
     { path: "/cash-in", title: "Cash-in", icon: "cash-in", type: "link" },
     { path: "/cash-out", title: "Cash-Out", icon: "cash-out", type: "link" },
-    { path: "/invests", title: "Investments", icon: "investment", type: "link" },
+    { path: "/investments", title: "Investments", icon: "investment", type: "link" },
   ];
 
   // Array

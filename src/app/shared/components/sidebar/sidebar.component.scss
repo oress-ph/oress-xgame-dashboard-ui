@@ -7,3 +7,14 @@ svg-icon {
      fill: orange;
    }
  }
+ .page-wrapper.horizontal-wrapper .page-body-wrapper .sidebar-wrapper .sidebar-main .sidebar-links .simplebar-wrapper .simplebar-mask .simplebar-content-wrapper .simplebar-content > li > a.active {
+  background: unset;
+ }
+ .sidebar-main{
+  display: flex;
+  justify-content: flex-end;
+  @media screen and (max-width: 990px){
+      display: unset;
+      justify-content: unset;
+  }
+}
