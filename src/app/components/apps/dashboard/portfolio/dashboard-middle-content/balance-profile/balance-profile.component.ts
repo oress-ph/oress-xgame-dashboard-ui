@@ -34,8 +34,8 @@ export class BalanceProfileComponent implements OnInit {
 
   async ngOnInit(): Promise<void> {
     let data = await this.polkadotService.checkBalance();
-    let chain = await this.polkadotService.getChainType();
-    if(data && chain === 'Local') {
+    let chain = await this.polkadotService.getChainTokens();
+    if(data && chain === 'NMS') {
       this.isLoading = true;
       (await this.nftService.giveUserBalance()).subscribe({
         next: async (response) => {

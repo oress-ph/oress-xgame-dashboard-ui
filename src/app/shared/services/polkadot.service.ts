@@ -26,7 +26,7 @@ export class PolkadotService {
     private httpClient: HttpClient,
     private cookiesService: CookiesService,
   ) {
-    this.getSystemProperties();
+    this.getChainTokens();
   }
   wsProvider = new WsProvider(this.appSettings.wsProviderEndpoint);
   api = ApiPromise.create({ provider: this.wsProvider });
@@ -292,32 +292,10 @@ export class PolkadotService {
     return available.toNumber() === 0 ? true : false;
   }
 
-  async getSystemProperties() {
-    let api = await this.api;
-    const { ss58Format, tokenSymbol, tokenDecimals } = await api.rpc.system.properties();
-    const chain = await this.getChainType();
-    let readss58Format = ss58Format.toHuman();
-    let readtokenSymbol = tokenSymbol.toHuman();
-    let readtokenDecimals = tokenDecimals.toHuman();
-    if (readtokenSymbol !== null) {
-      this.cookiesService.setCookie('tokenSymbol', readtokenSymbol[0]);
-    } else {
-      if (chain === 'Development') {
-        this.cookiesService.setCookie('tokenSymbol', 'NMS');
-      } else {
-        this.cookiesService.setCookie('tokenSymbol', readtokenSymbol[0]);
-      }
-    }
-    // return {
-    //   tokenFormat: readss58Format,
-    //   tokenSymbol: readtokenSymbol[0],
-    //   tokenDecimal: readtokenDecimals[0]
-    // };
-  }
-
-  async getChainType() {
-    let api = await this.api;
-    const chain = await api.rpc.system.chainType();
-    return chain.toHuman();
+  async getChainTokens(): Promise<string> {
+    const api = await this.api;
+    const tokens = api.registry.chainTokens;
+    this.cookiesService.setCookie('tokenSymbol', tokens[0]);
+    return tokens[0];
   }
 }
