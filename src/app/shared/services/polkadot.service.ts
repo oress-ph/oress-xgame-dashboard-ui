@@ -11,7 +11,7 @@ import { Observable } from 'rxjs';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { AppSettings } from 'src/app/app-settings';
 import { CookiesService } from './../services/cookies.service';
-import { formatBalance } from '@polkadot/util';
+import { formatBalance, BN } from '@polkadot/util';
 import { ContractPromise } from '@polkadot/api-contract';
 import { NFTModel } from './../model/nft.model';
 
@@ -24,8 +24,10 @@ export class PolkadotService {
   constructor(
     private appSettings: AppSettings,
     private httpClient: HttpClient,
-    private cookiesService: CookiesService
-  ) { }
+    private cookiesService: CookiesService,
+  ) {
+    this.getSystemProperties();
+  }
   wsProvider = new WsProvider(this.appSettings.wsProviderEndpoint);
   api = ApiPromise.create({ provider: this.wsProvider });
   keypair = this.appSettings.keypair;
@@ -273,5 +275,49 @@ export class PolkadotService {
       console.error(error);
       return false;
     }
+  }
+
+  async getChainDecimals(amount: number) {
+    let api = await this.api;
+    const factor = new BN(10).pow(new BN(api.registry.chainDecimals));
+    const convertedAmount = new BN(amount).mul(factor);
+    return convertedAmount;
+  }
+
+  async checkBalance() {
+    let api = await this.api;
+    let wallet = this.cookiesService.getCookie('wallet-keypair');
+    const balance = await api.derive.balances.all(wallet);
+    const available = balance.availableBalance;
+    return available.toNumber() === 0 ? true : false;
+  }
+
+  async getSystemProperties() {
+    let api = await this.api;
+    const { ss58Format, tokenSymbol, tokenDecimals } = await api.rpc.system.properties();
+    const chain = await this.getChainType();
+    let readss58Format = ss58Format.toHuman();
+    let readtokenSymbol = tokenSymbol.toHuman();
+    let readtokenDecimals = tokenDecimals.toHuman();
+    if (readtokenSymbol !== null) {
+      this.cookiesService.setCookie('tokenSymbol', readtokenSymbol[0]);
+    } else {
+      if (chain === 'Development') {
+        this.cookiesService.setCookie('tokenSymbol', 'NMS');
+      } else {
+        this.cookiesService.setCookie('tokenSymbol', readtokenSymbol[0]);
+      }
+    }
+    // return {
+    //   tokenFormat: readss58Format,
+    //   tokenSymbol: readtokenSymbol[0],
+    //   tokenDecimal: readtokenDecimals[0]
+    // };
+  }
+
+  async getChainType() {
+    let api = await this.api;
+    const chain = await api.rpc.system.chainType();
+    return chain.toHuman();
   }
 }
