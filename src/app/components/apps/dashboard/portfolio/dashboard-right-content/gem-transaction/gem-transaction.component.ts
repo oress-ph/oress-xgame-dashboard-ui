@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { CookiesService } from 'src/app/shared/services/cookies.service';
 
 @Component({
   selector: 'app-gem-transaction',
@@ -6,8 +7,13 @@ import { Component } from '@angular/core';
   styleUrls: ['./gem-transaction.component.scss']
 })
 export class GemTransactionComponent {
+  tokenSymbol: any;
 
-  constructor() {}
+  constructor(
+    private cookiesService: CookiesService
+  ) {
+    this.tokenSymbol = this.cookiesService.getCookie('tokenSymbol');
+  }
 
   public openTab: string = "All";
   public arrow_down: string = 'arrow-down';

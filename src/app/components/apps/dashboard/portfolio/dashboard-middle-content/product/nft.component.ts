@@ -72,6 +72,7 @@ export class NFTComponent implements OnInit {
   invalidAddress: boolean = false;
   selectedAction = 1;
   transferTo: string = ''
+  tokenSymbol: any;
 
   constructor(
     private modalService: NgbModal,
@@ -80,7 +81,9 @@ export class NFTComponent implements OnInit {
     public appSettings: AppSettings,
     private polkadotService: PolkadotService,
     private cookiesService: CookiesService
-  ) {}
+  ) {
+    this.tokenSymbol = this.cookiesService.getCookieArray('tokenSymbol');
+  }
 
   pageToast(success: boolean, swalTitle: string, swalText: string) {
     const Toast = Swal.mixin({

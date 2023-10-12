@@ -1,7 +1,7 @@
 <div class="card">
   <div class="card-header card-no-border">
     <div class="header-top">
-      <h5>GNT Transaction</h5>
+      <h5>{{ tokenSymbol }} Transaction</h5>
     </div>
   </div>
   <div class="card-body pt-0">
@@ -9,10 +9,10 @@
       <table class="table">
         <thead>
           <tr>
-            <th class="f-light" style="min-width: 20px;">GNT</th>
+            <th class="f-light" style="min-width: 20px;">{{ tokenSymbol }}</th>
             <th class="f-light">Price</th>
             <th class="f-light">Total Balance</th>
-            <th class="f-light">Total GNT</th>
+            <th class="f-light">Total {{ tokenSymbol }}</th>
           </tr>
         </thead>
         <tbody>
@@ -25,8 +25,8 @@
               </div>
             </td>
             <td style="min-width: 120px;">$ {{ item.price }}</td>
-            <td style="min-width: 150px;">{{ item.balance }} GNT</td>
-            <td style="min-width: 150px;">{{ item.value }} GNT</td>
+            <td style="min-width: 150px;">{{ item.balance }} {{ tokenSymbol }}</td>
+            <td style="min-width: 150px;">{{ item.value }} {{ tokenSymbol }}</td>
           </tr>
         </tbody>
       </table>
