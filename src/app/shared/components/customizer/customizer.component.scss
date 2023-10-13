@@ -38,6 +38,9 @@
     background-color: var(--sidebar-border);
     padding: 7px 15px;
 }
-.customizer-links .nav-link span {
-
+.customizer-links > .nav {
+    background-color: unset !important;
+}
+.customizer-links.open {
+    right: 335px;
 }
