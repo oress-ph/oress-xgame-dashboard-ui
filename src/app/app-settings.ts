@@ -9,16 +9,31 @@ export class AppSettings {
             url: "nft.xgame.live"
         },
         {
+            url: "nft.xgame.co"
+        },
+        {
             url: "dashboard.xgame.live"
+        },
+        {
+            url: "dashboard.xgame.co"
         },
         {
             url: "astrochibbi.xgame.live"
         },
         {
+            url: "astrochibbi.xgame.co"
+        },
+        {
             url: "xgame.live"
         },
         {
+            url: "xgame.co"
+        },
+        {
             url: "mint.xgame.live"
+        },
+        {
+            url: "mint.xgame.co"
         },
         {
             url: "localhost"
