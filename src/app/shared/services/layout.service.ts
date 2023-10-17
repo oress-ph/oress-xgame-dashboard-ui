@@ -1,4 +1,5 @@
 import { Injectable } from "@angular/core";
+import { CookiesService } from "./cookies.service";
 
 @Injectable({
   providedIn: "root",
@@ -8,7 +9,7 @@ export class LayoutService {
     settings: {
       layout: 'horizontal-wrapper',
       layout_type: "ltr",
-      layout_version: "dark-only",
+      layout_version: this.cookieService.getCookie("layout_version")!=null? this.cookieService.getCookie("layout_version") : 'dark-only',
       icon: "stroke-svg",
     },
     color: {
@@ -17,7 +18,9 @@ export class LayoutService {
     }
   };
 
-  constructor() {
+  constructor(
+    private cookieService: CookiesService
+  ) {
     if (this.config.settings.layout_type == "rtl") document.getElementsByTagName("html")[0].setAttribute("dir", this.config.settings.layout_type);
 
     document.documentElement.style.setProperty("--theme-deafult", this.config.color.primary_color);
@@ -28,7 +31,7 @@ export class LayoutService {
     this.config.color.secondary_color = secondary;
     localStorage.getItem("primary_color") || this.config.color.primary_color;
     localStorage.getItem("secondary_color") || this.config.color.secondary_color;
-    if ((this.config.settings.layout_version = "dark-only")) {
+    if ((this.config.settings.layout_version == "dark-only")) {
       document.body.classList.toggle("dark-only");
     }else{
       document.body.remove;

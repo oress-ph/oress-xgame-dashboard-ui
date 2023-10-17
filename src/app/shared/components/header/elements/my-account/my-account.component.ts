@@ -3,6 +3,7 @@ import { Router } from "@angular/router";
 import { AppSettings } from "src/app/app-settings";
 import { WalletModel } from "src/app/shared/model/wallet.model";
 import { CookiesService } from "src/app/shared/services/cookies.service";
+
 @Component({
   selector: "app-my-account",
   templateUrl: "./my-account.component.html",
@@ -12,6 +13,7 @@ export class MyAccountComponent implements OnInit {
   @Input() wallet: WalletModel;
   public userName: string;
   public profileImg: "assets/images/dashboard/profile.jpg";
+  tokenSymbol: any;
 
   constructor(
     public router: Router,
@@ -21,6 +23,7 @@ export class MyAccountComponent implements OnInit {
     if (JSON.parse(localStorage.getItem("user"))) {
     } else {
     }
+    this.tokenSymbol = this.cookiesService.getCookie('tokenSymbol');
   }
 
   copyInputMessage(inputElement) {

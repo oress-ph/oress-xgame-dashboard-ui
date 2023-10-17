@@ -1,7 +1,10 @@
 <div class="customizer-links" [ngClass]="{ open: customizer != '' }">
   <div class="nav flex-column nac-pills" id="c-pills-tab" role="tablist" aria-orientation="vertical">
     <a href="javascript:void(0)" class="nav-link" [ngClass]="{ 'active show': customizer == 'layout' }" (click)="Customizer('ChatBot')">
-      <div class="settings"><i class="icofont icofont-robot-face"></i></div>
+      <div class="settings">
+        <!-- <i class="icofont icofont-robot-face"></i> -->
+        <a href="javascript:void(0)"><img src="./../../../../../assets/images/home/chatbot/chatbot.webp" class="img-fluid" style="max-height: 50px;"/></a>
+      </div>
       <span>ChatBot</span>
     </a>
     <!-- <a href="javascript:void(0)" class="nav-link" [ngClass]="{ 'active show': customizer == 'option' }" id="c-pills-home-tab" (click)="Customizer('option')">

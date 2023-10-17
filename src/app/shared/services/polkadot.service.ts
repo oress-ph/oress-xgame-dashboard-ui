@@ -11,7 +11,7 @@ import { Observable } from 'rxjs';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { AppSettings } from 'src/app/app-settings';
 import { CookiesService } from './../services/cookies.service';
-import { formatBalance } from '@polkadot/util';
+import { formatBalance, BN } from '@polkadot/util';
 import { ContractPromise } from '@polkadot/api-contract';
 import { NFTModel } from './../model/nft.model';
 
@@ -24,8 +24,10 @@ export class PolkadotService {
   constructor(
     private appSettings: AppSettings,
     private httpClient: HttpClient,
-    private cookiesService: CookiesService
-  ) { }
+    private cookiesService: CookiesService,
+  ) {
+    this.getChainTokens();
+  }
   wsProvider = new WsProvider(this.appSettings.wsProviderEndpoint);
   api = ApiPromise.create({ provider: this.wsProvider });
   keypair = this.appSettings.keypair;
@@ -273,5 +275,27 @@ export class PolkadotService {
       console.error(error);
       return false;
     }
+  }
+
+  async getChainDecimals(amount: number) {
+    let api = await this.api;
+    const factor = new BN(10).pow(new BN(api.registry.chainDecimals));
+    const convertedAmount = new BN(amount).mul(factor);
+    return convertedAmount;
+  }
+
+  async checkBalance() {
+    let api = await this.api;
+    let wallet = this.cookiesService.getCookie('wallet-keypair');
+    const balance = await api.derive.balances.all(wallet);
+    const available = balance.availableBalance;
+    return available.toNumber() === 0 ? true : false;
+  }
+
+  async getChainTokens(): Promise<string> {
+    const api = await this.api;
+    const tokens = api.registry.chainTokens;
+    this.cookiesService.setCookie('tokenSymbol', tokens[0]);
+    return tokens[0];
   }
 }

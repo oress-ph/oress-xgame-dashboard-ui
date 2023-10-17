@@ -2,6 +2,7 @@ import { Component,OnInit } from '@angular/core';
 import {TokenTransactionModel} from "../../../../../../shared/model/token_transaction.model";
 import { PolkadotService } from "src/app/shared/services/polkadot.service";
 import { AppSettings } from 'src/app/app-settings';
+import { CookiesService } from 'src/app/shared/services/cookies.service';
 
 @Component({
   selector: 'app-gnt-transaction',
@@ -9,11 +10,15 @@ import { AppSettings } from 'src/app/app-settings';
   styleUrls: ['./gnt-transaction.component.scss']
 })
 export class GNTTransactionComponent implements OnInit{
+  tokenSymbol: any;
 
   constructor(
     public appSettings: AppSettings,
-    private polkadotService: PolkadotService
-  ) {}
+    private polkadotService: PolkadotService,
+    private cookiesService: CookiesService
+  ) {
+    this.tokenSymbol = this.cookiesService.getCookie('tokenSymbol');
+  }
 
   public token_transaction: TokenTransactionModel[] = [];
   async transaction(): Promise<void> {
@@ -24,7 +29,7 @@ export class GNTTransactionComponent implements OnInit{
         let value = 20 * Number(this.appSettings.wallet_info.wallet_balance_nms);
         this.token_transaction.push(
           {
-            token: 'NMS',
+            token: this.tokenSymbol,
             price: '20',
             balance: this.appSettings.wallet_info.wallet_balance_nms == undefined ? '0' : this.appSettings.wallet_info.wallet_balance_nms,
             value: value.toString(),
