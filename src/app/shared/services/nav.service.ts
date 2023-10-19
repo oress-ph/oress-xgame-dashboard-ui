@@ -2,6 +2,7 @@ import { Injectable, OnDestroy } from "@angular/core";
 import { Subject, BehaviorSubject, fromEvent } from "rxjs";
 import { takeUntil, debounceTime } from "rxjs/operators";
 import { Router } from "@angular/router";
+import { Location } from '@angular/common';
 
 // Menu
 export interface Menu {
@@ -45,7 +46,19 @@ export class NavService implements OnDestroy {
   // Full screen
   public fullScreen: boolean = false;
 
-  constructor(private router: Router) {
+  public top_level_domain: string = 'live';
+
+  constructor(
+    private router: Router,
+    private location: Location
+  ) {
+          // const url = window.location.href;
+          const url = new URL("https://xgame.co/home");
+
+          const hostnameParts = url.hostname.split('.');
+          this.top_level_domain = hostnameParts[hostnameParts.length - 1];
+          console.log(this.top_level_domain);
+
     this.setScreenWidth(window.innerWidth);
     fromEvent(window, "resize")
       .pipe(debounceTime(1000), takeUntil(this.unsubscriber))
@@ -71,39 +84,42 @@ export class NavService implements OnDestroy {
   }
 
   ngOnDestroy() {
+
     // this.unsubscriber.next();
     this.unsubscriber.complete();
+    
   }
+  
 
   private setScreenWidth(width: number): void {
     this.screenWidth.next(width);
   }
 
   MENUITEMS: Menu[] = [
-    { path: "https://xgame.live/home?section=about", title: "About", icon: "home", type: "link" },
-    { path: "https://xgame.live/home?section=assets", title: "Assets", icon: "gem", type: "link" },
-    { path: "https://xgame.live/home?section=play", title: "Play", icon: "games", type: "link" },
-    { path: "https://xgame.live/home?section=blogs", title: "Blogs", icon: "blog", type: "link" },
-    { path: "https://xgame.live/home?section=contact", title: "Contact", icon: "contact", type: "link" },
+    { path: "https://xgame."+this.top_level_domain+"/home?section=about", title: "About", icon: "home", type: "link" },
+    { path: "https://xgame."+this.top_level_domain+"/home?section=assets", title: "Assets", icon: "gem", type: "link" },
+    { path: "https://xgame."+this.top_level_domain+"/home?section=play", title: "Play", icon: "games", type: "link" },
+    { path: "https://xgame."+this.top_level_domain+"/home?section=blogs", title: "Blogs", icon: "blog", type: "link" },
+    { path: "https://xgame."+this.top_level_domain+"/home?section=contact", title: "Contact", icon: "contact", type: "link" },
   ];
   FOOTERMENUITEMS: Menu[] = [
-    { path: "https://xgame.live/home?section=about", title: "About", icon: "home", type: "link" },
-    { path: "https://xgame.live/web3", title: "Web3 Wallet", icon: "gem", type: "link" },
-    { path: "https://xgame.live/games", title: "Game Catalog", icon: "games", type: "link" },
-    { path: "https://xgame.live/tokenomics", title: "Tokenomics", icon: "tokens", type: "link" },
-    { path: "https://xgame.live/blogs", title: "Blogs", icon: "marketplace", type: "link" },
+    { path: "https://xgame."+this.top_level_domain+"/home?section=about", title: "About", icon: "home", type: "link" },
+    { path: "https://xgame."+this.top_level_domain+"/web3", title: "Web3 Wallet", icon: "gem", type: "link" },
+    { path: "https://xgame."+this.top_level_domain+"/games", title: "Game Catalog", icon: "games", type: "link" },
+    { path: "https://xgame."+this.top_level_domain+"/tokenomics", title: "Tokenomics", icon: "tokens", type: "link" },
+    { path: "https://xgame."+this.top_level_domain+"/blogs", title: "Blogs", icon: "marketplace", type: "link" },
   ];
   COMMUNITYMENUITEMS: Menu[] = [
-    { path: "https://nft.xgame.live/marketplace", title: "NFT Marketplace", icon: "home", type: "link" },
-    { path: "https://dashboard.xgame.live/wallet", title: "Dashboard", icon: "gem", type: "link" },
+    { path: "https://nft.xgame."+this.top_level_domain+"/marketplace", title: "NFT Marketplace", icon: "home", type: "link" },
+    { path: "https://dashboard.xgame."+this.top_level_domain+"/wallet", title: "Dashboard", icon: "gem", type: "link" },
   ];
 
   LEGALMENUITEMS: Menu[] = [
-    { path: "", title: "Copyright Notice", icon: "home", type: "link" },
-    { path: "", title: "Privacy Policy", icon: "gem", type: "link" },
-    { path: "", title: "Terms of Use", icon: "gem", type: "link" },
-    { path: "", title: "Cookie Policy", icon: "gem", type: "link" },
-    { path: "", title: "Legal Disclaimer", icon: "gem", type: "link" },
+    { path: "https://xgame."+this.top_level_domain+"/policy/copyright", title: "Copyright Notice", icon: "home", type: "link" },
+    { path: "https://xgame."+this.top_level_domain+"/policy/privacy", title: "Privacy Policy", icon: "gem", type: "link" },
+    { path: "https://xgame."+this.top_level_domain+"/policy/terms", title: "Terms of Use", icon: "gem", type: "link" },
+    { path: "https://xgame."+this.top_level_domain+"/policy/cookie", title: "Cookie Policy", icon: "gem", type: "link" },
+    { path: "https://xgame."+this.top_level_domain+"/policy/legal-disclaimer", title: "Legal Disclaimer", icon: "gem", type: "link" },
   ];
   DASHBOARDITEMS: Menu[] = [
     { path: "/portfolio", title: "Portfolio", icon: "widget", type: "link" },
