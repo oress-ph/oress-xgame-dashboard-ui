@@ -18,11 +18,18 @@ export class BuyCoinsComponent {
     private appSettings: AppSettings,
   ) {
     this.tokenSymbol = this.cookiesService.getCookie('tokenSymbol');
+    this.inDevelopment = this.tokenSymbol === 'NMS' ? true : false;
+    console.log(this.inDevelopment);
   }
   isLoading = false;
+  inDevelopment = false;
   tokenSymbol: string;
 
   async buyCoins() {
+    //
+  }
+
+  async requestTokens() {
     Swal.fire({
       title: 'Buy Coins',
       text: 'Get 100 NMS for free (Only on Devnet)!',
