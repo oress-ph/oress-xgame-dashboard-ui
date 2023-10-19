@@ -75,8 +75,7 @@ export class PolkadotService {
           await new Promise(resolve => setTimeout(resolve, 1000));
         }
       } while (accounts.length === 0);
-      const account = accounts[0];
-      const SENDER = account.address;
+      const SENDER = this.appSettings.wallet_info.wallet_keypair;
       const injector = await web3FromAddress(SENDER);
       let api = await this.api;
       const contract = await this.getContract(api, this.abi, contractAddress);
@@ -289,7 +288,12 @@ export class PolkadotService {
     let wallet = this.cookiesService.getCookie('wallet-keypair');
     const balance = await api.derive.balances.all(wallet);
     const available = balance.availableBalance;
-    return available.toNumber() === 0 ? true : false;
+    const chainDecimals = api.registry.chainDecimals[0];
+    formatBalance.setDefaults({ decimals: chainDecimals, unit: 'NMS' });
+    formatBalance.getDefaults();
+    const free = formatBalance(available, { forceUnit: "NMS", withUnit: false });
+    const balances = free.split(',').join('');
+    return parseFloat(balances) < 100 ? true : false;
   }
 
   async getChainTokens(): Promise<string> {

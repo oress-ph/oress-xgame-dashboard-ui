@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { Menu, NavService } from './../../../../../../shared/services/nav.service';
 import { NavigationEnd, Router } from '@angular/router';
 import { AppSettings } from './../../../../../../app-settings';
@@ -14,7 +14,7 @@ import { CookiesService } from 'src/app/shared/services/cookies.service';
 export class BalanceProfileComponent implements OnInit {
   public dashboard_menuItems: Menu[];
   isLoading = false;
-  tokenSymbol: any;
+  tokenSymbol: any = 'NMS';
 
   constructor(
     private router: Router,
@@ -33,26 +33,6 @@ export class BalanceProfileComponent implements OnInit {
   }
 
   async ngOnInit(): Promise<void> {
-    let data = await this.polkadotService.checkBalance();
-    let chain = await this.polkadotService.getChainTokens();
-    if(data && chain === 'NMS') {
-      this.isLoading = true;
-      (await this.nftService.giveUserBalance()).subscribe({
-        next: async (response) => {
-          if (response[0]){
-            let newBalance = await this.polkadotService.getBalance()
-            this.appSettings.wallet_info.wallet_balance_nms = newBalance;
-          } else {
-            //
-          }
-          this.isLoading = false;
-        },
-        error: (error) => {
-          throw new Error('An error has occured: ' + error);
-        }
-      });
-    } else {
-      this.isLoading = false;
-    }
+    await this.polkadotService.getChainTokens();
   }
 }
