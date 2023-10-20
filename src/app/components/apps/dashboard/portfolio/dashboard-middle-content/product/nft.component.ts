@@ -188,7 +188,7 @@ export class NFTComponent implements OnInit {
   }
 
   onSearch() {
-    this.filterNFT();
+    this.getNft();
   }
 
 
