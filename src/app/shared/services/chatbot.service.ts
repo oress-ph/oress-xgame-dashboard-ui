@@ -30,7 +30,7 @@ export class ChatBotService {
     return new Observable<[boolean, any]>((observer) => {
       this.httpClient.post(this.appSettings.chatBotURLHOST , JSON.stringify({input_text:text}),httpOptions).subscribe(
         (response: any) => {
-          let data = response.response;
+          let data = response;
           observer.next([true, data]);
           observer.complete();
         },

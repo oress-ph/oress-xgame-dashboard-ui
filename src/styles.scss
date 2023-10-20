@@ -112,3 +112,7 @@
 body.dark-only .page-wrapper .page-body-wrapper .page-body .card:not(.email-body).balance-box {
     background-blend-mode: unset;
 }
+.btn-primary:disabled {
+    background-color: var(--theme-deafult) !important;
+    border-color: var(--theme-deafult) !important;
+}
