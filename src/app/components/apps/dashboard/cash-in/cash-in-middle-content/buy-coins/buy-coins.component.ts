@@ -19,7 +19,6 @@ export class BuyCoinsComponent {
   ) {
     this.tokenSymbol = this.cookiesService.getCookie('tokenSymbol');
     this.inDevelopment = this.tokenSymbol === 'Unit' ? true : false;
-    console.log(this.inDevelopment);
   }
   isLoading = false;
   inDevelopment = false;
@@ -33,7 +32,6 @@ export class BuyCoinsComponent {
     Swal.fire({
       title: 'Request Tokens',
       text: 'Get 100 NMS for free (Only on Devnet)!',
-      icon: 'warning',
       showCancelButton: true,
       confirmButtonText: 'Request',
       cancelButtonText: 'Cancel',
@@ -85,7 +83,7 @@ export class BuyCoinsComponent {
             Swal.close();
             this.fireSwal(
               true,
-              'Coins',
+              'Tokens request',
               '100 NMS was sent successfully!'
             );
           } else {
