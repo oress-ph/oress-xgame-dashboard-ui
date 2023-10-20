@@ -47,8 +47,19 @@
       <div class="mb-3">
         <form #chatForm="ngForm" (ngSubmit)="chat_bot_send()">
           <div class="input-group">
-            <input class="form-control" type="text" placeholder="Recipient's username" [(ngModel)]="chat_text" aria-label="Recipient's username" />
-            <button class="btn btn-primary"><i class="fa fa-send-o" ></i></button>
+            <input 
+              class="form-control" 
+              style="color: black !important;" 
+              type="text" 
+              placeholder="Recipient's username" 
+              [(ngModel)]="chat_text" 
+              aria-label="Recipient's username"
+              [disabled]="loading" 
+            />            
+            <button class="btn btn-primary" [disabled]="loading">
+              <i class="fa fa-send-o" *ngIf="!loading"></i>
+              <i class="fa fa-spin fa-spinner me-2" *ngIf="loading"></i>
+            </button>
           </div>
         </form>
       </div>

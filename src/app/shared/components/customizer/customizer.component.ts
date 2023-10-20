@@ -38,7 +38,7 @@ export class CustomizerComponent implements OnInit {
 
   chat_text: string = '';
   chatBotModel: ChatBotModel[] = [];
-  loading: boolean = true;
+  loading: boolean = false;
 
   constructor(
     private modalService: NgbModal, 
@@ -71,7 +71,7 @@ export class CustomizerComponent implements OnInit {
       let result = response;
       if (result[0] === true) {
         this.chatBotModel.push({
-          receive_text: result[1],
+          receive_text: result[1].message,
           receive_date_time: this.datePipe.transform(new Date(), 'hh:mm a')
         })
         console.log(this.chatBotModel);
