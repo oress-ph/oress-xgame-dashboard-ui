@@ -53,7 +53,7 @@ export class CookiesService {
     }
   }
   deleteAllCookie(){
-    const excludedCookies = ['language'];
+    const excludedCookies = ['language','layout_version'];
     try{
       this.all_site.forEach((sites:any) => {
         const cookies = this.cookieService.getAll();

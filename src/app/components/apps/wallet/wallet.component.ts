@@ -5,7 +5,8 @@ import { WalletAccountsModel } from 'src/app/shared/model/polkadot.model';
 import { CookiesService } from 'src/app/shared/services/cookies.service';
 import { DexService } from 'src/app/shared/services/dex.service';
 import { PolkadotService } from 'src/app/shared/services/polkadot.service';
-
+declare var require
+const Swal = require('sweetalert2')
 @Component({
   selector: 'app-wallet',
   templateUrl: './wallet.component.html',
@@ -81,10 +82,10 @@ export class WalletComponent {
       // localStorage.setItem("wallet-meta-name", String(this.selectedWalletAccount.metaName));
       // localStorage.setItem("wallet-keypair", keypair);
 
-      
-      setTimeout(() => {
-        location.reload();
-      }, 1500);
+
+      // setTimeout(() => {
+      //   location.reload();
+      // }, 1500);
       // if (this.isLogin == false) {
       //   await this.dexService.loadDexConfigs();
       //   this.appSettings.lumiAccountAddress = localStorage.getItem("lumi-account-address") || "";

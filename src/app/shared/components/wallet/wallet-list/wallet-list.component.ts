@@ -5,7 +5,8 @@ import { Router } from '@angular/router';
 import { DexService } from './../../../services/dex.service';
 import { CookiesService } from './../../../services/cookies.service';
 import {WalletAccountsModel} from './../../../model/polkadot.model';
-
+declare var require
+const Swal = require('sweetalert2')
 @Component({
   selector: 'app-wallet-list',
   templateUrl: './wallet-list.component.html',
@@ -80,9 +81,21 @@ export class WalletListComponent {
       // localStorage.setItem("wallet-keypair", keypair);
 
       
-      setTimeout(() => {
-        location.reload();
-      }, 1500);
+      Swal.fire({
+        icon: 'success',
+        title: 'Connected',
+        text: 'Wallet Connected successfully.',
+        timer: 1500,
+        timerProgressBar: true,
+        willClose: () => {
+          window.location.href = '/portfolio';
+        }
+      }).then((result) => {
+        /* Read more about handling dismissals below */
+        if (result.dismiss === Swal.DismissReason.timer) {
+          window.location.href = '/portfolio';
+        }
+      })
       // if (this.isLogin == false) {
       //   await this.dexService.loadDexConfigs();
       //   this.appSettings.lumiAccountAddress = localStorage.getItem("lumi-account-address") || "";
