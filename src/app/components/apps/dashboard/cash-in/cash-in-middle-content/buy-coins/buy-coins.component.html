@@ -9,7 +9,9 @@
         <div class="mb-3">
           <label class="form-label f-light" for="money">Enter your Money</label>
           <div class="position-relative">
-            <input class="form-control" id="money" type="number" placeholder="100">
+            <input class="form-control" id="money"
+              type="number" placeholder="100"
+              [disabled]="inDevelopment">
             <select class="form-select crypto-select primary">
               <option>USD</option>
               <option>CNY</option>
@@ -21,13 +23,20 @@
         <div class="mb-3">
           <label class="form-label f-light" for="coin">Enter Coins Converted to</label>
           <div class="position-relative">
-            <input class="form-control" id="coin" type="number" placeholder="0.0043">
+            <input class="form-control" id="coin"
+              type="number" placeholder="0.0043"
+              [disabled]="inDevelopment">
             <select class="form-select crypto-select primary">
               <option>{{ tokenSymbol }}</option>
             </select>
           </div>
         </div>
-        <button class="btn btn-primary btn-hover-effect w-100" type="button">Buy Coins</button>
+        <button class="btn btn-primary btn-hover-effect w-100"
+          (click)="requestTokens()" type="button"
+          *ngIf="inDevelopment">Request Tokens</button>
+        <button class="btn btn-primary btn-hover-effect w-100"
+          (click)="buyCoins()" type="button"
+          *ngIf="!inDevelopment">Buy Coins</button>
       </form>
     </div>
   </div>
