@@ -1,4 +1,5 @@
 <!-- Container-fluid starts-->
+
 <div class="container-fluid product-wrapper" [class.sidebaron]="openSidebar">
   <div class="product-grid">
     <div class="feature-products">
@@ -85,7 +86,10 @@
         <div class="loader-16"></div>
       </div>
     </div>
-    <div class="product-wrapper-grid" [class.list-view]="listView">
+    <div class="loader-box" style="height: 60vh;" *ngIf="loading">
+      <div class="loader-30"></div>
+    </div>
+    <div class="product-wrapper-grid" [class.list-view]="listView" *ngIf="!loading">
       <div class="row">
         <div [class.col-xl-3]="col_xl_3" [class.col-xl-4]="xl_4" [class.col-sm-3]="col_sm_3" [class.col-xl-4]="col_xl_4" [class.col-sm-4]="col_sm_4" [class.col-xl-6]="col_xl_6" [class.col-sm-6]="col_sm_6" [class.col-xl-12]="col_xl_12" [class.col-xl-2]="col_xl_2" *ngFor="let product of nft_list_filter">
           <div class="card">

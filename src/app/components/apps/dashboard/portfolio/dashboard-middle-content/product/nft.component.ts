@@ -25,6 +25,7 @@ export class NFTComponent implements OnInit {
   openSidebar: boolean = false;
   OpenFilter: Boolean = false;
 
+
   sidebaron: boolean = false;
   show: boolean = false;
   open: boolean = false;
@@ -200,11 +201,11 @@ export class NFTComponent implements OnInit {
     } else {
       this.selected_categories.splice(index, 1);
     }
-    this.filterNFT();
+    this.getNft();
   }
 
   onGameSelect(event: Event) {
-    this.filterNFT();
+    this.getNft();
   }
 
   get_games_list(){
@@ -291,7 +292,7 @@ export class NFTComponent implements OnInit {
   onPriceInputChange() {
     // Add any additional logic you want to perform when the input changes
     // This function will be called whenever the user inputs a number
-    this.filterNFT(); // This will trigger the filtering process
+    this.getNft(); // This will trigger the filtering process
   }
   filterNFT() {
     let _filtered_nft = this.nft_list;
