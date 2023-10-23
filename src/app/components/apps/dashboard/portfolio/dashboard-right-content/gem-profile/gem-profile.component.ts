@@ -36,6 +36,7 @@ export class GemProfileComponent implements OnInit {
     let nmsTotal = await this.polkadotService.getBalance();
     const totalUSD = (parseFloat(nmsTotal) * this.nmsPrice).toString();
     this.amount = parseFloat(nmsTotal);
+    this.cookiesService.setCookie('wallet-usd', totalUSD);
     this.appSettings.wallet_info.wallet_balance_usd = totalUSD;
   }
 
