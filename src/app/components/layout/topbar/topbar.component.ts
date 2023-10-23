@@ -127,10 +127,10 @@ export class TopbarComponent {
     }
 
     openNFTMarketplace() {
-        window.location.href = this.appSettings.UIURLMarketplaceHost+'marketplace';    
+        window.location.href = this.appSettings.UIURLMarketplaceHost+'marketplace';
     }
     openHomepage(direction: string) {
-        window.location.href = this.appSettings.UIURLHomePageHost+direction;    
+        window.location.href = this.appSettings.UIURLHomePageHost+direction;
     }
 
     dashboard_connect_wallet(){
@@ -138,7 +138,7 @@ export class TopbarComponent {
     }
 
     async ngOnInit(): Promise<void> {
-        // this.get_language_list();  
+        // this.get_language_list();
         this.language_list = [
             {
                 id: '1',
@@ -188,11 +188,11 @@ export class TopbarComponent {
             }
         ];
 
-        
+
         this.header_menu = [
             {
                 label: this.appSettings.translate('About'),
-                routerLink: '/home', 
+                routerLink: '/home',
                 command: (event) => { this.routeClick("about") }
             },
             {
@@ -205,9 +205,9 @@ export class TopbarComponent {
             },
             {
                 label: this.appSettings.translate('Blogs'),
-                // routerLink: '/home', 
+                // routerLink: '/home',
                 command: (event) => { this.routeClick("blogs") }
-                // routerLink: '/blogs', 
+                // routerLink: '/blogs',
             },
             {
                 label: this.appSettings.translate('Contact'),
@@ -222,7 +222,7 @@ export class TopbarComponent {
         }
         this.cookiesService.getCookie('wallet-keypair') != undefined ? this.wallet_info.wallet_keypair = wallet_address : this.wallet_info.wallet_keypair = '';
         this.cookiesService.getCookie('wallet-meta-name') != undefined ? this.wallet_info.wallet_meta_name = this.cookiesService.getCookie('wallet-meta-name') : this.wallet_info.wallet_meta_name = '';
-        this.cookiesService.getCookie('wallet-keypair') != undefined ? this.wallet_info.wallet_balance_nms = await this.polkadotService.getBalance() : '';
+        this.cookiesService.getCookie('wallet-balance') != undefined ? this.wallet_info.wallet_balance_nms = await this.polkadotService.getBalance() : '';
 
     }
     onWalletMenuItemClick(selectedItem: any): void {
