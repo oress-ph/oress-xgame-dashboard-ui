@@ -18,7 +18,7 @@ export class BuyCoinsComponent {
     private appSettings: AppSettings,
   ) {
     this.tokenSymbol = this.cookiesService.getCookie('tokenSymbol');
-    this.inDevelopment = this.tokenSymbol === 'Unit' ? true : false;
+    this.inDevelopment = this.tokenSymbol === 'NMS' ? true : false;
   }
   isLoading = false;
   inDevelopment = false;
