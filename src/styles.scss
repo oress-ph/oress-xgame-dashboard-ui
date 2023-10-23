@@ -49,11 +49,6 @@
         right: 20px !important;  
     }
 }
-.page-wrapper .page-header .header-wrapper .nav-right ul li i {
-    @media screen and (max-width: 575.98px){
-        font-size: 20px !important;
-    }
-}
 // .page-wrapper .page-body-wrapper .page-title{
 //     margin: 0px -9px 30px;
 
@@ -87,6 +82,7 @@
         background-color: var(--recent-chart-bg);
     }
 }
+
 .page-wrapper .page-header .header-wrapper .nav-right .profile-dropdown {
     width: 200px;
     left: -55px;
@@ -98,6 +94,7 @@
 .icon-lists div:hover {
     background-color: var(--sidebar-border);
 }
+
 .button-back-wallet{
     padding: unset;
     border-radius: 100px;
@@ -107,12 +104,25 @@
     align-content: center;
     flex-wrap: wrap;
     justify-content: center;
-    
 }
+
 body.dark-only .page-wrapper .page-body-wrapper .page-body .card:not(.email-body).balance-box {
     background-blend-mode: unset;
 }
+
 .btn-primary:disabled {
     background-color: var(--theme-deafult) !important;
     border-color: var(--theme-deafult) !important;
+}
+.icon-size{
+    font-size: 20px !important;
+    @media screen and (max-width: 575.98px){
+        font-size: 18px !important;
+    }
+}
+.icon-size-wallet{
+    font-size: 25px !important;
+    @media screen and (max-width: 575.98px){
+        font-size: 23px !important;
+    }
 }
