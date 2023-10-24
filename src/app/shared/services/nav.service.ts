@@ -3,6 +3,7 @@ import { Subject, BehaviorSubject, fromEvent } from "rxjs";
 import { takeUntil, debounceTime } from "rxjs/operators";
 import { Router } from "@angular/router";
 import { Location } from '@angular/common';
+import { AppSettings } from "src/app/app-settings";
 
 // Menu
 export interface Menu {
@@ -50,7 +51,7 @@ export class NavService implements OnDestroy {
 
   constructor(
     private router: Router,
-    private location: Location
+    public appSettings: AppSettings
   ) {
           // const url = window.location.href;
           const url = new URL("https://xgame.co/home");
@@ -129,10 +130,19 @@ export class NavService implements OnDestroy {
     { path: "/investments", title: "Investments", icon: "investment", type: "link" },
   ];
 
+  SOCIALMEDIAMENU: Menu[] = [
+    { path: this.appSettings.Twitter, title: "Twitter", icon: "social-twitter", type: "link" },
+    { path: this.appSettings.LinkedIn, title: "LinkedIn", icon: "brand-linkedin", type: "link" },
+    { path: this.appSettings.Facebook, title: "Facebook", icon: "social-facebook", type: "link" },
+    { path: this.appSettings.Youtube, title: "Youtube", icon: "youtube-play", type: "link" },
+    { path: this.appSettings.Discord, title: "Discord", icon: "discord", type: "link" },
+  ];
+
   // Array
   items = new BehaviorSubject<Menu[]>(this.MENUITEMS);
   community_items = new BehaviorSubject<Menu[]>(this.COMMUNITYMENUITEMS);
   legal_items = new BehaviorSubject<Menu[]>(this.LEGALMENUITEMS);
   footer_items = new BehaviorSubject<Menu[]>(this.FOOTERMENUITEMS);
   dashboard_items = new BehaviorSubject<Menu[]>(this.DASHBOARDITEMS);
+  social_media_items = new BehaviorSubject<Menu[]>(this.SOCIALMEDIAMENU);
 }
