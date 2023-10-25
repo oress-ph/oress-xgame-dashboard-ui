@@ -2,10 +2,10 @@
   <div class="nav flex-column nac-pills" id="c-pills-tab" role="tablist" aria-orientation="vertical">
     <a href="javascript:void(0)" class="nav-link" [ngClass]="{ 'active show': customizer == 'layout' }" (click)="Customizer('ChatBot')">
       <div class="settings">
-        <!-- <i class="icofont icofont-robot-face"></i> -->
-        <a href="javascript:void(0)"><img src="./../../../../../assets/images/home/chatbot/chatbot.webp" class="img-fluid" style="max-height: 50px;"/></a>
+        <a href="javascript:void(0)"><img src="./../../../../../assets/images/home/logo/logo_support_dark.webp" class="img-fluid for-light" style="max-height: 50px; padding-right: 10px;"/></a>
+        <a href="javascript:void(0)"><img src="./../../../../../assets/images/home/logo/logo_support_light.webp" class="img-fluid img-fluid for-dark" style="max-height: 50px;padding-right: 10px;"/></a>
       </div>
-      <span>Chat With Us!</span>
+      <span>How can I help you today?</span>
     </a>
     <!-- <a href="javascript:void(0)" class="nav-link" [ngClass]="{ 'active show': customizer == 'option' }" id="c-pills-home-tab" (click)="Customizer('option')">
       <div class="settings"><i class="icon-settings"></i></div>
@@ -56,7 +56,7 @@
               aria-label="Recipient's username"
               [disabled]="loading" 
             />            
-            <button class="btn btn-primary" [disabled]="loading">
+            <button class="btn btn-light" [disabled]="loading">
               <i class="fa fa-send-o" *ngIf="!loading"></i>
               <i class="fa fa-spin fa-spinner me-2" *ngIf="loading"></i>
             </button>

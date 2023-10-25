@@ -57,17 +57,17 @@
 //     display: flex;
     
 // }
-.customizer-links {
-    display: unset;
-    top: 95%;
-    position: fixed;
-}
-.customizer-links > .nav {
-    padding: unset;
-}
-.customizer-links .nav-link i {
-    font-size: 30px;
-}
+// .customizer-links {
+//     display: unset;
+//     top: 95%;
+//     position: fixed;
+// }
+// .customizer-links > .nav {
+//     padding: unset;
+// }
+// .customizer-links .nav-link i {
+//     font-size: 30px;
+// }
 // .page-wrapper.horizontal-wrapper .page-body-wrapper .sidebar-wrapper .sidebar-main .sidebar-links .simplebar-wrapper .simplebar-mask .simplebar-content-wrapper .simplebar-content > li > a.active {
 //     background-color: #2F2F3B;
 // }
@@ -125,4 +125,7 @@ body.dark-only .page-wrapper .page-body-wrapper .page-body .card:not(.email-body
     @media screen and (max-width: 575.98px){
         font-size: 23px !important;
     }
+}
+body.dark-only .btn-light {
+    background-color: var(--recent-chart-bg) !important;
 }
