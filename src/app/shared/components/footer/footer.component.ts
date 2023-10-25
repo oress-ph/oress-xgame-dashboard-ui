@@ -16,6 +16,7 @@ export class FooterComponent implements OnInit {
   public community_menuItems: Menu[];
   public footer_menuItems: Menu[];
   public legal_menuItems: Menu[];
+  public social_media_menuItems: Menu[];
 
   constructor(
     private router: Router, 
@@ -55,6 +56,9 @@ export class FooterComponent implements OnInit {
     });
     this.navServices.legal_items.subscribe(legal_menuItems => {
       this.legal_menuItems = legal_menuItems;
+    });
+    this.navServices.social_media_items.subscribe(social_media_menuItems => {
+      this.social_media_menuItems = social_media_menuItems;
     });
   }
   // Active Nave state

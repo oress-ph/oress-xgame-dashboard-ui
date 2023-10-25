@@ -1,42 +1,64 @@
-<div class="card">
-    <div class="card-header card-no-border">
-      <div class="header-top gap-1">
-        <h5>Buy {{ tokenSymbol }}</h5>
-      </div>
-    </div>
-    <div class="card-body pt-0">
-      <form class="theme-form crypto-form">
-        <div class="mb-3">
-          <label class="form-label f-light" for="money">Enter your Money</label>
-          <div class="position-relative">
-            <input class="form-control" id="money"
-              type="number" placeholder="100"
-              [disabled]="inDevelopment">
-            <select class="form-select crypto-select primary">
-              <option>USD</option>
-              <option>CNY</option>
-              <option>JPY</option>
-              <option>PHP</option>
-            </select>
-          </div>
-        </div>
-        <div class="mb-3">
-          <label class="form-label f-light" for="coin">Enter Coins Converted to</label>
-          <div class="position-relative">
-            <input class="form-control" id="coin"
-              type="number" placeholder="0.0043"
-              [disabled]="inDevelopment">
-            <select class="form-select crypto-select primary">
-              <option>{{ tokenSymbol }}</option>
-            </select>
-          </div>
-        </div>
-        <button class="btn btn-primary btn-hover-effect w-100"
-          (click)="requestTokens()" type="button"
-          *ngIf="!inDevelopment">Request Tokens</button>
-        <button class="btn btn-primary btn-hover-effect w-100"
-          (click)="buyCoins()" type="button"
-          *ngIf="inDevelopment">Buy Coins</button>
-      </form>
+<!-- Mainnet -->
+<div class="card" *ngIf="!inDevelopment">
+  <div class="card-header card-no-border">
+    <div class="header-top gap-1">
+      <h5>Buy {{ tokenSymbol }}</h5>
     </div>
   </div>
+  <div class="card-body pt-0">
+    <form class="theme-form crypto-form">
+      <div class="mb-3">
+        <label class="form-label f-light" for="money">Enter your Money</label>
+        <div class="position-relative">
+          <input class="form-control" id="money"
+            type="number" placeholder="100"
+            [disabled]="inDevelopment">
+          <select class="form-select crypto-select primary">
+            <option>USD</option>
+            <option>CNY</option>
+            <option>JPY</option>
+            <option>PHP</option>
+          </select>
+        </div>
+      </div>
+      <div class="mb-3">
+        <label class="form-label f-light" for="coin">Enter Coins Converted to</label>
+        <div class="position-relative">
+          <input class="form-control" id="coin"
+            type="number" placeholder="0.0043"
+            [disabled]="inDevelopment">
+          <select class="form-select crypto-select primary">
+            <option>{{ tokenSymbol }}</option>
+          </select>
+        </div>
+      </div>
+      <button class="btn btn-primary btn-hover-effect w-100"
+        (click)="buyCoins()" type="button"
+        >Buy Coins</button>
+    </form>
+  </div>
+</div>
+
+<!-- Devnet and Testnet -->
+<div class="card" *ngIf="inDevelopment">
+  <div class="card-header card-no-border">
+    <div class="header-top gap-1">
+      <h5>Request Native Token</h5>
+    </div>
+  </div>
+  <div class="card-body pt-0">
+    <form class="theme-form crypto-form">
+      <p><strong>Term:</strong></p>
+      <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        No Monetary Value. You may accumulate
+        “Testnet tokens,” up to 100 quantity
+        through this facility, which are not,
+        and shall never convert to or accrue
+        to become mainnet tokens or any other
+        tokens or virtual assets.</p>
+      <button class="btn btn-primary btn-hover-effect w-100"
+        (click)="requestTokens()" type="button"
+        >Request Tokens</button>
+    </form>
+  </div>
+</div>

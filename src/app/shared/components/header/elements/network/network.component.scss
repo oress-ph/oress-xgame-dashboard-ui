@@ -1,3 +1,9 @@
 .radio label {
     width: 94%;
 }
+.radio label::before {
+    margin-top: 17.405px;
+}
+.radio label::after {
+    margin-top: 17.405px;
+}

@@ -1,10 +1,11 @@
-<div class="notification-box" (click)="toggleNotificationMobile()">
-    <!-- <svg>
-      <use href="assets/svg/icon-sprite.svg#stroke-globe"></use>
-    </svg> -->
-    <i class="icon-world" style="font-size: 18px;"></i>
+<div class="notification-box" (click)="toggleNotificationMobile()" style="display: flex; justify-content: center; align-items: center;">
+  <!-- <svg style="animation: unset;">
+    <use href="assets/svg/icon-sprite.svg#globe"></use>
+  </svg> -->
+  <i class="icon-world icon-size"></i>
     <!-- <button class="btn btn-pill btn-primary" type="button">Connect Wallet</button> -->
 </div>
+
 
 <div class="onhover-show-div notification-dropdown">
     <h6 class="f-18 mb-0 dropdown-title">Network</h6>
@@ -13,7 +14,7 @@
         <input class="form-check-input" id="radio11" type="radio" name="radio1" value="option1" disabled=""/>
         <label class="form-check-label" for="radio11">
           <li class="b-l-danger border-4">
-            <p>{{appSettings.translate('Evolution Network')}}<span class="font-danger">{{appSettings.translate('Offline')}}</span></p>
+            <p>{{appSettings.translate('Evolution')}}<span class="font-danger">{{appSettings.translate('Offline')}}</span></p>
           </li>
         </label>
       </div>
@@ -21,7 +22,7 @@
         <input class="form-check-input" id="radio22" type="radio" name="radio1" value="option1" disabled=""/>
         <label class="form-check-label" for="radio22">
           <li class="b-l-danger border-4">
-            <p>{{appSettings.translate('Genesis Network')}}<span class="font-danger">{{appSettings.translate('Offline')}}</span></p>
+            <p>{{appSettings.translate('Genesis')}}<span class="font-danger">{{appSettings.translate('Offline')}}</span></p>
           </li>
         </label>
       </div>
@@ -29,7 +30,7 @@
         <input class="form-check-input" id="radio33" type="radio" name="radio1" value="option1" checked=""/>
         <label class="form-check-label" for="radio33">
           <li class="b-l-success border-4">
-            <p>{{appSettings.translate('Development Network')}}<span class="font-success">{{appSettings.translate('Online')}}</span></p>
+            <p>{{appSettings.translate('Development')}}<span class="font-success">{{appSettings.translate('Online')}}</span></p>
           </li>
         </label>
       </div>

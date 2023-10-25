@@ -15,6 +15,7 @@ export class BalanceProfileComponent implements OnInit {
   public dashboard_menuItems: Menu[];
   isLoading = false;
   tokenSymbol: any = 'NMS';
+  totalUSD: string = '0.00';
 
   constructor(
     private router: Router,
@@ -29,10 +30,14 @@ export class BalanceProfileComponent implements OnInit {
       this.router.events.subscribe((event) => {
       });
     });
-    this.tokenSymbol = this.cookiesService.getCookie('tokenSymbol');
+    // this.tokenSymbol = this.cookiesService.getCookie('tokenSymbol');
   }
 
   async ngOnInit(): Promise<void> {
-    await this.polkadotService.getChainTokens();
+    // await this.polkadotService.getChainTokens();
+    this.totalUSD = this.appSettings.wallet_info.wallet_balance_usd;
+    if (this.appSettings.wallet_info.wallet_balance_usd == '') {
+      this.totalUSD = this.cookiesService.getCookie('wallet-usd');
+    }
   }
 }

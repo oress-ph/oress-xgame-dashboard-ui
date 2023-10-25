@@ -72,6 +72,13 @@ export class AppSettings {
     public APIURLHostGames = 'http://127.0.0.1:3008';
     public chatBotURLHOST = 'https://chatbot-api.xgame.live/api/chatbot';
 
+    public Email = 'admin@xgame.co';
+    public LinkedIn = 'https://www.linkedin.com/company/xgame-official/about/';
+    public Facebook = 'https://www.facebook.com/official.xgames';
+    public Youtube = 'https://www.youtube.com/@XGame-mb7cd';
+    public Discord = 'https://discord.gg/gGqhyzUjZN';
+    public Twitter = 'https://twitter.com/XGameOfficial_';
+
     public APIUploadURL = this.APIURLHost + '/uploads/'
     public AppVersion = 'Alpha.001';
     // table list date format
