@@ -41,14 +41,14 @@
                         </svg>
                       </div> -->
                       <div>
-                        <h6 class="f-14 mb-1">{{ tokenSymbol}} </h6>
+                        <h6 class="f-14 mb-1">{{ tokenSymbol }} </h6>
                         <!-- <div class="d-flex align-items-center gap-1"><span class="status bg-success"></span><span class="f-light">EGEM</span></div> -->
                       </div>
                     </div>
                   </td>
                   <td>{{ appSettings.wallet_info.wallet_balance_nms }}</td>
-                  <td>{{ nmsPrice }} USD</td>
-                  <td class="text-end">{{ appSettings.wallet_info.wallet_balance_usd }} USD</td>
+                  <td>{{ nmsPrice }} USD / {{ tokenSymbol }}</td>
+                  <td class="text-end">{{ appSettings.wallet_info.wallet_balance_usd | number:'1.2-2' }} USD</td>
                 </tr>
               </tbody>
             </table>
