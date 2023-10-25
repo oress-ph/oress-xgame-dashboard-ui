@@ -96,7 +96,7 @@
             <div class="product-box">
               <div class="product-img">
                 <div *ngIf="product.isForSale" class="ribbon ribbon-danger">Sale</div>
-                <div *ngIf="!product.isForSale" class="ribbon ribbon-success">Not for Sale</div>
+                <!-- <div *ngIf="!product.isForSale" class="ribbon ribbon-success">Not for Sale</div> -->
                 <img class="img-fluid" src="{{ product.imagePath }}" alt="" [style.max-height.px]="max_height" [style.min-height.px]="min_height"/>
                 <div class="product-hover">
                   <ul>
@@ -213,6 +213,7 @@
                   <h4>{{ product.name }} #{{ product.nftTokenId }}</h4></a
                 >
                 <p>{{ product.collection }}</p>
+                <p>{{ product.tokenOwner | slice:0:5 }}...{{ product.tokenOwner | slice:-5 }}</p>
                 <div class="product-price">
                   {{ product.price }} {{ tokenSymbol }} <p>(${{ calculatePrice(product.price) }})</p>
                   <!-- <del>${{ product.discountPrice }}</del> -->

@@ -11,14 +11,15 @@
     color: black !important;
 }
 .receiver{
-    width: 100%;
-    max-width: 280px;
     display: flex;
     flex-direction: column;
     gap: 0.5rem !important;
     align-content: flex-end;
     flex-wrap: wrap;
-    padding: 20px;
+    padding: 10px;
+    width: max-content;
+    margin-left: auto;
+    margin-bottom: 10px;
 }
 .sender{
     width: 100%;
@@ -31,16 +32,45 @@
     border: 1px solid #f4f4f4;
     border-radius: 10px;
     border-top-left-radius: 0;
-    padding: 20px;
+    padding: 10px;
 }
 
 .customizer-links .nav-link span {
     background-color: var(--sidebar-border);
-    padding: 7px 15px;
+    right: 0px;
+    top: -37px;
+    webkit-animation: growX 1s ease 0s both;
+    -moz-animation: growX 1s ease 0s both;
+    -o-animation: growX 1s ease 0s both;
+    animation: typing 2s steps(22), blink .5s step-end infinite alternate;
 }
 .customizer-links > .nav {
     background-color: unset !important;
 }
 .customizer-links.open {
     right: 335px;
+}
+
+@keyframes typing {
+    from {
+      width: 0
+    }
+  }
+  @keyframes blink {
+    50% {
+      border-color: transparent
+    }
+  }
+
+  .customizer-links {
+    display: unset;
+    top: 96%;
+    position: fixed;
+}
+.customizer-links > .nav {
+    padding: unset;
+    background: unset;
+}
+.customizer-links .nav-link i {
+    font-size: 30px;
 }
