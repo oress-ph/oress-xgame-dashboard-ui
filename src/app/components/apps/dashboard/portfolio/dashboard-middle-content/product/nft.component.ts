@@ -107,7 +107,8 @@ export class NFTComponent implements OnInit {
         toast.addEventListener('mouseleave', Swal.resumeTimer)
       },
       didClose: () => {
-        window.location.reload();
+        // window.location.reload();
+        this.getNft();
         this.isLoading = false;
         this.modalService.dismissAll();
       },
@@ -128,14 +129,18 @@ export class NFTComponent implements OnInit {
     if (response[0]) {
       this.pageToast(
         true,
-        response[1].status,
-        response[1].message,
+        "Success",
+        "NFT Update Successfully"
+        // response[1].status,
+        // response[1].message,
       );
     } else {
       this.pageToast(
         false,
-        response[1].status,
-        response[1].message
+        // response[1].status,
+        // response[1].message
+        "Failed",
+        "NFT Update Failed"
       );
     }
   }
@@ -165,7 +170,6 @@ export class NFTComponent implements OnInit {
       to: this.transferTo,
       id: nft.nftTokenId
     }
-    console.log(transactionParams);
     await this.transaction(transactionMethod, transactionParams);
   }
 
