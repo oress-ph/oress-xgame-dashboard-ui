@@ -95,7 +95,7 @@
           <div class="card">
             <div class="product-box">
               <div class="product-img">
-                <div *ngIf="product.isForSale" class="ribbon ribbon-danger">Sale</div>
+                <div *ngIf="product.isForSale" class="ribbon ribbon-danger">For Sale</div>
                 <!-- <div *ngIf="!product.isForSale" class="ribbon ribbon-success">Not for Sale</div> -->
                 <img class="img-fluid" src="{{ product.imagePath }}" alt="" [style.max-height.px]="max_height" [style.min-height.px]="min_height"/>
                 <div class="product-hover">
@@ -195,8 +195,14 @@
                           </div>
                         </div>
                         <div class="modal-footer">
-                          <button class="btn btn-success" (click)="updateForSale(product)"
-                            *ngIf="selectedAction === 1">Update</button>
+                          <button class="btn btn-success" (click)="updateForSale(product)" *ngIf="selectedAction === 1" [disabled]="isLoading" >
+                            <ng-container *ngIf="isLoading; else updateButton">
+                              <i class="fa fa-spin fa-spinner"></i>
+                            </ng-container>
+                            <ng-template #updateButton>
+                              Update
+                            </ng-template>
+                          </button>
                           <button type="button" class="btn btn-outline-dark"
                             (click)="modal.close('Close click')">Cancel</button>
                         </div>
