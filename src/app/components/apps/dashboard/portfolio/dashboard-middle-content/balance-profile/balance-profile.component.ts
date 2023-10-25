@@ -15,7 +15,7 @@ export class BalanceProfileComponent implements OnInit {
   public dashboard_menuItems: Menu[];
   isLoading = false;
   tokenSymbol: any = 'NMS';
-  totalUSD: string;
+  totalUSD: string = '0.00';
 
   constructor(
     private router: Router,

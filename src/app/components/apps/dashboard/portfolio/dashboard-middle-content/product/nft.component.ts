@@ -68,12 +68,14 @@ export class NFTComponent implements OnInit {
   public wallet_info: WalletInfoModel = new WalletInfoModel();
   public token_transaction: TokenTransactionModel[] = [];
 
-  listItemSelected: boolean = false;
+  nft_detail: NFTModel = new NFTModel();
   isLoading: boolean = false;
   invalidAddress: boolean = false;
   selectedAction = 1;
   transferTo: string = ''
   tokenSymbol: any;
+  isForSale: boolean = false;
+  nmsPrice: number = 10;
 
   constructor(
     private modalService: NgbModal,
@@ -83,7 +85,15 @@ export class NFTComponent implements OnInit {
     private polkadotService: PolkadotService,
     private cookiesService: CookiesService
   ) {
-    this.tokenSymbol = this.cookiesService.getCookieArray('tokenSymbol');
+    this.tokenSymbol = this.cookiesService.getCookie('tokenSymbol');
+  }
+
+  calculatePrice(tokenPrice: any) {
+    return tokenPrice * this.nmsPrice;
+  }
+
+  forSaleChange(event: any) {
+    this.isForSale = event.target.checked;
   }
 
   pageToast(success: boolean, swalTitle: string, swalText: string) {
@@ -107,14 +117,6 @@ export class NFTComponent implements OnInit {
       title: swalTitle,
       text: swalText
     });
-  }
-
-  onTransferChange(event: any) {
-    if (!this.polkadotService.isAddressValid(event)) {
-      this.invalidAddress = true;
-    } else {
-      this.invalidAddress = false;
-    }
   }
 
   async transaction(method: string, params: any) {
@@ -149,7 +151,7 @@ export class NFTComponent implements OnInit {
       description: nft.description,
       image_path: nft.imagePath,
       price: nft.price,
-      is_for_sale: this.listItemSelected,
+      is_for_sale: this.isForSale,
       atlas_images: nft.atlasFilePath,
     }
     await this.transaction(transactionMethod, transactionParams);
@@ -167,12 +169,15 @@ export class NFTComponent implements OnInit {
     await this.transaction(transactionMethod, transactionParams);
   }
 
-  listItem(data: string) {
-    this.listItemSelected = data === 'Yes' ? true : false;
-  }
-
-  async editItem(content: any) {
-    this.modalService.open(content, { centered: true, size: "md" });
+  async editItem(content: any, nftTokenId: any) {
+    const nft = this.nft_list.find((nftItem) => nftItem.nftTokenId === nftTokenId);
+    if (nft) {
+      this.nft_detail = JSON.parse(JSON.stringify(nft));
+      console.log(this.nft_detail);
+      this.modalService.open(content, { centered: true, size: 'md' });
+    } else {
+      console.log('NFT not found');
+    }
   }
 
   ngOnInit() {
