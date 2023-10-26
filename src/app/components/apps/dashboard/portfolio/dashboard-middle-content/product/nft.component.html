@@ -27,6 +27,28 @@
         </div>
       </div>
       <div class="row">
+        <div class="row m-b-20">
+          <div class="col-xl-1 col-md-2 col-sm-12 col-xs-12" style="width: fit-content;">
+            <img [src]="selected_product.game_logo" class="game_logo">
+          </div>
+          <div class="col-xl-9 col-md-8">
+            <div style="display: flex; flex-direction: column;">
+              <h1>{{selected_product.game_name}}</h1>
+              <div ngbDropdown class="d-inline-block">
+                <button class="btn btn-light dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" ngbDropdownToggle
+                style="background-color: var(--recent-chart-bg);">
+                  Change Collection
+                </button>
+                <div class="dropdown-menu dropdown-size" ngbDropdownMenu style="z-index: 11 !important;">
+                  <a class="dropdown-item" ngbDropdownItem href="javascript:void(0)" *ngFor="let product of product_list" (click)="handleItemClick(product)" style="opacity: unset;display: flex;">
+                    <img class="m-r-20" [src]="product.game_logo" style="width: 80px; height: auto;">
+                    <span style="font-size: 18px;">{{product.game_name}}</span>
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
         <div class="col-xl-3 col-md-4">
           <div class="product-sidebar" [class.open]="openSidebar">
             <div class="filter-section">
@@ -38,14 +60,14 @@
                 </div>
                 <div class="left-filter scroll-bar-wra[]">
                   <div class="card-body filter-cards-view animate-chk scroll-demo">
-                    <div class="product-filter">
+                    <!-- <div class="product-filter">
                       <h6 class="f-w-600">Collection</h6>
                       <div class="checkbox-animated mt-0">
-                        <select class="form-control btn-pill digits" id="exampleFormControlSelect7" [(ngModel)]="selected_game" (change)="onGameSelect($event)">
+                        <select class="form-control btn-pill digits" id="exampleFormControlSelect7" [(ngModel)]="selected_product" (change)="onGameSelect($event)">
                           <option *ngFor="let games of games_list" [ngValue]="games">{{games.game_name}}</option>
                         </select>
                       </div>
-                    </div>
+                    </div> -->
                     <div class="product-filter">
                       <h6 class="f-w-600">Category</h6>
                       <div class="checkbox-animated mt-0" *ngIf="category_list.length>0">
@@ -100,25 +122,12 @@
                 <img class="img-fluid" src="{{ product.imagePath }}" alt="" [style.max-height.px]="max_height" [style.min-height.px]="min_height"/>
                 <div class="product-hover">
                   <ul>
-                    <!-- <li>
-                      <a [routerLink]="['/ecommerce/cart']"><i class="icon-shopping-cart"></i></a>
-                    </li> -->
-                    <!-- <li placement="top" ngbTooltip="Buy">
-                      <a (click)="openProductDetail(content, product)"><i class="icon-wallet"></i></a>
-                    </li> -->
                     <li placement="top" ngbTooltip="Details">
                       <a href="https://nft.xgame.live/marketplace/nft-details/{{product.nftTokenId}}"><i class="icon-eye"></i></a>
                     </li>
                     <li placement="top" ngbTooltip="Edit">
                       <a (click)="editItem(listitem, product.nftTokenId)"><i class="icon-pencil"></i></a>
                     </li>
-
-                    <!-- <ng-template #content let-modal>
-                      <div class="modal-body" style="padding: 0%">
-                        <app-quick-view [productDetail]="productDetail"></app-quick-view>
-                        <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
-                      </div>
-                    </ng-template> -->
 
                     <ng-template #listitem let-modal>
                       <div class="modal-body custom-modal-content" style="padding: 0%; margin: 20px">

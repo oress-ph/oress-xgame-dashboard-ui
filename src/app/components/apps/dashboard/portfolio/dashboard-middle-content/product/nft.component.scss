@@ -18,3 +18,32 @@
   border-radius: 10px;
   background-color: darkgray;
 }
+.dropdown-size{
+  min-width: 300px;
+  width: fit-content;
+  
+  @media screen and (max-width: 600px) {
+      width: 100%;
+  }
+}
+.dropdown-item span {
+  width: 100% !important;
+  white-space: nowrap !important;
+  overflow: hidden !important;
+  text-overflow: ellipsis !important;
+  display: flex;
+  align-content: center;
+  flex-wrap: wrap;
+}
+.dropdown-toggle{
+  width: 320px;
+  @media screen and (max-width: 375px) {
+      width: 100%;
+  }
+}
+.game_logo{
+  width: 80px; height: auto;
+  @media screen and (max-width: 668px) {
+      width: 100%;
+  }
+}

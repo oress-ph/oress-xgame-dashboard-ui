@@ -71,6 +71,7 @@ export class AppSettings {
     public APIURLHostLabel = 'https://labels-api.xgame.live';
     public APIURLHostGames = 'http://127.0.0.1:3008';
     public chatBotURLHOST = 'https://chatbot-api.xgame.live/api/chatbot';
+    public APIURLHostProduct = 'https://product-page-api.xgame.live';
 
     public Email = 'admin@xgame.co';
     public LinkedIn = 'https://www.linkedin.com/company/xgame-official/about/';
