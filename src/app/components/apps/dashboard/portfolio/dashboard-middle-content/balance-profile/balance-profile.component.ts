@@ -33,11 +33,17 @@ export class BalanceProfileComponent implements OnInit {
     // this.tokenSymbol = this.cookiesService.getCookie('tokenSymbol');
   }
 
+  getBalance() {
+    return this.cookiesService.getCookie('wallet-usd');
+  }
+
   async ngOnInit(): Promise<void> {
     // await this.polkadotService.getChainTokens();
-    this.totalUSD = this.appSettings.wallet_info.wallet_balance_usd;
+    // this.totalUSD = this.appSettings.wallet_info.wallet_balance_usd;
     if (this.appSettings.wallet_info.wallet_balance_usd == '') {
-      this.totalUSD = this.cookiesService.getCookie('wallet-usd');
+      setTimeout(() => {
+        this.totalUSD = this.cookiesService.getCookie('wallet-usd');
+      }, 3000);
     }
   }
 }
