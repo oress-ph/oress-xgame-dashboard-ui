@@ -5,6 +5,7 @@ import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { NgbModule } from "@ng-bootstrap/ng-bootstrap";
 // import { DragulaModule } from "ng2-dragula";
 import { TranslateModule } from "@ngx-translate/core";
+import { NgSelectModule } from '@ng-select/ng-select';
 // Components
 import { BreadcrumbComponent } from "./components/breadcrumb/breadcrumb.component";
 import { CustomizerComponent } from "./components/customizer/customizer.component";
@@ -83,29 +84,30 @@ import { WalletInfoComponent } from "./components/wallet/wallet-info/wallet-info
     BalanceProfileComponent,
     SafePipe,
     WalletInfoComponent,
-    
+
   ],
   imports: [
-    CommonModule, 
+    CommonModule,
     RouterModule,
     FormsModule,
     ReactiveFormsModule,
     NgbModule,
     TranslateModule.forRoot(),
     CarouselModule,
-    SwiperModule],
+    SwiperModule,
+    NgSelectModule],
   providers: [NavService, ChatService, LayoutService, TableService, DecimalPipe, GamesService, NftService,LanguageService,PolkadotService,LabelService,ChatBotService,],
   exports: [NgbModule, FormsModule, ReactiveFormsModule,
     TranslateModule,
-    LoaderComponent, 
-    BreadcrumbComponent, 
-    FeatherIconsComponent, 
-    TapToTopComponent, 
-    DisableKeyPressDirective, 
-    OnlyAlphabetsDirective, 
-    OnlyNumbersDirective, 
-    NgbdSortableHeader, 
-    SvgIconComponent, 
+    LoaderComponent,
+    BreadcrumbComponent,
+    FeatherIconsComponent,
+    TapToTopComponent,
+    DisableKeyPressDirective,
+    OnlyAlphabetsDirective,
+    OnlyNumbersDirective,
+    NgbdSortableHeader,
+    SvgIconComponent,
     SwiperModule,
     BalanceProfileComponent,
     WalletInfoComponent

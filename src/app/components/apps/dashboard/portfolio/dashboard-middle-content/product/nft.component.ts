@@ -157,7 +157,9 @@ export class NFTComponent implements OnInit {
       image_path: nft.imagePath,
       price: nft.price,
       is_for_sale: this.isForSale,
-      atlas_images: nft.atlasFilePath,
+      is_equipped: nft.is_equipped,
+      astro_type: nft.astroType,
+      rarity: nft.rarity,
     }
     await this.transaction(transactionMethod, transactionParams);
   }

@@ -7,7 +7,9 @@ export class NFTModel {
     image_path: string = '';
     price: number = 0;
     is_for_sale: boolean = true;
-    atlas_file_path: string = '';
+    is_equipped: boolean = true;
+    astro_type: string = '';
+    rarity: string = '';
     network: string = ''
     blockchain_id: string = ''
     collection_id: string = '';
