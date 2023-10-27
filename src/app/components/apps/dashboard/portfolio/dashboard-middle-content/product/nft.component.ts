@@ -59,7 +59,7 @@ export class NFTComponent implements OnInit {
   public search_nft: string = '';
   public price_rank: string = 'featured';
 
-  public min_price : number = 1;
+  public min_price : number = 0;
   public max_price: number = 100;
 
   public max_height: number = 400;
