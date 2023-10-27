@@ -157,7 +157,7 @@ export class NFTComponent implements OnInit {
       image_path: nft.imagePath,
       price: nft.price,
       is_for_sale: this.isForSale,
-      is_equipped: nft.is_equipped,
+      is_equipped: nft.isEquipped,
       astro_type: nft.astroType,
       rarity: nft.rarity,
     }
