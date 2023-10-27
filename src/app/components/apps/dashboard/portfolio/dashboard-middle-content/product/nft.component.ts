@@ -157,7 +157,7 @@ export class NFTComponent implements OnInit {
       image_path: nft.imagePath,
       price: nft.price,
       is_for_sale: this.isForSale,
-      is_equipped: nft.is_equipped,
+      is_equipped: nft.isEquipped,
       astro_type: nft.astroType,
       rarity: nft.rarity,
     }
@@ -179,7 +179,6 @@ export class NFTComponent implements OnInit {
     const nft = this.nft_list.find((nftItem) => nftItem.nftTokenId === nftTokenId);
     if (nft) {
       this.nft_detail = JSON.parse(JSON.stringify(nft));
-      console.log(this.nft_detail);
       this.modalService.open(content, { centered: true, size: 'md' });
     } else {
       console.log('NFT not found');
@@ -293,7 +292,7 @@ export class NFTComponent implements OnInit {
   filterNFT() {
     let _filtered_nft = this.nft_list;
 
-    if(this.selected_product?.game_name&&this.selected_product.game_name!="All"){
+    if(this.selected_product?.game_name){
           // Apply collection filter
       _filtered_nft = _filtered_nft.filter(item => item.collection === this.selected_product.game_name);
     }
@@ -321,7 +320,6 @@ export class NFTComponent implements OnInit {
     }
 
     this.nft_list_filter = _filtered_nft;
-    console.log(this.nft_list_filter);
   }
 
   toggleListView(val) {

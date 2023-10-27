@@ -56,14 +56,16 @@ export class NftService {
   updateNft(data: any): Observable<[boolean, any]> {
     let id = data.id;
     let updateModel = {
-      name: data.name == '' ? '-' : data.name,
-      description: data.description == '' ? '-' : data.description,
+      name: data.name == '' ? 'Default' : data.name,
+      description: data.description == '' ? 'Default description' : data.description,
       category: data.category,
       collection: data.collection,
-      image_path: data.image_path == '' ? '-' : data.image_path,
-      price: data.price == 0 ? 0 : data.price,
+      image_path: data.image_path == '' ? 'https://bafkreid7oetrqem6tjhptrjgd4fwzj3ozlbab23xxgsfp3ghrxjc4g2oci.ipfs.cf-ipfs.com/' : data.image_path,
+      price: data.price > 0 ? 0 : data.price,
       is_for_sale: data.is_for_sale,
-      astro_type: data.astro_type == undefined ? '-' : data.astro_type,
+      is_equipped: data.is_equipped,
+      astro_type: data.astro_type,
+      rarity: data.rarity,
     };
 
     return new Observable<[boolean, any]>((observer) => {
