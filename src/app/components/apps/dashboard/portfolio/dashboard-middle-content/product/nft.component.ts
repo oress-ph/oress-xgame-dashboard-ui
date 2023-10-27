@@ -179,7 +179,6 @@ export class NFTComponent implements OnInit {
     const nft = this.nft_list.find((nftItem) => nftItem.nftTokenId === nftTokenId);
     if (nft) {
       this.nft_detail = JSON.parse(JSON.stringify(nft));
-      console.log(this.nft_detail);
       this.modalService.open(content, { centered: true, size: 'md' });
     } else {
       console.log('NFT not found');
