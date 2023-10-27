@@ -108,17 +108,16 @@
         <div class="loader-16"></div>
       </div>
     </div>
-    <div class="loader-box" style="height: 60vh;" *ngIf="loading">
+    <div class="loader-box" style="height: 20vh;" *ngIf="loading">
       <div class="loader-30"></div>
     </div>
-    <div class="product-wrapper-grid" [class.list-view]="listView" *ngIf="!loading">
+    <div class="product-wrapper-grid" [class.list-view]="listView" *ngIf="!loading" [style.height]="nft_list_filter.length == 0 ? '20vh' : '100%'">
       <div class="row">
         <div [class.col-xl-3]="col_xl_3" [class.col-xl-4]="xl_4" [class.col-sm-3]="col_sm_3" [class.col-xl-4]="col_xl_4" [class.col-sm-4]="col_sm_4" [class.col-xl-6]="col_xl_6" [class.col-sm-6]="col_sm_6" [class.col-xl-12]="col_xl_12" [class.col-xl-2]="col_xl_2" *ngFor="let product of nft_list_filter">
           <div class="card">
             <div class="product-box">
               <div class="product-img">
                 <div *ngIf="product.isForSale" class="ribbon ribbon-success">For Sale</div>
-                <!-- <div *ngIf="!product.isForSale" class="ribbon ribbon-success">Not for Sale</div> -->
                 <img class="img-fluid" src="{{ product.imagePath }}" alt="" [style.max-height.px]="max_height" [style.min-height.px]="min_height"/>
                 <div class="product-hover">
                   <ul>
@@ -182,24 +181,6 @@
                                   <span class="switch-state"></span>
                                 </label>
                               </div>
-                              <!-- <label class="switch">
-                                <input type="checkbox" [(ngModel)]="isForSale">
-                                <span class="switch-state"></span>
-                              </label> -->
-                              <!-- <div class="form-check">
-                                <input class="form-check-input" type="radio"
-                                  name="paymentMethod" id="listYes" [checked]="product.isForSale"
-                                  (click)="listItem('Yes')" value="No">
-                                <label class="form-check-label"
-                                  for="listYes">Yes</label>
-                              </div>
-                              <div class="form-check">
-                                <input class="form-check-input" type="radio"
-                                  name="paymentMethod" id="listNo" [checked]="!product.isForSale"
-                                  (click)="listItem('No')" value="No">
-                                <label class="form-check-label"
-                                  for="listNo">No</label>
-                              </div> -->
                             </div>
                           </div>
                         </div>
@@ -231,7 +212,6 @@
                 <p>{{ product.tokenOwner | slice:0:5 }}...{{ product.tokenOwner | slice:-5 }}</p>
                 <div class="product-price">
                   {{ product.price }} {{ tokenSymbol }} <p>(${{ calculatePrice(product.price) }})</p>
-                  <!-- <del>${{ product.discountPrice }}</del> -->
                 </div>
               </div>
             </div>
