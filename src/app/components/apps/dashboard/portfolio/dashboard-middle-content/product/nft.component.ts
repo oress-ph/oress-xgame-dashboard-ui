@@ -59,11 +59,10 @@ export class NFTComponent implements OnInit {
   public search_nft: string = '';
   public price_rank: string = 'featured';
 
-  public min_price : number = 0;
+  public min_price : number = 1;
   public max_price: number = 100;
 
-  public max_height: number = 400;
-  public min_height: number = 400;
+  public height: number = 900;
 
   public wallet_info: WalletInfoModel = new WalletInfoModel();
   public token_transaction: TokenTransactionModel[] = [];
@@ -422,5 +421,35 @@ export class NFTComponent implements OnInit {
     this.col_xl_4 = this.col_xl_4;
     this.col_sm_6 = this.col_sm_6;
     this.col_xl_6 = this.col_xl_6;
+
+    if (window.innerWidth > 2360) {
+      this.height = 800
+    }else if(window.innerWidth < 2360 && window.innerWidth > 2160){
+      this.height = 700
+    }else if(window.innerWidth < 2160 && window.innerWidth > 1960){
+      this.height = 600
+    }else if(window.innerWidth < 1960 && window.innerWidth > 1760){
+      this.height = 500
+    }else if(window.innerWidth < 1760 && window.innerWidth > 1560){
+      this.height = 450
+    }else if(window.innerWidth < 1560 && window.innerWidth > 1360){
+      this.height = 400
+    }else if(window.innerWidth < 1360 && window.innerWidth > 1200){
+      this.height = 400
+    }else if(window.innerWidth < 1200 && window.innerWidth > 1000){
+      this.height = 600
+    }else if(window.innerWidth < 1000 && window.innerWidth > 800){
+      this.height = 500
+    }else if(window.innerWidth < 800 && window.innerWidth > 600){
+      this.height = 400
+    }else if(window.innerWidth < 600 && window.innerWidth > 575){
+      this.height = 300
+    }else if(window.innerWidth < 576 && window.innerWidth > 425){
+      this.height = 600
+    }else if(window.innerWidth < 425 && window.innerWidth > 325){
+      this.height = 500
+    }else if(window.innerWidth < 325){
+      this.height = 400
+    }
   }
 }
