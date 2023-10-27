@@ -55,10 +55,12 @@ export class NftService {
                 image_path: response.imagePath,
                 price: response.price,
                 is_for_sale: response.isForSale,
-                atlas_file_path: response.atlasFilePath==''?'-':response.atlasFilePath,
-                network: response.network==''?'-':response.network,
-                blockchain_id: response.blockchainId==''?'-':response.blockchainId,
-                token_owner: response.tokenOwner==''?'-':response.tokenOwner,
+                is_equipped: response.isEquipped,
+                astro_type: response.astroType,
+                rarity: response.rarity,
+                network: response.network,
+                blockchain_id: response.blockchainId,
+                token_owner: response.tokenOwner,
               };
             }
 
@@ -83,7 +85,7 @@ export class NftService {
       image_path: data.image_path == '' ? '-' : data.image_path,
       price: data.price == 0 ? 0 : data.price,
       is_for_sale: data.is_for_sale,
-      atlas_images: data.atlas_file_path == '' ? '-' : data.atlas_file_path,
+      astro_type: data.astro_type == '' ? '-' : data.astro_type,
     };
 
     return new Observable<[boolean, NFTModel]>((observer) => {
@@ -130,9 +132,11 @@ export class NftService {
                   description: data[i].description,
                   price: data[i].price,
                   is_for_sale: data[i].isForSale,
+                  is_equipped: data[i].isEquipped,
                   category: data[i].category,
                   collection: data[i].collection,
-                  atlas_file_path: data[i].atlasFilePath,
+                  astro_type: data[i].astroType,
+                  rarity: data[i].rarity,
                   network: data[i].network,
                   blockchain_id: data[i].blockchainId,
                   collection_id: data[i].collectionId,

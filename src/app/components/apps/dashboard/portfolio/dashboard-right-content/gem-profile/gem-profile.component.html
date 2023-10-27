@@ -46,9 +46,9 @@
                       </div>
                     </div>
                   </td>
-                  <td>{{ appSettings.wallet_info.wallet_balance_nms }}</td>
-                  <td>{{ nmsPrice }} USD / {{ tokenSymbol }}</td>
-                  <td class="text-end">{{ appSettings.wallet_info.wallet_balance_usd | number:'1.2-2' }} USD</td>
+                  <td>{{ portfolioModel.token_quantity }}</td>
+                  <td>{{ portfolioModel.conversion_rate | number:'1.2-2' }} {{ portfolioModel.currency }}</td>
+                  <td class="text-end">{{ portfolioModel.amount | number:'1.2-2' }} {{ portfolioModel.currency }}</td>
                 </tr>
               </tbody>
             </table>

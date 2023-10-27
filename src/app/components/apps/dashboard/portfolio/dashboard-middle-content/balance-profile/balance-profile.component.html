@@ -4,7 +4,25 @@
       <i class="icofont icofont-wallet portfolio-icon"></i>
       <div>
         <span class="f-light d-block my-portfolio">My Portfolio</span>
-        <h3 class="mt-1">{{ totalUSD | number:'1.2-2' }} USD</h3>
+        <div class="portfolio-balance d-flex align-items-center">
+          {{ portfolioModel.amount | number:'1.2-2' }}
+          <div ngbDropdown class="d-inline-block dropdown-currency">
+            <button class="btn dropdown-toggle" type="button"
+              data-bs-toggle="dropdown" aria-haspopup="true"
+              aria-expanded="false" ngbDropdownToggle
+              style="background-color: transparent !important; color: rgba(36,41,52,255);">
+              <div class="selectedCurrency">{{ portfolioModel.currency }}</div>
+            </button>
+            <div class="dropdown-menu dropdown-size" ngbDropdownMenu style="z-index: 11 !important;">
+              <a class="dropdown-item" ngbDropdownItem href="javascript:void(0)"
+                *ngFor="let curr of currency" (click)="handleSelectCurrency(curr)"
+                style="opacity: unset; display: flex;">
+                <img class="m-r-20" [src]="curr.flag_icon" style="width: 40px; height: auto;">
+                <span>{{ curr.name }}</span>
+              </a>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </div>

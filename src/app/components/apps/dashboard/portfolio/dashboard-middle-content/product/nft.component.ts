@@ -5,7 +5,7 @@ import {NFTModel} from "../../../../../../shared/model/nft.model";
 import {TokenTransactionModel} from "../../../../../../shared/model/token_transaction.model";
 import {NftService} from "../../../../../../shared/services/nft.service"
 import {GamesService} from "../../../../../../shared/services/games.service"
-import { GameModel,Categories } from '../../../../../../shared/model/games.model';
+import { GameModel,Categories, ProductModel } from '../../../../../../shared/model/games.model';
 import { AppSettings } from "src/app/app-settings";
 import { PolkadotService } from "src/app/shared/services/polkadot.service";
 import { WalletInfoModel } from "src/app/shared/model/wallet-info.model";
@@ -49,8 +49,8 @@ export class NFTComponent implements OnInit {
   public nft_list_filter: NFTModel[] = [];
 
 
-  public games_list: GameModel[] = []
-  public selected_game:GameModel= new GameModel();
+  public product_list: ProductModel[] = []
+  public selected_product:ProductModel= new ProductModel();
 
   category_list: any[] = [];
 
@@ -59,7 +59,7 @@ export class NFTComponent implements OnInit {
   public search_nft: string = '';
   public price_rank: string = 'featured';
 
-  public min_price : number = 1;
+  public min_price : number = 0;
   public max_price: number = 100;
 
   public max_height: number = 400;
@@ -157,7 +157,9 @@ export class NFTComponent implements OnInit {
       image_path: nft.imagePath,
       price: nft.price,
       is_for_sale: this.isForSale,
-      atlas_images: nft.atlasFilePath,
+      is_equipped: nft.is_equipped,
+      astro_type: nft.astroType,
+      rarity: nft.rarity,
     }
     await this.transaction(transactionMethod, transactionParams);
   }
@@ -218,39 +220,24 @@ export class NFTComponent implements OnInit {
   }
 
   get_games_list(){
-    this.gameService.get_collection_json().subscribe(
-
-      (data) => {
-        this.games_list = data;
-        this.selected_game = this.games_list[0]
-        this.get_category_json();
-      },
-      (error) => {
-        console.error('Error fetching JSON data:', error);
+    this.gameService.get_all_products().subscribe(
+      (response:any)=>{
+        let results = response;
+        if (results[0] == true) {
+          this.product_list = response[1];
+          this.selected_product = this.product_list[0];
+          this.get_category_json();
+        } else {
+          console.log("Error to get games");
+        }
       }
-    );
-    // this.gameService.get_all_games().subscribe(
-    //   (response:any)=>{
-    //     let results = response;
-    //     if (results[0] == true) {
-
-    //       this.games_list = response[1];
-    //       this.selected_game = this.games_list[0];
-    //       setTimeout(() => {
-    //         this.loading = false;
-    //       }, 500)
-    //     } else {
-    //       this.loading = false;
-    //       // this.messageService.add({
-    //       //   severity: results[1] == 401 ? 'info' : 'error',
-    //       //   summary: results[1],
-    //       //   detail: results[1] == 401 ? 'Unauthorized' : 'Server Error',
-    //       // });
-    //     }
-    //     this.getNft();
-    //   }
-    // )
+    )
   }
+  handleItemClick(product: ProductModel) {
+    this.selected_product = product;
+    this.getNft();
+  }
+
   get_category_json(){
     this.gameService.get_category_json().subscribe(
       (data) => {
@@ -306,9 +293,9 @@ export class NFTComponent implements OnInit {
   filterNFT() {
     let _filtered_nft = this.nft_list;
 
-    if(this.selected_game?.game_name&&this.selected_game.game_name!="All"){
+    if(this.selected_product?.game_name&&this.selected_product.game_name!="All"){
           // Apply collection filter
-      _filtered_nft = _filtered_nft.filter(item => item.collection === this.selected_game.game_name);
+      _filtered_nft = _filtered_nft.filter(item => item.collection === this.selected_product.game_name);
     }
 
     // If selected_categories is not empty, apply category filtering

@@ -5,6 +5,8 @@ import { AppSettings } from './../../../../../../app-settings';
 import { PolkadotService } from 'src/app/shared/services/polkadot.service';
 import { NftService } from 'src/app/shared/services/nft.service';
 import { CookiesService } from 'src/app/shared/services/cookies.service';
+import { PortfolioModel } from '../../../../../../shared/model/portfolio';
+import { PortfolioService } from 'src/app/shared/services/portfolio.service';
 
 @Component({
   selector: 'app-balance-profile',
@@ -16,6 +18,8 @@ export class BalanceProfileComponent implements OnInit {
   isLoading = false;
   tokenSymbol: any = 'NMS';
   totalUSD: string = '0.00';
+  nmsBalance: any;
+  portfolioModel: PortfolioModel = new PortfolioModel();
 
   constructor(
     private router: Router,
@@ -23,8 +27,9 @@ export class BalanceProfileComponent implements OnInit {
     public appSettings: AppSettings,
     private polkadotService: PolkadotService,
     private nftService: NftService,
-    private cookiesService: CookiesService
-  ){
+    private cookiesService: CookiesService,
+    private portfolioService: PortfolioService
+  ) {
     this.navServices.dashboard_items.subscribe(menuItems => {
       this.dashboard_menuItems = menuItems;
       this.router.events.subscribe((event) => {
@@ -33,11 +38,39 @@ export class BalanceProfileComponent implements OnInit {
     // this.tokenSymbol = this.cookiesService.getCookie('tokenSymbol');
   }
 
-  async ngOnInit(): Promise<void> {
-    // await this.polkadotService.getChainTokens();
-    this.totalUSD = this.appSettings.wallet_info.wallet_balance_usd;
-    if (this.appSettings.wallet_info.wallet_balance_usd == '') {
-      this.totalUSD = this.cookiesService.getCookie('wallet-usd');
+  selectedCurrency: string = 'USD';
+  nmsTotal: any;
+  data: any;
+  currency = [
+    {
+      id: '1',
+      name: 'USD',
+      flag_icon: 'https://cdn.britannica.com/33/4833-004-828A9A84/Flag-United-States-of-America.jpg'
+    },
+    {
+      id: '2',
+      name: 'KRW',
+      flag_icon: 'https://cdn.britannica.com/49/1949-004-8818300C/Flag-South-Korea.jpg'
+    },
+    {
+      id: '3',
+      name: 'JPY',
+      flag_icon: 'https://cdn.britannica.com/91/1791-004-DA3579A5/Flag-Japan.jpg'
+    },
+    {
+      id: '4',
+      name: 'CNY',
+      flag_icon: 'https://cdn.britannica.com/90/7490-004-BAD4AA72/Flag-China.jpg'
     }
+  ];
+
+  async handleSelectCurrency(currency: any) {
+    this.portfolioModel = await this.portfolioService.setPortfolioDetails(currency, this.nmsTotal);
+  }
+
+  async ngOnInit(): Promise<void> {
+    this.nmsTotal = await this.polkadotService.getBalance();
+    const defaultCurrency = { name: 'USD' };
+    await this.handleSelectCurrency(defaultCurrency)
   }
 }

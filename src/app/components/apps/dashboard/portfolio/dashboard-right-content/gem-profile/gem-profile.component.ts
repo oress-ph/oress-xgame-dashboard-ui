@@ -4,6 +4,8 @@ import { AppSettings } from "src/app/app-settings";
 import { PolkadotService } from "src/app/shared/services/polkadot.service";
 import { NftService } from "src/app/shared/services/nft.service";
 import { CookiesService } from "src/app/shared/services/cookies.service";
+import { PortfolioModel } from "src/app/shared/model/portfolio";
+import { PortfolioService } from "src/app/shared/services/portfolio.service";
 
 @Component({
   selector: "app-gem-profile",
@@ -13,14 +15,17 @@ import { CookiesService } from "src/app/shared/services/cookies.service";
 export class GemProfileComponent implements OnInit {
   public portfolio = chartData.portfolio;
   public show: boolean = false;
+  portfolioModel: PortfolioModel = new PortfolioModel();
 
   constructor(
     public appSettings: AppSettings,
     private polkadotService: PolkadotService,
     private nftService: NftService,
-    private cookiesService: CookiesService
+    private cookiesService: CookiesService,
+    private portfolioService: PortfolioService
   ) {
     this.tokenSymbol = this.cookiesService.getCookie('tokenSymbol');
+    this.portfolioModel = this.portfolioService.getPortfolioDetails();
   }
 
   tokenSymbol: any = 'NMS';
@@ -32,17 +37,8 @@ export class GemProfileComponent implements OnInit {
     this.show = !this.show
   }
 
-  async calculateAmount() {
-    let nmsTotal = await this.polkadotService.getBalance();
-    const totalUSD = (parseFloat(nmsTotal) * this.nmsPrice).toString();
-    this.amount = parseFloat(nmsTotal);
-    this.cookiesService.setCookie('wallet-usd', totalUSD);
-    this.appSettings.wallet_info.wallet_balance_usd = totalUSD;
-  }
-
   async ngOnInit(): Promise<void> {
     await this.polkadotService.getChainTokens();
-    this.calculateAmount();
     this.loading = false;
   }
 }

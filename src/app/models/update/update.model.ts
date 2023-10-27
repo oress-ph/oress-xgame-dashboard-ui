@@ -6,5 +6,5 @@ export class UpdateModel {
   image_path: string = '';
   price: number = 0;
   is_for_sale: boolean = true;
-  atlas_images: string = '';
+  astro_type: string = '';
 }

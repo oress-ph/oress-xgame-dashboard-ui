@@ -27,6 +27,28 @@
         </div>
       </div>
       <div class="row">
+        <div class="row m-b-20">
+          <div class="col-xl-1 col-md-2 col-sm-12 col-xs-12" style="width: fit-content;">
+            <img [src]="selected_product.game_logo" class="game_logo">
+          </div>
+          <div class="col-xl-9 col-md-8">
+            <div style="display: flex; flex-direction: column;">
+              <h1>{{selected_product.game_name}}</h1>
+              <div ngbDropdown class="d-inline-block">
+                <button class="btn btn-light dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" ngbDropdownToggle
+                style="background-color: var(--recent-chart-bg);">
+                  Change Collection
+                </button>
+                <div class="dropdown-menu dropdown-size" ngbDropdownMenu style="z-index: 11 !important;">
+                  <a class="dropdown-item" ngbDropdownItem href="javascript:void(0)" *ngFor="let product of product_list" (click)="handleItemClick(product)" style="opacity: unset;display: flex;">
+                    <img class="m-r-20" [src]="product.game_logo" style="width: 80px; height: auto;">
+                    <span style="font-size: 18px;">{{product.game_name}}</span>
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
         <div class="col-xl-3 col-md-4">
           <div class="product-sidebar" [class.open]="openSidebar">
             <div class="filter-section">
@@ -38,14 +60,14 @@
                 </div>
                 <div class="left-filter scroll-bar-wra[]">
                   <div class="card-body filter-cards-view animate-chk scroll-demo">
-                    <div class="product-filter">
+                    <!-- <div class="product-filter">
                       <h6 class="f-w-600">Collection</h6>
                       <div class="checkbox-animated mt-0">
-                        <select class="form-control btn-pill digits" id="exampleFormControlSelect7" [(ngModel)]="selected_game" (change)="onGameSelect($event)">
+                        <select class="form-control btn-pill digits" id="exampleFormControlSelect7" [(ngModel)]="selected_product" (change)="onGameSelect($event)">
                           <option *ngFor="let games of games_list" [ngValue]="games">{{games.game_name}}</option>
                         </select>
                       </div>
-                    </div>
+                    </div> -->
                     <div class="product-filter">
                       <h6 class="f-w-600">Category</h6>
                       <div class="checkbox-animated mt-0" *ngIf="category_list.length>0">
@@ -86,39 +108,25 @@
         <div class="loader-16"></div>
       </div>
     </div>
-    <div class="loader-box" style="height: 60vh;" *ngIf="loading">
+    <div class="loader-box" style="height: 20vh;" *ngIf="loading">
       <div class="loader-30"></div>
     </div>
-    <div class="product-wrapper-grid" [class.list-view]="listView" *ngIf="!loading">
+    <div class="product-wrapper-grid" [class.list-view]="listView" *ngIf="!loading" [style.height]="nft_list_filter.length == 0 ? '20vh' : '100%'">
       <div class="row">
         <div [class.col-xl-3]="col_xl_3" [class.col-xl-4]="xl_4" [class.col-sm-3]="col_sm_3" [class.col-xl-4]="col_xl_4" [class.col-sm-4]="col_sm_4" [class.col-xl-6]="col_xl_6" [class.col-sm-6]="col_sm_6" [class.col-xl-12]="col_xl_12" [class.col-xl-2]="col_xl_2" *ngFor="let product of nft_list_filter">
           <div class="card">
             <div class="product-box">
               <div class="product-img">
                 <div *ngIf="product.isForSale" class="ribbon ribbon-success">For Sale</div>
-                <!-- <div *ngIf="!product.isForSale" class="ribbon ribbon-success">Not for Sale</div> -->
                 <img class="img-fluid" src="{{ product.imagePath }}" alt="" [style.max-height.px]="max_height" [style.min-height.px]="min_height"/>
                 <div class="product-hover">
                   <ul>
-                    <!-- <li>
-                      <a [routerLink]="['/ecommerce/cart']"><i class="icon-shopping-cart"></i></a>
-                    </li> -->
-                    <!-- <li placement="top" ngbTooltip="Buy">
-                      <a (click)="openProductDetail(content, product)"><i class="icon-wallet"></i></a>
-                    </li> -->
                     <li placement="top" ngbTooltip="Details">
                       <a href="https://nft.xgame.live/marketplace/nft-details/{{product.nftTokenId}}"><i class="icon-eye"></i></a>
                     </li>
                     <li placement="top" ngbTooltip="Edit">
                       <a (click)="editItem(listitem, product.nftTokenId)"><i class="icon-pencil"></i></a>
                     </li>
-
-                    <!-- <ng-template #content let-modal>
-                      <div class="modal-body" style="padding: 0%">
-                        <app-quick-view [productDetail]="productDetail"></app-quick-view>
-                        <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
-                      </div>
-                    </ng-template> -->
 
                     <ng-template #listitem let-modal>
                       <div class="modal-body custom-modal-content" style="padding: 0%; margin: 20px">
@@ -173,24 +181,6 @@
                                   <span class="switch-state"></span>
                                 </label>
                               </div>
-                              <!-- <label class="switch">
-                                <input type="checkbox" [(ngModel)]="isForSale">
-                                <span class="switch-state"></span>
-                              </label> -->
-                              <!-- <div class="form-check">
-                                <input class="form-check-input" type="radio"
-                                  name="paymentMethod" id="listYes" [checked]="product.isForSale"
-                                  (click)="listItem('Yes')" value="No">
-                                <label class="form-check-label"
-                                  for="listYes">Yes</label>
-                              </div>
-                              <div class="form-check">
-                                <input class="form-check-input" type="radio"
-                                  name="paymentMethod" id="listNo" [checked]="!product.isForSale"
-                                  (click)="listItem('No')" value="No">
-                                <label class="form-check-label"
-                                  for="listNo">No</label>
-                              </div> -->
                             </div>
                           </div>
                         </div>
@@ -222,7 +212,6 @@
                 <p>{{ product.tokenOwner | slice:0:5 }}...{{ product.tokenOwner | slice:-5 }}</p>
                 <div class="product-price">
                   {{ product.price }} {{ tokenSymbol }} <p>(${{ calculatePrice(product.price) }})</p>
-                  <!-- <del>${{ product.discountPrice }}</del> -->
                 </div>
               </div>
             </div>
