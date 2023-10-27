@@ -26,7 +26,7 @@ export class GamesService {
 
       let blog_list: GameModel[] = [];
       this.httpClient
-        .get<any>(this.appSettings.APIURLHostGames + '/games/public', httpOptions)
+        .get<any>(this.appSettings.APIURLHostGames + '/games/public?language=English', httpOptions)
         .subscribe(
           (response) => {
             let result = response;
@@ -59,7 +59,7 @@ export class GamesService {
 
       let blog_list: ProductModel[] = [];
       this.httpClient
-        .get<any>(this.appSettings.APIURLHostProduct + '/games/public', httpOptions)
+        .get<any>(this.appSettings.APIURLHostProduct + '/games/public?language=English', httpOptions)
         .subscribe(
           (response) => {
             let result = response;
