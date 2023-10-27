@@ -293,7 +293,7 @@ export class NFTComponent implements OnInit {
   filterNFT() {
     let _filtered_nft = this.nft_list;
 
-    if(this.selected_product?.game_name&&this.selected_product.game_name!="All"){
+    if(this.selected_product?.game_name){
           // Apply collection filter
       _filtered_nft = _filtered_nft.filter(item => item.collection === this.selected_product.game_name);
     }
@@ -321,7 +321,6 @@ export class NFTComponent implements OnInit {
     }
 
     this.nft_list_filter = _filtered_nft;
-    console.log(this.nft_list_filter);
   }
 
   toggleListView(val) {
