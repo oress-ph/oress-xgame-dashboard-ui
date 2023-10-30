@@ -61,7 +61,7 @@ export class NftService {
       category: data.category,
       collection: data.collection,
       image_path: data.image_path == '' ? 'https://bafkreid7oetrqem6tjhptrjgd4fwzj3ozlbab23xxgsfp3ghrxjc4g2oci.ipfs.cf-ipfs.com/' : data.image_path,
-      price: data.price > 0 ? 0 : data.price,
+      price: data.price < 0 ? 0 : data.price,
       is_for_sale: data.is_for_sale,
       is_equipped: data.is_equipped,
       astro_type: data.astro_type,

@@ -31,7 +31,6 @@ export class HeaderComponent implements OnInit {
   getWallet(){
     this.wallet.wallet_keypair = this.cookiesService.getCookie('wallet-keypair');
     this.wallet.wallet_meta_name = this.cookiesService.getCookie('wallet-meta-name');
-    console.log(this.wallet.wallet_keypair!='');
   }
 
   sidebarToggle() {

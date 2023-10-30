@@ -58,7 +58,6 @@ export class NavService implements OnDestroy {
 
           const hostnameParts = url.hostname.split('.');
           this.top_level_domain = hostnameParts[hostnameParts.length - 1];
-          console.log(this.top_level_domain);
 
     this.setScreenWidth(window.innerWidth);
     fromEvent(window, "resize")
