@@ -147,14 +147,14 @@ export class NFTComponent implements OnInit {
   async updateForSale(nft: any) {
     this.isLoading = true;
     let transactionMethod = 'updateNft';
-    let  transactionParams = {
+    let transactionParams = {
       id: nft.nftTokenId,
-      name: nft.name,
+      name: this.nft_detail.name,
       category: nft.category,
       collection: nft.collection,
-      description: nft.description,
+      description: this.nft_detail.description,
       image_path: nft.imagePath,
-      price: nft.price,
+      price: this.nft_detail.price,
       is_for_sale: this.isForSale,
       is_equipped: nft.isEquipped,
       astro_type: nft.astroType,
