@@ -58,6 +58,7 @@ export class NFTComponent implements OnInit {
 
   public search_nft: string = '';
   public price_rank: string = 'featured';
+  public filter_price: boolean = false;
 
   public min_price : number = 1;
   public max_price: number = 100;
@@ -286,6 +287,7 @@ export class NFTComponent implements OnInit {
   onPriceInputChange() {
     // Add any additional logic you want to perform when the input changes
     // This function will be called whenever the user inputs a number
+    this.filter_price = true;
     this.getNft(); // This will trigger the filtering process
   }
   filterNFT() {
@@ -309,7 +311,9 @@ export class NFTComponent implements OnInit {
     }
 
       // Apply price range filter
-    _filtered_nft = _filtered_nft.filter(item => item.price >= this.min_price && item.price <= this.max_price);
+    if(this.filter_price) {
+      _filtered_nft = _filtered_nft.filter(item => item.price >= this.min_price && item.price <= this.max_price);
+    }
 
     // Apply price rank filter
     if (this.price_rank === 'lowest') {
