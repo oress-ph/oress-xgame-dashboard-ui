@@ -35,7 +35,7 @@ export class CookiesService {
       const expirationDays = 1;
       const encrypt_value = this.encryptData(value,secretKey)
       this.all_site.forEach((sites:any) => {
-        this.cookieService.set(name, encrypt_value, expirationDays, '/', sites.url, true, 'Strict');
+        this.cookieService.set(name, encrypt_value, expirationDays, '/', sites.url, false, 'None');
       });
     }catch(e){
       console.log(e);
