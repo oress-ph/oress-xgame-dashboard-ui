@@ -1,9 +1,30 @@
 <!-- Container-fluid starts-->
-
 <div class="container-fluid product-wrapper" [class.sidebaron]="openSidebar">
   <div class="product-grid">
     <div class="feature-products">
       <div class="row">
+        <div class="row m-b-20">
+          <div class="col-xl-1 col-md-2 col-sm-12 col-xs-12" style="width: fit-content;">
+            <img [src]="selected_product.game_logo" class="game_logo">
+          </div>
+          <div class="col-xl-9 col-md-8">
+            <div style="display: flex; flex-direction: column;">
+              <h1>{{selected_product.game_name}}</h1>
+              <div ngbDropdown class="d-inline-block">
+                <button class="btn btn-light dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" ngbDropdownToggle
+                style="background-color: var(--recent-chart-bg);">
+                  {{appSettings.translate("Change Collection")}}
+                </button>
+                <div class="dropdown-menu dropdown-size" ngbDropdownMenu style="z-index: 11 !important;">
+                  <a class="dropdown-item" ngbDropdownItem href="javascript:void(0)" *ngFor="let product of product_list" (click)="handleItemClick(product)" style="opacity: unset;display: flex;">
+                    <img class="m-r-20" [src]="product.game_logo" style="width: 80px; height: auto;">
+                    <span style="font-size: 18px;">{{product.game_name}}</span>
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
         <div class="col-md-6 products-total">
           <div class="square-product-setting d-inline-block" (click)="toggleListView(false)">
             <a class="icon-grid grid-layout-view" href="javascript:void(0);">
@@ -16,46 +37,51 @@
             </a>
           </div>
           <span class="d-none-productlist filter-toggle" (click)="sidebarToggle()">
-            Filters
+            {{appSettings.translate("Filters")}}
             <span class="ms-2">
               <i class="toggle-data" data-feather="chevron-down"></i>
             </span>
           </span>
+          <div class="grid-options d-inline-block">
+            <ul>
+              <li (click)="grid2s()">
+                <a class="product-2-layout-view" href="javascript:void(0);"><span class="line-grid line-grid-1 bg-primary"></span><span class="line-grid line-grid-2 bg-primary"></span></a>
+              </li>
+              <li (click)="grid3s()">
+                <a class="product-3-layout-view" href="javascript:void(0);"><span class="line-grid line-grid-3 bg-primary"></span><span class="line-grid line-grid-4 bg-primary"></span><span class="line-grid line-grid-5 bg-primary"></span></a>
+              </li>
+              <li (click)="gridOpens()">
+                <a class="product-4-layout-view" href="javascript:void(0);"><span class="line-grid line-grid-6 bg-primary"></span><span class="line-grid line-grid-7 bg-primary"></span><span class="line-grid line-grid-8 bg-primary"></span><span class="line-grid line-grid-9 bg-primary"></span></a>
+              </li>
+              <li (click)="grid6s()">
+                <a class="product-6-layout-view" href="javascript:void(0);"
+                  ><span class="line-grid line-grid-10 bg-primary"></span><span class="line-grid line-grid-11 bg-primary"></span><span class="line-grid line-grid-12 bg-primary"></span><span class="line-grid line-grid-13 bg-primary"></span><span class="line-grid line-grid-14 bg-primary"></span
+                  ><span class="line-grid line-grid-15 bg-primary"></span
+                ></a>
+              </li>
+            </ul>
+          </div>
         </div>
         <div class="col-md-6 text-sm-end">
-          <span class="f-w-600 m-r-5">Showing NFT 1 - {{nft_list_filter.length}} Of {{nft_list_filter.length}} Results</span>
+          <span class="f-w-600 m-r-5">{{appSettings.translate("Showing")}} NFT {{nft_list_filter.length>0? 1 : 0 }} - {{nft_list_filter.length}} {{appSettings.translate("Of")}} {{nft_list_filter.length}} {{appSettings.translate("Results")}}</span>
+          <div class="select2-drpdwn-product select-options d-inline-block">
+            <select class="form-control btn-square" name="select" [(ngModel)]="price_rank" (change)="onGameSelect($event)">
+              <option value="featured">{{appSettings.translate("Featured")}}</option>
+              <option value="lowest">{{appSettings.translate("Lowest Prices")}}</option>
+              <option value="highest">{{appSettings.translate("Highest Prices")}}</option>
+            </select>
+          </div>
+          <!-- <span class="f-w-600 m-l-5">{{appSettings.translate("Balance")}}: <span style="color: var(--theme-deafult);">{{appSettings.wallet_info.wallet_balance_nms}} {{ tokenSymbol }}</span></span> -->
         </div>
       </div>
       <div class="row">
-        <div class="row m-b-20">
-          <div class="col-xl-1 col-md-2 col-sm-12 col-xs-12" style="width: fit-content;">
-            <img [src]="selected_product.game_logo" class="game_logo">
-          </div>
-          <div class="col-xl-9 col-md-8">
-            <div style="display: flex; flex-direction: column;">
-              <h1>{{selected_product.game_name}}</h1>
-              <div ngbDropdown class="d-inline-block">
-                <button class="btn btn-light dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" ngbDropdownToggle
-                style="background-color: var(--recent-chart-bg);">
-                  Change Collection
-                </button>
-                <div class="dropdown-menu dropdown-size" ngbDropdownMenu style="z-index: 11 !important;">
-                  <a class="dropdown-item" ngbDropdownItem href="javascript:void(0)" *ngFor="let product of product_list" (click)="handleItemClick(product)" style="opacity: unset;display: flex;">
-                    <img class="m-r-20" [src]="product.game_logo" style="width: 80px; height: auto;">
-                    <span style="font-size: 18px;">{{product.game_name}}</span>
-                  </a>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
         <div class="col-xl-3 col-md-4">
           <div class="product-sidebar" [class.open]="openSidebar">
             <div class="filter-section">
               <div class="card">
                 <div class="card-header" (click)="sidebarToggle()">
                   <h6 class="mb-0 f-w-600">
-                    Filters<span class="pull-right"><i class="fa fa-chevron-down toggle-data"></i></span>
+                    {{appSettings.translate("Filters")}}<span class="pull-right"><i class="fa fa-chevron-down toggle-data"></i></span>
                   </h6>
                 </div>
                 <div class="left-filter scroll-bar-wra[]">
@@ -64,29 +90,29 @@
                       <h6 class="f-w-600">Collection</h6>
                       <div class="checkbox-animated mt-0">
                         <select class="form-control btn-pill digits" id="exampleFormControlSelect7" [(ngModel)]="selected_product" (change)="onGameSelect($event)">
-                          <option *ngFor="let games of games_list" [ngValue]="games">{{games.game_name}}</option>
+                          <option *ngFor="let games of product_list" [ngValue]="games">{{games.game_name}}</option>
                         </select>
                       </div>
                     </div> -->
                     <div class="product-filter">
-                      <h6 class="f-w-600">Category</h6>
+                      <h6 class="f-w-600">{{appSettings.translate("Category")}}</h6>
                       <div class="checkbox-animated mt-0" *ngIf="category_list.length>0">
                         <label class="d-block" for="chk-ani{{category.id}}" *ngFor="let category of category_list">
-                          <input class="checkbox_animated" id="chk-ani{{category.id}}" type="checkbox" data-original-title="" title="" (change)="toggleCategorySelection(category)"/> {{category.category_name}}
+                          <input class="checkbox_animated" id="chk-ani{{category.id}}" type="checkbox" data-original-title="" title="" (change)="toggleCategorySelection(category)"/> {{appSettings.translate(category.category_name)}}
                         </label>
                       </div>
                     </div>
                     <div class="product-filter">
-                      <h6 class="f-w-600">Price</h6>
+                      <h6 class="f-w-600">{{appSettings.translate("Price")}}</h6>
                       <div class="checkbox-animated mt-0">
                         <div class="input-group">
                           <input class="form-control" type="text" placeholder="0" data-bts-min="1" aria-label="0" [(ngModel)]="min_price" (input)="onPriceInputChange()"/>
-                          <span class="input-group-text">min</span>
+                          <span class="input-group-text">{{appSettings.translate("min")}}</span>
                           <span class="m-2" style="display: flex;
                           flex-wrap: wrap;
-                          align-content: center;">To</span>
+                          align-content: center;">{{appSettings.translate("To")}}</span>
                           <input class="form-control" type="text" placeholder="0" aria-label="0" [(ngModel)]="max_price" (input)="onPriceInputChange()"/>
-                          <span class="input-group-text">max</span>
+                          <span class="input-group-text">{{appSettings.translate("max")}}</span>
                         </div>
                       </div>
                     </div>
@@ -103,12 +129,7 @@
         </div>
       </div>
     </div>
-    <div class="row" *ngif="loading">
-      <div class="loader-box">
-        <div class="loader-16"></div>
-      </div>
-    </div>
-    <div class="loader-box" style="height: 20vh;" *ngIf="loading">
+    <div class="loader-box" style="height: 60vh;" *ngIf="loading">
       <div class="loader-30"></div>
     </div>
     <div class="product-wrapper-grid" [class.list-view]="listView" *ngIf="!loading" [style.height]="nft_list_filter.length == 0 ? '20vh' : '100%'">
@@ -117,99 +138,95 @@
           <div class="card">
             <div class="product-box">
               <div class="product-img">
-                <div *ngIf="product.isForSale" class="ribbon ribbon-success">For Sale</div>
+                <!-- <div class="ribbon ribbon-danger" *ngIf="product.status == 'sale'">{{ product.status }}</div> -->
+                <!-- <div class="ribbon ribbon-success ribbon-right" *ngIf="product.status == '50%'">{{ product.status }}</div> -->
                 <img class="img-fluid" src="{{ product.imagePath }}" alt="" [style.max-height.px]="height" [style.min-height.px]="height"/>
                 <div class="product-hover">
                   <ul>
+                    <!-- <li>
+                      <a [routerLink]="['/ecommerce/cart']"><i class="icon-shopping-cart"></i></a>
+                    </li> -->
+                    <li placement="top" ngbTooltip="Buy">
+                      <a href="marketplace/nft-details/{{product.nftTokenId}}"><i class="icon-wallet"></i></a>
+                    </li>
                     <li placement="top" ngbTooltip="Details">
-                      <a href="https://nft.xgame.live/marketplace/nft-details/{{product.nftTokenId}}"><i class="icon-eye"></i></a>
+                      <a href="marketplace/nft-details/{{product.nftTokenId}}"><i class="icon-eye"></i></a>
                     </li>
-                    <li placement="top" ngbTooltip="Edit">
-                      <a (click)="editItem(listitem, product.nftTokenId)"><i class="icon-pencil"></i></a>
-                    </li>
-
-                    <ng-template #listitem let-modal>
-                      <div class="modal-body custom-modal-content" style="padding: 0%; margin: 20px">
-                        <div class="modal-header">
-                          <h4 class="modal-title text-center">{{ product.name }}</h4>
-                          <button type="button" class="btn-close" aria-label="Close"
-                            (click)="modal.dismiss('Cross click')"></button>
-                        </div>
-                        <div class="modal-body" style="margin: 20px;">
-                          <div class="row">
-                            <div class="col">
-                              <div class="mb-3">
-                                <label for="nftname">NFT Name</label>
-                                <input id="nftname" type="text" class="form-control"
-                                  [(ngModel)]="nft_detail.name"
-                                  style="color: black !important;" [disabled]="isLoading">
-                              </div>
-                            </div>
-                          </div>
-
-                          <div class="row">
-                            <div class="col">
-                              <div class="mb-3">
-                                <label for="nftprice">Price</label>
-                                <input id="nftprice" type="number"
-                                  class="form-control"
-                                  [(ngModel)]="nft_detail.price"
-                                  style="color: black !important;" [disabled]="isLoading">
-                              </div>
-                            </div>
-                          </div>
-
-                          <div class="row">
-                            <div class="col">
-                              <div class="mb-3 mb-0">
-                                <label for="description">Description</label>
-                                <textarea id="description" rows="3"
-                                  class="form-control" style="height: 150px;"
-                                  [(ngModel)]="nft_detail.description"
-                                  style="color: black !important;" [disabled]="isLoading"></textarea>
-                              </div>
-                            </div>
-                          </div>
-
-                          <div class="row">
-                            <div class="flex flex-column gap-3">
-                              <label>Is For Sale</label>
-                              <div class="media-body text-start icon-state">
-                                <label class="switch">
-                                  <input type="checkbox" [checked]="nft_detail.isForSale" [disabled]="isLoading"
-                                    (change)="forSaleChange($event)">
-                                  <span class="switch-state"></span>
-                                </label>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                        <div class="modal-footer">
-                          <button class="btn btn-success" (click)="updateForSale(product)" *ngIf="selectedAction === 1" [disabled]="isLoading" >
-                            <ng-container *ngIf="isLoading; else updateButton">
-                              <i class="fa fa-spin fa-spinner"></i>
-                            </ng-container>
-                            <ng-template #updateButton>
-                              Update
-                            </ng-template>
-                          </button>
-                          <button type="button" class="btn btn-outline-dark"
-                            (click)="modal.close('Close click')">Cancel</button>
-                        </div>
-                      </div>
-                      <div class="loader-box" style="height: 75vh;" *ngIf="loading">
-                        <div class="loader-30"></div>
+                    <ng-template #content let-modal>
+                      <div class="modal-body" style="padding: 0%">
+                        <app-quick-view [productDetail]="productDetail"></app-quick-view>
+                        <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
                       </div>
                     </ng-template>
                   </ul>
                 </div>
               </div>
+              <div class="modal fade" id="exampleModalCenter16">
+                <div class="modal-dialog modal-lg modal-dialog-centered">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <div class="product-box row">
+                        <div class="product-img col-lg-6"><img class="img-fluid" src="{{ product.imagePath }}" alt="" /></div>
+                        <div class="product-details col-lg-6 text-start">
+                          <a href="marketplace/nft-details/{{product.nftTokenId}}">
+                            <h4>{{ product.name }}</h4></a
+                          >
+                          <div class="product-price">
+                            $26.00
+                            <del>$35.00</del>
+                          </div>
+                          <div class="product-view">
+                            <h6 class="f-w-600">Product Details</h6>
+                            <p class="mb-0">Sed ut perspiciatis, unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam eaque ipsa, quae ab illo.</p>
+                          </div>
+                          <div class="product-size">
+                            <ul>
+                              <li>
+                                <button class="btn btn-outline-light" type="button">M</button>
+                              </li>
+                              <li>
+                                <button class="btn btn-outline-light" type="button">L</button>
+                              </li>
+                              <li>
+                                <button class="btn btn-outline-light" type="button">Xl</button>
+                              </li>
+                            </ul>
+                          </div>
+                          <div class="product-qnty">
+                            <h6 class="f-w-600">Quantity</h6>
+                            <fieldset>
+                              <div class="input-group">
+                                <input class="touchspin text-center" type="text" value="5" />
+                              </div>
+                            </fieldset>
+                            <div class="addcart-btn"><a class="btn btn-primary me-3" href="marketplace/cart">Add to Cart </a><a class="btn btn-primary" href="marketplace/product-page">View Details</a></div>
+                          </div>
+                        </div>
+                      </div>
+                      <button class="btn-close" type="button" aria-label="Close"></button>
+                    </div>
+                  </div>
+                </div>
+              </div>
               <div class="product-details">
-                <a href="https://nft.xgame.live/marketplace/nft-details/{{product.nftTokenId}}">
-                  <h4>{{ product.name }} #{{ product.nftTokenId }}</h4></a
+                <a href="marketplace/nft-details/{{product.nftTokenId}}">
+                  <h4>{{ product.name }} #{{product.nftTokenId}}</h4></a
                 >
-                <p>{{ product.collection }}</p>
+                <!-- <p>{{ product.collection }}</p> -->
+                <p>{{ selected_product.game_name }}</p>
                 <p>{{ product.tokenOwner | slice:0:5 }}...{{ product.tokenOwner | slice:-5 }}</p>
+                <!-- <div class="row">
+                  <div class="col-lg-5">
+                    <div class="product-price">
+                      {{ product.price }} {{ tokenSymbol }}
+                    </div>
+                  </div>
+                  <div class="col-lg-6">
+                    <div class="product-price">
+                      <p>(${{ calculatePrice(product.price) }})</p>
+                    </div>
+                  </div>
+                </div> -->
                 <div class="product-price">
                   {{ product.price }} {{ tokenSymbol }} <p>(${{ calculatePrice(product.price) }})</p>
                 </div>
@@ -221,4 +238,6 @@
     </div>
   </div>
 </div>
+
+
 <app-loader *ngIf="isLoading" style="opacity: 20%;"></app-loader>

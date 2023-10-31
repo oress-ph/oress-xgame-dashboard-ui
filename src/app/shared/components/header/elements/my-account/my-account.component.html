@@ -11,13 +11,13 @@
 
 <ul class="profile-dropdown onhover-show-div">
   <li style="display: flex; justify-content: space-between;">
-    <span>Balance:</span>
+    <span>{{appSettings.translate("Balance")}}:</span>
     <span>{{appSettings.wallet_info.wallet_balance_nms}} {{ tokenSymbol }}</span>
   </li>
   <li style="display: flex; justify-content: space-between;">
-    <span>Wallet:</span>
+    <span>{{appSettings.translate("Wallet")}}:</span>
     <span style="    display: flex; gap: 0.5rem;">{{appSettings.wallet_info.wallet_keypair_display}} <a href="javascript:void(0);" (click)="copyInputMessage(appSettings.wallet_info.wallet_keypair)"><i class="fa fa-copy"></i></a></span>
   </li>
-  <li><a href="https://dashboard.xgame.live/"><app-feather-icons [icon]="'settings'"></app-feather-icons><span>Dashboard</span></a></li>
-  <li><a href="javascript:void(0);" (click)="logout()"><app-feather-icons [icon]="'log-in'"></app-feather-icons><span>Log out</span></a></li>
+  <li><a href="https://dashboard.xgame.live/"><app-feather-icons [icon]="'settings'"></app-feather-icons><span>{{appSettings.translate("Dashboard")}}</span></a></li>
+  <li><a href="javascript:void(0);" (click)="logout()"><app-feather-icons [icon]="'log-in'"></app-feather-icons><span>{{appSettings.translate("Log Out")}}</span></a></li>
 </ul>

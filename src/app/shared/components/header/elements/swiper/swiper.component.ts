@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { AppSettings } from 'src/app/app-settings';
 
 @Component({
   selector: 'app-swiper',
@@ -7,4 +8,9 @@ import { Component } from '@angular/core';
 })
 export class SwiperComponent {
 
+  constructor(
+    public appSettings:AppSettings
+  ){
+
+  }
 }

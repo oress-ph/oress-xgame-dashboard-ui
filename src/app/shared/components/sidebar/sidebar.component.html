@@ -54,7 +54,7 @@
                   <!-- Link -->
                   <a [routerLink]="!menuItem.type ? null : [menuItem.path]" routerLinkActive="active" class="sidebar-link sidebar-title" [class.link-nav]="!menuItem.children" [ngClass]="{ active: menuItem.active }" *ngIf="menuItem.type === 'link'">
                     <app-svg-icon [icon]="menuItem.icon"></app-svg-icon>
-                    <span>{{ menuItem.title | translate }}</span>
+                    <span>{{appSettings.translate(menuItem.title)}}</span>
                     <div class="according-menu">
                       <i class="fa fa-angle-{{ menuItem.active ? 'down' : 'right' }} pull-right" *ngIf="menuItem.children"></i>
                     </div>

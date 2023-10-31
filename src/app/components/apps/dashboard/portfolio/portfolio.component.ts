@@ -1,4 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { AppSettings } from 'src/app/app-settings';
 
 @Component({
   selector: 'app-portfolio',
@@ -13,5 +14,10 @@ export class PortfolioComponent {
   
   selectTab(tabNumber: number) {
     this.tab = tabNumber;
+  }
+  constructor(
+    public appSettings:AppSettings
+  ){
+
   }
 }
