@@ -50,7 +50,7 @@ import { SafePipe } from './pipes/safe.pipe'
 import { PolkadotService } from "./services/polkadot.service";
 import { LabelService } from './services/label.service';
 import { ChatBotService } from './services/chatbot.service';
-import { BalanceProfileComponent } from "./../components/apps/dashboard/portfolio/dashboard-middle-content/balance-profile/balance-profile.component"
+import { MyPortfolioComponent } from "./../components/apps/dashboard/portfolio/my-portfolio/my-portfolio.component"
 import { WalletInfoComponent } from "./components/wallet/wallet-info/wallet-info.component";
 
 @NgModule({
@@ -81,7 +81,7 @@ import { WalletInfoComponent } from "./components/wallet/wallet-info/wallet-info
     SvgIconComponent,
     SwiperComponent,
     NetworkComponent,
-    BalanceProfileComponent,
+    MyPortfolioComponent,
     SafePipe,
     WalletInfoComponent,
 
@@ -109,7 +109,7 @@ import { WalletInfoComponent } from "./components/wallet/wallet-info/wallet-info
     NgbdSortableHeader,
     SvgIconComponent,
     SwiperModule,
-    BalanceProfileComponent,
+    MyPortfolioComponent,
     WalletInfoComponent
   ],
 })

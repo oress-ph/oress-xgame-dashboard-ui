@@ -1,11 +1,11 @@
 import { Component, Input, Output, OnInit, ViewChild } from "@angular/core";
 import * as feather from "feather-icons";
 import { NgbModal } from "@ng-bootstrap/ng-bootstrap";
-import {NFTModel} from "../../../../../../shared/model/nft.model";
-import {TokenTransactionModel} from "../../../../../../shared/model/token_transaction.model";
-import {NftService} from "../../../../../../shared/services/nft.service"
-import {GamesService} from "../../../../../../shared/services/games.service"
-import { GameModel,Categories, ProductModel } from '../../../../../../shared/model/games.model';
+import {NFTModel} from "src/app/shared/model/nft.model";
+import {TokenTransactionModel} from "src/app/shared/model/token_transaction.model";
+import {NftService} from "src/app/shared/services/nft.service"
+import {GamesService} from "src/app/shared/services/games.service"
+import { GameModel,Categories, ProductModel } from 'src/app/shared/model/games.model';
 import { AppSettings } from "src/app/app-settings";
 import { PolkadotService } from "src/app/shared/services/polkadot.service";
 import { WalletInfoModel } from "src/app/shared/model/wallet-info.model";
