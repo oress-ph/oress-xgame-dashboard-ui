@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { AppSettings } from 'src/app/app-settings';
 
 @Component({
   selector: 'app-cash-out',
@@ -6,5 +7,9 @@ import { Component } from '@angular/core';
   styleUrls: ['./cash-out.component.scss']
 })
 export class CashOutComponent {
+  constructor(
+    public appSettings:AppSettings
+  ){
 
+  }
 }
