@@ -2,6 +2,7 @@
     {
         "id":1,
         "language":  "English",
+        "language_name":  "English",
         "code": "en",
         "type":"EN",
         "icon": "us"
@@ -10,6 +11,7 @@
     {
         "id":1,
         "language":  "Chinese",
+        "language_name":  "中文 简体",
         "code": "zh",
         "type":"ZH",
         "icon": "cn"
@@ -17,6 +19,7 @@
     {
         "id":1,
         "language":  "Japanese",
+        "language_name":  "日本語",
         "code": "jp",
         "type":"JA",
         "icon": "jp"
@@ -24,6 +27,7 @@
     {
         "id":1,
         "language":  "Korean",
+        "language_name":  "한국어",
         "code": "kr",
         "type":"KO",
         "icon": "kr"

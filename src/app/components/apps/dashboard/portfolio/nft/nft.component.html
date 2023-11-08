@@ -124,7 +124,7 @@
         </div>
         <div class="col-xl-9 col-md-8">
           <form #searchForm="ngForm" (ngSubmit)="onSearch()">
-            <div class="form-group m-0"><input class="form-control" type="search" placeholder="Search.." [(ngModel)]="search_nft" data-original-title="" title="" /><i class="fa fa-search"></i></div>
+            <div class="form-group m-0"><input class="form-control" type="search" [placeholder]="appSettings.translate('Search')" [(ngModel)]="search_nft" data-original-title="" title="" /><i class="fa fa-search"></i></div>
           </form>
         </div>
       </div>
