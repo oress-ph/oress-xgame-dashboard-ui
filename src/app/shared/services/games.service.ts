@@ -54,12 +54,12 @@ export class GamesService {
         );
     });
   }
-  get_all_products(): Observable<[boolean, any]> {
+  get_all_products(language:string): Observable<[boolean, any]> {
     return new Observable<[boolean, any]>((observer) => {
 
       let blog_list: ProductModel[] = [];
       this.httpClient
-        .get<any>(this.appSettings.APIURLHostProduct + '/games/public?language=English', httpOptions)
+        .get<any>(this.appSettings.APIURLHostProduct + '/games/public?language='+language, httpOptions)
         .subscribe(
           (response) => {
             let result = response;
@@ -76,7 +76,7 @@ export class GamesService {
                     game_token: data[i].game_token,
                     game_link: data[i].game_link,
                     description: data[i].description,
-                    ingame_images: JSON.parse(data[i].ingame_images),
+                    ingame_images: data[i].ingame_images!='-'?JSON.parse(data[i].ingame_images): '-',
                     ingame_description: data[i].ingame_description,
                     game_market_description: data[i].game_market_description,
                     published: data[i].published,

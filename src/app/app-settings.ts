@@ -70,7 +70,7 @@ export class AppSettings {
     // public APIURLHostLabel = 'http://127.0.0.1:3004';
     public APIURLHostLabel = 'https://labels-api.xgame.live';
     public APIURLHostGames = 'http://127.0.0.1:3008';
-    public chatBotURLHOST = 'https://chatbot-api.xgame.live/api/chatbot';
+    public chatBotURLHOST = 'https://chatbot-xgame-api.serveo.net/api/chatbot';
     public APIURLHostProduct = 'https://product-page-api.xgame.live';
 
     public Email = 'admin@xgame.co';

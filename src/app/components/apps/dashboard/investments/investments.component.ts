@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { AppSettings } from 'src/app/app-settings';
 
 @Component({
   selector: 'app-investments',
@@ -6,5 +7,9 @@ import { Component } from '@angular/core';
   styleUrls: ['./investments.component.scss']
 })
 export class InvestmentsComponent {
+  constructor(
+    public appSettings:AppSettings
+  ){
 
+  }
 }

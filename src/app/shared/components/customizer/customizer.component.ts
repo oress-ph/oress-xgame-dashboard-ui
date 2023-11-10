@@ -6,6 +6,7 @@ import { ChatUsers } from "../../model/chat.model";
 import { ChatBotModel } from './../../model/chatbot.model';
 import { DatePipe } from '@angular/common';
 import { ChatBotService } from "../../services/chatbot.service";
+import { AppSettings } from "src/app/app-settings";
 
 @Component({
   selector: "app-customizer",
@@ -45,7 +46,8 @@ export class CustomizerComponent implements OnInit {
     public layout: LayoutService,
     private chatService: ChatService,
     private datePipe: DatePipe,
-    private chatBotService: ChatBotService
+    private chatBotService: ChatBotService,
+    public appSettings:AppSettings
   ) {
     this.chatService.getUsers().subscribe(users => { 
       this.searchUsers = users

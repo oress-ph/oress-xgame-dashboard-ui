@@ -1,5 +1,5 @@
 import { Component, OnInit } from "@angular/core";
-import * as chartData from "../../../../../../shared/data/dashboard/crypto";
+import * as chartData from "../../../../../shared/data/dashboard/crypto";
 import { AppSettings } from "src/app/app-settings";
 import { PolkadotService } from "src/app/shared/services/polkadot.service";
 import { NftService } from "src/app/shared/services/nft.service";
@@ -8,11 +8,11 @@ import { PortfolioModel } from "src/app/shared/model/portfolio";
 import { PortfolioService } from "src/app/shared/services/portfolio.service";
 
 @Component({
-  selector: "app-gem-profile",
-  templateUrl: "./gem-profile.component.html",
-  styleUrls: ["./gem-profile.component.scss"],
+  selector: "app-token-profile",
+  templateUrl: "./token-profile.component.html",
+  styleUrls: ["./token-profile.component.scss"],
 })
-export class GemProfileComponent implements OnInit {
+export class TokenProfileComponent implements OnInit {
   public portfolio = chartData.portfolio;
   public show: boolean = false;
   portfolioModel: PortfolioModel = new PortfolioModel();

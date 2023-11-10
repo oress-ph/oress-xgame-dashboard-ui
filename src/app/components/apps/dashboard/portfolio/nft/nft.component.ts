@@ -1,11 +1,11 @@
 import { Component, Input, Output, OnInit, ViewChild } from "@angular/core";
 import * as feather from "feather-icons";
 import { NgbModal } from "@ng-bootstrap/ng-bootstrap";
-import {NFTModel} from "../../../../../../shared/model/nft.model";
-import {TokenTransactionModel} from "../../../../../../shared/model/token_transaction.model";
-import {NftService} from "../../../../../../shared/services/nft.service"
-import {GamesService} from "../../../../../../shared/services/games.service"
-import { GameModel,Categories, ProductModel } from '../../../../../../shared/model/games.model';
+import {NFTModel} from "src/app/shared/model/nft.model";
+import {TokenTransactionModel} from "src/app/shared/model/token_transaction.model";
+import {NftService} from "src/app/shared/services/nft.service"
+import {GamesService} from "src/app/shared/services/games.service"
+import { GameModel,Categories, ProductModel } from 'src/app/shared/model/games.model';
 import { AppSettings } from "src/app/app-settings";
 import { PolkadotService } from "src/app/shared/services/polkadot.service";
 import { WalletInfoModel } from "src/app/shared/model/wallet-info.model";
@@ -76,6 +76,7 @@ export class NFTComponent implements OnInit {
   tokenSymbol: any;
   isForSale: boolean = false;
   nmsPrice: number = 10;
+  grid: string = '4s';
 
   constructor(
     private modalService: NgbModal,
@@ -219,7 +220,7 @@ export class NFTComponent implements OnInit {
   }
 
   get_games_list(){
-    this.gameService.get_all_products().subscribe(
+    this.gameService.get_all_products(this.cookiesService.getCookieArray("language")!=null? this.cookiesService.getCookieArray("language").language : 'English').subscribe(
       (response:any)=>{
         let results = response;
         if (results[0] == true) {
@@ -337,6 +338,7 @@ export class NFTComponent implements OnInit {
   }
 
   gridOpens() {
+    
     this.listView = false;
     this.gridOptions = true;
     this.listView = false;
@@ -351,8 +353,11 @@ export class NFTComponent implements OnInit {
 
     this.col_xl_2 = false;
     this.col_xl_12 = false;
+    this.grid= '4s';
+    
   }
   listOpens() {
+    
     this.listView = true;
     this.gridOptions = false;
     this.listView = true;
@@ -365,6 +370,7 @@ export class NFTComponent implements OnInit {
     this.col_sm_4 = false;
     this.col_xl_6 = false;
     this.col_sm_6 = true;
+    console.log("list");
   }
   grid2s() {
     this.listView = false;
@@ -380,7 +386,10 @@ export class NFTComponent implements OnInit {
     this.col_sm_6 = true;
 
     this.col_xl_12 = false;
+
+    this.grid = '2s';
   }
+
   grid3s() {
     this.listView = false;
     this.col_xl_3 = false;
@@ -394,7 +403,12 @@ export class NFTComponent implements OnInit {
     this.col_sm_6 = false;
 
     this.col_xl_12 = false;
+    this.height = 1200
+
+    this.grid = '3s';
+
   }
+
   grid6s() {
     this.listView = false;
     this.col_xl_3 = false;
@@ -408,6 +422,15 @@ export class NFTComponent implements OnInit {
     this.col_sm_6 = false;
 
     this.col_xl_12 = false;
+
+    this.grid = '6s';
+    // if (window.innerWidth > 2000) {
+    //   console.log()
+    //   this.max_height = 400;
+    //   this.min_height = 400;
+    // } else {
+    //   this.max_height = 300;
+    // }
   }
 
   openProductDetail(content: any, item: any) {
@@ -426,34 +449,96 @@ export class NFTComponent implements OnInit {
     this.col_sm_6 = this.col_sm_6;
     this.col_xl_6 = this.col_xl_6;
 
-    if (window.innerWidth > 2360) {
-      this.height = 800
-    }else if(window.innerWidth < 2360 && window.innerWidth > 2160){
-      this.height = 700
-    }else if(window.innerWidth < 2160 && window.innerWidth > 1960){
-      this.height = 600
-    }else if(window.innerWidth < 1960 && window.innerWidth > 1760){
-      this.height = 500
-    }else if(window.innerWidth < 1760 && window.innerWidth > 1560){
-      this.height = 450
-    }else if(window.innerWidth < 1560 && window.innerWidth > 1360){
-      this.height = 400
-    }else if(window.innerWidth < 1360 && window.innerWidth > 1200){
-      this.height = 400
-    }else if(window.innerWidth < 1200 && window.innerWidth > 1000){
-      this.height = 600
-    }else if(window.innerWidth < 1000 && window.innerWidth > 800){
-      this.height = 500
-    }else if(window.innerWidth < 800 && window.innerWidth > 600){
-      this.height = 400
-    }else if(window.innerWidth < 600 && window.innerWidth > 575){
-      this.height = 300
-    }else if(window.innerWidth < 576 && window.innerWidth > 425){
-      this.height = 600
-    }else if(window.innerWidth < 425 && window.innerWidth > 325){
-      this.height = 500
-    }else if(window.innerWidth < 325){
-      this.height = 400
+    if(this.grid=='4s'){
+      if (window.innerWidth > 2360) {
+        this.height = 800
+      }else if(window.innerWidth < 2360 && window.innerWidth > 2160){
+        this.height = 700
+      }else if(window.innerWidth < 2160 && window.innerWidth > 1960){
+        this.height = 600
+      }else if(window.innerWidth < 1960 && window.innerWidth > 1760){
+        this.height = 500
+      }else if(window.innerWidth < 1760 && window.innerWidth > 1560){
+        this.height = 450
+      }else if(window.innerWidth < 1560 && window.innerWidth > 1360){
+        this.height = 400
+      }else if(window.innerWidth < 1360 && window.innerWidth > 1200){
+        this.height = 400
+      }else if(window.innerWidth < 1200 && window.innerWidth > 1000){
+        this.height = 600
+      }else if(window.innerWidth < 1000 && window.innerWidth > 800){
+        this.height = 500
+      }else if(window.innerWidth < 800 && window.innerWidth > 600){
+        this.height = 400
+      }else if(window.innerWidth < 600 && window.innerWidth > 575){
+        this.height = 300
+      }else if(window.innerWidth < 576 && window.innerWidth > 425){
+        this.height = 600
+      }else if(window.innerWidth < 425 && window.innerWidth > 325){
+        this.height = 500
+      }else if(window.innerWidth < 325){
+        this.height = 400
+      }
+    }else if(this.grid=='3s'){
+      if (window.innerWidth >= 2360) {
+        this.height = 1200
+      }else if(window.innerWidth < 2360 && window.innerWidth > 2160){
+        this.height = 1100
+      }else if(window.innerWidth < 2160 && window.innerWidth > 1960){
+        this.height = 1000
+      }else if(window.innerWidth < 1960 && window.innerWidth > 1760){
+        this.height = 900
+      }else if(window.innerWidth < 1760 && window.innerWidth > 1560){
+        this.height = 800
+      }else if(window.innerWidth < 1560 && window.innerWidth > 1360){
+        this.height = 700
+      }else if(window.innerWidth < 1360 && window.innerWidth > 1200){
+        this.height = 600
+      }else if(window.innerWidth < 1200 && window.innerWidth > 1000){
+        this.height = 500
+      }else if(window.innerWidth < 1000 && window.innerWidth > 800){
+        this.height = 400
+      }else if(window.innerWidth < 800 && window.innerWidth > 600){
+        this.height = 350
+      }else if(window.innerWidth < 600 && window.innerWidth > 575){
+        this.height = 300
+      }else if(window.innerWidth < 576 && window.innerWidth > 425){
+        this.height = 600
+      }else if(window.innerWidth < 425 && window.innerWidth > 375){
+        this.height = 500
+      }else if(window.innerWidth < 325){
+        this.height = 400
+      }
+    }else if(this.grid='6s'){
+      if (window.innerWidth > 2360) {
+        this.height = 500
+      }else if(window.innerWidth < 2360 && window.innerWidth > 2160){
+        this.height = 450
+      }else if(window.innerWidth < 2160 && window.innerWidth > 1960){
+        this.height = 400
+      }else if(window.innerWidth < 1960 && window.innerWidth > 1760){
+        this.height = 350
+      }else if(window.innerWidth < 1760 && window.innerWidth > 1560){
+        this.height = 300
+      }else if(window.innerWidth < 1560 && window.innerWidth > 1360){
+        this.height = 250
+      }else if(window.innerWidth < 1360 && window.innerWidth > 1200){
+        this.height = 250
+      }else if(window.innerWidth < 1200 && window.innerWidth > 1000){
+        this.height = 1000
+      }else if(window.innerWidth < 1000 && window.innerWidth > 800){
+        this.height = 900
+      }else if(window.innerWidth < 800 && window.innerWidth > 600){
+        this.height = 800
+      }else if(window.innerWidth < 600 && window.innerWidth > 575){
+        this.height = 700
+      }else if(window.innerWidth < 576 && window.innerWidth > 425){
+        this.height = 600
+      }else if(window.innerWidth < 425 && window.innerWidth > 325){
+        this.height = 500
+      }else if(window.innerWidth < 325){
+        this.height = 400
+      }
     }
   }
 }

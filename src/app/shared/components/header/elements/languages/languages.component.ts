@@ -70,6 +70,7 @@ export class LanguagesComponent implements OnInit {
     // this.translate.use(lang.code)
     this.selected_language = lang;
     this.cookiesService.setCookieArray('language',this.selected_language);
+    location.reload();
   }
 
 }

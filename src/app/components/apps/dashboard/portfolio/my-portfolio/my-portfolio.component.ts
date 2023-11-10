@@ -1,19 +1,19 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { Menu, NavService } from './../../../../../../shared/services/nav.service';
+import { Menu, NavService } from '../../../../../shared/services/nav.service';
 import { NavigationEnd, Router } from '@angular/router';
-import { AppSettings } from './../../../../../../app-settings';
+import { AppSettings } from '../../../../../app-settings';
 import { PolkadotService } from 'src/app/shared/services/polkadot.service';
 import { NftService } from 'src/app/shared/services/nft.service';
 import { CookiesService } from 'src/app/shared/services/cookies.service';
-import { PortfolioModel } from '../../../../../../shared/model/portfolio';
+import { PortfolioModel } from '../../../../../shared/model/portfolio';
 import { PortfolioService } from 'src/app/shared/services/portfolio.service';
 
 @Component({
-  selector: 'app-balance-profile',
-  templateUrl: './balance-profile.component.html',
-  styleUrls: ['./balance-profile.component.scss']
+  selector: 'app-my-portfolio',
+  templateUrl: './my-portfolio.component.html',
+  styleUrls: ['./my-portfolio.component.scss']
 })
-export class BalanceProfileComponent implements OnInit {
+export class MyPortfolioComponent implements OnInit {
   public dashboard_menuItems: Menu[];
   isLoading = false;
   tokenSymbol: any = 'NMS';
