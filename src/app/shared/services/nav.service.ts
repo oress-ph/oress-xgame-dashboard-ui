@@ -4,6 +4,7 @@ import { takeUntil, debounceTime } from "rxjs/operators";
 import { Router } from "@angular/router";
 import { Location } from '@angular/common';
 import { AppSettings } from "src/app/app-settings";
+import { environment } from "src/environments/environment";
 
 // Menu
 export interface Menu {
@@ -130,11 +131,12 @@ export class NavService implements OnDestroy {
   ];
 
   SOCIALMEDIAMENU: Menu[] = [
-    { path: this.appSettings.Twitter, title: "Twitter", icon: "social-twitter", type: "link" },
-    { path: this.appSettings.LinkedIn, title: "LinkedIn", icon: "brand-linkedin", type: "link" },
-    { path: this.appSettings.Facebook, title: "Facebook", icon: "social-facebook", type: "link" },
-    { path: this.appSettings.Youtube, title: "Youtube", icon: "youtube-play", type: "link" },
-    { path: this.appSettings.Discord, title: "Discord", icon: "discord", type: "link" },
+    { path: environment.Facebook, title: "Facebook", icon: "social-facebook", type: "link" },
+    { path: environment.Instagram, title: "Instagram", icon: "social-instagram", type: "link" },
+    { path: environment.Twitter, title: "Twitter", icon: "social-twitter", type: "link" },
+    { path: environment.LinkedIn, title: "LinkedIn", icon: "brand-linkedin", type: "link" },
+    { path: environment.Discord, title: "Discord", icon: "discord", type: "link" },
+    { path: environment.Youtube, title: "Youtube", icon: "youtube-play", type: "link" },
   ];
 
   // Array
