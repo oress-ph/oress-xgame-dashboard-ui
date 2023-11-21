@@ -36,6 +36,9 @@ export const environment = {
     binance_trade: 'wss://stream.binance.com:9443/ws/dotusdt@aggTrade',
     binance_depth: 'wss://stream.binance.com:9443/ws/dotusdt@depth20@100ms',
     binance_ticker: 'wss://stream.binance.com:9443/ws/dotusdt@ticker',
+
+    // ip api
+    ipapi: "https://ipapi.co/json/"
 };
 
 /*
