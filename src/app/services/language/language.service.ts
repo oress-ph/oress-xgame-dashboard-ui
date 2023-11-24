@@ -3,7 +3,7 @@ import { AppSettings } from 'src/app/app-settings';
 import { Observable } from 'rxjs';
 import { LanguageModel } from 'src/app/models/language/langauge.model';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-
+import { environment } from 'src/environments/environment';
 @Injectable({
   providedIn: 'root'
 })
@@ -15,7 +15,15 @@ export class LanguageService {
   ) { }
 
   public defaultAPIURLHost: string = this.appSettings.APIURLHostLanguage;
-
+  getUserCountry(): Promise<string> {
+    return this.httpClient.get<any>(environment.ipapi)
+      .toPromise()
+      .then(response => response.country_name)
+      .catch(error => {
+        console.error('Error fetching user country:', error);
+        return 'Unknown';
+      });
+  }
   language_dropdown(): Observable<[boolean, any]> {
     return new Observable<[boolean, any]>((observer) => {
 
