@@ -9,7 +9,6 @@ export class MaintenanceGuard  {
   constructor(public router: Router) {}
 
   canActivate(next: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean> | Promise<boolean> | boolean {
-    console.log(environment.maintenance===true);
     if(environment.maintenance===false){
       this.router.navigate(["/portfolio"]);
       return true;
