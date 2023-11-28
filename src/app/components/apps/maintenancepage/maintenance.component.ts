@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { LayoutService } from 'src/app/shared/services/layout.service';
 
 @Component({
   selector: 'app-maintenance',
@@ -7,7 +8,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class MaintenanceComponent implements OnInit {
 
-  constructor() { }
+  constructor(public layout: LayoutService) { }
 
   ngOnInit(): void {
   }
