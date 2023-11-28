@@ -14,7 +14,6 @@ export class WalletGuard  {
 
   canActivate(next: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean> | Promise<boolean> | boolean {
     let wallet = this.cookiesService.getCookie("wallet-keypair");
-    console.log(environment.maintenance===true);
     if(environment.maintenance===true){
       this.router.navigate(["/maintenance"]);
       return true;
