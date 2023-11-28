@@ -112,35 +112,6 @@ export class AppSettings {
         }
     }
 
-    convertTime12to24 = (time12h:any) => {
-        const [time, modifier] = time12h.split(' ');
-
-        let [hours, minutes] = time.split(':');
-
-        if (hours === '12') {
-            hours = '00';
-        }
-
-        if (modifier === 'PM') {
-            hours = parseInt(hours, 10) + 12;
-        }
-
-        return `${hours}:${minutes}`;
-    }
-
-    convertTime24to12 (time:any) {
-        const time_part_array = time.split(":");
-        let ampm = 'AM';
-        if (time_part_array[0] >= 12) {
-            ampm = 'PM';
-        }
-        if (time_part_array[0] > 12) {
-            time_part_array[0] = time_part_array[0] - 12;
-        }
-        const formatted_time = time_part_array[0] + ':' + time_part_array[1] + ' ' + ampm;
-        return formatted_time;
-    }
-
     // Translation
     public translation_list: LabelModel[] = [];
 

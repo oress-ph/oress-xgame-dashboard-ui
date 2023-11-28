@@ -3,6 +3,8 @@ import { Observable } from 'rxjs';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { AppSettings } from '../../app-settings';
 import { LanguageModel } from '../model/language.model';
+import { environment } from 'src/environments/environment';
+import { BehaviorSubject } from 'rxjs';
 
 const httpOptions = {
   headers: new HttpHeaders({
@@ -15,11 +17,34 @@ const httpOptions = {
   providedIn: 'root'
 })
 export class LanguageService {
+  private languageListSource = new BehaviorSubject<LanguageModel[]>([]);
+  languageList$ = this.languageListSource.asObservable();
+
+  private selectedLanguageSource = new BehaviorSubject<LanguageModel>(new LanguageModel());
+  selectedLanguage$ = this.selectedLanguageSource.asObservable();
 
   constructor(
     private appSettings: AppSettings,
-    private httpClient: HttpClient
+    private httpClient: HttpClient,
+
   ) { }
+  setLanguageList(languageList: LanguageModel[]): void {
+    this.languageListSource.next(languageList);
+  }
+
+  setSelectedLanguage(language: LanguageModel): void {
+    this.selectedLanguageSource.next(language);
+  }
+  
+  getUserCountry(): Promise<string> {
+    return this.httpClient.get<any>(environment.ipapi)
+      .toPromise()
+      .then(response => response.country_name)
+      .catch(error => {
+        console.error('Error fetching user country:', error);
+        return 'Unknown';
+      }); 
+  }
 
   get_all_languages(): Observable<[boolean, any]> {
     return new Observable<[boolean, any]>((observer) => {

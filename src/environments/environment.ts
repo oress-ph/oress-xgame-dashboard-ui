@@ -38,7 +38,10 @@ export const environment = {
     binance_ticker: 'wss://stream.binance.com:9443/ws/dotusdt@ticker',
 
     // ip api
-    ipapi: "https://ipapi.co/json/"
+    ipapi: "https://ipapi.co/json/",
+
+    // 
+    maintenance: true
 };
 
 /*
