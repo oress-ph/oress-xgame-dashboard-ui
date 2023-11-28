@@ -1,30 +1,28 @@
 import { Injectable } from "@angular/core";
 import { ActivatedRouteSnapshot, RouterStateSnapshot, Router } from "@angular/router";
 import { Observable } from "rxjs";
-import { CookiesService } from "../services/cookies.service";
 import { environment } from "src/environments/environment";
 @Injectable({
   providedIn: "root",
 })
-export class WalletGuard  {
-  constructor(
-    public router: Router,
-    private cookiesService: CookiesService
-  ) {}
+export class MaintenanceGuard  {
+  constructor(public router: Router) {}
 
   canActivate(next: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean> | Promise<boolean> | boolean {
-    let wallet = this.cookiesService.getCookie("wallet-keypair");
     console.log(environment.maintenance===true);
-    if(environment.maintenance===true){
-      this.router.navigate(["/maintenance"]);
+    if(environment.maintenance===false){
+      this.router.navigate(["/portfolio"]);
       return true;
     }else{
-
+      
     }
-    return true
-    // else {
-    //   this.router.navigate(["/dashboard/portfolio"]);
+    // if(environment.maintenance===true){
+    //   this.router.navigate(["/maintenance"]);
+    //   return true;
+    // }else{
+    //   this.router.navigate(["/marketplace"]);
     //   return true;
     // }
+    return true;
   }
 }
