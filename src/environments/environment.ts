@@ -41,7 +41,7 @@ export const environment = {
     ipapi: "https://ipapi.co/json/",
 
     // maintenance
-    maintenance: false
+    maintenance: true
 };
 
 /*
