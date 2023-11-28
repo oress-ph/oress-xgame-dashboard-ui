@@ -7,12 +7,19 @@ import { content } from "./shared/routes/routes";
 
 import { AdminGuard } from './shared/guard/admin.guard';
 import { WalletGuard } from './shared/guard/wallet.guard';
+import { MaintenanceGuard } from './shared/guard/maintenance.guard';
+import { MaintenanceComponent } from './components/apps/maintenancepage/maintenance.component';
 
 const routes: Routes = [
   {
     path: '',
     redirectTo: 'portfolio',
     pathMatch: 'full'
+  },
+  {
+    path: 'maintenance',
+    component: MaintenanceComponent,
+    canActivate: [MaintenanceGuard],
   },
   {
     path: '',

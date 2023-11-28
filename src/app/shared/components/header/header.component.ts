@@ -52,7 +52,6 @@ export class HeaderComponent implements OnInit {
       this.layout.config.settings.layout_version="dark-only";
       this.cookiesService.setCookie("layout_version","dark-only")
     }
-    
   }
 
 
