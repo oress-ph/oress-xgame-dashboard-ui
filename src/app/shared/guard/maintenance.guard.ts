@@ -13,8 +13,6 @@ export class MaintenanceGuard  {
     if(environment.maintenance===false){
       this.router.navigate(["/portfolio"]);
       return true;
-    }else{
-      
     }
     // if(environment.maintenance===true){
     //   this.router.navigate(["/maintenance"]);

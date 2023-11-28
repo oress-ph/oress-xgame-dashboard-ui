@@ -40,8 +40,8 @@ export const environment = {
     // ip api
     ipapi: "https://ipapi.co/json/",
 
-    // 
-    maintenance: true
+    // maintenance
+    maintenance: false
 };
 
 /*

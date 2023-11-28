@@ -7,6 +7,7 @@ import { content } from "./shared/routes/routes";
 
 import { AdminGuard } from './shared/guard/admin.guard';
 import { WalletGuard } from './shared/guard/wallet.guard';
+import { MaintenanceGuard } from './shared/guard/maintenance.guard';
 import { MaintenanceComponent } from './components/apps/maintenancepage/maintenance.component';
 
 const routes: Routes = [
@@ -17,7 +18,8 @@ const routes: Routes = [
   },
   {
     path: 'maintenance',
-    component: MaintenanceComponent
+    component: MaintenanceComponent,
+    canActivate: [MaintenanceGuard],
   },
   {
     path: '',
