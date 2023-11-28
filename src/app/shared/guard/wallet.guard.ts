@@ -18,13 +18,10 @@ export class WalletGuard  {
     if(environment.maintenance===true){
       this.router.navigate(["/maintenance"]);
       return true;
-    }else{
-
+    }else if(wallet!=""){
+      this.router.navigate(["/portfolio"]);
+      return true;
     }
     return true
-    // else {
-    //   this.router.navigate(["/dashboard/portfolio"]);
-    //   return true;
-    // }
   }
 }

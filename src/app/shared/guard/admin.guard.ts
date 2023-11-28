@@ -14,12 +14,13 @@ export class AdminGuard  {
 
   canActivate(next: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean> | Promise<boolean> | boolean {
     // Guard for user is login or not
-    
+    let wallet = this.cookiesService.getCookie("wallet-keypair");
     if(environment.maintenance===true){
       this.router.navigate(["/maintenance"]);
       return true
-    }else{
-      
+    }else if(wallet==""){
+      this.router.navigate(["/wallet"]);
+      return true;
     }
     return true;
   }
