@@ -20,7 +20,7 @@
         "id":1,
         "language":  "Japanese",
         "language_name":  "日本語",
-        "code": "jp",
+        "code": "ja",
         "type":"JA",
         "icon": "jp"
     },
@@ -28,7 +28,7 @@
         "id":1,
         "language":  "Korean",
         "language_name":  "한국어",
-        "code": "kr",
+        "code": "ko",
         "type":"KO",
         "icon": "kr"
     }

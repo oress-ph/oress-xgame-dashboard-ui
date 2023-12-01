@@ -13,7 +13,7 @@ export const environment = {
     NFTAPIURL: "https://astrochibbi-nft-api.xgame.live",
     ProductAPIURL: "https://product-page-api.xgame.live",
     LabelAPIURL: "https://labels-api.xgame.live",
-    ChatBotAPIURL: "https://chatbot-api.xgame.live/api/chatbot",
+    ChatBotAPIURL: "https://chatbot-api.xgame.live/api/",
     BlogAPIURL: "https://blogs-api.xgame.live",
     ExchangeAPIRUL: "http://127.0.0.1:3002",
   
