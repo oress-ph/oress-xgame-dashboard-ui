@@ -28,6 +28,7 @@ export class TokenProfileComponent implements OnInit {
     this.portfolioModel = this.portfolioService.getPortfolioDetails();
   }
 
+  astro: any = '';
   tokenSymbol: any = 'NMS';
   nmsPrice: number = 10;
   amount: number = 0;
@@ -38,6 +39,8 @@ export class TokenProfileComponent implements OnInit {
   }
 
   async ngOnInit(): Promise<void> {
+    const result = await this.nftService.getAstroToken();
+    this.astro = result[1].balance;
     await this.polkadotService.getChainTokens();
     this.loading = false;
   }
