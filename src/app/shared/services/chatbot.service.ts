@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { AppSettings } from './../../app-settings';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { environment } from 'src/environments/environment';
 
 const httpOptions = {
   headers: new HttpHeaders({
@@ -28,7 +29,7 @@ export class ChatBotService {
 
   public send_chatbot(text:string,language_code:string): Observable<[boolean, any]> {
     return new Observable<[boolean, any]>((observer) => {
-      this.httpClient.post(this.appSettings.chatBotURLHOST , JSON.stringify({input_text:text,source_language:language_code}),httpOptions).subscribe(
+      this.httpClient.post(environment.ChatBotAPIURL+'chatbot' , JSON.stringify({input_text:text,source_language:language_code}),httpOptions).subscribe(
         (response: any) => {
           let data = response;
           observer.next([true, data]);

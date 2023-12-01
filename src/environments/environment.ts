@@ -13,7 +13,7 @@ export const environment = {
     NFTAPIURL: "https://astrochibbi-nft-api.xgame.live",
     ProductAPIURL: "https://product-page-api.xgame.live",
     LabelAPIURL: "https://labels-api.xgame.live",
-    ChatBotAPIURL: "https://chatbot-api.xgame.live/api/chatbot",
+    ChatBotAPIURL: "https://chatbot-api.xgame.live/api/",
     BlogAPIURL: "https://blogs-api.xgame.live",
     ExchangeAPIRUL: "http://127.0.0.1:3002",
   
@@ -41,7 +41,7 @@ export const environment = {
     ipapi: "https://ipapi.co/json/",
 
     // maintenance
-    maintenance: true,
+    maintenance: false,
 
     // mobile apk download link
     mobile_apps:"https://drive.google.com/u/0/uc?id=19cH0M981ysB-yZJEigtAP0lpmsJGRqxF&export=download"
