@@ -27,6 +27,27 @@ export class NftService {
   public defaultAPIURLHost: string = this.appSettings.APIURLHostNFT;
   private collectionId = this.appSettings.collectionId;
 
+  getAstroToken(): Promise<any> {
+    let params = this.cookiesService.getCookie('wallet-address');
+    return new Observable<[boolean, any]>((observer) => {
+      this.httpClient.post<any>(
+        this.defaultAPIURLHost + '/economy/balanceof/' +
+        params,
+        httpOptions
+      ).subscribe({
+        next: (response) => {
+          let data = response;
+          observer.next([true, data]);
+          observer.complete();
+        },
+        error: (error) => {
+          observer.next([false, error]);
+          observer.complete();
+        }
+      });
+    }).toPromise();
+  }
+
   transferNft(data: any): Observable<[boolean, any]> {
     let params = {
       from: data.from,
