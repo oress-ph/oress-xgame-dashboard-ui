@@ -41,7 +41,7 @@ export const environment = {
     ipapi: "https://ipapi.co/json/",
 
     // maintenance
-    maintenance: true,
+    maintenance: false,
 
     // mobile apk download link
     mobile_apps:"https://drive.google.com/u/0/uc?id=19cH0M981ysB-yZJEigtAP0lpmsJGRqxF&export=download"
