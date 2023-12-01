@@ -7,6 +7,7 @@ import { ChatBotModel } from './../../model/chatbot.model';
 import { DatePipe } from '@angular/common';
 import { ChatBotService } from "../../services/chatbot.service";
 import { AppSettings } from "src/app/app-settings";
+import { CookiesService } from "../../services/cookies.service";
 
 @Component({
   selector: "app-customizer",
@@ -47,7 +48,8 @@ export class CustomizerComponent implements OnInit {
     private chatService: ChatService,
     private datePipe: DatePipe,
     private chatBotService: ChatBotService,
-    public appSettings:AppSettings
+    public appSettings:AppSettings,
+    private cookiesService: CookiesService
   ) {
     this.chatService.getUsers().subscribe(users => { 
       this.searchUsers = users
@@ -65,23 +67,22 @@ export class CustomizerComponent implements OnInit {
     
   chat_bot_send(){
     this.loading = true;
-    this.chatBotModel.push({
-      send_text: this.chat_text,
-      send_date_time: this.datePipe.transform(new Date(), 'hh:mm a')
-    })
-    this.chatBotService.send_chatbot(this.chat_text).subscribe((response: any) => {
+    this.chatBotService.send_chatbot(this.chat_text,this.cookiesService.getCookieArray('language').code).subscribe((response: any) => {
       let result = response;
       if (result[0] === true) {
+        this.chatBotModel.push({
+          send_text: this.chat_text,
+          send_date_time: this.datePipe.transform(new Date(), 'hh:mm a')
+        })
         this.chatBotModel.push({
           receive_text: result[1].message,
           receive_date_time: this.datePipe.transform(new Date(), 'hh:mm a')
         })
-        console.log(this.chatBotModel);
-        this.loading = false;
         this.chat_text = '';
       } else {
 
       }
+      this.loading = false;
     })
   }
 

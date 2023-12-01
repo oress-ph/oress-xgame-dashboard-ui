@@ -26,9 +26,9 @@ export class ChatBotService {
 
   
 
-  public send_chatbot(text:string): Observable<[boolean, any]> {
+  public send_chatbot(text:string,language_code:string): Observable<[boolean, any]> {
     return new Observable<[boolean, any]>((observer) => {
-      this.httpClient.post(this.appSettings.chatBotURLHOST , JSON.stringify({input_text:text}),httpOptions).subscribe(
+      this.httpClient.post(this.appSettings.chatBotURLHOST , JSON.stringify({input_text:text,source_language:language_code}),httpOptions).subscribe(
         (response: any) => {
           let data = response;
           observer.next([true, data]);
