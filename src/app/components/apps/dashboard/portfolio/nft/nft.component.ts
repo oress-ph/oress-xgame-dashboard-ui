@@ -276,7 +276,7 @@ export class NFTComponent implements OnInit {
           //   detail: data === 401 ? 'Unauthorized' : data.error.message,
           // });
         }
-        this.loading = false;
+        // this.loading = false;
       },
       error: (error) => {
         // throw new Error('Error fetching data:',error);
