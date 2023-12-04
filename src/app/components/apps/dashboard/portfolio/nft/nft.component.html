@@ -227,7 +227,10 @@
                     </div>
                   </div>
                 </div> -->
-                <div class="product-price">
+                <div class="product-price" *ngIf="product.nftTokenId === 0">
+                  {{ product.price }} Energy <p>(Max: 20)</p>
+                </div>
+                <div class="product-price" *ngIf="product.nftTokenId !== 0">
                   {{ product.price }} {{ tokenSymbol }} <p>(${{ calculatePrice(product.price) }})</p>
                 </div>
               </div>

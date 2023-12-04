@@ -283,6 +283,24 @@ export class NFTComponent implements OnInit {
         throw new Error(error);
       }
     });
+    this.nftService.getEnergyCapsule()
+    .subscribe({
+      next: (response) => {
+        let data = response[1];
+        if (response[0]) {
+          if (response[1] != null) {
+            this.nft_list = data;
+            this.filterNFT();
+          } else {
+          }
+        } else {
+        }
+        this.loading = false;
+      },
+      error: (error) => {
+        throw new Error(error);
+      }
+    });
   }
 
   onPriceInputChange() {
@@ -338,7 +356,7 @@ export class NFTComponent implements OnInit {
   }
 
   gridOpens() {
-    
+
     this.listView = false;
     this.gridOptions = true;
     this.listView = false;
@@ -354,10 +372,10 @@ export class NFTComponent implements OnInit {
     this.col_xl_2 = false;
     this.col_xl_12 = false;
     this.grid= '4s';
-    
+
   }
   listOpens() {
-    
+
     this.listView = true;
     this.gridOptions = false;
     this.listView = true;
