@@ -59,14 +59,14 @@
                         </svg>
                       </div> -->
                       <div>
-                        <h6 class="f-14 mb-1">ASTRO</h6>
+                        <h6 class="f-14 mb-1">{{ astroProperties.token_symbol }}</h6>
                         <!-- <div class="d-flex align-items-center gap-1"><span class="status bg-success"></span><span class="f-light">EGEM</span></div> -->
                       </div>
                     </div>
                   </td>
-                  <td>{{ astro }}</td>
-                  <td></td>
-                  <td></td>
+                  <td>{{ astroProperties.token_quantity }}</td>
+                  <td>{{ astroProperties.conversion_rate | number:'1.2-2' }} {{ astroProperties.currency }}</td>
+                  <td class="text-end">{{ astroProperties.amount | number:'1.2-2' }} {{ astroProperties.currency }}</td>
                 </tr>
               </tbody>
             </table>

@@ -18,6 +18,7 @@ export class PortfolioService {
     this.getUsdRate();
    }
 
+  astros: any = {};
   selectedCurrency: string = 'USD';
   data: any;
   usdRate: number = 10;
@@ -26,6 +27,10 @@ export class PortfolioService {
 
   getPortfolioDetails() {
     return this.portfolioModel;
+  }
+
+  getAstro() {
+    return this.astros;
   }
 
   async setPortfolioDetails(currency: any, nmsTotal: any) {
@@ -40,6 +45,17 @@ export class PortfolioService {
     }
   }
 
+  async setAstro(currency: any, astro: any) {
+    const rate = this.data.rates[currency.name];
+    this.astros.currency = currency.name;
+    this.astros.token_quantity = parseFloat(astro.balance);
+    this.astros.conversion_rate = astro.price * rate;
+    const amount = parseFloat(astro.balance) * (rate * 1);
+    this.astros.amount = amount;
+    this.astros.token_symbol = astro.symbol;
+    return this.astros;
+  }
+
   async getUsdRate() {
     this.http.get('https://open.er-api.com/v6/latest/USD')
     .subscribe({
@@ -52,3 +68,4 @@ export class PortfolioService {
     });
   }
 }
+
