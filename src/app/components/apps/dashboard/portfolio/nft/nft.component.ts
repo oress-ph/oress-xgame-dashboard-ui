@@ -276,31 +276,31 @@ export class NFTComponent implements OnInit {
           //   detail: data === 401 ? 'Unauthorized' : data.error.message,
           // });
         }
-        // this.loading = false;
+        this.loading = false;
       },
       error: (error) => {
         // throw new Error('Error fetching data:',error);
         throw new Error(error);
       }
     });
-    this.nftService.getEnergyCapsule()
-    .subscribe({
-      next: (response) => {
-        let data = response[1];
-        if (response[0]) {
-          if (response[1] != null) {
-            this.nft_list = data;
-            this.filterNFT();
-          } else {
-          }
-        } else {
-        }
-        this.loading = false;
-      },
-      error: (error) => {
-        throw new Error(error);
-      }
-    });
+    // this.nftService.getEnergyCapsule()
+    // .subscribe({
+    //   next: (response) => {
+    //     let data = response[1];
+    //     if (response[0]) {
+    //       if (response[1] != null) {
+    //         this.nft_list = data;
+    //         this.filterNFT();
+    //       } else {
+    //       }
+    //     } else {
+    //     }
+    //     this.loading = false;
+    //   },
+    //   error: (error) => {
+    //     throw new Error(error);
+    //   }
+    // });
   }
 
   onPriceInputChange() {

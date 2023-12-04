@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { Observable, forkJoin, of } from 'rxjs';
+import { catchError, map } from 'rxjs/operators'
 import { NFTModel } from '../model/nft.model';
 import { AppSettings } from '../../app-settings';
 import { CookiesService } from './cookies.service';
@@ -190,98 +191,89 @@ export class NftService {
   }
 
   getUserNfts() {
-    return new Observable<[boolean, any]>((observer) => {
+    return new Observable<[boolean, NFTModel[]]>((observer) => {
+      const walletAddress = this.cookiesService.getCookie('wallet-address');
+      const nftList: NFTModel[] = [];
 
-      let nft_list: NFTModel[] = [];
-      let requestBody = this.cookiesService.getCookie('wallet-address');
-      this.httpClient.get<any>(
-        this.defaultAPIURLHost +
-        '/nfts/' +
-        requestBody,
+      const nfts$ = this.httpClient.get<any>(
+        `${this.defaultAPIURLHost}/nfts/${walletAddress}`,
         httpOptions
-      ).subscribe({
-          next: (response) => {
-          let results = response;
+      );
 
-          // let result_data = results['data'];
-          if (results != null) {
-              var data = results;
-              if (data.length > 0) {
-              for (let i = 0; i <= data.length - 1; i++) {
-                  nft_list.push({
-                  nftTokenId: data[i].nftTokenId,
-                  imagePath: data[i].imagePath,
-                  name:data[i].name,
-                  description: data[i].description,
-                  price: data[i].price,
-                  isForSale: data[i].isForSale,
-                  isEquipped: data[i].isEquipped,
-                  category: data[i].category,
-                  collection: data[i].collection,
-                  astroType: data[i].astroType,
-                  rarity: data[i].rarity,
-                  network: data[i].network,
-                  blockchainId: data[i].blockchainId,
-                  collectionId: data[i].collectionId,
-                  tokenOwner: data[i].tokenOwner,
-                  });
-              }
-              } else {
-                nft_list = [];
-              }
+      const energyCapsule$ = this.httpClient.get<any>(
+        `${this.defaultAPIURLHost}/game/energy/${walletAddress}`,
+        httpOptions
+      );
+
+      forkJoin([nfts$, this.getEnergyCapsule(energyCapsule$)]).subscribe({
+        next: ([nftsResponse, energyCapsuleResponse]) => {
+          const nftsData = nftsResponse;
+          if (nftsData != null && nftsData.length > 0) {
+            nftList.push(...this.mapNftsData(nftsData));
           }
-          observer.next([true, nft_list]);
+
+          if (energyCapsuleResponse[0] && energyCapsuleResponse[1]) {
+            nftList.push(energyCapsuleResponse[1][0]);
+          }
+
+          observer.next([true, nftList]);
           observer.complete();
-          },
-          error: (error) => {
+        },
+        error: (error) => {
           observer.next([false, error.status]);
           observer.complete();
-          }
+        }
       });
-      });
+    });
   }
 
-  getEnergyCapsule() {
-    return new Observable<[boolean, any]>((observer) => {
-      let energy: any;
-      let nft_list: NFTModel[] = [];
-      let requestBody = this.cookiesService.getCookie('wallet-address');
-      this.httpClient.get<any>(
-        this.defaultAPIURLHost +
-        '/game/energy/' +
-        requestBody,
-        httpOptions
-      ).subscribe({
-          next: (response) => {
-          let results = response;
-          if (results != null) {
-            nft_list.push({
-              nftTokenId: 0,
-              imagePath: results.imagePath,
-              name: "Energy Capsule",
-              description: "An energy capsule that can be used to use characters.",
-              price: results.currentEnergy,
-              isForSale: false,
-              isEquipped: true,
-              category: "Capsule",
-              collection: "AstroChibbi Conquest: Galactic Delight",
-              astroType: "None",
-              rarity: "None",
-              network: "None",
-              blockchainId: "None",
-              collectionId: "5FJ9VWpubQXeiLKGcVmo3zD627UAJCiW6bupSUATeyNXTH1m",
-              tokenOwner: requestBody,
-            });
-          }
-          observer.next([true, nft_list]);
-          observer.complete();
-          },
-          error: (error) => {
-          observer.next([false, error.status]);
-          observer.complete();
-          }
-      });
-      });
+  getEnergyCapsule(energyCapsule$: Observable<any>): Observable<[boolean, NFTModel[]]> {
+    return energyCapsule$.pipe(
+      map((response) => {
+        const nftList: NFTModel[] = [];
+        if (response != null) {
+          nftList.push({
+            nftTokenId: 0,
+            imagePath: response.imagePath,
+            name: 'Energy Capsule',
+            description: 'An energy capsule that can be used to use characters.',
+            price: response.currentEnergy,
+            isForSale: false,
+            isEquipped: true,
+            category: 'Capsule',
+            collection: 'AstroChibbi Conquest: Galactic Delight',
+            astroType: 'None',
+            rarity: 'None',
+            network: 'None',
+            blockchainId: 'None',
+            collectionId: '5FJ9VWpubQXeiLKGcVmo3zD627UAJCiW6bupSUATeyNXTH1m',
+            tokenOwner: this.cookiesService.getCookie('wallet-address'),
+          });
+        }
+        return [true, nftList] as [boolean, NFTModel[]]; // Explicitly specify the return type
+      }),
+      catchError((error) => of([false, error.status] as [boolean, NFTModel[]])) // Explicitly specify the return type
+    );
+  }
+
+  mapNftsData(data: any[]): NFTModel[] {
+    return data.map((item) => ({
+      nftTokenId: item.nftTokenId,
+      imagePath: item.imagePath,
+      name: item.name,
+      description: item.description,
+      price: item.price,
+      isForSale: item.isForSale,
+      isEquipped: item.isEquipped,
+      category: item.category,
+      collection: item.collection,
+      astroType: item.astroType,
+      rarity: item.rarity,
+      network: item.network,
+      blockchainId: item.blockchainId,
+      collectionId: item.collectionId,
+      tokenOwner: item.tokenOwner,
+    }));
   }
 
   async giveUserBalance(): Promise<Observable<[boolean, any]>> {
