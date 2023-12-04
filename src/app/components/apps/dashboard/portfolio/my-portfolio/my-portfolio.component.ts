@@ -40,6 +40,7 @@ export class MyPortfolioComponent implements OnInit {
 
   selectedCurrency: string = 'USD';
   nmsTotal: any;
+  astro: any;
   data: any;
   currency = [
     {
@@ -65,11 +66,14 @@ export class MyPortfolioComponent implements OnInit {
   ];
 
   async handleSelectCurrency(currency: any) {
-    this.portfolioModel = await this.portfolioService.setPortfolioDetails(currency, this.nmsTotal);
+    this.portfolioModel = await this.portfolioService.setPortfolioDetails(currency, this.nmsTotal); //
+    await this.portfolioService.setAstro(currency, this.astro); //
   }
 
   async ngOnInit(): Promise<void> {
     this.nmsTotal = await this.polkadotService.getBalance();
+    const result = await this.nftService.getAstroToken();
+    this.astro = result[1];
     const defaultCurrency = { name: 'USD' };
     await this.handleSelectCurrency(defaultCurrency)
   }
