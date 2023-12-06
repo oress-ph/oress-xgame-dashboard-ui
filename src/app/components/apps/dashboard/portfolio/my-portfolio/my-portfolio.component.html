@@ -5,7 +5,7 @@
       <div>
         <span class="f-light d-block my-portfolio">{{appSettings.translate("My Portfolio")}}</span>
         <div class="portfolio-balance d-flex align-items-center f-light">
-          {{ portfolioModel.amount | number:'1.2-2' }}
+          {{ totalBalance | number:'1.2-2' }}
           <div ngbDropdown class="d-inline-block dropdown-currency">
             <button class="btn dropdown-toggle btn-light" type="button"
               data-bs-toggle="dropdown" aria-haspopup="true"

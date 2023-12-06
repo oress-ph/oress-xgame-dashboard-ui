@@ -22,8 +22,8 @@ export class PortfolioService {
   selectedCurrency: string = 'USD';
   data: any;
   usdRate: number = 10;
-  totalBalance: number = 0;
   portfolioModel: PortfolioModel = new PortfolioModel();
+  totalBalance: number = 0;
 
   getPortfolioDetails() {
     return this.portfolioModel;
@@ -31,6 +31,10 @@ export class PortfolioService {
 
   getAstro() {
     return this.astros;
+  }
+
+  getTotalBalance() {
+    return this.totalBalance;
   }
 
   async setPortfolioDetails(currency: any, nmsTotal: any) {
@@ -41,6 +45,7 @@ export class PortfolioService {
       this.portfolioModel.conversion_rate = this.usdRate * rate;
       const amount = parseFloat(nmsTotal) * (rate * 10);
       this.portfolioModel.amount = amount;
+      this.totalBalance = amount;
       return this.portfolioModel;
     }
   }
@@ -53,6 +58,7 @@ export class PortfolioService {
     const amount = parseFloat(astro.balance) * (rate * 1);
     this.astros.amount = amount;
     this.astros.token_symbol = astro.symbol;
+    this.totalBalance += amount;
     return this.astros;
   }
 
