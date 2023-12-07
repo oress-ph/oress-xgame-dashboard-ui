@@ -52,6 +52,7 @@ import { LabelService } from './services/label.service';
 import { ChatBotService } from './services/chatbot.service';
 import { MyPortfolioComponent } from "./../components/apps/dashboard/portfolio/my-portfolio/my-portfolio.component"
 import { WalletInfoComponent } from "./components/wallet/wallet-info/wallet-info.component";
+import { WalletListComponent } from "./components/wallet/wallet-list/wallet-list.component";
 
 @NgModule({
   declarations: [
@@ -84,7 +85,7 @@ import { WalletInfoComponent } from "./components/wallet/wallet-info/wallet-info
     MyPortfolioComponent,
     SafePipe,
     WalletInfoComponent,
-
+    WalletListComponent,
   ],
   imports: [
     CommonModule,
@@ -110,7 +111,8 @@ import { WalletInfoComponent } from "./components/wallet/wallet-info/wallet-info
     SvgIconComponent,
     SwiperModule,
     MyPortfolioComponent,
-    WalletInfoComponent
+    WalletInfoComponent,
+    WalletListComponent
   ],
 })
 export class SharedModule {}
