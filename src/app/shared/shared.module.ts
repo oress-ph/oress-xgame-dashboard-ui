@@ -53,7 +53,6 @@ import { ChatBotService } from './services/chatbot.service';
 import { MyPortfolioComponent } from "./../components/apps/dashboard/portfolio/my-portfolio/my-portfolio.component"
 import { WalletInfoComponent } from "./components/wallet/wallet-info/wallet-info.component";
 import { WalletListComponent } from "./components/wallet/wallet-list/wallet-list.component";
-
 @NgModule({
   declarations: [
     HeaderComponent,
@@ -97,7 +96,18 @@ import { WalletListComponent } from "./components/wallet/wallet-list/wallet-list
     CarouselModule,
     SwiperModule,
     NgSelectModule],
-  providers: [NavService, ChatService, LayoutService, TableService, DecimalPipe, GamesService, NftService,LanguageService,PolkadotService,LabelService,ChatBotService,],
+  providers: [
+    NavService, 
+    ChatService, 
+    LayoutService, 
+    TableService, 
+    DecimalPipe, 
+    GamesService, 
+    NftService,
+    LanguageService,
+    // PolkadotService,
+    LabelService,
+    ChatBotService,],
   exports: [NgbModule, FormsModule, ReactiveFormsModule,
     TranslateModule,
     LoaderComponent,
@@ -112,7 +122,7 @@ import { WalletListComponent } from "./components/wallet/wallet-list/wallet-list
     SwiperModule,
     MyPortfolioComponent,
     WalletInfoComponent,
-    WalletListComponent
+    WalletListComponent,
   ],
 })
 export class SharedModule {}

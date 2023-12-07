@@ -14,12 +14,19 @@ import { CookiesService } from './../services/cookies.service';
 import { formatBalance, BN } from '@polkadot/util';
 import { ContractPromise } from '@polkadot/api-contract';
 import { NFTModel } from './../model/nft.model';
-
-
+import { BehaviorSubject } from 'rxjs';
 @Injectable({
   providedIn: 'root'
 })
 export class PolkadotService {
+  private dataSubject: BehaviorSubject<any> = new BehaviorSubject<any>(null);
+  setCurrentBalance(data: any) {
+    this.dataSubject.next(data);
+  }
+
+  getCurrentBalance() {
+    return this.dataSubject.asObservable();
+  }
 
   constructor(
     private appSettings: AppSettings,
@@ -75,7 +82,9 @@ export class PolkadotService {
           await new Promise(resolve => setTimeout(resolve, 1000));
         }
       } while (accounts.length === 0);
-      const SENDER = this.appSettings.wallet_info.wallet_keypair;
+      // const SENDER = this.appSettings.wallet_info.wallet_keypair;
+      // console.log(this.cookiesService.getCookieArray("wallet-info").address);
+      const SENDER = this.cookiesService.getCookieArray("wallet-info").address;
       const injector = await web3FromAddress(SENDER);
       let api = await this.api;
       const contract = await this.getContract(api, this.abi, contractAddress);
@@ -88,32 +97,6 @@ export class PolkadotService {
     }
   }
 
-  // async getBalance() {
-  //   try {
-  //     const contractAddress = await this.getAllSmartContracts();
-  //     const accountData = await this.getAccount(contractAddress);
-
-  //     if (accountData && accountData.api) {
-  //       const { api, SENDER, contract } = accountData;
-  //       const { nonce, data: balance } = await api.query.system.account(SENDER);
-  //       const chainDecimals = api.registry.chainDecimals[0];
-  //       formatBalance.setDefaults({ decimals: chainDecimals, unit: 'NMS' });
-  //       formatBalance.getDefaults();
-  //       const free = formatBalance(balance.free, { forceUnit: "NMS", withUnit: false });
-  //       const balances = free.split(',').join('');
-  //       // console.log(`Formatted Balance: ${free.split(',').join('')} ${formatBalance.getDefaults().unit}`);
-  //       // console.log('Balance: ', balance.free.toHuman());
-  //       // console.log('Nonce: ', nonce.toHuman());
-  //       return balances;
-  //     } else {
-  //       console.error('API not available in the returned data.');
-  //       return undefined;
-  //     }
-  //   } catch (error) {
-  //     console.error('Get account balance error:', error);
-  //     return undefined;
-  //   }
-  // }
   async getBalance() {
     try {
       const contractAddress = await this.getAllSmartContracts();
@@ -151,8 +134,10 @@ export class PolkadotService {
         for (let i = 0; i < accounts.length; i++) {
           walletAccounts.push({
             address: accounts[i].address,
+            address_display:  accounts[i].address.substring(0, 5) + "..." + accounts[i].address.substring(accounts[i].address.length - 5, accounts[i].address.length),
             metaGenesisHash: accounts[i].meta.genesisHash,
             metaName: accounts[i].meta.name,
+            tokenSymbol: "",
             metaSource: accounts[i].meta.source,
             type: accounts[i].type
           });

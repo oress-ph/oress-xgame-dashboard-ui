@@ -3,13 +3,12 @@
         <img src="./../../../../../../../assets/images/polkadot/polkadot_icon.webp" style="    max-height: 90px;
         width: auto;"/>
         <div>
-            <h3>{{appSettings.wallet_info.wallet_meta_name}}</h3>
-            <span class="my-portfolio">{{appSettings.wallet_info.wallet_keypair_display}}</span>
-            
-            <div style="display: flex; gap: 1rem;">
-                <a href="javascript:void(0);" (click)="openVerticallyCentered(content)"><span><i class="fa fa-edit"></i> {{appSettings.translate("Change")}}</span></a>
-                <a href="javascript:void(0);"><span><i class="fa fa-copy"></i> {{appSettings.translate("Copy")}}</span></a>
-            </div>
+          <h3>{{wallet_info.metaName}}</h3>
+          <span class="my-portfolio">{{wallet_info.address_display}}</span>
+          <div style="display: flex; gap: 1rem;">
+            <a href="javascript:void(0);" (click)="openVerticallyCentered(content)"><span><i class="fa fa-edit"></i> {{appSettings.translate("Change")}}</span></a>
+            <a href="javascript:void(0);"><span><i class="fa fa-copy"></i> {{appSettings.translate("Copy")}}</span></a>
+          </div>
         </div>
     </div>
 </div>
@@ -19,8 +18,7 @@
       <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
     </div>
     <div class="modal-body">
-      <app-wallet-list style="    display: flex;
-      width: 100%;"></app-wallet-list>
+      <app-wallet-list [current_wallet]="wallet_info.address" style="display: flex;width: 100%;"></app-wallet-list>
     </div>
     <!-- <div class="modal-footer">
       <button type="button" class="btn btn-outline-dark" (click)="modal.close('Save click')">Save</button>

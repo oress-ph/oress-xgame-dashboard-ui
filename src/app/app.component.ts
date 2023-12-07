@@ -34,11 +34,11 @@ export class AppComponent {
   ) {
     var wallet_address = this.cookiesService.getCookie('wallet-keypair')
     if (wallet_address != null && wallet_address.length > 5) {
-        appSettings.wallet_info.wallet_keypair = wallet_address;
+        // appSettings.wallet_info.wallet_keypair = wallet_address;
         wallet_address = wallet_address.substring(0, 5) + "..." + wallet_address.substring(wallet_address.length - 5, wallet_address.length);
     }
-    this.cookiesService.getCookie('wallet-keypair') != undefined ? this.appSettings.wallet_info.wallet_keypair_display = wallet_address : this.appSettings.wallet_info.wallet_keypair = '';
-    this.cookiesService.getCookie('wallet-meta-name') != undefined ? this.appSettings.wallet_info.wallet_meta_name = this.cookiesService.getCookie('wallet-meta-name') : this.appSettings.wallet_info.wallet_meta_name = '';
+    // this.cookiesService.getCookie('wallet-keypair') != undefined ? this.appSettings.wallet_info.wallet_keypair_display = wallet_address : this.appSettings.wallet_info.wallet_keypair = '';
+    // this.cookiesService.getCookie('wallet-meta-name') != undefined ? this.appSettings.wallet_info.wallet_meta_name = this.cookiesService.getCookie('wallet-meta-name') : this.appSettings.wallet_info.wallet_meta_name = '';
   }
   async ngOnInit() {
     try {
@@ -121,8 +121,8 @@ export class AppComponent {
   }
   async getBalance(): Promise<void>{
     await this.polkadotService.getBalance().then(data => {
-
-      this.appSettings.wallet_info.wallet_balance_nms = data;
+      this.polkadotService.setCurrentBalance(data);
+      // this.appSettings.wallet_info.wallet_balance_nms = data;
     });
   }
 }

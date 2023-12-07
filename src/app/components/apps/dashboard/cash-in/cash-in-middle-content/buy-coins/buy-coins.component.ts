@@ -79,7 +79,8 @@ export class BuyCoinsComponent {
         next: async (response) => {
           if (response[0]){
             let newBalance = await this.polkadotService.getBalance()
-            this.appSettings.wallet_info.wallet_balance_nms = newBalance;
+            this.cookiesService.setCookie("wallet_balance",newBalance);
+            // this.appSettings.wallet_info.wallet_balance_nms = newBalance;
             Swal.close();
             this.fireSwal(
               true,

@@ -3,6 +3,7 @@ import { Router } from "@angular/router";
 import { AppSettings } from "src/app/app-settings";
 import { WalletModel } from "src/app/shared/model/wallet.model";
 import { CookiesService } from "src/app/shared/services/cookies.service";
+import { PolkadotService } from "src/app/shared/services/polkadot.service";
 
 @Component({
   selector: "app-my-account",
@@ -14,15 +15,15 @@ export class MyAccountComponent implements OnInit {
   public userName: string;
   public profileImg: "assets/images/dashboard/profile.jpg";
   tokenSymbol: any;
+  public wallet_info: any = this.cookiesService.getCookieArray("wallet-info");
+  public wallet_balance: any = "";
 
   constructor(
     public router: Router,
     private cookiesService: CookiesService,
     public appSettings:AppSettings,
+    private polkadotService: PolkadotService
     ) {
-    if (JSON.parse(localStorage.getItem("user"))) {
-    } else {
-    }
     this.tokenSymbol = this.cookiesService.getCookie('tokenSymbol');
   }
 
@@ -32,10 +33,14 @@ export class MyAccountComponent implements OnInit {
     inputElement.setSelectionRange(0, 0);
   }
 
-  ngOnInit() {}
+  ngOnInit() {
+    // Subscribe to the BehaviorSubject to get the latest data
+    this.polkadotService.getCurrentBalance().subscribe(data => {
+      this.wallet_balance = data;
+    });
+  }
 
   logout(){
-    console.log("test");
     const logout = this.cookiesService.deleteAllCookie();
     if (logout){
         window.location.reload();
