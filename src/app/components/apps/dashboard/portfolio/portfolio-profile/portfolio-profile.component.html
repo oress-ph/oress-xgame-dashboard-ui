@@ -7,10 +7,23 @@
             <span class="my-portfolio">{{appSettings.wallet_info.wallet_keypair_display}}</span>
             
             <div style="display: flex; gap: 1rem;">
-                <a href="javascript:void(0);"><span><i class="fa fa-edit"></i> {{appSettings.translate("Change")}}</span></a>
+                <a href="javascript:void(0);" (click)="openVerticallyCentered(content)"><span><i class="fa fa-edit"></i> {{appSettings.translate("Change")}}</span></a>
                 <a href="javascript:void(0);"><span><i class="fa fa-copy"></i> {{appSettings.translate("Copy")}}</span></a>
             </div>
         </div>
     </div>
-  </div>
+</div>
+<ng-template #content let-modal>
+    <div class="modal-header">
+      <!-- <h4 class="modal-title" id="modal-basic-title">Profile update</h4> -->
+      <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
+    </div>
+    <div class="modal-body">
+      <app-wallet-list style="    display: flex;
+      width: 100%;"></app-wallet-list>
+    </div>
+    <!-- <div class="modal-footer">
+      <button type="button" class="btn btn-outline-dark" (click)="modal.close('Save click')">Save</button>
+    </div> -->
+</ng-template>
   

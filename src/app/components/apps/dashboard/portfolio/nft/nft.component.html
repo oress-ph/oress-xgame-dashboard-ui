@@ -143,16 +143,37 @@
                 <img class="img-fluid" src="{{ product.imagePath }}" alt="" [style.max-height.px]="height" [style.min-height.px]="height"/>
                 <div class="product-hover">
                   <ul>
+                    <li placement="top" ngbTooltip="Details">
+                      <a href="https://nft.xgame.live/marketplace/nft-details/{{product.nftTokenId}}"><i class="icon-eye"></i></a>
                     <!-- <li>
                       <a [routerLink]="['/ecommerce/cart']"><i class="icon-shopping-cart"></i></a>
                     </li> -->
-                    <li placement="top" ngbTooltip="Buy">
-                      <a href="marketplace/nft-details/{{product.nftTokenId}}"><i class="icon-wallet"></i></a>
+                    <!-- <li placement="top" ngbTooltip="Buy">
+                      <a href="marketplace/nft-details/{{product.nftTokenId}}"><i class="icon-wallet"></i></a> -->
                     </li>
-                    <li placement="top" ngbTooltip="Details">
-                      <a href="marketplace/nft-details/{{product.nftTokenId}}"><i class="icon-eye"></i></a>
+                    <li placement="top" ngbTooltip="Edit">
+                      <a (click)="editItem(listitem, product.nftTokenId)"><i class="icon-pencil"></i></a>
+                    <!-- <li placement="top" ngbTooltip="Details">
+                      <a href="marketplace/nft-details/{{product.nftTokenId}}"><i class="icon-eye"></i></a> -->
                     </li>
-                    <ng-template #content let-modal>
+                    <ng-template #listitem let-modal>
+                      <div class="modal-body custom-modal-content" style="padding: 0%; margin: 20px">
+                        <div class="modal-header">
+                          <h4 class="modal-title text-center">{{ product.name }}</h4>
+                          <button type="button" class="btn-close" aria-label="Close"
+                            (click)="modal.dismiss('Cross click')"></button>
+                        </div>
+                        <div class="modal-body" style="margin: 20px;">
+                          <div class="row">
+                            <div class="col">
+                              <div class="mb-3">
+                                <label for="nftname">NFT Name</label>
+                                <input id="nftname" type="text" class="form-control"
+                                  [(ngModel)]="nft_detail.name"
+                                  style="color: black !important;" [disabled]="isLoading">
+                              </div>
+                            </div>
+                    <!-- <ng-template #content let-modal>
                       <div class="modal-body" style="padding: 0%">
                         <app-quick-view [productDetail]="productDetail"></app-quick-view>
                         <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
@@ -173,13 +194,33 @@
                           >
                           <div class="product-price">
                             $26.00
-                            <del>$35.00</del>
+                            <del>$35.00</del> -->
                           </div>
-                          <div class="product-view">
+                          <div class="row">
+                            <div class="col">
+                              <div class="mb-3">
+                                <label for="nftprice">Price</label>
+                                <input id="nftprice" type="number"
+                                  class="form-control"
+                                  [(ngModel)]="nft_detail.price"
+                                  style="color: black !important;" [disabled]="isLoading">
+                              </div>
+                            </div>
+                          <!-- <div class="product-view">
                             <h6 class="f-w-600">Product Details</h6>
-                            <p class="mb-0">Sed ut perspiciatis, unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam eaque ipsa, quae ab illo.</p>
+                            <p class="mb-0">Sed ut perspiciatis, unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam eaque ipsa, quae ab illo.</p> -->
                           </div>
-                          <div class="product-size">
+                          <div class="row">
+                            <div class="col">
+                              <div class="mb-3 mb-0">
+                                <label for="description">Description</label>
+                                <textarea id="description" rows="3"
+                                  class="form-control" style="height: 150px;"
+                                  [(ngModel)]="nft_detail.description"
+                                  style="color: black !important;" [disabled]="isLoading"></textarea>
+                              </div>
+                            </div>
+                          <!-- <div class="product-size">
                             <ul>
                               <li>
                                 <button class="btn btn-outline-light" type="button">M</button>
@@ -190,22 +231,49 @@
                               <li>
                                 <button class="btn btn-outline-light" type="button">Xl</button>
                               </li>
-                            </ul>
+                            </ul> -->
                           </div>
-                          <div class="product-qnty">
+                          <div class="row">
+                            <div class="flex flex-column gap-3">
+                              <label>Is For Sale</label>
+                              <div class="media-body text-start icon-state">
+                                <label class="switch">
+                                  <input type="checkbox" [checked]="nft_detail.isForSale" [disabled]="isLoading"
+                                    (change)="forSaleChange($event)">
+                                  <span class="switch-state"></span>
+                                </label>
+                          <!-- <div class="product-qnty">
                             <h6 class="f-w-600">Quantity</h6>
                             <fieldset>
                               <div class="input-group">
-                                <input class="touchspin text-center" type="text" value="5" />
+                                <input class="touchspin text-center" type="text" value="5" /> -->
                               </div>
-                            </fieldset>
-                            <div class="addcart-btn"><a class="btn btn-primary me-3" href="marketplace/cart">Add to Cart </a><a class="btn btn-primary" href="marketplace/product-page">View Details</a></div>
+                            </div>
+                            <!-- </fieldset>
+                            <div class="addcart-btn"><a class="btn btn-primary me-3" href="marketplace/cart">Add to Cart </a><a class="btn btn-primary" href="marketplace/product-page">View Details</a></div> -->
                           </div>
                         </div>
+                        <div class="modal-footer">
+                          <button class="btn btn-success" (click)="updateForSale(product)" *ngIf="selectedAction === 1" [disabled]="isLoading" >
+                            <ng-container *ngIf="isLoading; else updateButton">
+                              <i class="fa fa-spin fa-spinner"></i>
+                            </ng-container>
+                            <ng-template #updateButton>
+                              Update
+                            </ng-template>
+                          </button>
+                          <button type="button" class="btn btn-outline-dark"
+                            (click)="modal.close('Close click')">Cancel</button>
+                        </div>
                       </div>
-                      <button class="btn-close" type="button" aria-label="Close"></button>
+                      <div class="loader-box" style="height: 75vh;" *ngIf="loading">
+                        <div class="loader-30"></div>
+                      </div>
+                    </ng-template>
+                  </ul>
+                      <!-- <button class="btn-close" type="button" aria-label="Close"></button>
                     </div>
-                  </div>
+                  </div> -->
                 </div>
               </div>
               <div class="product-details">

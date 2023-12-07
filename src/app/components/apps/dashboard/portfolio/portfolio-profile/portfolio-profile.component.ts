@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { AppSettings } from 'src/app/app-settings';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-portfolio-profile',
@@ -8,9 +9,12 @@ import { AppSettings } from 'src/app/app-settings';
 })
 export class PortfolioProfileComponent {
   constructor(
-    public appSettings: AppSettings
+    public appSettings: AppSettings,
+    private modalService: NgbModal,
   ){
   }
 
-
+  openVerticallyCentered(content) {
+    this.modalService.open(content, { centered: true });
+  }
 }

@@ -26,7 +26,6 @@ export class TokenProfileComponent implements OnInit {
   ) {
     this.tokenSymbol = this.cookiesService.getCookie('tokenSymbol');
     this.portfolioModel = this.portfolioService.getPortfolioDetails();
-    this.astroProperties = this.portfolioService.getAstro();
   }
 
   astroProperties: any;
@@ -34,13 +33,17 @@ export class TokenProfileComponent implements OnInit {
   nmsPrice: number = 10;
   amount: number = 0;
   loading: boolean = true;
+  tokens = [];
 
   toggle(){
     this.show = !this.show
   }
 
   async ngOnInit(): Promise<void> {
+    this.astroProperties = await this.portfolioService.getAstro();
     await this.polkadotService.getChainTokens();
+    this.tokens.push(this.portfolioModel);
+    this.tokens.push(this.astroProperties);
     this.loading = false;
   }
 }
