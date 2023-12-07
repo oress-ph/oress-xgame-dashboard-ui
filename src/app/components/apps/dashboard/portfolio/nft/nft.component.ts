@@ -254,7 +254,7 @@ export class NFTComponent implements OnInit {
 
   async getNft() {
     this.loading = true;
-    this.nftService.getUserNfts(this.cookiesService.getCookieArray("wallet-info").address)
+    (await this.nftService.getUserNfts(this.cookiesService.getCookieArray("wallet-info").address))
     .subscribe({
       next: (response) => {
         let data = response[1];
