@@ -44,7 +44,6 @@ export class WalletListComponent {
     if (data.length > 0) {
       for (let i = 0; i < data.length; i++) {
         if (this.current_wallet && data[i].address === this.current_wallet) {
-          console.log(this.current_wallet);
           continue;
         }
 
