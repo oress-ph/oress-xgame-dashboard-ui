@@ -190,95 +190,121 @@ export class NftService {
     });
   }
 
-  getUserNfts(wallet_address:string) {
+  async getUserNfts(wallet_address:string) {
+    console.log('getUserNfts is called');
+    console.log(wallet_address);
     return new Observable<[boolean, NFTModel[]]>((observer) => {
-      const nftList: NFTModel[] = [];
-
-      this.httpClient
-        .get<any>(`${this.defaultAPIURLHost}/nfts/${wallet_address}`, httpOptions)
-        .pipe(
-          concatMap((nftsResponse) => {
-            if (nftsResponse != null && nftsResponse.length > 0) {
-              nftList.push(...this.mapNftsData(nftsResponse));
-            }
-
-            return this.getEnergyCapsule(wallet_address).pipe(
-              map((energyCapsuleResponse) => {
-                if (energyCapsuleResponse[0] && energyCapsuleResponse[1]) {
-                  nftList.push(energyCapsuleResponse[1][0]);
-                }
-
-                observer.next([true, nftList]);
-                observer.complete();
-              }),
-              catchError((error) => {
-                observer.next([false, error.status]);
-                observer.complete();
-                return of();
-              })
-            );
-          }),
-          catchError((error) => {
-            observer.next([false, error.status]);
-            observer.complete();
-            return of();
-          })
-        )
-        .subscribe();
+      this.httpClient.get<any>(
+        this.defaultAPIURLHost +
+        '/nfts/nftdashboard/' +
+        wallet_address,
+        httpOptions
+      ).subscribe({
+        next: (response) => {
+          let results = response;
+          if (results != null) {
+            // nft = results;
+          }
+          observer.next([true, results]);
+          observer.complete();
+        },
+        error: (error) => {
+          observer.next([false, error.status]);
+          observer.complete();
+        }
+      });
     });
   }
 
-  getEnergyCapsule(wallet_address:string): Observable<[boolean, NFTModel[]]> {
-    // const walletAddress = this.cookiesService.getCookie('wallet-address');
-    return this.httpClient
-      .get<any>(`${this.defaultAPIURLHost}/game/energy/${wallet_address}`, httpOptions)
-      .pipe(
-        map((energyCapsuleResponse) => {
-          const nftList: NFTModel[] = [];
-          if (energyCapsuleResponse != null) {
-            nftList.push({
-              nftTokenId: 0,
-              imagePath: energyCapsuleResponse.imagePath,
-              name: 'Energy Capsule',
-              description: 'An energy capsule that can be used to use characters.',
-              price: energyCapsuleResponse.currentEnergy,
-              isForSale: false,
-              isEquipped: true,
-              category: 'Capsule',
-              collection: 'AstroChibbi Conquest: Galactic Delight',
-              astroType: 'None',
-              rarity: 'None',
-              network: 'None',
-              blockchainId: 'None',
-              collectionId: '5FJ9VWpubQXeiLKGcVmo3zD627UAJCiW6bupSUATeyNXTH1m',
-              tokenOwner: wallet_address,
-            });
-          }
-          return [true, nftList] as [boolean, NFTModel[]];
-        }),
-        catchError((error) => of([false, error.status] as [boolean, NFTModel[]]))
-      );
-  }
+  // getUserNfts(wallet_address:string) {
+  //   return new Observable<[boolean, NFTModel[]]>((observer) => {
+  //     const nftList: NFTModel[] = [];
 
-  mapNftsData(data: any[]): NFTModel[] {
-    return data.map((item) => ({
-      nftTokenId: item.nftTokenId,
-      imagePath: item.imagePath,
-      name: item.name,
-      description: item.description,
-      price: item.price,
-      isForSale: item.isForSale,
-      isEquipped: item.isEquipped,
-      category: item.category,
-      collection: item.collection,
-      astroType: item.astroType,
-      rarity: item.rarity,
-      network: item.network,
-      blockchainId: item.blockchainId,
-      collectionId: item.collectionId,
-      tokenOwner: item.tokenOwner,
-    }));
-  }
+  //     this.httpClient
+  //       .get<any>(`${this.defaultAPIURLHost}/nfts/${wallet_address}`, httpOptions)
+  //       .pipe(
+  //         concatMap((nftsResponse) => {
+  //           if (nftsResponse != null && nftsResponse.length > 0) {
+  //             nftList.push(...this.mapNftsData(nftsResponse));
+  //           }
+
+  //           return this.getEnergyCapsule(wallet_address).pipe(
+  //             map((energyCapsuleResponse) => {
+  //               if (energyCapsuleResponse[0] && energyCapsuleResponse[1]) {
+  //                 nftList.push(energyCapsuleResponse[1][0]);
+  //               }
+
+  //               observer.next([true, nftList]);
+  //               observer.complete();
+  //             }),
+  //             catchError((error) => {
+  //               observer.next([false, error.status]);
+  //               observer.complete();
+  //               return of();
+  //             })
+  //           );
+  //         }),
+  //         catchError((error) => {
+  //           observer.next([false, error.status]);
+  //           observer.complete();
+  //           return of();
+  //         })
+  //       )
+  //       .subscribe();
+  //   });
+  // }
+
+  // getEnergyCapsule(wallet_address:string): Observable<[boolean, NFTModel[]]> {
+  //   // const walletAddress = this.cookiesService.getCookie('wallet-address');
+  //   return this.httpClient
+  //     .get<any>(`${this.defaultAPIURLHost}/game/energy/${wallet_address}`, httpOptions)
+  //     .pipe(
+  //       map((energyCapsuleResponse) => {
+  //         const nftList: NFTModel[] = [];
+  //         if (energyCapsuleResponse != null) {
+  //           nftList.push({
+  //             nftTokenId: 0,
+  //             imagePath: energyCapsuleResponse.imagePath,
+  //             name: 'Energy Capsule',
+  //             description: 'An energy capsule that can be used to use characters.',
+  //             price: energyCapsuleResponse.currentEnergy,
+  //             isForSale: false,
+  //             isEquipped: true,
+  //             category: 'Capsule',
+  //             collection: 'AstroChibbi Conquest: Galactic Delight',
+  //             astroType: 'None',
+  //             rarity: 'None',
+  //             network: 'None',
+  //             blockchainId: 'None',
+  //             collectionId: '5FJ9VWpubQXeiLKGcVmo3zD627UAJCiW6bupSUATeyNXTH1m',
+  //             tokenOwner: wallet_address,
+  //           });
+  //         }
+  //         return [true, nftList] as [boolean, NFTModel[]];
+  //       }),
+  //       catchError((error) => of([false, error.status] as [boolean, NFTModel[]]))
+  //     );
+  // }
+
+  // mapNftsData(data: any[]): NFTModel[] {
+  //   return data.map((item) => ({
+  //     nftTokenId: item.nftTokenId,
+  //     imagePath: item.imagePath,
+  //     name: item.name,
+  //     description: item.description,
+  //     price: item.price,
+  //     isForSale: item.isForSale,
+  //     isEquipped: item.isEquipped,
+  //     category: item.category,
+  //     collection: item.collection,
+  //     astroType: item.astroType,
+  //     rarity: item.rarity,
+  //     network: item.network,
+  //     blockchainId: item.blockchainId,
+  //     collectionId: item.collectionId,
+  //     tokenOwner: item.tokenOwner,
+  //   }));
+  // }
 
   async giveUserBalance(): Promise<Observable<[boolean, any]>> {
     console.log('giveUserBalance is called');
