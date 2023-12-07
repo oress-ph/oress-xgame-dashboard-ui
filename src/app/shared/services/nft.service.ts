@@ -190,20 +190,19 @@ export class NftService {
     });
   }
 
-  getUserNfts() {
+  getUserNfts(wallet_address:string) {
     return new Observable<[boolean, NFTModel[]]>((observer) => {
-      const walletAddress = this.cookiesService.getCookie('wallet-address');
       const nftList: NFTModel[] = [];
 
       this.httpClient
-        .get<any>(`${this.defaultAPIURLHost}/nfts/${walletAddress}`, httpOptions)
+        .get<any>(`${this.defaultAPIURLHost}/nfts/${wallet_address}`, httpOptions)
         .pipe(
           concatMap((nftsResponse) => {
             if (nftsResponse != null && nftsResponse.length > 0) {
               nftList.push(...this.mapNftsData(nftsResponse));
             }
 
-            return this.getEnergyCapsule().pipe(
+            return this.getEnergyCapsule(wallet_address).pipe(
               map((energyCapsuleResponse) => {
                 if (energyCapsuleResponse[0] && energyCapsuleResponse[1]) {
                   nftList.push(energyCapsuleResponse[1][0]);
@@ -229,10 +228,10 @@ export class NftService {
     });
   }
 
-  getEnergyCapsule(): Observable<[boolean, NFTModel[]]> {
-    const walletAddress = this.cookiesService.getCookie('wallet-address');
+  getEnergyCapsule(wallet_address:string): Observable<[boolean, NFTModel[]]> {
+    // const walletAddress = this.cookiesService.getCookie('wallet-address');
     return this.httpClient
-      .get<any>(`${this.defaultAPIURLHost}/game/energy/${walletAddress}`, httpOptions)
+      .get<any>(`${this.defaultAPIURLHost}/game/energy/${wallet_address}`, httpOptions)
       .pipe(
         map((energyCapsuleResponse) => {
           const nftList: NFTModel[] = [];
@@ -252,7 +251,7 @@ export class NftService {
               network: 'None',
               blockchainId: 'None',
               collectionId: '5FJ9VWpubQXeiLKGcVmo3zD627UAJCiW6bupSUATeyNXTH1m',
-              tokenOwner: walletAddress,
+              tokenOwner: wallet_address,
             });
           }
           return [true, nftList] as [boolean, NFTModel[]];

@@ -13,6 +13,7 @@ const Swal = require('sweetalert2')
   styleUrls: ['./wallet-list.component.scss']
 })
 export class WalletListComponent {
+  @Input() current_wallet: string | undefined;
   constructor(
     private polkadotService: PolkadotService,
     public appSettings: AppSettings,
@@ -42,10 +43,16 @@ export class WalletListComponent {
 
     if (data.length > 0) {
       for (let i = 0; i < data.length; i++) {
+        if (this.current_wallet && data[i].address === this.current_wallet) {
+          continue;
+        }
+
         this.web3Wallets.push({
           address: data[i].address,
+          address_display: data[i].address.substring(0, 5) + "..." + data[i].address.substring(data[i].address.length - 5, data[i].address.length),
           metaGenesisHash: data[i].metaGenesisHash,
           metaName: data[i].metaName,
+          tokenSymbol: "",
           metaSource: data[i].metaSource,
           type: data[i].type
         });
@@ -74,9 +81,11 @@ export class WalletListComponent {
     let generateKeypair: Promise<string> = this.polkadotService.generateKeypair(this.selectedWalletAccount.address);
     let keypair = (await generateKeypair);
     if (keypair != "") {
-      this.cookiesService.setCookie("wallet-meta-name",String(this.selectedWalletAccount.metaName))
-      this.cookiesService.setCookie("wallet-address",String(this.selectedWalletAccount.address))
-      this.cookiesService.setCookie("wallet-keypair",keypair)
+      // this.cookiesService.setCookie("wallet-meta-name",String(this.selectedWalletAccount.metaName))
+      // this.cookiesService.setCookie("wallet-address",String(this.selectedWalletAccount.address))
+      // this.cookiesService.setCookie("wallet-keypair",keypair)
+      this.selectedWalletAccount.tokenSymbol = await this.polkadotService.getChainTokens();
+      this.cookiesService.setCookieArray("wallet-info",this.selectedWalletAccount);
       // localStorage.setItem("wallet-meta-name", String(this.selectedWalletAccount.metaName));
       // localStorage.setItem("wallet-keypair", keypair);
 
@@ -96,6 +105,7 @@ export class WalletListComponent {
           window.location.href = '/portfolio';
         }
       })
+
       // if (this.isLogin == false) {
       //   await this.dexService.loadDexConfigs();
       //   this.appSettings.lumiAccountAddress = localStorage.getItem("lumi-account-address") || "";

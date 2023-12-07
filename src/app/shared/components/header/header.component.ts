@@ -5,6 +5,7 @@ import { LayoutService } from "../../services/layout.service";
 import SwiperCore, { Navigation, Pagination, Autoplay } from "swiper";
 import { CookiesService } from "../../services/cookies.service";
 import {WalletModel} from './../../model/wallet.model'
+import { PolkadotService } from "../../services/polkadot.service";
 
 SwiperCore.use([Navigation, Pagination, Autoplay]);
 @Component({
@@ -14,24 +15,20 @@ SwiperCore.use([Navigation, Pagination, Autoplay]);
 })
 export class HeaderComponent implements OnInit {
   public elem: any;
-  public wallet:WalletModel = new WalletModel();
+  public wallet:any = this.cookiesService.getCookieArray("wallet-info");
 
   constructor(
     public layout: LayoutService, 
     public navServices: NavService, 
     @Inject(DOCUMENT) private document: any,
-    private cookiesService: CookiesService
+    private cookiesService: CookiesService,
+    private polkadotService: PolkadotService
     ) {}
 
-  ngOnInit() {
-    this.getWallet();
+  async ngOnInit() {
     this.elem = document.documentElement;
   }
 
-  getWallet(){
-    this.wallet.wallet_keypair = this.cookiesService.getCookie('wallet-keypair');
-    this.wallet.wallet_meta_name = this.cookiesService.getCookie('wallet-meta-name');
-  }
 
   sidebarToggle() {
     this.navServices.collapseSidebar = !this.navServices.collapseSidebar;

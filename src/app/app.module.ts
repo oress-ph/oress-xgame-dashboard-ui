@@ -28,6 +28,7 @@ import { OverlayModule } from '@angular/cdk/overlay';
 import { AppSettings } from './app-settings';
 
 import { DatePipe } from '@angular/common';
+import { PolkadotService } from './shared/services/polkadot.service';
 
 
 export function HttpLoaderFactory(http: HttpClient) {
@@ -64,7 +65,7 @@ export function HttpLoaderFactory(http: HttpClient) {
   // for Core use:
     LoadingBarModule
   ],
-  providers: [ AdminGuard, WalletGuard ,CookieService,AppSettings,DatePipe],
+  providers: [ AdminGuard, WalletGuard ,CookieService,AppSettings,DatePipe,PolkadotService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

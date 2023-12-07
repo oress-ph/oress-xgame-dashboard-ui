@@ -40,7 +40,7 @@ export class AppSettings {
         },
     ]
 
-    public wallet_info: WalletInfoModel = new WalletInfoModel();
+    // public wallet_info: WalletInfoModel = new WalletInfoModel();
 
 
     public wsProviderEndpoint = 'wss://humidefi-dev.zeeve.net/para';
