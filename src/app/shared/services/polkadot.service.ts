@@ -270,10 +270,9 @@ export class PolkadotService {
     return convertedAmount;
   }
 
-  async checkBalance() {
+  async checkBalance(wallet_address) {
     let api = await this.api;
-    let wallet = this.cookiesService.getCookie('wallet-keypair');
-    const balance = await api.derive.balances.all(wallet);
+    const balance = await api.derive.balances.all(wallet_address);
     const available = balance.availableBalance;
     const chainDecimals = api.registry.chainDecimals[0];
     formatBalance.setDefaults({ decimals: chainDecimals, unit: 'NMS' });

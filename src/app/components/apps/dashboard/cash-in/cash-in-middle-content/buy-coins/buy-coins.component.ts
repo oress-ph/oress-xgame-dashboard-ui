@@ -70,7 +70,7 @@ export class BuyCoinsComponent {
   };
 
   async balanceTransfer() {
-    let data = await this.polkadotService.checkBalance();
+    let data = await this.polkadotService.checkBalance(this.cookiesService.getCookieArray("wallet-info").address);
     console.log(data);
     let chain = await this.polkadotService.getChainTokens();
     if(data && chain === 'NMS') {
