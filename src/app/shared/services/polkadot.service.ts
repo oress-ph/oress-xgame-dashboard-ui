@@ -288,4 +288,50 @@ export class PolkadotService {
     this.cookiesService.setCookie('tokenSymbol', tokens[0]);
     return tokens[0];
   }
+
+  async getAstroToken(): Promise<any> {
+    let wallet = this.cookiesService.getCookieArray("wallet-info");
+    const api = await this.api;
+    try {
+      const price = 1;
+      const accountInfo: any = await api.query.assets.account(
+        1,
+        wallet.address
+      );
+      const metadata: any = await api.query.assets.metadata(
+        1,
+      );
+      if (accountInfo.toHuman() != null) {
+        const { balance } = accountInfo.toJSON();
+        const { decimals, symbol } = metadata.toHuman();
+        formatBalance.setDefaults({ decimals: parseInt(decimals), unit: symbol });
+        formatBalance.getDefaults();
+        const bal = formatBalance(
+          balance,
+          {
+            forceUnit: symbol,
+            withUnit: false
+          }
+        );
+        const balances = parseFloat(bal).toFixed(4);
+        return {
+          balance: balances,
+          price: price,
+          symbol: symbol,
+          success: true
+        };
+      } else {
+        return {
+          balance: '0.0000',
+          price: price,
+          symbol: 'ASTRO',
+          success: false
+        };
+      };
+    } catch (error) {
+      throw String(error || 'balanceOfRepo error occurred.');
+    } finally {
+      await api.disconnect();
+    }
+  }
 }

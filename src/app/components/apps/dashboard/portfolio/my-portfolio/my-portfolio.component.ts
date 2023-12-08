@@ -74,15 +74,15 @@ export class MyPortfolioComponent implements OnInit {
 
   async ngOnInit(): Promise<void> {
     this.nmsTotal = await this.polkadotService.getBalance();
-    const result = await this.nftService.getAstroToken();
-    if (!result[0]) {
+    const result = await this.polkadotService.getAstroToken();
+    if (!result.success) {
       this.astro = {
         balance: "0.0000",
         price: "1",
         symbol: "ASTRO",
       };
     } else {
-      this.astro = result[1]
+      this.astro = result;
     }
     const defaultCurrency = { name: 'USD' };
     await this.handleSelectCurrency(defaultCurrency)

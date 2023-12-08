@@ -29,11 +29,11 @@ export class NftService {
   private collectionId = this.appSettings.collectionId;
 
   getAstroToken(): Promise<any> {
-    let params = this.cookiesService.getCookie('wallet-address');
+    let wallet = this.cookiesService.getCookieArray("wallet-info");
     return new Observable<[boolean, any]>((observer) => {
       this.httpClient.post<any>(
         this.defaultAPIURLHost + '/economy/balanceof/' +
-        params,
+        wallet.address,
         httpOptions
       ).subscribe({
         next: (response) => {
