@@ -330,8 +330,6 @@ export class PolkadotService {
       };
     } catch (error) {
       throw String(error || 'balanceOfRepo error occurred.');
-    } finally {
-      await api.disconnect();
     }
   }
 }
