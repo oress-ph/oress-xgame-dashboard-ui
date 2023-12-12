@@ -143,7 +143,7 @@
                 <img class="img-fluid" src="{{ product.imagePath }}" alt="" [style.max-height.px]="height" [style.min-height.px]="height"/>
                 <div class="product-hover">
                   <ul>
-                    <li placement="top" ngbTooltip="Details">
+                    <li placement="top" ngbTooltip="Details"  *ngIf="product.nftTokenId !== 0">
                       <a href="https://nft.xgame.live/marketplace/nft-details/{{product.nftTokenId}}"><i class="icon-eye"></i></a>
                     <!-- <li>
                       <a [routerLink]="['/ecommerce/cart']"><i class="icon-shopping-cart"></i></a>
@@ -151,7 +151,7 @@
                     <!-- <li placement="top" ngbTooltip="Buy">
                       <a href="marketplace/nft-details/{{product.nftTokenId}}"><i class="icon-wallet"></i></a> -->
                     </li>
-                    <li placement="top" ngbTooltip="Edit">
+                    <li placement="top" ngbTooltip="Edit"  *ngIf="product.nftTokenId !== 0">
                       <a (click)="editItem(listitem, product.nftTokenId)"><i class="icon-pencil"></i></a>
                     <!-- <li placement="top" ngbTooltip="Details">
                       <a href="marketplace/nft-details/{{product.nftTokenId}}"><i class="icon-eye"></i></a> -->
