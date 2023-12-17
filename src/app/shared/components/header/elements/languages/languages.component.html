@@ -6,9 +6,9 @@
     </div>
   </div>
   <div class="more_lang" [class.active]="navServices.language">
-    <div class="lang selected" data-value="en" (click)="changeLanguage(lang)" *ngFor="let lang of languages">
+    <div class="lang selected" data-value="en" (click)="changeLanguage(lang)" *ngFor="let lang of language_list">
       <i class="flag-icon flag-icon-{{lang.icon}}"></i>
-      <span class="lang-txt">{{appSettings.translate(lang.language_name)}}<span *ngIf="lang.type">({{lang.type}})</span></span>
+      <span class="lang-txt">{{lang.language_name}}<span *ngIf="lang.type">({{lang.type}})</span></span>
     </div>
   </div>
 </div>

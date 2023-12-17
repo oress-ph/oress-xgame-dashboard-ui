@@ -17,3 +17,33 @@
 .icon-lists div {
     line-height: 25px;
 }
+.legal-footer:hover{
+    background-color: var(--sidebar-border);
+}
+.flex-container {
+    display: flex;
+}
+.sub-header:hover{
+    cursor: unset;
+    background-color: unset;
+}
+.image-logo{
+    max-width: 70%;
+    @media screen and (max-width: 567px) {
+        max-width: 300px;
+    }
+}
+::ng-deep .footer{
+    position: relative;
+    flex-shrink: 0;
+    background: #071620 url('../../../../assets/images/home/section-background/footer-banner.webp') 50% 0/auto 100% no-repeat !important;
+    background-size: cover !important;
+    color: white !important;
+    padding: 0px;
+}
+.footer-content{
+    height: 100%;
+    @media screen and (max-width: 567.98px){
+        margin: 0px;
+    }
+}

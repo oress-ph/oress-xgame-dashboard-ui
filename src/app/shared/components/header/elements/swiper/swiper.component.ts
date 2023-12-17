@@ -7,7 +7,6 @@ import { AppSettings } from 'src/app/app-settings';
   styleUrls: ['./swiper.component.scss']
 })
 export class SwiperComponent {
-
   constructor(
     public appSettings:AppSettings
   ){

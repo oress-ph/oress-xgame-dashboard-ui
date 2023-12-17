@@ -15,7 +15,7 @@ export class LanguagesComponent implements OnInit {
 
   public language: boolean = false;
 
-  public languages: LanguageModel[] = [];
+  public language_list: LanguageModel[] = [];
   public selected_language: LanguageModel = new LanguageModel();
 
   constructor(
@@ -25,62 +25,25 @@ export class LanguagesComponent implements OnInit {
     private cookiesService: CookiesService,
     public appSettings: AppSettings
     ) { }
-  // 
 
-  get_langauge_list(){
-    this.languageService.get_language_json().subscribe(
-      (data) => {
-        this.languages = data;
-        this.fetchUserCountry();
-      },
-      (error) => {
-        console.error('Error fetching JSON data:', error);
-      }
-    );
-  }
 
   ngOnInit() {
-    this.get_langauge_list();
-    
+    // this.get_langauge_list();
+    this.languageService.languageList$.subscribe((data) => {
+      this.language_list = data;
+      // ... other code
+    });
+    this.languageService.selectedLanguage$.subscribe((data) => {
+      this.selected_language = data;
+      // ... other code
+    });
   }
 
 
-  changeLanguage(lang) {
-    this.selected_language = lang;
+  changeLanguage(language) {
+    this.languageService.setSelectedLanguage(language);
     this.cookiesService.setCookieArray('language',this.selected_language);
     window.location.reload();
-  }
-  fetchUserCountry() {
-    this.languageService.getUserCountry()
-      .then(country => {
-        if(this.cookiesService.getCookieArray('language')==null){
-          switch(country) {
-            case 'Japan':
-              this.selected_language = this.languages.find(lang => lang.language === 'Japanese');
-              break;
-            case 'China':
-              this.selected_language = this.languages.find(lang => lang.language === 'Chinese');
-              break;
-            case 'South Korea' || 'North Korea':
-              this.selected_language = this.languages.find(lang => lang.language === 'Korean');
-              break;
-            // Add other cases for different countries if needed
-            default:
-              // Set a default language if the country doesn't match any specific case
-              // For example:
-              this.selected_language = this.languages.find(lang => lang.language === 'English');
-              break;
-          }
-          this.cookiesService.setCookieArray('language', this.selected_language);
-          // window.location.reload();
-        }else{
-          this.selected_language = this.cookiesService.getCookieArray('language');
-        }
-      })
-      .catch(error => {
-        console.error('Error fetching user country:', error);
-        // Handle errors or set a default language
-      });
   }
   
 }

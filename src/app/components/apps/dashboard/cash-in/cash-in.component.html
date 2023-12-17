@@ -1,14 +1,17 @@
 <app-breadcrumb [title]="appSettings.translate('Cash-In')" [items]="[appSettings.translate('Dashboard')]" [active_item]="appSettings.translate('Cash-In')"></app-breadcrumb>
-<div class="container-fluid">
-    <div class="row">
-        <div class="col-xxl-3 col-xl-4 col-md-5 col-sm-12 box-col-4">
-            <!-- <app-dashboard-left-content></app-dashboard-left-content> -->
-            <app-my-portfolio></app-my-portfolio>
-            <app-cash-in-middle-content></app-cash-in-middle-content>
-          </div>
-          <!-- <div class="col-xxl-9 col-xl-8 col-md-7 col-sm-12 box-col-8e">
-            <app-cryptocurrency-prices></app-cryptocurrency-prices>
-          </div> -->
-          
-    </div>
+<div class="container-fluid section-justify-center">
+  <div class="col-xxl-8 col-xl-8 col-lg-10 col-md-10 col-sm-11 col-xs-12">
+    <div class="row" style="    padding-left: 0px;
+    padding-right: 0px;">
+      <div class="col-xxl-5 col-xl-5 col-md-5 col-sm-5 col-xs-12">
+        <!-- <app-dashboard-left-content></app-dashboard-left-content> -->
+        <app-my-portfolio></app-my-portfolio>
+        <app-cash-in-middle-content></app-cash-in-middle-content>
+      </div>
+        <!-- <div class="col-xxl-9 col-xl-8 col-md-7 col-sm-12 box-col-8e">
+          <app-cryptocurrency-prices></app-cryptocurrency-prices>
+        </div> -->
+        
+  </div>
+  </div>
 </div>

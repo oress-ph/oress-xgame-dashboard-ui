@@ -1,6 +1,12 @@
 .radio label {
     width: 94%;
 }
+.icon-size{
+    font-size: 20px !important;
+    @media screen and (max-width: 575.98px){
+        font-size: 18px !important;
+    }
+}
 .radio label::before {
     margin-top: 17.405px;
 }
