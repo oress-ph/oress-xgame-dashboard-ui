@@ -54,6 +54,7 @@
 .customizer-links > .nav {
     border-radius: 100px;
     background-color: var(--theme-deafult);
+    padding: 5px;
 }
 // .customizer-links.open {
 //     right: 335px;
@@ -80,6 +81,6 @@
 //     padding: unset;
 //     background: unset;
 // }
-// .customizer-links .nav-link i {
-//     font-size: 30px;
-// }
+.customizer-links .nav-link i {
+    font-size: 25px;
+}
