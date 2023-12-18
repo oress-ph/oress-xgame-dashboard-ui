@@ -308,7 +308,7 @@ export class NftService {
 
   async giveUserBalance(): Promise<Observable<[boolean, any]>> {
     console.log('giveUserBalance is called');
-    let from = this.cookiesService.getCookie('wallet-address');
+    let from = this.cookiesService.getCookieArray("wallet-info").address;
     let amount = (await this.polkadtoService.getChainDecimals(100)).toNumber();
     return new Observable<[boolean, any]>((observer) => {
       this.httpClient.post<any>(
