@@ -12,7 +12,7 @@ svg-icon {
  }
  .sidebar-main{
   display: flex;
-  justify-content: flex-end;
+  justify-content: center;
   @media screen and (max-width: 990px){
       display: unset;
       justify-content: unset;

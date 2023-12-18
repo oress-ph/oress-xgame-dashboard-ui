@@ -2,19 +2,18 @@
   <!-- <svg style="animation: unset;">
     <use href="assets/svg/icon-sprite.svg#globe"></use>
   </svg> -->
-  <i class="icon-world icon-size"></i>
+    <i class="icon-world icon-size"></i>
     <!-- <button class="btn btn-pill btn-primary" type="button">Connect Wallet</button> -->
 </div>
 
-
 <div class="onhover-show-div notification-dropdown">
-    <h6 class="f-18 mb-0 dropdown-title">Network</h6>
+    <h6 class="f-18 mb-0 dropdown-title">{{appSettings.translate("Network")}}</h6>
     <ul>
       <div class="radio radio-danger">
         <input class="form-check-input" id="radio11" type="radio" name="radio1" value="option1" disabled=""/>
         <label class="form-check-label" for="radio11">
           <li class="b-l-danger border-4">
-            <p>{{appSettings.translate('Evolution')}}<span class="font-danger">{{appSettings.translate('Offline')}}</span></p>
+            <p>{{appSettings.translate("Evolution")}}<span class="font-danger">{{appSettings.translate("Offline")}}</span></p>
           </li>
         </label>
       </div>
@@ -22,7 +21,7 @@
         <input class="form-check-input" id="radio22" type="radio" name="radio1" value="option1" disabled=""/>
         <label class="form-check-label" for="radio22">
           <li class="b-l-danger border-4">
-            <p>{{appSettings.translate('Genesis')}}<span class="font-danger">{{appSettings.translate('Offline')}}</span></p>
+            <p>{{appSettings.translate("Genesis")}}<span class="font-danger">{{appSettings.translate("Offline")}}</span></p>
           </li>
         </label>
       </div>
@@ -30,11 +29,11 @@
         <input class="form-check-input" id="radio33" type="radio" name="radio1" value="option1" checked=""/>
         <label class="form-check-label" for="radio33">
           <li class="b-l-success border-4">
-            <p>{{appSettings.translate('Development')}}<span class="font-success">{{appSettings.translate('Online')}}</span></p>
+            <p>{{appSettings.translate("Development")}}<span class="font-success">{{appSettings.translate("Online")}}</span></p>
           </li>
         </label>
       </div>
-      <li><a class="f-w-700" href="javascript:void(0)" (click)="openVerticallyCentered(content)">{{appSettings.translate('Connect Wallet')}}</a></li>
+      <li><a class="f-w-700" href="javascript:void(0)" (click)="openVerticallyCentered(content)">{{appSettings.translate("Connect Wallet")}}</a></li>
     </ul>
 </div>
 
@@ -44,8 +43,7 @@
     <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
   </div>
   <div class="modal-body">
-    <app-wallet-list style="    display: flex;
-    width: 100%;"></app-wallet-list>
+    <app-wallet-list></app-wallet-list>
   </div>
   <!-- <div class="modal-footer">
     <button type="button" class="btn btn-outline-dark" (click)="modal.close('Save click')">Save</button>

@@ -2,10 +2,9 @@
   <div class="nav flex-column nac-pills" id="c-pills-tab" role="tablist" aria-orientation="vertical">
     <a href="javascript:void(0)" class="nav-link" [ngClass]="{ 'active show': customizer == 'layout' }" (click)="Customizer('ChatBot')">
       <div class="settings">
-        <a href="javascript:void(0)"><img src="./../../../../../assets/images/home/logo/logo_support_dark.webp" class="img-fluid for-light" style="max-height: 50px; padding-right: 10px;opacity: 0.5;"/></a>
-        <a href="javascript:void(0)"><img src="./../../../../../assets/images/home/logo/logo_support_light.webp" class="img-fluid img-fluid for-dark" style="max-height: 50px;padding-right: 10px;opacity: 0.5;"/></a>
+        <div class="settings"><i class="icofont icofont-chat"></i></div>
       </div>
-      <span>{{appSettings.translate("How can I help you today?")}}</span>
+      <span>{{appSettings.translate("How can we help you?")}}</span>
     </a>
     <!-- <a href="javascript:void(0)" class="nav-link" [ngClass]="{ 'active show': customizer == 'option' }" id="c-pills-home-tab" (click)="Customizer('option')">
       <div class="settings"><i class="icon-settings"></i></div>

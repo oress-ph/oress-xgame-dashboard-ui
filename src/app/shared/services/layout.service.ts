@@ -9,7 +9,8 @@ export class LayoutService {
     settings: {
       layout: 'horizontal-wrapper',
       layout_type: "ltr",
-      layout_version: this.cookieService.getCookie("layout_version")!=null? this.cookieService.getCookie("layout_version") : 'dark-only',
+      // layout_version: this.cookieService.getCookie("layout_version")!=null? this.cookieService.getCookie("layout_version") : 'dark-only',
+      layout_version:  'dark-only',
       icon: "stroke-svg",
     },
     color: {

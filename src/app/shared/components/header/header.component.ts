@@ -1,11 +1,11 @@
-import { Component, OnInit, Inject } from "@angular/core";
+import { Component, OnInit, Inject,HostListener } from "@angular/core";
 import { DOCUMENT } from "@angular/common";
-import { NavService } from "../../services/nav.service";
+import { NavService,Menu } from "../../services/nav.service";
 import { LayoutService } from "../../services/layout.service";
 import SwiperCore, { Navigation, Pagination, Autoplay } from "swiper";
 import { CookiesService } from "../../services/cookies.service";
 import {WalletModel} from './../../model/wallet.model'
-import { PolkadotService } from "../../services/polkadot.service";
+import { AppSettings } from "src/app/app-settings";
 
 SwiperCore.use([Navigation, Pagination, Autoplay]);
 @Component({
@@ -16,27 +16,45 @@ SwiperCore.use([Navigation, Pagination, Autoplay]);
 export class HeaderComponent implements OnInit {
   public elem: any;
   public wallet:any = this.cookiesService.getCookieArray("wallet-info");
-
   constructor(
     public layout: LayoutService, 
     public navServices: NavService, 
     @Inject(DOCUMENT) private document: any,
     private cookiesService: CookiesService,
-    private polkadotService: PolkadotService
-    ) {}
+    public appSettings: AppSettings
+    ) {
+      this.navServices.social_media_items.subscribe(social_media_menuItems => {
+        this.social_media_menuItems = social_media_menuItems;
+      });
+    }
 
-  async ngOnInit() {
+  ngOnInit() {
     this.elem = document.documentElement;
   }
+  backgroundColor = ''; 
+  @HostListener('window:scroll', ['$event'])
+  onScroll() {
+    const scrollPosition = window.scrollY || document.documentElement.scrollTop;
 
-
+    // Set a threshold value based on your design
+    const threshold = 10;
+    const screenWidth = window.innerWidth;
+    // Check if the scroll position is beyond the threshold
+    if (scrollPosition > threshold && screenWidth > 991.98) {
+      this.backgroundColor = 'rgba(00,00,00, 0.8) !important'; // Set your desired background color with 50% opacity
+    } else if(screenWidth > 991.98){
+      this.backgroundColor = 'rgba(17, 8, 34, 0)';
+    }else{
+      this.backgroundColor = 'hsl(225, 14%, 17%)';
+    }
+  }
   sidebarToggle() {
     this.navServices.collapseSidebar = !this.navServices.collapseSidebar;
     this.navServices.megaMenu = false;
     this.navServices.levelMenu = false;
   }
 
-
+  public social_media_menuItems: Menu[];
 
   layoutToggle() {
     if ((this.layout.config.settings.layout_version == "dark-only")) {
@@ -49,8 +67,8 @@ export class HeaderComponent implements OnInit {
       this.layout.config.settings.layout_version="dark-only";
       this.cookiesService.setCookie("layout_version","dark-only")
     }
+    
   }
-
 
   searchToggle() {
     this.navServices.search = true;

@@ -18,15 +18,6 @@
     background: #60d7a9;
 }
 
-
-// .sidebar-main{
-//     display: flex;
-//     justify-content: flex-end;
-//     @media screen and (max-width: 990px){
-//         display: unset;
-//         justify-content: unset;
-//     }
-// }
 .logo-wrapper{
     display: flex;
     justify-content: space-between;
@@ -128,4 +119,49 @@ body.dark-only .page-wrapper .page-body-wrapper .page-body .card:not(.email-body
 }
 body.dark-only .input-group .btn-light {
     color: rgb(42,44,61)!important;
+}
+.section{
+    height: 100%;
+    padding: 100px 20px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-content: center;
+    color: white !important;
+    @media screen and (max-width: 768px){
+        // padding: 0px 20px;
+        padding: 40px !important;
+        height: 100%;
+    }
+}
+.section-center{
+    display: flex;
+    justify-content: center;
+}
+.section-align-center{
+    display: flex;
+    flex-wrap: wrap;
+    align-content: center;
+}
+.section-space-between{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+.section-flex-end{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-end;
+}
+.section-justify-center{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+body{
+    background: #110822 !important;
+}
+.page-body{
+    margin-top: 149px !important;
+    background: #110822 !important;
 }
