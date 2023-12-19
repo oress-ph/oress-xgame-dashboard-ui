@@ -187,6 +187,7 @@ export class NFTComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.grid3s();
     this.get_games_list();
     setTimeout(() => {
       feather.replace();
@@ -356,7 +357,7 @@ export class NFTComponent implements OnInit {
   }
 
   gridOpens() {
-
+    
     this.listView = false;
     this.gridOptions = true;
     this.listView = false;
@@ -372,10 +373,10 @@ export class NFTComponent implements OnInit {
     this.col_xl_2 = false;
     this.col_xl_12 = false;
     this.grid= '4s';
-
+    
   }
   listOpens() {
-
+    
     this.listView = true;
     this.gridOptions = false;
     this.listView = true;
@@ -388,7 +389,6 @@ export class NFTComponent implements OnInit {
     this.col_sm_4 = false;
     this.col_xl_6 = false;
     this.col_sm_6 = true;
-    console.log("list");
   }
   grid2s() {
     this.listView = false;
@@ -418,7 +418,7 @@ export class NFTComponent implements OnInit {
     this.col_sm_4 = true;
 
     this.col_xl_6 = false;
-    this.col_sm_6 = false;
+    this.col_sm_6 = true;
 
     this.col_xl_12 = false;
     this.height = 1200
@@ -442,13 +442,6 @@ export class NFTComponent implements OnInit {
     this.col_xl_12 = false;
 
     this.grid = '6s';
-    // if (window.innerWidth > 2000) {
-    //   console.log()
-    //   this.max_height = 400;
-    //   this.min_height = 400;
-    // } else {
-    //   this.max_height = 300;
-    // }
   }
 
   openProductDetail(content: any, item: any) {
@@ -466,24 +459,25 @@ export class NFTComponent implements OnInit {
     this.col_xl_4 = this.col_xl_4;
     this.col_sm_6 = this.col_sm_6;
     this.col_xl_6 = this.col_xl_6;
+    // this.grid3s();
 
     if(this.grid=='4s'){
       if (window.innerWidth > 2360) {
-        this.height = 800
+        this.height = 600
       }else if(window.innerWidth < 2360 && window.innerWidth > 2160){
-        this.height = 700
-      }else if(window.innerWidth < 2160 && window.innerWidth > 1960){
-        this.height = 600
-      }else if(window.innerWidth < 1960 && window.innerWidth > 1760){
         this.height = 500
+      }else if(window.innerWidth < 2160 && window.innerWidth > 1960){
+        this.height = 400
+      }else if(window.innerWidth < 1960 && window.innerWidth > 1760){
+        this.height = 300
       }else if(window.innerWidth < 1760 && window.innerWidth > 1560){
-        this.height = 450
+        this.height = 250
       }else if(window.innerWidth < 1560 && window.innerWidth > 1360){
-        this.height = 400
+        this.height = 200
       }else if(window.innerWidth < 1360 && window.innerWidth > 1200){
-        this.height = 400
+        this.height = 200
       }else if(window.innerWidth < 1200 && window.innerWidth > 1000){
-        this.height = 600
+        this.height = 400
       }else if(window.innerWidth < 1000 && window.innerWidth > 800){
         this.height = 500
       }else if(window.innerWidth < 800 && window.innerWidth > 600){
@@ -499,25 +493,25 @@ export class NFTComponent implements OnInit {
       }
     }else if(this.grid=='3s'){
       if (window.innerWidth >= 2360) {
-        this.height = 1200
-      }else if(window.innerWidth < 2360 && window.innerWidth > 2160){
-        this.height = 1100
-      }else if(window.innerWidth < 2160 && window.innerWidth > 1960){
-        this.height = 1000
-      }else if(window.innerWidth < 1960 && window.innerWidth > 1760){
-        this.height = 900
-      }else if(window.innerWidth < 1760 && window.innerWidth > 1560){
         this.height = 800
-      }else if(window.innerWidth < 1560 && window.innerWidth > 1360){
+      }else if(window.innerWidth < 2360 && window.innerWidth > 2160){
         this.height = 700
-      }else if(window.innerWidth < 1360 && window.innerWidth > 1200){
+      }else if(window.innerWidth < 2160 && window.innerWidth > 1960){
         this.height = 600
-      }else if(window.innerWidth < 1200 && window.innerWidth > 1000){
+      }else if(window.innerWidth < 1960 && window.innerWidth > 1760){
         this.height = 500
+      }else if(window.innerWidth < 1760 && window.innerWidth > 1560){
+        this.height = 400
+      }else if(window.innerWidth < 1560 && window.innerWidth > 1360){
+        this.height = 300
+      }else if(window.innerWidth < 1360 && window.innerWidth > 1200){
+        this.height = 350
+      }else if(window.innerWidth < 1200 && window.innerWidth > 1000){
+        this.height = 400
       }else if(window.innerWidth < 1000 && window.innerWidth > 800){
         this.height = 400
       }else if(window.innerWidth < 800 && window.innerWidth > 600){
-        this.height = 350
+        this.height = 400
       }else if(window.innerWidth < 600 && window.innerWidth > 575){
         this.height = 300
       }else if(window.innerWidth < 576 && window.innerWidth > 425){
