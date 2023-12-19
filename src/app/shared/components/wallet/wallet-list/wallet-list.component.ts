@@ -92,8 +92,8 @@ export class WalletListComponent {
       
       Swal.fire({
         icon: 'success',
-        title: 'Connected',
-        text: 'Wallet Connected successfully.',
+        title: this.appSettings.translate('Connected'),
+        text: this.appSettings.translate("Wallet Connected successfully")+'!',
         timer: 1500,
         timerProgressBar: true,
         willClose: () => {
