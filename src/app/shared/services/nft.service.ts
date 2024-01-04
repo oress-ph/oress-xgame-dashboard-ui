@@ -332,4 +332,32 @@ export class NftService {
       });
     });
   }
+
+  async tokenTransfer(
+    to: string,
+    value: number,
+    token: string
+  ): Promise<Observable<[boolean, any]>> {
+    let from = this.cookiesService.getCookieArray("wallet-info").address;
+    return new Observable<[boolean, any]>((observer) => {
+      this.httpClient.post<any>(
+        this.defaultAPIURLHost +
+        '/economy/transfer',
+        { to, from, value, token },
+        httpOptions
+      ).subscribe({
+        next: (response) => {
+          let results = response;
+          if (results != null) {
+          }
+          observer.next([true, results]);
+          observer.complete();
+        },
+        error: (error) => {
+          observer.next([false, error.status]);
+          observer.complete();
+        }
+      });
+    });
+  }
 }

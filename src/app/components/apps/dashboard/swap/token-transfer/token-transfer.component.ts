@@ -6,6 +6,7 @@ import { NftService } from "src/app/shared/services/nft.service";
 import { CookiesService } from "src/app/shared/services/cookies.service";
 import { PortfolioModel } from "src/app/shared/model/portfolio";
 import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
+import Swal from 'sweetalert2'
 
 @Component({
   selector: "app-token-transfer",
@@ -38,6 +39,28 @@ export class TokenTransferComponent implements OnInit {
   toggle(){
     this.show = !this.show
   }
+
+  async fireSwal(
+    success: boolean,
+    swalTitle: string,
+    swalText: string
+  ) {
+    const Toast = Swal.mixin({
+      toast: true,
+      position: 'top-end',
+      showConfirmButton: false,
+      timer: 3000,
+      didOpen: (toast) => {
+        toast.addEventListener('mouseenter', Swal.stopTimer)
+        toast.addEventListener('mouseleave', Swal.resumeTimer)
+      },
+    })
+    Toast.fire({
+      icon: success ? 'success' : 'error',
+      title: swalTitle,
+      text: swalText
+    })
+  };
 
   onWalletAddressChange(address: string) {
     this.isWalletValid = this.polkadotService.isAddressValid(address);
@@ -76,13 +99,39 @@ export class TokenTransferComponent implements OnInit {
       convertedBalance = parseFloat(selectedTokenBalance.balance);
     }
     const isValidAmount = !!this.amount && this.amount > 0 && this.amount < convertedBalance;
-    const isValidWalletAddress = !!this.walletAddress;
+    const ownAddress = this.cookiesService.getCookieArray("wallet-info").address;
+    const isValidWalletAddress = !!this.walletAddress && this.walletAddress != ownAddress;
 
     return isValidToken && isValidAmount && isValidWalletAddress;
   }
 
-  confirmTransfer() {
-    console.log('Transfer confirmed');
+  async confirmTransfer() {
+    Swal.fire({
+      title: 'Please Wait!',
+      allowOutsideClick: false,
+    });
+    Swal.showLoading();
+    (await this.nftService.tokenTransfer(
+      this.walletAddress,
+      this.amount,
+      this.selectedToken
+    )).subscribe({
+      next: async (response) => {
+        if (response[0]){
+          Swal.close();
+          this.fireSwal(
+            true,
+            'Tokens Transfer',
+            'Token was transferred successfully!'
+          );
+        }
+      },
+      error: (error) => {
+        Swal.close();
+        this.fireSwal(false, 'Error', error);
+        throw new Error('An error has occured: ' + error);
+      }
+    });
   }
 
   getTotalTokens(): string {
