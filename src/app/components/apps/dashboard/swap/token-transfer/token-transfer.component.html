@@ -1,0 +1,59 @@
+<div class="card portfolio-card">
+  <div class="card-header card-no-border">
+    <div class="header-top">
+      <h5 class="m-0">{{ appSettings.translate("Token Transfer") }}</h5>
+      <div class="card-header-right-icon"></div>
+    </div>
+  </div>
+  <div class="card-body p-t-0">
+    <div class="container px-md-5">
+
+      <div class="row">
+
+        <div class="col-md-6 mb-3">
+          <label for="tokenSelect">Select Token:</label>
+          <select id="tokenSelect" [(ngModel)]="selectedToken" class="form-control">
+            <option *ngFor="let token of tokens" [value]="token">{{ token }}</option>
+          </select>
+        </div>
+
+        <div class="col-md-6 mb-3">
+          <label>Total Tokens:</label>
+          <p>{{ getTotalTokens() }}</p>
+        </div>
+
+        <div class="col-md-12 mb-3">
+          <label for="amountInput">Amount:</label>
+          <input id="amountInput" [(ngModel)]="amount" (input)="onAmountInputChange()" type="number" class="form-control" />
+        </div>
+
+        <div class="col-md-12 mb-3">
+          <label for="walletAddressInput">Wallet Address:</label>
+          <input id="walletAddressInput" [(ngModel)]="walletAddress" (input)="onWalletAddressChange()" type="text" class="form-control" />
+        </div>
+
+        <div class="col-12 text-center">
+          <button class="btn btn-primary" (click)="open(transferConfirmationModal)">Transfer</button>
+        </div>
+
+        <ng-template #transferConfirmationModal let-modal>
+          <div class="modal-header">
+            <h4 class="modal-title" id="modal-basic-title">Confirm Transfer</h4>
+            <button type="button" class="close" (click)="modal.dismiss('cancel')">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <p>Are you sure you want to transfer {{ amount }} {{ selectedToken }} to:</p>
+            <p>{{ walletAddress }}</p>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" (click)="modal.dismiss('cancel')">Cancel</button>
+            <button type="button" class="btn btn-primary" (click)="modal.close('confirm')">Confirm</button>
+          </div>
+        </ng-template>
+
+      </div>
+    </div>
+  </div>
+</div>

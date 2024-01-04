@@ -10,13 +10,26 @@ import { SharedModule } from "../../../../shared/shared.module";
 import { GoogleMapsModule } from "@angular/google-maps";
 import { SwapComponent } from "./swap.component";
 import { SwapRoutingModule } from "./swap-routing.module";
+import { TokenTransferComponent } from "./token-transfer/token-transfer.component"
 
 @NgModule({
   declarations: [
-    SwapComponent
+    SwapComponent,
+    TokenTransferComponent,
     // BalanceProfileComponent
   ],
-  imports: [CommonModule, ChartistModule, CarouselModule, NgChartsModule, NgApexchartsModule, SharedModule, GoogleMapsModule, NgbModule, FormsModule, SwapRoutingModule],
+  imports: [
+    CommonModule,
+    ChartistModule,
+    CarouselModule,
+    NgChartsModule,
+    NgApexchartsModule,
+    SharedModule,
+    GoogleMapsModule,
+    NgbModule,
+    FormsModule,
+    SwapRoutingModule
+  ],
   exports: [
 
   ]
