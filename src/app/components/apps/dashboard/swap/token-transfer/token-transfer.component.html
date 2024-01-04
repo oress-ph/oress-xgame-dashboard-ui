@@ -13,7 +13,7 @@
         <div class="col-md-6 mb-3">
           <label for="tokenSelect">Select Token:</label>
           <select id="tokenSelect" [(ngModel)]="selectedToken" class="form-control">
-            <option *ngFor="let token of tokens" [value]="token">{{ token }}</option>
+            <option *ngFor="let token of tokens" [value]="token.symbol">{{ token.symbol }}</option>
           </select>
         </div>
 
@@ -24,24 +24,40 @@
 
         <div class="col-md-12 mb-3">
           <label for="amountInput">Amount:</label>
-          <input id="amountInput" [(ngModel)]="amount" (input)="onAmountInputChange()" type="number" class="form-control" />
+          <input
+            id="amountInput"
+            [(ngModel)]="amount"
+            (input)="onAmountInputChange()"
+            type="number"
+            class="form-control"
+            [class.is-warning]="amountWarning"
+            [disabled]="selectedToken === undefined"
+          />
+          <div *ngIf="amountWarning" class="text-warning">Amount exceeds the remaining balance.</div>
         </div>
 
         <div class="col-md-12 mb-3">
           <label for="walletAddressInput">Wallet Address:</label>
-          <input id="walletAddressInput" [(ngModel)]="walletAddress" (input)="onWalletAddressChange()" type="text" class="form-control" />
+          <input
+            id="walletAddressInput"
+            [(ngModel)]="walletAddress"
+            (input)="onWalletAddressChange(walletAddress)"
+            type="text"
+            class="form-control"
+            [class.is-invalid]="!isWalletValid"
+          />
         </div>
 
         <div class="col-12 text-center">
-          <button class="btn btn-primary" (click)="open(transferConfirmationModal)">Transfer</button>
+          <button class="btn btn-primary"
+            (click)="open(transferConfirmationModal)"
+            [disabled]="!isValidInput()">Transfer
+          </button>
         </div>
 
         <ng-template #transferConfirmationModal let-modal>
           <div class="modal-header">
             <h4 class="modal-title" id="modal-basic-title">Confirm Transfer</h4>
-            <button type="button" class="close" (click)="modal.dismiss('cancel')">
-              <span aria-hidden="true">&times;</span>
-            </button>
           </div>
           <div class="modal-body">
             <p>Are you sure you want to transfer {{ amount }} {{ selectedToken }} to:</p>

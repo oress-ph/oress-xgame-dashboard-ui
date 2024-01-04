@@ -5,7 +5,6 @@ import { PolkadotService } from "src/app/shared/services/polkadot.service";
 import { NftService } from "src/app/shared/services/nft.service";
 import { CookiesService } from "src/app/shared/services/cookies.service";
 import { PortfolioModel } from "src/app/shared/model/portfolio";
-import { PortfolioService } from "src/app/shared/services/portfolio.service";
 import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
@@ -23,26 +22,31 @@ export class TokenTransferComponent implements OnInit {
     private polkadotService: PolkadotService,
     private nftService: NftService,
     private cookiesService: CookiesService,
-    private portfolioService: PortfolioService,
     private modalService: NgbModal
   ) {
   }
 
-  tokens: string[] = ['Token1', 'Token2', 'Token3'];
+  balance: any[] = [];
+  tokens: any[] = [];
   selectedToken: string;
   amount: number;
   walletAddress: string;
   transferConfirmation: boolean = false;
+  isWalletValid: boolean = false;
+  amountWarning: boolean = false;
 
   toggle(){
     this.show = !this.show
   }
 
-  onWalletAddressChange() {
-    console.log('Wallet address changed:', this.walletAddress);
+  onWalletAddressChange(address: string) {
+    this.isWalletValid = this.polkadotService.isAddressValid(address);
   }
 
   onAmountInputChange() {
+    const selectedTokenBalance = this.tokens.find(token => token.symbol === this.selectedToken);
+    const convertedBalance = parseFloat(selectedTokenBalance.balance);
+    this.amountWarning = this.amount > convertedBalance;
     if (typeof this.amount === 'number') {
       this.amount = parseFloat(this.amount.toFixed(4));
     }
@@ -50,7 +54,10 @@ export class TokenTransferComponent implements OnInit {
 
   open(content: any) {
     if (this.isValidInput()) {
-      this.modalService.open(content, { ariaLabelledBy: 'modal-basic-title' }).result.then(
+      this.modalService.open(content, {
+        ariaLabelledBy: 'modal-basic-title',
+        centered: true
+      }).result.then(
         (result) => {
           if (result === 'confirm') {
             this.confirmTransfer();
@@ -62,8 +69,13 @@ export class TokenTransferComponent implements OnInit {
   }
 
   isValidInput(): boolean {
+    let convertedBalance: any;
     const isValidToken = !!this.selectedToken;
-    const isValidAmount = !!this.amount && this.amount > 0;
+    if (isValidToken) {
+      const selectedTokenBalance = this.tokens.find(token => token.symbol === this.selectedToken);
+      convertedBalance = parseFloat(selectedTokenBalance.balance);
+    }
+    const isValidAmount = !!this.amount && this.amount > 0 && this.amount < convertedBalance;
     const isValidWalletAddress = !!this.walletAddress;
 
     return isValidToken && isValidAmount && isValidWalletAddress;
@@ -73,16 +85,20 @@ export class TokenTransferComponent implements OnInit {
     console.log('Transfer confirmed');
   }
 
-  getTotalTokens(): number {
-    const tokenTotals = {
-      'Token1': 1000,
-      'Token2': 500,
-      'Token3': 750
-    };
-
-    return tokenTotals[this.selectedToken] || 0;
+  getTotalTokens(): string {
+    if (this.selectedToken) {
+      const selectedTokenObject = this.tokens.find(token => token.symbol === this.selectedToken);
+      if (selectedTokenObject) {
+        return selectedTokenObject.balance;
+      }
+    }
+    return '0.0000';
   }
 
   async ngOnInit(): Promise<void> {
+    const native: any = await this.polkadotService.getBalance();
+    const astro: any = await this.polkadotService.getAstroToken();
+    this.tokens.push({ balance: native, symbol: 'NMS' });
+    this.tokens.push({ balance: astro.balance, symbol: astro.symbol });
   }
 }
