@@ -1,4 +1,4 @@
-import { Component, Input, Output, OnInit, ViewChild } from "@angular/core";
+import { Component, Input, Output, OnInit, ViewChild, OnDestroy } from "@angular/core";
 import * as feather from "feather-icons";
 import { NgbModal } from "@ng-bootstrap/ng-bootstrap";
 import {NFTModel} from "src/app/shared/model/nft.model";
@@ -10,7 +10,7 @@ import { AppSettings } from "src/app/app-settings";
 import { PolkadotService } from "src/app/shared/services/polkadot.service";
 import { WalletInfoModel } from "src/app/shared/model/wallet-info.model";
 import { CookiesService } from "src/app/shared/services/cookies.service";
-import { Observable, firstValueFrom } from "rxjs";
+import { Observable, Subscription, firstValueFrom } from "rxjs";
 import Swal from 'sweetalert2'
 
 @Component({
@@ -18,7 +18,7 @@ import Swal from 'sweetalert2'
   templateUrl: "./nft.component.html",
   styleUrls: ["./nft.component.scss"],
 })
-export class NFTComponent implements OnInit {
+export class NFTComponent implements OnInit, OnDestroy {
   @Input("icon") public icon;
   @Output() productDetail: any;
 
@@ -77,6 +77,7 @@ export class NFTComponent implements OnInit {
   isForSale: boolean = false;
   nmsPrice: number = 10;
   grid: string = '4s';
+  private apiSubscription: Subscription;
 
   constructor(
     private modalService: NgbModal,
@@ -84,7 +85,7 @@ export class NFTComponent implements OnInit {
     private gameService: GamesService,
     public appSettings: AppSettings,
     private polkadotService: PolkadotService,
-    private cookiesService: CookiesService
+    private cookiesService: CookiesService,
   ) {
     this.tokenSymbol = this.cookiesService.getCookie('tokenSymbol');
   }
@@ -194,6 +195,12 @@ export class NFTComponent implements OnInit {
     });
   }
 
+  ngOnDestroy(): void {
+    if (this.apiSubscription) {
+      this.apiSubscription.unsubscribe();
+    }
+  }
+
   onPriceSelect(event: Event) {
     // Do something with the selected game
     this.filterNFT();
@@ -255,7 +262,7 @@ export class NFTComponent implements OnInit {
 
   async getNft() {
     this.loading = true;
-    (await this.nftService.getUserNfts(this.cookiesService.getCookieArray("wallet-info").address))
+    this.apiSubscription = (await this.nftService.getUserNfts(this.cookiesService.getCookieArray("wallet-info").address))
     .subscribe({
       next: (response) => {
         let data = response[1];
@@ -357,7 +364,7 @@ export class NFTComponent implements OnInit {
   }
 
   gridOpens() {
-    
+
     this.listView = false;
     this.gridOptions = true;
     this.listView = false;
@@ -373,10 +380,10 @@ export class NFTComponent implements OnInit {
     this.col_xl_2 = false;
     this.col_xl_12 = false;
     this.grid= '4s';
-    
+
   }
   listOpens() {
-    
+
     this.listView = true;
     this.gridOptions = false;
     this.listView = true;
