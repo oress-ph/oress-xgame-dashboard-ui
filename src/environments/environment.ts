@@ -13,13 +13,14 @@ export const environment = {
     NFTAPIURL: "https://astrochibbi-nft-api.xgame.live",
     ProductAPIURL: "https://product-page-api.xgame.live",
     LabelAPIURL: "https://labels-api.xgame.live",
-    ChatBotAPIURL: "https://chatbot-api.xgame.live/api/",
+    ChatBotAPIURL: "http://chatbot-api.xgame.live",
+    ChatBotAPIWSHost: "chatbot-api.xgame.live",
     BlogAPIURL: "https://blogs-api.xgame.live",
     ExchangeAPIRUL: "http://127.0.0.1:3002",
   
     // Social Media
     LinkedIn : 'https://www.linkedin.com/company/xgame-official/about/',
-    Facebook : 'https://www.facebook.com/official.xgames',
+    Facebook : 'https://www.facebook.com/xgameweb3gamingplatform',
     Youtube : 'https://www.youtube.com/@XGame-mb7cd',
     Discord : 'https://discord.gg/gGqhyzUjZN',
     Twitter : 'https://twitter.com/XGameOfficial_',
