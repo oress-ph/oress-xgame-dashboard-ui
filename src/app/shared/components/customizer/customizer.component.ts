@@ -41,7 +41,8 @@ export class CustomizerComponent implements OnInit {
   chat_text: string = '';
   chatBotModel: ChatBotModel[] = [];
   loading: boolean = false;
-
+  is_new_message : boolean = false;
+  receivedMessages: string[] = [];
   constructor(
     private modalService: NgbModal, 
     public layout: LayoutService,
@@ -63,28 +64,53 @@ export class CustomizerComponent implements OnInit {
   }
 
   ngOnInit() {
-  }
-    
-  chat_bot_send(){
-    this.loading = true;
-    this.chatBotService.send_chatbot(this.chat_text,this.cookiesService.getCookieArray('language').code).subscribe((response: any) => {
-      let result = response;
-      if (result[0] === true) {
-        this.chatBotModel.push({
-          send_text: this.chat_text,
-          send_date_time: this.datePipe.transform(new Date(), 'hh:mm a')
-        })
-        this.chatBotModel.push({
-          receive_text: result[1].message,
-          receive_date_time: this.datePipe.transform(new Date(), 'hh:mm a')
-        })
-        this.chat_text = '';
-      } else {
+    this.chatBotService.connect();
+    // this.chatBotService.messageReceived.subscribe((message: string) => {
+    //   console.log(message);      
+    //   if (this.is_new_message == true) {
+    //     this.chatBotModel.push({
+    //       text: "",
+    //       date: new Date(),
+    //       reply: false,
+    //     });
 
-      }
-      this.loading = false;
-    })
+    //     this.is_new_message = false;
+    //   }
+
+    //   let length = this.chatBotModel.length;
+    //   let last_chat = this.chatBotModel[length - 1];
+    //   last_chat.text += message;
+
+    //   this.loading = false;
+    // });
   }
+  public chat_bot_send() {
+    this.loading = true;
+    this.chatBotModel.push({
+      reply: true,
+      text: this.chat_text,
+      date: this.datePipe.transform(new Date(), 'hh:mm a')
+    });
+    this.postChatBot()
+  }
+  public postChatBot(){
+    this.is_new_message = true;
+    this.chatBotModel.push({
+      text: "",
+      date: this.datePipe.transform(new Date(), 'hh:mm a'),
+      reply: false,
+    });
+
+    this.chatBotService.sendMessage(this.chat_text, this.cookiesService.getCookieArray('language').code, (response) => {
+      const lastChatMessage = this.chatBotModel[this.chatBotModel.length - 1];
+      lastChatMessage.text += response; // Replace with the text you want
+      this.loading = false; // Set loading to false when response is received
+    }, () => {
+      this.loading = false; // Set loading to false in case of no response or error
+    });
+    
+  }
+
 
 
   // Open Modal

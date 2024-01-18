@@ -162,6 +162,9 @@ body{
     background: #110822 !important;
 }
 .page-body{
-    margin-top: 149px !important;
+    margin-top: 113px !important;
     background: #110822 !important;
+    @media screen and (max-width: 991.98px){
+        margin-top: 54px !important;
+    }
 }

@@ -18,22 +18,30 @@
       <i class="icofont-close icon-close" (click)="Customizer('')"></i>
       <h5 style="text-transform:unset">{{customizer=='ChatBot'? appSettings.translate("Chat With Us!") : ''}}</h5>
     </div>
-    <div class="customizer-body custom-scrollbar">
+    <div class="customizer-body custom-scrollbar" style="max-height: calc(100vh - 130px);">
       <div class="tab-pane fade" [ngClass]="{ 'active show': customizer == 'ChatBot' }" id="c-pills-layouts" role="tabpanel" style="display: flex; gap:1rem;flex-direction: column;" *ngFor="let chat of chatBotModel">
-        <div class="sender" *ngIf="chat.receive_text!=null">
-          <div class="">
-            {{chat.receive_date_time}}
+        <div class="sender m-b-20" *ngIf="chat.reply!=false">
+          <div class="" style="    text-align: right;">
+            {{chat.date}}
           </div>
-          <div class="">
-            {{chat.receive_text}}
+          <div class="" style="    text-align: right;
+          background-color: #EEEFF1;
+          padding: 10px;
+          border-radius: 10px;
+          margin-left: auto;
+          width: 75%;">
+            {{chat.text}}
           </div>
         </div>
-        <div class="receiver" *ngIf="chat.send_text!=null">
-          <div style="display: flex; justify-content: end;">
-            {{chat.send_date_time}}
+        <div class="receiver" *ngIf="chat.reply!=true&&chat.text!=''">
+          <div>
+            {{chat.date}}
           </div>
-          <div class="anim-typewriter">
-            {{chat.send_text}}
+          <div class="anim-typewriter" style="background: var(--theme-deafult);         padding: 10px;
+          border-radius: 10px;
+          margin-right: auto;
+          width: 80%;">
+            {{chat.text}}
           </div>
         </div>
 
