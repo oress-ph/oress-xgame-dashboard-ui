@@ -353,7 +353,7 @@ export class PolkadotService {
     const value = amount * 10 ** chainDecimals;
     const tx = await api.tx.balances.transfer(
       wallet_address,
-      amount
+      value
     ).signAsync(
       sender,
       { signer: injector.signer }
