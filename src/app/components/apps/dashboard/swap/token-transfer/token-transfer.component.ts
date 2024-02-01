@@ -111,27 +111,53 @@ export class TokenTransferComponent implements OnInit {
       allowOutsideClick: false,
     });
     Swal.showLoading();
-    (await this.nftService.tokenTransfer(
-      this.walletAddress,
-      this.amount,
-      this.selectedToken
-    )).subscribe({
-      next: async (response) => {
-        if (response[0]){
+    if (this.selectedToken == 'NMS') {
+      const result = await this.polkadotService.transferNativeToken(
+        this.walletAddress,
+        this.amount
+      );
+      (await this.polkadotService.submitTx(
+        result,
+      )).subscribe({
+        next: async (response) => {
+          if (response[0]){
+            Swal.close();
+            this.fireSwal(
+              true,
+              'Tokens Transfer',
+              'Token was transferred successfully!'
+            );
+          }
+        },
+        error: (error) => {
           Swal.close();
-          this.fireSwal(
-            true,
-            'Tokens Transfer',
-            'Token was transferred successfully!'
-          );
+          this.fireSwal(false, 'Error', error);
+          throw new Error('An error has occured: ' + error);
         }
-      },
-      error: (error) => {
-        Swal.close();
-        this.fireSwal(false, 'Error', error);
-        throw new Error('An error has occured: ' + error);
-      }
-    });
+      });
+    } else {
+      (await this.nftService.tokenTransfer(
+        this.walletAddress,
+        this.amount,
+        this.selectedToken
+      )).subscribe({
+        next: async (response) => {
+          if (response[0]){
+            Swal.close();
+            this.fireSwal(
+              true,
+              'Tokens Transfer',
+              'Token was transferred successfully!'
+            );
+          }
+        },
+        error: (error) => {
+          Swal.close();
+          this.fireSwal(false, 'Error', error);
+          throw new Error('An error has occured: ' + error);
+        }
+      });
+    }
   }
 
   getTotalTokens(): string {

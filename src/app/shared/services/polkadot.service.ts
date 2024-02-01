@@ -15,6 +15,14 @@ import { formatBalance, BN } from '@polkadot/util';
 import { ContractPromise } from '@polkadot/api-contract';
 import { NFTModel } from './../model/nft.model';
 import { BehaviorSubject } from 'rxjs';
+
+const httpOptions = {
+  headers: new HttpHeaders({
+    'Content-Type': 'application/json',
+    Authorization: 'Bearer ' + localStorage.getItem('token'),
+  }),
+};
+
 @Injectable({
   providedIn: 'root'
 })
@@ -35,6 +43,7 @@ export class PolkadotService {
   ) {
     this.getChainTokens();
   }
+  public defaultAPIURLHost: string = this.appSettings.APIURLHostNFT;
   wsProvider = new WsProvider(this.appSettings.wsProviderEndpoint);
   api = ApiPromise.create({ provider: this.wsProvider });
   keypair = this.appSettings.keypair;
@@ -331,5 +340,49 @@ export class PolkadotService {
     } catch (error) {
       throw String(error || 'balanceOfRepo error occurred.');
     }
+  }
+
+  public async transferNativeToken(
+    wallet_address: string,
+    amount: number
+  ): Promise<string> {
+    const api = await this.api;
+    const sender = this.cookiesService.getCookieArray("wallet-info").address;
+    const injector = await web3FromAddress(sender);
+    const chainDecimals = api.registry.chainDecimals[0];
+    const value = amount * 10 ** chainDecimals;
+    const tx = await api.tx.balances.transfer(
+      wallet_address,
+      amount
+    ).signAsync(
+      sender,
+      { signer: injector.signer }
+    );
+    const txString = JSON.stringify(tx);
+    const txn = JSON.parse(txString);
+    return txn;
+    // await this.submitTx(txString);
+  }
+
+  public async submitTx(tx: string): Promise<any> {
+    return new Observable<[boolean, any]>((observer) => {
+      this.httpClient.post<any>(
+        this.defaultAPIURLHost + '/nfts/signed',
+        { sign: tx },
+        httpOptions
+      ).subscribe({
+        next: (response) => {
+          let results = response;
+          if (results != null) {
+          }
+          observer.next([true, results]);
+          observer.complete();
+        },
+        error: (error) => {
+          observer.next([false, error.status]);
+          observer.complete();
+        }
+      });
+    });
   }
 }
