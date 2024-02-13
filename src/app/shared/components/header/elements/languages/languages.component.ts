@@ -5,6 +5,7 @@ import { LanguageModel } from 'src/app/shared/model/language.model';
 import { LanguageService } from 'src/app/shared/services/language.service';
 import { AppSettings } from 'src/app/app-settings';
 import { CookiesService } from 'src/app/shared/services/cookies.service';
+import { LabelService } from 'src/app/shared/services/label.service';
 
 @Component({
   selector: 'app-languages',
@@ -23,7 +24,8 @@ export class LanguagesComponent implements OnInit {
     private translate: TranslateService,
     private languageService: LanguageService,
     private cookiesService: CookiesService,
-    public appSettings: AppSettings
+    public appSettings: AppSettings,
+    private labelService: LabelService
     ) { }
 
 
@@ -43,7 +45,31 @@ export class LanguagesComponent implements OnInit {
   changeLanguage(language) {
     this.languageService.setSelectedLanguage(language);
     this.cookiesService.setCookieArray('language',this.selected_language);
-    window.location.reload();
+    this.translation();
+  }
+  async translation(): Promise<void> {
+    return new Promise<void>(async (resolve, reject) => {
+      if(this.cookiesService.getCookieArray('language')!=null){
+          var language = this.cookiesService.getCookieArray('language');
+
+          try {
+              const response = await this.labelService.label_all(language.language).toPromise();
+              let results = response;
+
+              if (results[0] == true) {
+                this.cookiesService.setCookieArray('translation',JSON.stringify(response[1]));
+                const translationJsonString = JSON.stringify(response[1]);
+                localStorage.setItem('translation',translationJsonString);
+                  resolve(); // Resolve the promise when translation is complete
+                  window.location.reload();
+              } else {
+                  reject(new Error('Translation failed'));
+              }
+          } catch (error) {
+              reject(error); // Reject with the error if there's an issue fetching translations
+          }
+      }
+    });
   }
   
 }

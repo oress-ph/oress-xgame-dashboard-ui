@@ -15,7 +15,7 @@ import { LanguageService } from './shared/services/language.service';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-  
+  is_loading: boolean = false;
   // For Progressbar
   loaders = this.loader.progress$.pipe(
     delay(1000),
@@ -43,7 +43,8 @@ export class AppComponent {
   async ngOnInit() {
     try {
       await this.get_language_list();
-      await this.getBalance();
+      this.cookiesService.getCookieArray("wallet-info")!=null? await this.getBalance() : "";
+      // await this.getBalance();
       // Other operations that depend on translations
     } catch (error) {
         console.error('Error loading translations:', error);
@@ -51,6 +52,7 @@ export class AppComponent {
     }
   }
   async get_language_list(): Promise<void> {
+    this.is_loading = true;
     this.languageService.get_language_json().subscribe(
       (data) => {
         // this.appSettings.language_list = data;
@@ -62,6 +64,43 @@ export class AppComponent {
       }
     );
   }
+
+  // fetchUserCountry(language_list:any) {
+  //   this.languageService.getUserCountry()
+  //     .then(country => {
+  //       if(this.cookiesService.getCookieArray('language')==null){
+  //         switch(country) {
+  //           case 'Japan':
+  //             this.languageService.setSelectedLanguage(language_list.find(lang => lang.language === 'Japanese'));
+  //             this.cookiesService.setCookieArray('language', language_list.find(lang => lang.language === 'Japanese'));
+  //             break;
+  //           case 'China':
+  //             this.languageService.setSelectedLanguage(language_list.find(lang => lang.language === 'Chinese Simplified'));
+  //             this.cookiesService.setCookieArray('language', language_list.find(lang => lang.language === 'Chinese Simplified'));
+  //             break;
+  //           case 'South Korea' || 'North Korea':
+  //             this.languageService.setSelectedLanguage(language_list.find(lang => lang.language === 'Korean'));
+  //             this.cookiesService.setCookieArray('language', language_list.find(lang => lang.language === 'Korean'));
+  //             break;
+  //           // Add other cases for different countries if needed
+  //           default:
+  //             // Set a default language if the country doesn't match any specific case
+  //             // For example:
+  //             this.languageService.setSelectedLanguage(language_list.find(lang => lang.language === 'English'));
+  //             this.cookiesService.setCookieArray('language', language_list.find(lang => lang.language === 'English'));
+  //             break;
+  //         }
+  //       }else{
+  //         this.languageService.setSelectedLanguage(this.cookiesService.getCookieArray('language'));
+  //         // this.appSettings.selected_language = this.cookiesService.getCookieArray('language');
+  //       }
+  //       this.translation()
+  //     })
+  //     .catch(error => {
+  //       console.error('Error fetching user country:', error);
+  //       // Handle errors or set a default language
+  //     });
+  // }
 
   fetchUserCountry(language_list:any) {
     this.languageService.getUserCountry()
@@ -90,7 +129,6 @@ export class AppComponent {
           }
         }else{
           this.languageService.setSelectedLanguage(this.cookiesService.getCookieArray('language'));
-          // this.appSettings.selected_language = this.cookiesService.getCookieArray('language');
         }
         this.translation()
       })
@@ -99,16 +137,40 @@ export class AppComponent {
         // Handle errors or set a default language
       });
   }
+  // async translation(): Promise<void> {
+  //   return new Promise<void>(async (resolve, reject) => {
+  //     if(this.cookiesService.getCookieArray('language')!=null){
+  //         var language = this.cookiesService.getCookieArray('language');
+
+  //         try {
+  //             const response = await this.labelService.label_all(language.language).toPromise();
+  //             let results = response;
+  //             if (results[0] == true) {
+  //                 this.appSettings.translation_list = response[1];
+  //                 resolve(); // Resolve the promise when translation is complete
+  //             } else {
+  //                 reject(new Error('Translation failed'));
+  //             }
+  //         } catch (error) {
+  //             reject(error); // Reject with the error if there's an issue fetching translations
+  //         }
+  //     }
+  //   });
+  // }
+
   async translation(): Promise<void> {
     return new Promise<void>(async (resolve, reject) => {
-      if(this.cookiesService.getCookieArray('language')!=null){
+      if(this.cookiesService.getCookieArray('language')!=null&&localStorage.getItem('translation')==null){
           var language = this.cookiesService.getCookieArray('language');
-
           try {
               const response = await this.labelService.label_all(language.language).toPromise();
               let results = response;
+
               if (results[0] == true) {
-                  this.appSettings.translation_list = response[1];
+                this.cookiesService.setCookieArray('translation',JSON.stringify(response[1]));
+                const translationJsonString = JSON.stringify(response[1]);
+                localStorage.setItem('translation',translationJsonString);
+                
                   resolve(); // Resolve the promise when translation is complete
               } else {
                   reject(new Error('Translation failed'));
@@ -116,9 +178,16 @@ export class AppComponent {
           } catch (error) {
               reject(error); // Reject with the error if there's an issue fetching translations
           }
+          console.log("test");
       }
+      setTimeout(() => {
+        console.log("test1");
+        this.is_loading = false;
+      }, 2000);
+      
     });
   }
+
   async getBalance(): Promise<void>{
     await this.polkadotService.getBalance().then(data => {
       this.polkadotService.setCurrentBalance(data);

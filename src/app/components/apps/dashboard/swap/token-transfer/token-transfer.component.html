@@ -1,7 +1,7 @@
 <div class="card portfolio-card">
   <div class="card-header card-no-border">
     <div class="header-top">
-      <h5 class="m-0">{{ appSettings.translate("Token Transfer") }}</h5>
+      <h5 class="m-0">{{ appSettings.translate("Token Transfer") | translate}}</h5>
       <div class="card-header-right-icon"></div>
     </div>
   </div>
@@ -11,19 +11,19 @@
       <div class="row">
 
         <div class="col-md-6 mb-3">
-          <label for="tokenSelect">Select Token:</label>
+          <label for="tokenSelect">{{"Select Token:" | translate}}</label>
           <select id="tokenSelect" [(ngModel)]="selectedToken" class="form-control">
             <option *ngFor="let token of tokens" [value]="token.symbol">{{ token.symbol }}</option>
           </select>
         </div>
 
         <div class="col-md-6 mb-3">
-          <label>Total Tokens:</label>
-          <p>{{ getTotalTokens() }}</p>
+          <label>{{"Total Tokens:" | translate}}</label>
+          <p>{{ getTotalTokens() | translate }}</p>
         </div>
 
         <div class="col-md-12 mb-3">
-          <label for="amountInput">Amount:</label>
+          <label for="amountInput">{{"Amount" | translate}}:</label>
           <input
             id="amountInput"
             [(ngModel)]="amount"
@@ -33,11 +33,11 @@
             [class.is-warning]="amountWarning"
             [disabled]="selectedToken === undefined"
           />
-          <div *ngIf="amountWarning" class="text-warning">Amount exceeds the remaining balance.</div>
+          <div *ngIf="amountWarning" class="text-warning">{{"Amount exceeds the remaining balance." | translate}}</div>
         </div>
 
         <div class="col-md-12 mb-3">
-          <label for="walletAddressInput">Wallet Address:</label>
+          <label for="walletAddressInput">{{"Wallet Address:" | translate}}</label>
           <input
             id="walletAddressInput"
             [(ngModel)]="walletAddress"
@@ -51,21 +51,21 @@
         <div class="col-12 text-center">
           <button class="btn btn-primary"
             (click)="open(transferConfirmationModal)"
-            [disabled]="!isValidInput()">Transfer
+            [disabled]="!isValidInput()">{{"Transfer" | translate}}
           </button>
         </div>
 
         <ng-template #transferConfirmationModal let-modal>
           <div class="modal-header">
-            <h4 class="modal-title" id="modal-basic-title">Confirm Transfer</h4>
+            <h4 class="modal-title" id="modal-basic-title">{{"Confirm Transfer" | translate}}</h4>
           </div>
           <div class="modal-body">
-            <p>Are you sure you want to transfer {{ amount }} {{ selectedToken }} to:</p>
-            <p>{{ walletAddress }}</p>
+            <p>{{"Are you sure you want to transfer" | translate}} {{ amount | translate }} {{ selectedToken | translate}} to:</p>
+            <p>{{ walletAddress | translate}}</p>
           </div>
           <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" (click)="modal.dismiss('cancel')">Cancel</button>
-            <button type="button" class="btn btn-primary" (click)="modal.close('confirm')">Confirm</button>
+            <button type="button" class="btn btn-secondary" (click)="modal.dismiss('cancel')">{{"Cancel" | translate}}</button>
+            <button type="button" class="btn btn-primary" (click)="modal.close('confirm')">{{"Confirm" | translate}}</button>
           </div>
         </ng-template>
 

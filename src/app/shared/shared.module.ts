@@ -47,6 +47,7 @@ import { GamesService } from "./services/games.service";
 import { NftService } from "./services/nft.service";
 import { LanguageService } from "./services/language.service";
 import { SafePipe } from './pipes/safe.pipe'
+import { TranslationPipe } from './pipes/translation.pipe'
 import { PolkadotService } from "./services/polkadot.service";
 import { LabelService } from './services/label.service';
 import { ChatBotService } from './services/chatbot.service';
@@ -83,6 +84,7 @@ import { WalletListComponent } from "./components/wallet/wallet-list/wallet-list
     NetworkComponent,
     MyPortfolioComponent,
     SafePipe,
+    TranslationPipe,
     WalletInfoComponent,
     WalletListComponent,
   ],
@@ -120,6 +122,7 @@ import { WalletListComponent } from "./components/wallet/wallet-list/wallet-list
     NgbdSortableHeader,
     SvgIconComponent,
     SwiperModule,
+    TranslationPipe,
     MyPortfolioComponent,
     WalletInfoComponent,
     WalletListComponent,

@@ -4,6 +4,9 @@ import { PolkadotService } from 'src/app/shared/services/polkadot.service';
 import { NftService } from 'src/app/shared/services/nft.service';
 import { AppSettings } from 'src/app/app-settings';
 import Swal from 'sweetalert2'
+import { LanguageService } from 'src/app/shared/services/language.service';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+
 
 @Component({
   selector: 'app-buy-coins',
@@ -16,6 +19,7 @@ export class BuyCoinsComponent {
     private polkadotService: PolkadotService,
     private nftService: NftService,
     private appSettings: AppSettings,
+    // private modalService: NgbModal
   ) {
     this.tokenSymbol = this.cookiesService.getCookie('tokenSymbol');
     this.inDevelopment = this.tokenSymbol === 'NMS' ? true : false;
@@ -23,6 +27,7 @@ export class BuyCoinsComponent {
   isLoading = false;
   inDevelopment = false;
   tokenSymbol: string;
+  
 
   async buyCoins() {
     //
@@ -35,17 +40,35 @@ export class BuyCoinsComponent {
       showCancelButton: true,
       confirmButtonText: 'Request',
       cancelButtonText: 'Cancel',
+      
     }).then((result) => {
       if (result.isConfirmed) {
         Swal.fire({
           title: 'Please Wait!',
           allowOutsideClick: false,
+          
         });
         Swal.showLoading();
         this.balanceTransfer();
       }
     });
   }
+
+  // open(content: any) {
+  //   if (this.buyCoins()) {
+  //     this.modalService.open(content, {
+  //       ariaLabelledBy: 'modal-basic-title',
+  //       centered: true
+  //     }).result.then(
+  //       (result) => {
+  //         if (result === 'confirm') {
+  //           this.requestTokens();
+  //         }
+  //       },
+  //       (reason) => {}
+  //     );
+  //   }
+  // }
 
   async fireSwal(
     success: boolean,
