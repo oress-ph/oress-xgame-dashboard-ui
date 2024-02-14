@@ -9,16 +9,16 @@
           </div>
           <div class="col-xl-9 col-md-8">
             <div style="display: flex; flex-direction: column;">
-              <h1>{{selected_product.game_name}}</h1>
+              <h1>{{selected_product.game_name | translate}}</h1>
               <div ngbDropdown class="d-inline-block">
                 <button class="btn btn-light dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" ngbDropdownToggle
                 style="background-color: var(--recent-chart-bg);">
-                  {{appSettings.translate("Change Collection")}}
+                  {{appSettings.translate("Change Collection" | translate)}}
                 </button>
                 <div class="dropdown-menu dropdown-size" ngbDropdownMenu style="z-index: 11 !important;">
                   <a class="dropdown-item" ngbDropdownItem href="javascript:void(0)" *ngFor="let product of product_list" (click)="handleItemClick(product)" style="opacity: unset;display: flex;">
                     <img class="m-r-20" [src]="product.game_logo" style="width: 80px; height: auto;">
-                    <span style="font-size: 18px;">{{product.game_name}}</span>
+                    <span style="font-size: 18px;">{{product.game_name | translate}}</span>
                   </a>
                 </div>
               </div>
@@ -63,12 +63,12 @@
           </div>
         </div>
         <div class="col-md-6 text-sm-end">
-          <span class="f-w-600 m-r-5">{{appSettings.translate("Showing")}} NFT {{nft_list_filter.length>0? 1 : 0 }} - {{nft_list_filter.length}} {{appSettings.translate("Of")}} {{nft_list_filter.length}} {{appSettings.translate("Results")}}</span>
+          <span class="f-w-600 m-r-5">{{appSettings.translate("Showing" | translate)}} NFT {{nft_list_filter.length>0? 1 : 0 }} - {{nft_list_filter.length}} {{appSettings.translate("Of" | translate)}} {{nft_list_filter.length}} {{appSettings.translate("Results" | translate)}}</span>
           <div class="select2-drpdwn-product select-options d-inline-block">
             <select class="form-control btn-square" name="select" [(ngModel)]="price_rank" (change)="onGameSelect($event)">
-              <option value="featured">{{appSettings.translate("Featured")}}</option>
-              <option value="lowest">{{appSettings.translate("Lowest Price")}}</option>
-              <option value="highest">{{appSettings.translate("Highest Price")}}</option>
+              <option value="featured">{{appSettings.translate("Featured" | translate)}}</option>
+              <option value="lowest">{{appSettings.translate("Lowest Prices" | translate)}}</option>
+              <option value="highest">{{appSettings.translate("Highest Prices" | translate)}}</option>
             </select>
           </div>
           <!-- <span class="f-w-600 m-l-5">{{appSettings.translate("Balance")}}: <span style="color: var(--theme-deafult);">{{appSettings.wallet_info.wallet_balance_nms}} {{ tokenSymbol }}</span></span> -->
@@ -81,7 +81,7 @@
               <div class="card">
                 <div class="card-header" (click)="sidebarToggle()">
                   <h6 class="mb-0 f-w-600">
-                    {{appSettings.translate("Filters")}}<span class="pull-right"><i class="fa fa-chevron-down toggle-data"></i></span>
+                    {{appSettings.translate("Filters" | translate)}}<span class="pull-right"><i class="fa fa-chevron-down toggle-data"></i></span>
                   </h6>
                 </div>
                 <div class="left-filter scroll-bar-wra[]">
@@ -95,24 +95,24 @@
                       </div>
                     </div> -->
                     <div class="product-filter">
-                      <h6 class="f-w-600">{{appSettings.translate("Category")}}</h6>
+                      <h6 class="f-w-600">{{appSettings.translate("Category" | translate)}}</h6>
                       <div class="checkbox-animated mt-0" *ngIf="category_list.length>0">
                         <label class="d-block" for="chk-ani{{category.id}}" *ngFor="let category of category_list">
-                          <input class="checkbox_animated" id="chk-ani{{category.id}}" type="checkbox" data-original-title="" title="" (change)="toggleCategorySelection(category)"/> {{appSettings.translate(category.category_name)}}
+                          <input class="checkbox_animated" id="chk-ani{{category.id}}" type="checkbox" data-original-title="" title="" (change)="toggleCategorySelection(category)"/> {{appSettings.translate(category.category_name | translate)}}
                         </label>
                       </div>
                     </div>
                     <div class="product-filter">
-                      <h6 class="f-w-600">{{appSettings.translate("Price")}}</h6>
+                      <h6 class="f-w-600">{{appSettings.translate("Price" | translate)}}</h6>
                       <div class="checkbox-animated mt-0">
                         <div class="input-group">
                           <input class="form-control" type="text" placeholder="0" data-bts-min="1" aria-label="0" [(ngModel)]="min_price" (input)="onPriceInputChange()"/>
-                          <span class="input-group-text">{{appSettings.translate("min")}}</span>
+                          <span class="input-group-text">{{appSettings.translate("min" | translate)}}</span>
                           <span class="m-2" style="display: flex;
                           flex-wrap: wrap;
-                          align-content: center;">{{appSettings.translate("To")}}</span>
+                          align-content: center;">{{appSettings.translate("To" | translate)}}</span>
                           <input class="form-control" type="text" placeholder="0" aria-label="0" [(ngModel)]="max_price" (input)="onPriceInputChange()"/>
-                          <span class="input-group-text">{{appSettings.translate("max")}}</span>
+                          <span class="input-group-text">{{appSettings.translate("max" | translate)}}</span>
                         </div>
                       </div>
                     </div>
@@ -124,7 +124,7 @@
         </div>
         <div class="col-xl-9 col-md-8">
           <form #searchForm="ngForm" (ngSubmit)="onSearch()">
-            <div class="form-group m-0"><input class="form-control" type="search" [placeholder]="appSettings.translate('Search')" [(ngModel)]="search_nft" data-original-title="" title="" /><i class="fa fa-search"></i></div>
+            <div class="form-group m-0"><input class="form-control" type="search" [placeholder]="appSettings.translate('Search' | translate)" [(ngModel)]="search_nft" data-original-title="" title="" /><i class="fa fa-search"></i></div>
           </form>
         </div>
       </div>
@@ -159,7 +159,7 @@
                     <ng-template #listitem let-modal>
                       <div class="modal-body custom-modal-content" style="padding: 0%; margin: 20px">
                         <div class="modal-header">
-                          <h4 class="modal-title text-center">{{ product.name }}</h4>
+                          <h4 class="modal-title text-center">{{ product.name | translate}}</h4>
                           <button type="button" class="btn-close" aria-label="Close"
                             (click)="modal.dismiss('Cross click')"></button>
                         </div>
@@ -167,7 +167,7 @@
                           <div class="row">
                             <div class="col">
                               <div class="mb-3">
-                                <label for="nftname">NFT Name</label>
+                                <label for="nftname">{{"NFT Name" | translate}}</label>
                                 <input id="nftname" type="text" class="form-control"
                                   [(ngModel)]="nft_detail.name"
                                   style="color: black !important;" [disabled]="isLoading">
@@ -199,7 +199,7 @@
                           <div class="row">
                             <div class="col">
                               <div class="mb-3">
-                                <label for="nftprice">Price</label>
+                                <label for="nftprice">{{"Price" | translate}}</label>
                                 <input id="nftprice" type="number"
                                   class="form-control"
                                   [(ngModel)]="nft_detail.price"
@@ -213,7 +213,7 @@
                           <div class="row">
                             <div class="col">
                               <div class="mb-3 mb-0">
-                                <label for="description">Description</label>
+                                <label for="description">{{"Description" | translate}}</label>
                                 <textarea id="description" rows="3"
                                   class="form-control" style="height: 150px;"
                                   [(ngModel)]="nft_detail.description"
@@ -259,11 +259,11 @@
                               <i class="fa fa-spin fa-spinner"></i>
                             </ng-container>
                             <ng-template #updateButton>
-                              Update
+                              {{"Update" | translate}}
                             </ng-template>
                           </button>
                           <button type="button" class="btn btn-outline-dark"
-                            (click)="modal.close('Close click')">Cancel</button>
+                            (click)="modal.close('Close click')">{{"Cancel" | translate}}</button>
                         </div>
                       </div>
                       <div class="loader-box" style="height: 75vh;" *ngIf="loading">

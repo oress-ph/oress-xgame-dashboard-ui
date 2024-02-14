@@ -22,33 +22,25 @@ export class LabelService {
 
   label_all(language:string): Observable<[boolean, any]> {
     return new Observable<[boolean, any]>((observer) => {
-
-      let language_list: LabelModel[] = [];
+      const selected_language = language=='Chinese Simplified'? 'Chinese' : language;
+      let label_list: LabelModel[] = [];
       let headers = {
         'Content-Type': 'application/json',
         'Authorization': 'Bearer ' + localStorage.getItem('token')
       };
 
       this.httpClient
-        .get<any>(this.defaultAPIURLHost + '/labels/public?language='+language, {headers})
+        .get<any>(this.defaultAPIURLHost + '/labels/public?language='+selected_language, {headers})
         .subscribe(
           (response) => {
             let results = response.labels;
             if (results != null) {
               var data = results;
               if (data.length > 0) {
-                for (let i = 0; i <= data.length - 1; i++) {
-                  language_list.push({
-                    id: data[i].id,
-                    label: data[i].label,
-                    displayed_label: data[i].displayed_label,
-                    language: data[i].language,
-                    flag_image_url: data[i].flag_image_url
-                  })
-                }
+                label_list = data;
               }
             }
-            observer.next([true, language_list]);
+            observer.next([true, label_list]);
             observer.complete();
           },
           (error) => {

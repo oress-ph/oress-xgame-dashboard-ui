@@ -8,7 +8,7 @@
   <div class="card-body pt-0">
     <form class="theme-form crypto-form">
       <div class="mb-3">
-        <label class="form-label f-light" for="money">Enter your Money</label>
+        <label class="form-label f-light" for="money">{{"Enter your Money" | translate}}</label>
         <div class="position-relative">
           <input class="form-control" id="money"
             type="number" placeholder="100"
@@ -22,7 +22,7 @@
         </div>
       </div>
       <div class="mb-3">
-        <label class="form-label f-light" for="coin">Enter Coins Converted to</label>
+        <label class="form-label f-light" for="coin">{{"Enter Coins Converted to" | translate}}</label>
         <div class="position-relative">
           <input class="form-control" id="coin"
             type="number" placeholder="0.0043"
@@ -34,7 +34,7 @@
       </div>
       <button class="btn btn-primary btn-hover-effect w-100"
         (click)="buyCoins()" type="button"
-        style="color: black !important;">Buy Coins</button>
+        style="color: black !important;">{{"Buy Coins" | translate}}</button>
     </form>
   </div>
 </div>
@@ -43,22 +43,39 @@
 <div class="card" *ngIf="inDevelopment">
   <div class="card-header card-no-border">
     <div class="header-top gap-1">
-      <h5>Request Native Token</h5>
+      <h5>{{"Request Native Token" | translate}}</h5>
     </div>
   </div>
   <div class="card-body pt-0">
     <form class="theme-form crypto-form">
-      <p><strong>Term:</strong></p>
+      <p><strong>{{"Term:" | translate}}</strong></p>
       <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-        No Monetary Value. You may accumulate
+        {{"No Monetary Value. You may accumulate
         “Testnet tokens,” up to 100 quantity
         through this facility, which are not,
         and shall never convert to or accrue
         to become mainnet tokens or any other
-        tokens or virtual assets.</p>
+        tokens or virtual assets." | translate}}</p>
       <button class="btn btn-primary btn-hover-effect w-100"
         (click)="requestTokens()" type="button"
-        style="color: black !important;">Request Tokens</button>
+        style="color: black !important;">{{"Request Tokens" | translate}}</button>
+
+        <!-- <button class="btn btn-primary btn-hover-effect w-100" 
+        (click)="open(transferConfirmationModal)" type="button" style="color: black !important;">{{"Request Tokens" | translate}}</button>
+
+        <ng-template #transferConfirmationModal let-modal>
+          <div class="modal-header">
+            <h4 class="modal-title" id="modal-basic-title">{{"Request Tokens" | translate}}</h4>
+          </div>
+          <div class="modal-body">
+            <p>{{"Get 100 NMS for free (Only on Devnet)!" | translate}}</p>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" (click)="modal.dismiss('cancel')">{{"Cancel" | translate}}</button>
+            <button type="button" class="btn btn-primary" (click)="modal.close('confirm')">{{"Request" | translate}}</button>
+          </div>
+        </ng-template> -->
+
     </form>
   </div>
 </div>

@@ -2,7 +2,7 @@
   <div *ngIf="!loading">
     <div class="card-header card-no-border">
       <div class="header-top">
-        <h5 class="m-0">{{appSettings.translate("Tokens")}}</h5>
+        <h5 class="m-0">{{appSettings.translate("Tokens" | translate)}}</h5>
         <div class="card-header-right-icon">
           <!-- <div class="dropdown">
             <button class="btn dropdown-toggle" type="button" (click)="toggle()">BTC</button>
@@ -25,10 +25,10 @@
             <table class="table">
               <thead>
                 <tr>
-                  <th class="f-light" style="min-width: 20px;">{{appSettings.translate("Tokens")}}</th>
-                  <th class="f-light">{{appSettings.translate("Quantity")}}</th>
-                  <th class="f-light">{{appSettings.translate("Price")}}</th>
-                  <th class="f-light text-end">{{appSettings.translate("Amount")}}</th>
+                  <th class="f-light" style="min-width: 20px;">{{appSettings.translate("Tokens" | translate)}}</th>
+                  <th class="f-light">{{appSettings.translate("Quantity" | translate)}}</th>
+                  <th class="f-light">{{appSettings.translate("Price" | translate)}}</th>
+                  <th class="f-light text-end">{{appSettings.translate("Amount" | translate)}}</th>
                 </tr>
               </thead>
               <tbody>

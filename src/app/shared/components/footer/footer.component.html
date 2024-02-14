@@ -23,10 +23,10 @@
           <div class="col-xxl-2 col-xl-2 col-lg-2 col-md-3 col-sm-3 col-xs-12 p-b-20">
             <div class="row icon-lists">
               <div class="col-sm-9 col-md-9 col-xl-9" class="sub-header p-b-20">
-                <b><span>{{appSettings.translate("Menu")}}</span></b>
+                <b><span>{{appSettings.translate("Menu" | translate)}}</span></b>
               </div>
               <div class="col-sm-9 col-md-9 col-xl-9" *ngFor="let menu of footer_menuItems; let first = first" (click)="redirectTo(menu.path)">
-                <span>{{appSettings.translate(menu.title)}}</span>
+                <span>{{appSettings.translate(menu.title | translate)}}</span>
               </div>
             </div>
           </div>
@@ -34,16 +34,16 @@
           <div class="col-xxl-2 col-xl-2 col-lg-2 col-md-3 col-sm-3 col-xs-12 p-b-20">
             <div class="row icon-lists">
               <div class="col-sm-9 col-md-9 col-xl-9" class="sub-header p-b-20">
-                <b><span>{{appSettings.translate("Legal")}}</span></b>
+                <b><span>{{appSettings.translate("Legal" | translate)}}</span></b>
               </div>
               <div class="col-sm-9 col-md-9 col-xl-9" *ngFor="let menu of legal_menuItems; let first = first" (click)="redirectTo(menu.path)">
-                <span>{{appSettings.translate(menu.title)}}</span>
+                <span>{{appSettings.translate(menu.title | translate)}}</span>
               </div>
             </div>
           </div>
           <!-- Join Our Community -->
             <div class="col-xxl-4 col-xl-4 col-lg-4 col-md-3 col-sm-3 col-xs-12" style="line-height: 25px;">
-              <b><span>{{appSettings.translate("Join our Community")}}</span></b>
+              <b><span>{{appSettings.translate("Join our Community" | translate)}}</span></b>
               <div style="display: flex; gap: 0.5rem;flex-wrap: wrap; padding-top: 20px;">
                 <a [href]="social_media.path" target="_blank" *ngFor="let social_media of social_media_menuItems">
                   <button class="btn btn-pill btn-light button-back-wallet" placement="top" ngbTooltip="{{appSettings.translate(social_media.title)}}" style="color: white !important;">
