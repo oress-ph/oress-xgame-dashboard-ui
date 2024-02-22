@@ -92,7 +92,6 @@ export class PolkadotService {
         }
       } while (accounts.length === 0);
       // const SENDER = this.appSettings.wallet_info.wallet_keypair;
-      // console.log(this.cookiesService.getCookieArray("wallet-info").address);
       const SENDER = this.cookiesService.getCookieArray("wallet-info").address;
       const injector = await web3FromAddress(SENDER);
       let api = await this.api;
@@ -214,7 +213,6 @@ export class PolkadotService {
         if (contractCookie !== null) {
 
           // let nfts = contract.query['getAllTokens'];
-          // console.log(nfts)
           contract.query['getAllTokens'](contractCookie, { gasLimit: gasLimit })
             .then(({ output }) => {
               const toks: any = output?.toJSON();

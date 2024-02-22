@@ -65,8 +65,7 @@ export class CustomizerComponent implements OnInit {
 
   ngOnInit() {
     this.chatBotService.connect();
-    // this.chatBotService.messageReceived.subscribe((message: string) => {
-    //   console.log(message);      
+    // this.chatBotService.messageReceived.subscribe((message: string) => { 
     //   if (this.is_new_message == true) {
     //     this.chatBotModel.push({
     //       text: "",
