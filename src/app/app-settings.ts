@@ -43,7 +43,7 @@ export class AppSettings {
     // public wallet_info: WalletInfoModel = new WalletInfoModel();
 
 
-    public wsProviderEndpoint = 'wss://humidefi-dev.zeeve.net/para';
+    public wsProviderEndpoint = 'wss://rpcnodea01.xode.net/n7yoxCmcIrCF6VziCcDmYTwL8R03a/rpc';
 
     public keypair = localStorage.getItem("wallet-keypair") || "";
     public collectionId = '5FJ9VWpubQXeiLKGcVmo3zD627UAJCiW6bupSUATeyNXTH1m';
@@ -64,8 +64,8 @@ export class AppSettings {
 
     public APIURLHostAuth = 'http://127.0.0.1:3001';
     public APIURLHostCollection = 'http://127.0.0.1:3002';
-    // public APIURLHostNFT = 'http://127.0.0.1:3003';
-    public APIURLHostNFT = 'https://astrochibbi-nft-api.xgame.live';
+    // public APIURLHostNFT = 'http://127.0.0.1:3004';
+    public APIURLHostNFT = 'https://wallet-api.xode.net/';
     public APIURLHostLanguage = 'http://127.0.0.1:3006';
     // public APIURLHostLabel = 'http://127.0.0.1:3004';
     public APIURLHostLabel = 'https://labels-api.xgame.live';

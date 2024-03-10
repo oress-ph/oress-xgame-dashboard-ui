@@ -59,13 +59,13 @@ export class GamesService {
 
       let blog_list: ProductModel[] = [];
       this.httpClient
-        .get<any>(this.appSettings.APIURLHostProduct + '/games/public?language='+language, httpOptions)
+        .get<any>(this.appSettings.APIURLHostProduct + '/games/public?language='+language + '&page=1&pageSize=10', httpOptions)
         .subscribe(
           (response) => {
-            let result = response;
+            let result:any = response;
             // let result_data = results['data'];
             if (result != null) {
-              var data = result['data'];
+              var data = result['data'].result;
               if (data.length > 0) {
                 for (let i = 0; i <= data.length - 1; i++) {
                   blog_list.push({
