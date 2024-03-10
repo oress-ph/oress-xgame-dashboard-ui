@@ -191,8 +191,6 @@ export class NftService {
   }
 
   async getUserNfts(wallet_address:string) {
-    console.log('getUserNfts is called');
-    console.log(wallet_address);
     return new Observable<[boolean, NFTModel[]]>((observer) => {
       this.httpClient.get<any>(
         this.defaultAPIURLHost +
@@ -307,7 +305,6 @@ export class NftService {
   // }
 
   async giveUserBalance(): Promise<Observable<[boolean, any]>> {
-    console.log('giveUserBalance is called');
     let from = this.cookiesService.getCookieArray("wallet-info").address;
     let amount = (await this.polkadtoService.getChainDecimals(100)).toNumber();
     return new Observable<[boolean, any]>((observer) => {

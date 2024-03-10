@@ -21,7 +21,6 @@ export class WalletComponent {
     private cookiesService: CookiesService,
   ){
     let wallet = this.cookiesService.getCookie("wallet-keypair");
-    console.log(wallet);
   }
   selectedWallet = "";
   web3Wallets: WalletAccountsModel[] = [];

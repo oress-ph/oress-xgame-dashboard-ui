@@ -183,7 +183,6 @@ export class NFTComponent implements OnInit, OnDestroy {
       this.nft_detail = JSON.parse(JSON.stringify(nft));
       this.modalService.open(content, { centered: true, size: 'md' });
     } else {
-      console.log('NFT not found');
     }
   }
 
@@ -236,7 +235,6 @@ export class NFTComponent implements OnInit, OnDestroy {
           this.selected_product = this.product_list[0];
           this.get_category_json();
         } else {
-          console.log("Error to get games");
         }
       }
     )

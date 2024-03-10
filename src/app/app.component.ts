@@ -178,10 +178,8 @@ export class AppComponent {
           } catch (error) {
               reject(error); // Reject with the error if there's an issue fetching translations
           }
-          console.log("test");
       }
       setTimeout(() => {
-        console.log("test1");
         this.is_loading = false;
       }, 2000);
       

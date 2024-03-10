@@ -26,7 +26,6 @@ export class ChatBotService {
   public connect(): void {
     this.socket = new WebSocket('wss://' + environment.ChatBotAPIWSHost + '/api/chatbot/connect');
     this.socket.onopen = () => {
-      console.log('WebSocket connection established.');
     };
 
     this.socket.onmessage = (event) => {
@@ -35,11 +34,9 @@ export class ChatBotService {
     };
 
     this.socket.onclose = (event) => {
-      console.log('WebSocket connection closed:', event);
     };
 
     this.socket.onerror = (error) => {
-      console.error('WebSocket error:', error);
     };
   }
   public sendMessage(text: string, language_code: string, successCallback: (response: any) => void, errorCallback?: () => void): void {
@@ -99,7 +96,6 @@ export class ChatBotService {
 
 
   public send_chatbot(text:string,language_code:string): Observable<[boolean, any]> {
-    console.log(this.defaultAPIURLHost);
     return new Observable<[boolean, any]>((observer) => {
       this.httpClient.post(this.defaultAPIURLHost + "/api/chatbot" , JSON.stringify({input_text:text,source_language:language_code}),httpOptions).subscribe(
         (response: any) => {

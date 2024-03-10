@@ -38,7 +38,6 @@ export class CookiesService {
         this.cookieService.set(name, encrypt_value, expirationDays, '/', sites.url, true, 'None');
       });
     }catch(e){
-      console.log(e);
     }
   }
   getCookie(name:string){
@@ -48,7 +47,6 @@ export class CookiesService {
       const decrypt_value = this.decryptData(cookie_value,secretKey);
       return decrypt_value;
     }catch(e){
-      console.log(e);
       return null
     }
   }
@@ -57,7 +55,6 @@ export class CookiesService {
     try{
       this.all_site.forEach((sites:any) => {
         const cookies = this.cookieService.getAll();
-        console.log(cookies);
         for (const cookieName in cookies) {
           if (cookies.hasOwnProperty(cookieName)) {
             if (!excludedCookies.includes(cookieName)) {
@@ -107,7 +104,6 @@ export class CookiesService {
         this.cookieService.set(name, encrypt_value, expirationDays, '/', sites.url, true, 'Strict');
       });
     }catch(e){
-      console.log(e);
     }
   }
 
@@ -133,10 +129,8 @@ export class CookiesService {
   isExpired(cookie: string) {
     const isCookieValid = this.cookieService.check(cookie);
     if (!isCookieValid) {
-      // console.log('The cookie has expired.');
       return true;
     } else {
-      // console.log('The cookie is still valid.');
       return false;
     }
   }
