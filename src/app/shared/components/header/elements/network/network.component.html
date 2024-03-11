@@ -1,19 +1,19 @@
-<div class="notification-box" (click)="toggleNotificationMobile()" style="display: flex; justify-content: center; align-items: center;">
-  <!-- <svg style="animation: unset;">
+<!-- <div class="notification-box" (click)="toggleNotificationMobile()" style="display: flex; justify-content: center; align-items: center;">
+  <svg style="animation: unset;">
     <use href="assets/svg/icon-sprite.svg#globe"></use>
-  </svg> -->
-    <i class="icon-world icon-size"></i>
-    <!-- <button class="btn btn-pill btn-primary" type="button">Connect Wallet</button> -->
+  </svg>
+    <i class="icon-world icon-size" style="color: #fdf7f7;"></i>
+    <button class="btn btn-pill btn-primary" type="button">Connect Wallet</button>
 </div>
 
 <div class="onhover-show-div notification-dropdown">
     <h6 class="f-18 mb-0 dropdown-title">{{appSettings.translate("Network")}}</h6>
     <ul>
-      <div class="radio radio-danger">
-        <input class="form-check-input" id="radio11" type="radio" name="radio1" value="option1" disabled=""/>
+      <div class="radio radio-success">
+        <input class="form-check-input" id="radio11" type="radio" name="radio1" value="option1" checked=""/>
         <label class="form-check-label" for="radio11">
-          <li class="b-l-danger border-4">
-            <p>{{appSettings.translate("Evolution")}}<span class="font-danger">{{appSettings.translate("Offline")}}</span></p>
+          <li class="b-l-success border-4">
+            <p>{{appSettings.translate("Evolution")}}<span class="font-success">{{appSettings.translate("Online")}}</span></p>
           </li>
         </label>
       </div>
@@ -39,13 +39,61 @@
 
 <ng-template #content let-modal>
   <div class="modal-header">
-    <!-- <h4 class="modal-title" id="modal-basic-title">Profile update</h4> -->
+    <h4 class="modal-title" id="modal-basic-title">Profile update</h4>
     <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
   </div>
   <div class="modal-body">
     <app-wallet-list></app-wallet-list>
   </div>
-  <!-- <div class="modal-footer">
+  <div class="modal-footer">
     <button type="button" class="btn btn-outline-dark" (click)="modal.close('Save click')">Save</button>
-  </div> -->
+  </div>
+</ng-template> -->
+
+<div class="notification-box" (click)="toggleNotificationMobile()" style="display: flex; justify-content: center; align-items: center;">
+  <!-- <svg style="animation: unset;">
+    <use href="assets/svg/icon-sprite.svg#globe"></use>
+  </svg> -->
+  <i class="icofont icofont-world" style="font-size: 20px;"></i>
+    <!-- <button class="btn btn-pill btn-primary" type="button">Connect Wallet</button> -->
+</div>
+
+<div class="onhover-show-div notification-dropdown">
+    <h6 class="f-18 mb-0 dropdown-title">{{'Network' | translate}}</h6>
+    <ul>
+      <div [ngClass]="{'radio': true, 'radio-danger': network.wsProviderEndpoint === '', 'radio-success': network.wsProviderEndpoint !== ''}" *ngFor="let network of networks">
+        <input
+          class="form-check-input"
+          [id]="'radio'+ network.id"
+          (click)="selectedNetwork(network)" 
+          type="radio" 
+          name="radio1" 
+          value="option1" 
+          [disabled]="network.wsProviderEndpoint === '' || (tokenSymbol && tokenSymbol === network.id)"
+          [checked]="connected_network.id === network.id"
+        />
+        <label class="form-check-label" [for]="'radio' + network.id">
+          <li [ngClass]="{'b-l-success': network.wsProviderEndpoint !== '', 'b-l-danger': network.wsProviderEndpoint === ''}" class="border-4">
+              <p>{{network.name | translate}}
+                  <span [ngClass]="{'font-danger': network.wsProviderEndpoint === '', 'font-success': network.wsProviderEndpoint !== ''}">
+                    {{(network.wsProviderEndpoint === '' ? 'Offline' : 'Online') | translate}}
+                  </span>
+              </p>
+          </li>
+        </label>
+      </div>
+    
+    
+
+      <li><a class="f-w-700" href="javascript:void(0)" (click)="openVerticallyCentered(content)">{{'Connect Wallet' | translate}}</a></li>
+    </ul>
+</div>
+
+<ng-template #content let-modal>
+  <div class="modal-header">
+    <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
+  </div>
+  <div class="modal-body">
+    <app-wallet-list></app-wallet-list>
+  </div>
 </ng-template>

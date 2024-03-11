@@ -1,27 +1,17 @@
+
 <div class="card portfolio-card">
   <div *ngIf="!loading">
     <div class="card-header card-no-border">
       <div class="header-top">
         <h5 class="m-0">{{appSettings.translate("Tokens" | translate)}}</h5>
         <div class="card-header-right-icon">
-          <!-- <div class="dropdown">
-            <button class="btn dropdown-toggle" type="button" (click)="toggle()">BTC</button>
-            <div class="dropdown-menu dropdown-menu-end" [class.show]="show"><a class="dropdown-item" href="#">ETH</a><a class="dropdown-item" href="#">USD</a><a class="dropdown-item" href="#">LTC</a></div>
-          </div> -->
         </div>
       </div>
     </div>
     <div class="card-body p-t-0">
       <div class="row">
-        <!-- <div class="col-xxl-12 col-xl-7 col-sm-6 box-col-6">
-          <div class="portfolio-chart-container">
-            <div id="portfolio-chart">
-              <apx-chart [series]="portfolio.series" [chart]="portfolio.chart" [plotOptions]="portfolio.plotOptions" [colors]="portfolio.colors" [labels]="portfolio.labels" [fill]="portfolio.fill" [responsive]="portfolio.responsive"></apx-chart>
-            </div>
-          </div>
-        </div> -->
         <div class="col-xxl-12 col-xl-12 col-sm-12 col-md-12 box-col-12">
-          <div class="portfolio-table recent-table table-responsive">
+          <div class="table-responsive">
             <table class="table">
               <thead>
                 <tr>
@@ -35,7 +25,6 @@
                 <tr *ngFor="let model of tokens">
                   <td>
                     <div class="d-flex align-items-center gap-2">
-                      <!-- Add your icon or other content here -->
                       <div>
                         <h6 class="f-14 mb-1">{{ model.token_symbol }}</h6>
                       </div>
@@ -52,7 +41,6 @@
       </div>
     </div>
   </div>
-
   <div class="table-container loader-box" style="height: 20vh;" *ngIf="loading">
     <div class="loader-30"></div>
   </div>
