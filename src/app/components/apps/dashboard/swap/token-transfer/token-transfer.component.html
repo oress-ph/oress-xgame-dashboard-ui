@@ -13,6 +13,7 @@
         <div class="col-md-6 mb-3">
           <label for="tokenSelect">{{"Select Token:" | translate}}</label>
           <select id="tokenSelect" [(ngModel)]="selectedToken" class="form-control">
+            <option *ngIf="loading" [value]="'loading'">Loading...</option>
             <option *ngFor="let token of tokens" [value]="token.symbol">{{ token.symbol }}</option>
           </select>
         </div>
