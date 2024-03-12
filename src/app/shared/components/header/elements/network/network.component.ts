@@ -2,6 +2,7 @@ import { Component,Input } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { AppSettings } from 'src/app/app-settings';
 import { WalletModel } from 'src/app/shared/model/wallet.model';
+import { NetworkModel } from 'src/app/shared/model/network.model';
 
 @Component({
   selector: 'app-network',
@@ -10,6 +11,9 @@ import { WalletModel } from 'src/app/shared/model/wallet.model';
 })
 export class NetworkComponent {
   @Input() wallet: WalletModel; // Define Input property
+  networks: NetworkModel[] = [];
+  connected_network: NetworkModel[] = [];
+  selected_networks: NetworkModel[] = [];
 
   constructor(
     private modalService: NgbModal,

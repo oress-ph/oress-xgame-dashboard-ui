@@ -43,6 +43,7 @@ export class MyPortfolioComponent implements OnInit {
   nmsTotal: any;
   astro: any;
   data: any;
+  tokens = [];
   currency = [
     {
       id: '1',
@@ -67,28 +68,24 @@ export class MyPortfolioComponent implements OnInit {
   ];
 
   async handleSelectCurrency(currency: any) {
-    this.portfolioModel = await this.portfolioService.setPortfolioDetails(currency, this.nmsTotal); //
-    await this.portfolioService.setAstro(currency, this.astro); //
+    const new_tokens = [];
+    const tokens = await this.portfolioService.setPortfolioDetails(currency, this.tokens, new_tokens);
+    this.portfolioService.setTokens(tokens);
+    this.selectedCurrency = currency;
     this.totalBalance = this.portfolioService.getTotalBalance();
   }
 
   async ngOnInit(): Promise<void> {
-    this.nmsTotal = await this.polkadotService.getBalance();
-    const result = await this.polkadotService.getAstroToken();
-    if (!result.success) {
-      this.astro = {
-        balance: "0.0000",
-        price: "1",
-        symbol: "ASTRO",
-      };
-    } else {
-      this.astro = result;
-    }
-    const defaultCurrency = { name: 'USD' };
-    await this.handleSelectCurrency(defaultCurrency)
-    this.polkadotService.getCurrentBalance().subscribe(data => {
-      this.nmsTotal = data;
-      this.handleSelectCurrency(defaultCurrency)
+    (await this.polkadotService.getAstroToken()).subscribe({
+      next: async (response: any) => {
+        if (response[0]){
+          this.tokens = response[1];
+          await this.handleSelectCurrency(this.selectedCurrency);
+        }
+      },
+      error: (error: any) => {
+        throw new Error('An error has occured: ' + error);
+      }
     });
   }
 }

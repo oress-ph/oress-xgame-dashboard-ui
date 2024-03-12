@@ -1,4 +1,4 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, OnInit, AfterContentInit } from "@angular/core";
 import * as chartData from "../../../../../shared/data/dashboard/crypto";
 import { AppSettings } from "src/app/app-settings";
 import { PolkadotService } from "src/app/shared/services/polkadot.service";
@@ -12,10 +12,9 @@ import { PortfolioService } from "src/app/shared/services/portfolio.service";
   templateUrl: "./token-profile.component.html",
   styleUrls: ["./token-profile.component.scss"],
 })
-export class TokenProfileComponent implements OnInit {
+export class TokenProfileComponent implements OnInit, AfterContentInit {
   public portfolio = chartData.portfolio;
   public show: boolean = false;
-  portfolioModel: PortfolioModel = new PortfolioModel();
 
   constructor(
     public appSettings: AppSettings,
@@ -25,7 +24,8 @@ export class TokenProfileComponent implements OnInit {
     private portfolioService: PortfolioService
   ) {
     this.tokenSymbol = this.cookiesService.getCookie('tokenSymbol');
-    this.portfolioModel = this.portfolioService.getPortfolioDetails();
+  }
+  ngAfterContentInit(): void {
   }
 
   astroProperties: any;
@@ -40,10 +40,12 @@ export class TokenProfileComponent implements OnInit {
   }
 
   async ngOnInit(): Promise<void> {
-    this.astroProperties = await this.portfolioService.getAstro();
+    this.portfolioService.tokens$.subscribe(tokens => {
+      this.tokens = tokens;
+      if (tokens.length > 0) {
+        this.loading = false;
+      }
+    });
     await this.polkadotService.getChainTokens();
-    this.tokens.push(this.portfolioModel);
-    this.tokens.push(this.astroProperties);
-    this.loading = false;
   }
 }

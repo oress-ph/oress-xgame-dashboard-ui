@@ -4,6 +4,39 @@
 
 export const environment = {
   production: true,
+
+  network: [
+    {
+      networks: [
+        { 
+          id: 1,
+          name: 'Evolution',
+          wsProviderEndpoint: 'wss://rpcnodea01.xode.net/n7yoxCmcIrCF6VziCcDmYTwL8R03a/rpc',
+          net_name: 'MAINNET'
+        }
+      ]
+    },
+    {
+      networks: [
+        { 
+          id: 2,
+          name: 'Genesis',
+          wsProviderEndpoint: '' ,
+          net_name: 'TESTNET'
+        }
+      ]
+    },
+    // {
+    //   networks: [
+    //     {
+    //       id: 3,
+    //       name: 'Development',p
+    //       wsProviderEndpoint:'wss://humidefi-dev.zeeve.net/para',
+    //       net_name: 'DEVNET'
+    //     }
+    //   ]
+    // }
+  ],
     // Website URL
     HomePageURL: 'https://xgame.live/',
     MarketplaceURL: 'https://nft.xgame.live/',

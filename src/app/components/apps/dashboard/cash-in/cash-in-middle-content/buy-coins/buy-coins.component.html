@@ -33,7 +33,7 @@
         </div>
       </div>
       <button class="btn btn-primary btn-hover-effect w-100"
-        (click)="buyCoins()" type="button"
+        (click)="buyCoins()" type="button" disabled=""
         style="color: black !important;">{{"Buy Coins" | translate}}</button>
     </form>
   </div>
@@ -60,7 +60,7 @@
         (click)="requestTokens()" type="button"
         style="color: black !important;">{{"Request Tokens" | translate}}</button>
 
-        <!-- <button class="btn btn-primary btn-hover-effect w-100" 
+        <!-- <button class="btn btn-primary btn-hover-effect w-100"
         (click)="open(transferConfirmationModal)" type="button" style="color: black !important;">{{"Request Tokens" | translate}}</button>
 
         <ng-template #transferConfirmationModal let-modal>
