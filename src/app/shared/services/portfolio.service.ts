@@ -3,63 +3,59 @@ import { PortfolioModel } from './../model/portfolio';
 import { PolkadotService } from './polkadot.service';
 import { CookiesService } from './cookies.service';
 import { HttpClient } from '@angular/common/http';
+import { BehaviorSubject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class PortfolioService {
+  private tokensSubject = new BehaviorSubject<any[]>([]);
+  tokens$ = this.tokensSubject.asObservable();
 
   constructor(
     private polkadotService: PolkadotService,
     private cookiesService: CookiesService,
     private http: HttpClient,
   ) {
-    this.portfolioModel.conversion_rate = 10; //
     this.getUsdRate();
    }
 
-  astros: any = {};
   selectedCurrency: string = 'USD';
   data: any;
-  usdRate: number = 10;
   portfolioModel: PortfolioModel = new PortfolioModel();
+  tokens = [];
   totalBalance: number = 0;
 
-  getPortfolioDetails() {
-    return this.portfolioModel;
+  getTokens() {
+    return this.tokensSubject.value;
   }
 
-  getAstro() {
-    return this.astros;
+  setTokens(tokens: any) {
+    this.tokensSubject.next(tokens);
   }
 
   getTotalBalance() {
     return this.totalBalance;
   }
 
-  async setPortfolioDetails(currency: any, nmsTotal: any) {
-    if (nmsTotal != undefined) {
-      const rate = this.data.rates[currency.name];
-      this.portfolioModel.currency = currency.name
-      this.portfolioModel.token_quantity = parseFloat(nmsTotal);
-      this.portfolioModel.conversion_rate = this.usdRate * rate;
-      const amount = parseFloat(nmsTotal) * (rate * 10);
-      this.portfolioModel.amount = amount;
-      this.totalBalance = amount;
-      return this.portfolioModel;
+  async setPortfolioDetails(currency: any, token: any, new_: any) {
+    this.totalBalance = 0;
+    this.tokens = new_;
+    if (token != undefined) {
+      for (let i = 0; i < token.length; i++) {
+        let new_token = new PortfolioModel();
+        const rate = this.data.rates[currency];
+        new_token.currency = currency;
+        new_token.token_quantity = parseFloat(token[i].balance);
+        new_token.conversion_rate = token[i].price * rate;
+        new_token.token_symbol = token[i].symbol;
+        const amount = parseFloat(token[i].balance) * (rate * parseInt(token[i].price));
+        new_token.amount = amount;
+        this.totalBalance += amount;
+        this.tokens.push(new_token);
+      }
     }
-  }
-
-  async setAstro(currency: any, astro: any) {
-    const rate = this.data.rates[currency.name];
-    this.astros.currency = currency.name;
-    this.astros.token_quantity = parseFloat(astro.balance);
-    this.astros.conversion_rate = astro.price * rate;
-    const amount = parseFloat(astro.balance) * (rate * 1);
-    this.astros.amount = amount;
-    this.astros.token_symbol = astro.symbol;
-    this.totalBalance += amount;
-    return this.astros;
+    return this.tokens;
   }
 
   async getUsdRate() {

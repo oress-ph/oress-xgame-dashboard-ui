@@ -13,11 +13,11 @@
               data-bs-toggle="dropdown" aria-haspopup="true"
               aria-expanded="false" ngbDropdownToggle
               style="background-color: transparent !important;">
-              <div class="selectedCurrency">{{ portfolioModel.currency }}</div>
+              <div class="selectedCurrency">{{ selectedCurrency }}</div>
             </button>
             <div class="dropdown-menu dropdown-size" ngbDropdownMenu style="z-index: 11 !important;">
               <a class="dropdown-item" ngbDropdownItem href="javascript:void(0)"
-                *ngFor="let curr of currency" (click)="handleSelectCurrency(curr)"
+                *ngFor="let curr of currency" (click)="handleSelectCurrency(curr.name)"
                 style="opacity: unset; display: flex;">
                 <img class="m-r-20" [src]="curr.flag_icon" style="width: 40px; height: auto;">
                 <span>{{ curr.name }}</span>
