@@ -17,8 +17,8 @@
                 <tr>
                   <th class="f-light" style="min-width: 20px;">{{appSettings.translate("Tokens" | translate)}}</th>
                   <th class="f-light">{{appSettings.translate("Quantity" | translate)}}</th>
-                  <th class="f-light">{{appSettings.translate("Price" | translate)}}</th>
-                  <th class="f-light text-end">{{appSettings.translate("Amount" | translate)}}</th>
+                  <!-- <th class="f-light">{{appSettings.translate("Price" | translate)}}</th>
+                  <th class="f-light text-end">{{appSettings.translate("Amount" | translate)}}</th> -->
                 </tr>
               </thead>
               <tbody>
@@ -31,8 +31,8 @@
                     </div>
                   </td>
                   <td>{{ model.token_quantity | number:'1.4' }}</td>
-                  <td>{{ model.conversion_rate | number:'1.2-2' }} {{ model.currency }}</td>
-                  <td class="text-end">{{ model.amount | number:'1.2-2' }} {{ model.currency }}</td>
+                  <!-- <td>{{ model.conversion_rate | number:'1.2-2' }} {{ model.currency }}</td>
+                  <td class="text-end">{{ model.amount | number:'1.2-2' }} {{ model.currency }}</td> -->
                 </tr>
               </tbody>
             </table>
