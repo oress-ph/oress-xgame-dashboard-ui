@@ -185,77 +185,6 @@ export class PolkadotService {
     return hexPair.address;
   }
 
-  async get_all_nfts(): Promise<NFTModel[]> {
-
-    return new Promise<NFTModel[]>(async (resolve, reject) => {
-
-      const contractCookie = this.cookiesService.getCookie('smart_contract');
-
-      this.api.then(async (api) => {
-
-        const contract = await this.getContract(api, this.abi, contractCookie);
-
-        const gasLimit = api.registry.createType(
-          'WeightV2',
-          api.consts.system.blockWeights['maxBlock']
-        );
-
-        if (!contract) {
-          reject(new Error('Contract not initialized.'));
-          return;
-        }
-
-        if (!contract.query || !contract.query['getAllTokens']) {
-          reject(new Error('getAllTokens function not found in the contract ABI.'));
-          return;
-        }
-
-        if (contractCookie !== null) {
-
-          // let nfts = contract.query['getAllTokens'];
-          contract.query['getAllTokens'](contractCookie, { gasLimit: gasLimit })
-            .then(({ output }) => {
-              const toks: any = output?.toJSON();
-
-              if (toks.ok.length !== 0) {
-                const nftModel: NFTModel[] = [];
-
-                for (const tokenData of toks.ok) {
-                  const token: NFTModel = {
-                    nftTokenId: tokenData.nftTokenId,
-                    imagePath: tokenData.imagePath,
-                    name: tokenData.name,
-                    description: tokenData.description,
-                    price: tokenData.price,
-                    isForSale: tokenData.isForSale,
-                    isEquipped: tokenData.isEquipped,
-                    category: tokenData.category,
-                    collection: tokenData.collection,
-                    astroType: tokenData.astroType,
-                    rarity: tokenData.rarity,
-                    network: tokenData.network,
-                    blockchainId: tokenData.blockchainId,
-                    collectionId: tokenData.collectionId,
-                    tokenOwner: tokenData.tokenOwner,
-                  };
-                  nftModel.push(token);
-                }
-
-                resolve(nftModel);
-              } else {
-                resolve([]);
-              }
-            })
-            .catch((error) => {
-              reject(error);
-            });
-        } else {
-          reject(new Error('Contract cookie not found'));
-        }
-      });
-    });
-  }
-
   isAddressValid(walletAddress: string) {
     try {
       encodeAddress(
@@ -311,56 +240,16 @@ export class PolkadotService {
           observer.complete();
         },
         error: (error) => {
-          observer.next([false, error.status]);
+          const error_result = [
+            {balance: 0.00, symbol: 'XON', price: '0'},
+            {balance: 0.00, symbol: 'ASTRO', price: '0'},
+          ];
+          observer.next([false, { error: error, error_result: error_result }]);
           observer.complete();
         }
       });
     });
   }
-
-  // async getAstroToken(): Promise<any> {
-  //   let wallet = this.cookiesService.getCookieArray("wallet-info");
-  //   const api = await this.api;
-  //   try {
-  //     const price = 1;
-  //     const accountInfo: any = await api.query.assets.account(
-  //       1,
-  //       wallet.address
-  //     );
-  //     const metadata: any = await api.query.assets.metadata(
-  //       1,
-  //     );
-  //     if (accountInfo.toHuman() != null) {
-  //       const { balance } = accountInfo.toJSON();
-  //       const { decimals, symbol } = metadata.toHuman();
-  //       formatBalance.setDefaults({ decimals: parseInt(decimals), unit: symbol });
-  //       formatBalance.getDefaults();
-  //       const bal = formatBalance(
-  //         balance,
-  //         {
-  //           forceUnit: symbol,
-  //           withUnit: false
-  //         }
-  //       );
-  //       const balances = parseFloat(bal).toFixed(4);
-  //       return {
-  //         balance: balances,
-  //         price: price,
-  //         symbol: symbol,
-  //         success: true
-  //       };
-  //     } else {
-  //       return {
-  //         balance: '0.0000',
-  //         price: price,
-  //         symbol: 'ASTRO',
-  //         success: false
-  //       };
-  //     };
-  //   } catch (error) {
-  //     throw String(error || 'balanceOfRepo error occurred.');
-  //   }
-  // }
 
   public async transferNativeToken(
     wallet_address: string,
