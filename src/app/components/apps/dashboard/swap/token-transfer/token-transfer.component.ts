@@ -5,6 +5,7 @@ import { PolkadotService } from "src/app/shared/services/polkadot.service";
 import { NftService } from "src/app/shared/services/nft.service";
 import { CookiesService } from "src/app/shared/services/cookies.service";
 import { PortfolioModel } from "src/app/shared/model/portfolio";
+import { PortfolioService } from "src/app/shared/services/portfolio.service";
 import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 import Swal from 'sweetalert2'
 
@@ -23,6 +24,7 @@ export class TokenTransferComponent implements OnInit {
     private polkadotService: PolkadotService,
     private nftService: NftService,
     private cookiesService: CookiesService,
+    private portfolioService: PortfolioService,
     private modalService: NgbModal
   ) {
   }
@@ -35,6 +37,7 @@ export class TokenTransferComponent implements OnInit {
   transferConfirmation: boolean = false;
   isWalletValid: boolean = false;
   amountWarning: boolean = false;
+  loading: boolean = true;
 
   toggle(){
     this.show = !this.show
@@ -111,7 +114,7 @@ export class TokenTransferComponent implements OnInit {
       allowOutsideClick: false,
     });
     Swal.showLoading();
-    if (this.selectedToken == 'NMS') {
+    if (this.selectedToken == 'NMS' || this.selectedToken == 'XON') {
       const result = await this.polkadotService.transferNativeToken(
         this.walletAddress,
         this.amount
@@ -149,6 +152,10 @@ export class TokenTransferComponent implements OnInit {
               'Tokens Transfer',
               'Token was transferred successfully!'
             );
+          } else {
+            console.log(response[1])
+            Swal.close();
+            this.fireSwal(false, 'Error', response[1].message);
           }
         },
         error: (error) => {
@@ -164,16 +171,25 @@ export class TokenTransferComponent implements OnInit {
     if (this.selectedToken) {
       const selectedTokenObject = this.tokens.find(token => token.symbol === this.selectedToken);
       if (selectedTokenObject) {
-        return selectedTokenObject.balance;
+        return parseFloat(selectedTokenObject.balance).toFixed(4);
       }
     }
     return '0.0000';
   }
 
   async ngOnInit(): Promise<void> {
-    const native: any = await this.polkadotService.getBalance();
-    const astro: any = await this.polkadotService.getAstroToken();
-    this.tokens.push({ balance: native, symbol: 'NMS' });
-    this.tokens.push({ balance: astro.balance, symbol: astro.symbol });
+    (await this.polkadotService.getAstroToken()).subscribe({
+      next: async (response: any) => {
+        if (response[0]){
+          this.tokens = response[1];
+          this.selectedToken = response[1][0].symbol;
+          this.loading = false;
+        }
+      },
+      error: (error: any) => {
+        this.loading = false;
+        throw new Error('An error has occured: ' + error);
+      }
+    });
   }
 }

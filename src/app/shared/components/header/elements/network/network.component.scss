@@ -13,3 +13,15 @@
 .radio label::after {
     margin-top: 17.405px;
 }
+::ng-deep .page-wrapper .page-header .header-wrapper .nav-right > ul > li .onhover-show-div
+{
+    background-color: rgba(17,8,34,.9) !important;
+}
+::ng-deep .page-wrapper .page-header .header-wrapper .nav-right .nav-menus li .notification-dropdown.onhover-show-div li{
+    background-color: #1F172E !important;
+    color: white;
+}
+
+.icofont-world{
+    font-size: 21px !important;
+}

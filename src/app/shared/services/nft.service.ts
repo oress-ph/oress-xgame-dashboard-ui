@@ -351,7 +351,7 @@ export class NftService {
           observer.complete();
         },
         error: (error) => {
-          observer.next([false, error.status]);
+          observer.next([false, error.error]);
           observer.complete();
         }
       });

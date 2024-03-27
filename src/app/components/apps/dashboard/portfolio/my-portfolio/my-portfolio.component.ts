@@ -7,6 +7,7 @@ import { NftService } from 'src/app/shared/services/nft.service';
 import { CookiesService } from 'src/app/shared/services/cookies.service';
 import { PortfolioModel } from '../../../../../shared/model/portfolio';
 import { PortfolioService } from 'src/app/shared/services/portfolio.service';
+import { SweetalertService } from 'src/app/shared/services/sweetalert.service';
 
 @Component({
   selector: 'app-my-portfolio',
@@ -28,7 +29,8 @@ export class MyPortfolioComponent implements OnInit {
     private polkadotService: PolkadotService,
     private nftService: NftService,
     private cookiesService: CookiesService,
-    private portfolioService: PortfolioService
+    private portfolioService: PortfolioService,
+    private sweetalertService: SweetalertService,
   ) {
     this.navServices.dashboard_items.subscribe(menuItems => {
       this.dashboard_menuItems = menuItems;
@@ -78,10 +80,15 @@ export class MyPortfolioComponent implements OnInit {
   async ngOnInit(): Promise<void> {
     (await this.polkadotService.getAstroToken()).subscribe({
       next: async (response: any) => {
-        if (response[0]){
-          this.tokens = response[1];
-          await this.handleSelectCurrency(this.selectedCurrency);
+        if (!response[0]){
+          this.sweetalertService.fireSwal(
+            response[0],
+            response[1].error.name,
+            'Getting tokens error'
+          );
         }
+        this.tokens = response[1].error_result;
+        await this.handleSelectCurrency(this.selectedCurrency);
       },
       error: (error: any) => {
         throw new Error('An error has occured: ' + error);

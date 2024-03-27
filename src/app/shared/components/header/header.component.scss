@@ -42,3 +42,9 @@
     top: 105px !important;
 }
 // end of headercss
+
+::ng-deep .page-wrapper.compact-wrapper .page-header .header-wrapper .toggle-sidebar {
+    display: flex;
+    flex-wrap: wrap;
+    align-content: center;
+}
