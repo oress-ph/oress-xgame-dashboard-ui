@@ -21,7 +21,7 @@ export const environment = {
         { 
           id: 2,
           name: 'Genesis',
-          wsProviderEndpoint: '' ,
+          wsProviderEndpoint: 'wss://testrpcnodea01.xode.net/aRoyklGrhl9m2LlhX8NP/rpc',
           net_name: 'TESTNET'
         }
       ]

@@ -33,12 +33,17 @@ export class LanguagesComponent implements OnInit {
     // this.get_langauge_list();
     this.languageService.languageList$.subscribe((data) => {
       this.language_list = data;
-      // ... other code
     });
     this.languageService.selectedLanguage$.subscribe((data) => {
       this.selected_language = data;
+      console.log('selected language', this.selected_language);
       // ... other code
     });
+    if(this.cookiesService.getCookieArray('language')==null){
+      this.selected_language = this.language_list[0]
+    }else{
+      this.selected_language = this.cookiesService.getCookieArray('language');
+    }
   }
 
 
@@ -71,5 +76,4 @@ export class LanguagesComponent implements OnInit {
       }
     });
   }
-  
 }
