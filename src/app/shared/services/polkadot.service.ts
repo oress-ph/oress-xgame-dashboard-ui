@@ -15,6 +15,7 @@ import { formatBalance, BN } from '@polkadot/util';
 import { ContractPromise } from '@polkadot/api-contract';
 import { NFTModel } from './../model/nft.model';
 import { BehaviorSubject } from 'rxjs';
+import { environment } from 'src/environments/environment';
 
 const httpOptions = {
   headers: new HttpHeaders({
@@ -56,10 +57,11 @@ export class PolkadotService {
   }
 
   async connect() {
-    const provider = new WsProvider(this.appSettings.wsProviderEndpoint);
+    const provider = new WsProvider(this.cookiesService.getCookieArray('network')!=undefined? this.cookiesService.getCookieArray('network').wsProviderEndpoint  :environment.network[1].networks[0].wsProviderEndpoint);
     const api = await ApiPromise.create({ provider });
     return api;
   }
+
 
   async getAllSmartContracts() {
     let api = await this.api;
