@@ -33,7 +33,7 @@ export class NetworkComponent {
       });
     });
     if(this.cookiesService.getCookieArray('network')==null){
-      this.cookiesService.setCookieArray('network',this.networks[0])
+      this.cookiesService.setCookieArray('network',this.networks[1])
     }
     this.connected_network = this.cookiesService.getCookieArray('network')!=null? this.cookiesService.getCookieArray('network') : this.networks[0];
     this.selected_networks = this.cookiesService.getCookieArray('network')!=null? this.cookiesService.getCookieArray('network') : this.networks[0];
