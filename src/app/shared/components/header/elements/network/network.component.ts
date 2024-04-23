@@ -28,7 +28,8 @@ export class NetworkComponent {
           id: network.id,
           name: network.name,
           wsProviderEndpoint: network.wsProviderEndpoint,
-          net_name: network.net_name
+          net_name: network.net_name,
+          is_default: network.is_default
         })
       });
     });

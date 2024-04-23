@@ -1,9 +1,8 @@
-<div class="notification-box" (click)="toggleNotificationMobile()" style="display: flex; justify-content: center; align-items: center;">
-  <!-- <svg style="animation: unset;">
-    <use href="assets/svg/icon-sprite.svg#globe"></use>
-  </svg> -->
-  <i class="icofont icofont-world"></i>
-    <!-- <button class="btn btn-pill btn-primary" type="button">Connect Wallet</button> -->
+<div class="cart-box" (click)="toggleCart()">
+  <svg style="width: 20px; height:20px">
+    <use href="assets/svg/icon-sprite.svg#stroke-network"></use>
+  </svg>
+  <span class="badge rounded-pill badge-primary">2</span>
 </div>
 
 <div class="onhover-show-div notification-dropdown">
@@ -22,7 +21,10 @@
         />
         <label class="form-check-label" [for]="'radio' + network.id">
           <li [ngClass]="{'b-l-success': network.wsProviderEndpoint !== '', 'b-l-danger': network.wsProviderEndpoint === ''}" class="border-4">
-              <p>{{network.name | translate}}
+              
+              <p>
+                <img src="https://xode.net/assets/logos/xode_logo_black.webp" class="img-fluid" style="width: 25px;">
+                {{network.name | translate}}
                   <span [ngClass]="{'font-danger': network.wsProviderEndpoint === '', 'font-success': network.wsProviderEndpoint !== ''}">
                     {{(network.wsProviderEndpoint === '' ? 'Offline' : 'Online') | translate}}
                   </span>
@@ -33,7 +35,7 @@
     
     
 
-      <li><a class="f-w-700" href="javascript:void(0)" (click)="openVerticallyCentered(content)">{{'Connect Wallet' | translate}}</a></li>
+      <!-- <li><a class="f-w-700" href="javascript:void(0)" (click)="openVerticallyCentered(content)">{{'Connect Wallet' | translate}}</a></li> -->
     </ul>
 </div>
 

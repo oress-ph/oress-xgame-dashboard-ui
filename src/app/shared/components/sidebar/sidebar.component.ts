@@ -2,7 +2,6 @@ import { Component, ViewEncapsulation, HostListener } from '@angular/core';
 import { NavigationEnd, Router } from '@angular/router';
 import { Menu, NavService } from '../../services/nav.service';
 import { LayoutService } from '../../services/layout.service';
-import { AppSettings } from 'src/app/app-settings';
 
 @Component({
   selector: 'app-sidebar',
@@ -22,27 +21,37 @@ export class SidebarComponent {
   public leftArrowNone: boolean = true;
   public rightArrowNone: boolean = false;
 
-  constructor(
-    private router: Router, 
-    public navServices: NavService,
-    public layout: LayoutService,
-    public appSettings: AppSettings
-    ) {
+  constructor(private router: Router, public navServices: NavService,
+    public layout: LayoutService) {
     this.navServices.dashboard_items.subscribe(menuItems => {
       this.menuItems = menuItems;
       this.router.events.subscribe((event) => {
         if (event instanceof NavigationEnd) {
           menuItems.filter(items => {
+            // Split the URL into parts
+            let event_url = event.url.split('/');
+
+            // Keep only the first part (if it exists)
+            let currentEventURL = event_url.length > 1 ? event_url.slice(0, 2).join('/') : event_url[0];
+
             if (items.path === event.url) {
               this.setNavActive(items);
             }
+
             if (!items.children) { return false; }
             items.children.filter(subItems => {
-              if (subItems.path === event.url) {
+
+
+              let subItem_url = subItems.path.split('/');
+
+              // Keep only the first part (if it exists)
+              let currentSubItemURL = subItem_url.length > 1 ? subItem_url.slice(0, 2).join('/') : subItem_url[0];
+              if (currentSubItemURL == currentEventURL) {
                 this.setNavActive(subItems);
               }
               if (!subItems.children) { return false; }
               subItems.children.filter(subSubItems => {
+                
                 if (subSubItems.path === event.url) {
                   this.setNavActive(subSubItems);
                 }
@@ -75,6 +84,7 @@ export class SidebarComponent {
       }
       if (menuItem.children) {
         menuItem.children.filter(submenuItems => {
+          
           if (submenuItems.children && submenuItems.children.includes(item)) {
             menuItem.active = true;
             submenuItems.active = true;

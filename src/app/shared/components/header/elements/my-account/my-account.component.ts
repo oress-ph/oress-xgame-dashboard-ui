@@ -4,7 +4,6 @@ import { AppSettings } from "src/app/app-settings";
 import { WalletModel } from "src/app/shared/model/wallet.model";
 import { CookiesService } from "src/app/shared/services/cookies.service";
 import { PolkadotService } from "src/app/shared/services/polkadot.service";
-
 @Component({
   selector: "app-my-account",
   templateUrl: "./my-account.component.html",

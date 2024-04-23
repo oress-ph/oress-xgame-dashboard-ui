@@ -103,13 +103,16 @@ export class NavService implements OnDestroy {
     { path: "https://xgame."+this.top_level_domain+"/home?section=blogs", title: "Blogs", icon: "blog", type: "link" },
     { path: "https://xgame."+this.top_level_domain+"/home?section=contact", title: "Contact", icon: "contact", type: "link" },
   ];
+
   FOOTERMENUITEMS: Menu[] = [
-    { path: "https://xgame."+this.top_level_domain+"/home?section=about", title: "About", icon: "home", type: "link" },
-    { path: "https://xgame."+this.top_level_domain+"/web3", title: "Web3 Wallet", icon: "gem", type: "link" },
-    { path: "https://xgame."+this.top_level_domain+"/games", title: "Game Catalog", icon: "games", type: "link" },
-    { path: "https://xgame."+this.top_level_domain+"/tokenomics", title: "Tokenomics", icon: "tokens", type: "link" },
-    { path: "https://xgame."+this.top_level_domain+"/blogs", title: "Blogs", icon: "marketplace", type: "link" },
+    { path: "https://staging.xgame.live/games/all_games", title: "Games", icon: "home", type: "link" },
+    // { path: "/nft/all_nft", title: "NFT", icon: "nft", type: "link" },
+    { path: "https://staging.nft.xgame.live/marketplace", title: "Marketplace", icon: "market", type: "link" },
+    { path: "https://staging.xgame.live/token/all_tokens", title: "Token", icon: "team", type: "link" },
+    { path: "https://staging.xgame.live/teams", title: "Teams", icon: "teams", type: "link" },
+    { path: "https://staging.xgame.live/blogs", title: "Blogs", icon: "blogs", type: "link" },
   ];
+
   COMMUNITYMENUITEMS: Menu[] = [
     { path: "https://nft.xgame."+this.top_level_domain+"/marketplace", title: "NFT Marketplace", icon: "home", type: "link" },
     { path: "https://dashboard.xgame."+this.top_level_domain+"/wallet", title: "Dashboard", icon: "gem", type: "link" },
@@ -139,6 +142,14 @@ export class NavService implements OnDestroy {
     { path: environment.Youtube, title: "Youtube", icon: "youtube-play", type: "link" },
   ];
 
+  OTHERMENUITEMS: Menu[] = [
+    // { path: "/about_us", title: "About Us", icon: "home", type: "link" },
+    // { path: "/contact_us", title: "Contact Us", icon: "nft", type: "link" },
+    // { path: "/teams", title: "Teams", icon: "teams", type: "link" },
+    // { path: "/blogs", title: "Blogs", icon: "blogs", type: "link" },
+  ];
+
+
   // Array
   items = new BehaviorSubject<Menu[]>(this.MENUITEMS);
   community_items = new BehaviorSubject<Menu[]>(this.COMMUNITYMENUITEMS);
@@ -146,4 +157,5 @@ export class NavService implements OnDestroy {
   footer_items = new BehaviorSubject<Menu[]>(this.FOOTERMENUITEMS);
   dashboard_items = new BehaviorSubject<Menu[]>(this.DASHBOARDITEMS);
   social_media_items = new BehaviorSubject<Menu[]>(this.SOCIALMEDIAMENU);
+  other_items = new BehaviorSubject<Menu[]>(this.OTHERMENUITEMS);
 }

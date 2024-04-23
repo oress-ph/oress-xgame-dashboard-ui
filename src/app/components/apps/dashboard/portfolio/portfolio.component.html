@@ -1,17 +1,15 @@
 <app-breadcrumb [title]="appSettings.translate('Portfolio' | translate)" [items]="[appSettings.translate('Dashboard' | translate)]" [active_item]="appSettings.translate('Portfolio' | translate)"></app-breadcrumb>
-<div class="container-fluid">
-  <div class="col-xxl-9 col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12" style="margin: auto;">
-    <div class="row">
-      <div class="col-xxl-6 col-xl-6 col-lg-6 col-md-6 col-sm-12 col-xs-12">
-        <app-my-portfolio></app-my-portfolio>
-       </div>
-       <div class="col-xxl-6 col-xl-6 col-lg-6 col-md-6 col-sm-12 col-xs-12">
-        <app-portfolio-profile></app-portfolio-profile>
-       </div>
-       <div class="col-xl-12">
-        <app-token-profile></app-token-profile>
-      </div>
-      <app-nft></app-nft>
+<div class="container-lg">
+  <div class="row">
+    <div class="col-xxl-6 col-xl-6 col-lg-6 col-md-6 col-sm-12 col-xs-12">
+      <app-my-portfolio></app-my-portfolio>
+     </div>
+     <div class="col-xxl-6 col-xl-6 col-lg-6 col-md-6 col-sm-12 col-xs-12">
+      <app-portfolio-profile></app-portfolio-profile>
+     </div>
+     <div class="col-xl-12">
+      <app-token-profile></app-token-profile>
     </div>
+    <app-nft></app-nft>
   </div>
 </div>

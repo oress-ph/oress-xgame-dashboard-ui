@@ -3,4 +3,5 @@ export class NetworkModel {
     name : string = '';
     wsProviderEndpoint: string = '';
     net_name: string = '';
+    is_default: boolean;
 }

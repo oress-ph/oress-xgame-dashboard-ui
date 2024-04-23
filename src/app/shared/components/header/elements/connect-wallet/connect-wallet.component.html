@@ -1,0 +1,103 @@
+<div class="media profile-media">
+    <a class="btn btn-primary btn-pill btn-hover-effect media-body m-l-0" 
+    href="javascript:void(0)" 
+    placement="bottom" 
+    ngbTooltip="Connect Wallet" 
+    (click)="open()">
+        <span class="ms-1"> 
+            <svg class="fill-icon" style="width: 20px; height:20px;stroke:rgb(255, 255, 255)">
+                <use href="assets/svg/icon-sprite.svg#stroke-wallet"></use>
+            </svg>
+        </span> 
+        <span style="color: rgb(255, 255, 255);" class="connect-wallet">{{'Connect Wallet' | translate}}</span>
+    </a>
+</div>
+
+<!-- <ng-template #content let-modal>
+  <div class="modal-header">
+    <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
+  </div>
+  <div class="modal-body">
+    <app-wallet-list></app-wallet-list>
+  </div>
+</ng-template> -->
+
+<!-- <ng-template #content let-modal>
+    <div class="modal-header">
+      <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
+    </div>
+    <div class="modal-body">
+        <div class="container-fluid p-0">
+            <div class="row">
+              <div class="col-12">
+                <div class="login-card">
+                  <div>
+                    <div>
+                      <a class="logo" routerLink="/">
+                        <img class="img-fluid for-light" src="assets/images/logo/logo.webp" alt="" />
+                        <img class="img-fluid for-dark" src="assets/images/logo/logo_dark.webp" alt="" />
+                      </a>
+                    </div>
+                    <div class="login-main">
+                        <form class="theme-form" [formGroup]="loginForm" *ngIf="is_connect_wallet">
+                            <h4>{{'Connect your wallet' | translate}}</h4>
+                            <p>{{'Enter your mnenomic seeds and password' | translate}}</p>
+                            <div class="form-group">
+                              <label class="col-form-label">Mnenomic Seed</label>
+                              <input class="form-control" type="text" required="" [(ngModel)]="connect_wallet_info.mnenomic_seeds" placeholder="" formControlName="email" />
+                              <div *ngIf="loginForm.controls.email.touched && loginForm.controls.email.errors?.required" class="text text-danger mt-1">{{'Mnenomic Seed is required' | translate}}</div>
+                            </div>
+                            <div class="form-group">
+                              <label class="col-form-label">{{'Password' | translate}}</label>
+                              <input class="form-control" [type]="show ? 'text' : 'password'" [(ngModel)]="connect_wallet_info.password" formControlName="password" required="" placeholder="" />
+                              <div class="show-hide" (click)="showPassword()" *ngIf="!show"><span class="show"></span></div>
+                              <div class="show-hide" (click)="showPassword()" *ngIf="show"><span class="Hide"></span></div>
+                              <div *ngIf="loginForm.controls.password.touched && loginForm.controls.password.errors?.required" class="text text-danger mt-1">{{'Password is required' | translate}}</div>
+                            </div>
+                            <div class="form-group mb-0">
+                                <div class="text-end mt-3">
+                                  <button class="btn btn-primary d-block w-100" [disabled]="!loginForm.valid" (click)="login()" type="button"><span>Connect Wallet</span></button>
+                                </div>
+                              </div>
+                            <p class="mt-4 mb-0">
+                              Don't have wallet?
+                              <a href="javascript:void(0)" (click)="walletButton()" class="ms-2">Create Wallet</a>
+                            </p>
+                        </form>
+                        <form class="theme-form" [formGroup]="loginForm" *ngIf="!is_connect_wallet">
+                            <h4>{{'Create your Wallet' | translate}}</h4>
+                            <p>{{'Enter your password to create wallet' | translate}}</p>
+
+                            <div class="form-group">
+                              <label class="col-form-label">{{'Mnenomic Seed' | translate}}</label>
+                              <input class="form-control" [type]="show ? 'text' : 'text'" formControlName="email" required="" placeholder=""  [(ngModel)]="connect_wallet_info.mnenomic_seeds" style="pointer-events: none;"/>
+                              <div class="show-hide" (click)="copyMnenomic()"><span class="copy">copy</span></div>
+                              <div class="text text-danger mt-1">{{'Losing your mnemonic seed is like losing your wallet. Keep it confidential and store it in a secure location.' | translate}}</div>
+                            </div>
+
+                            <div class="form-group">
+                              <label class="col-form-label">Password</label>
+                              <input class="form-control" [type]="show ? 'text' : 'password'" formControlName="password" required="" placeholder="*********" />
+                              <div class="show-hide" (click)="showPassword()" *ngIf="!show"><span class="show"></span></div>
+                              <div class="show-hide" (click)="showPassword()" *ngIf="show"><span class="Hide"></span></div>
+                              <div *ngIf="loginForm.controls.password.touched && loginForm.controls.password.errors?.required" class="text text-danger mt-1">{{'Password is required' | translate}}</div>
+                            </div>
+                            <div class="form-group mb-0">
+                                <div class="text-end mt-3">
+                                  <button class="btn btn-primary d-block w-100" [disabled]="!loginForm.valid" (click)="login()" type="button"><span>{{'Create Wallet' | translate}}</span></button>
+                                </div>
+                              </div>
+                            <p class="mt-4 mb-0">
+                                {{'Already have an wallet?' | translate}}
+                              <a href="javascript:void(0)" (click)="walletButton()" class="ms-2">{{'Connect Wallet' | translate}}</a>
+                            </p>
+                        </form>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+    </div>
+</ng-template> -->

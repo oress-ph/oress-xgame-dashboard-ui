@@ -1,3 +1,21 @@
 .icon-size-wallet{
     font-size: 21px !important;
 }
+
+::ng-deep .page-wrapper .page-header .header-wrapper .nav-right .profile-dropdown {
+    width: max-content;
+}
+::ng-deep .page-wrapper .page-header .header-wrapper .nav-right ul .profile-nav svg {
+    // width: 100%;
+    // height: 100%;
+}
+
+.profile-dropdown.onhover-show-div {
+    left: unset !important;
+}
+::ng-deep .page-wrapper .page-header .header-wrapper .nav-right .notification-dropdown {
+    @media (max-width: 575.98px) {
+        left: unset !important;
+        right: 12px !important;
+    }
+}
