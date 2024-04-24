@@ -5,6 +5,17 @@
     align-items: unset;
     flex-direction: column;
 }
-.modal-footer{
-    justify-content: center;
+.card{
+    width: 500px;
+    margin: 0 auto;
+    
 }
+.card-header{
+    background-color: transparent;
+}
+.app-wallet {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh; /* This will make it take up the full viewport height */
+  }

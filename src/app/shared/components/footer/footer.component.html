@@ -1,98 +1,139 @@
 <!-- footer start-->
-
-<div class="container-lg">
-  <div class="row">
-    <div class="col-xxl-12">
-      <div class="footer_section d-flex">
-        <div>
-          <a href="https://www.xgame.live/">
-            <img
-              class="img-fluid for-light image-logo"
-              src="./../../../../assets/images/logo/logo.webp"
-              alt=""
-            />
-            <img
-              class="img-fluid for-dark image-logo"
-              src="./../../../../assets/images/logo/logo_dark.webp"
-              alt=""
-            />
-          </a>
-  
-          <div>
-            <div>Varšavská 715/36, Vinohrady, 120 00 Prague 2</div>
-            <div>+420 772 438 450</div>
+<div class="section footer-content section-justify-center" style="padding: 50px 0px;">
+  <div class="col-xxl-9 col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12">
+    <div class="row">
+      <div class="container-fluid">
+        <div class="row" style="justify-content: center">
+          <div class="col-xxl-4 col-xl-4 col-lg-4 col-md-3 col-sm-3 col-xs-12">
+            <div style="display: flex; gap: 1rem; flex-direction: column; ">
+              <div>
+                <a href="https://www.xgame.live/">
+                  <img class="img-fluid for-light image-logo" src="assets/images/home/logo/footer-logo.webp" alt="" />
+                  <img class="img-fluid for-dark image-logo" src="assets/images/home/logo/footer-logo.webp" alt=""/>
+                </a>
+              </div>
+              <div>
+                <div>Varšavská 715/36, Vinohrady, 120 00 Prague 2</div>
+                <div>+420 772 438 450</div>
+              </div>
+              <a [href]="'mailto:' + appSettings.Email" class="p-b-20">{{appSettings.Email}}</a>
+            </div>
           </div>
-          <a [href]="'mailto:' + appSettings.Email">{{
-            appSettings.Email
-          }}</a> 
+          <!-- Menu -->
+          <div class="col-xxl-2 col-xl-2 col-lg-2 col-md-3 col-sm-3 col-xs-12 p-b-20">
+            <div class="row icon-lists">
+              <div class="col-sm-9 col-md-9 col-xl-9" class="sub-header p-b-20">
+                <b><span>{{appSettings.translate("Menu" | translate)}}</span></b>
+              </div>
+              <div class="col-sm-9 col-md-9 col-xl-9" *ngFor="let menu of footer_menuItems; let first = first" (click)="redirectTo(menu.path)">
+                <span>{{appSettings.translate(menu.title | translate)}}</span>
+              </div>
+            </div>
+          </div>
+          <!-- Legal -->
+          <div class="col-xxl-2 col-xl-2 col-lg-2 col-md-3 col-sm-3 col-xs-12 p-b-20">
+            <div class="row icon-lists">
+              <div class="col-sm-9 col-md-9 col-xl-9" class="sub-header p-b-20">
+                <b><span>{{appSettings.translate("Legal" | translate)}}</span></b>
+              </div>
+              <div class="col-sm-9 col-md-9 col-xl-9" *ngFor="let menu of legal_menuItems; let first = first" (click)="redirectTo(menu.path)">
+                <span>{{appSettings.translate(menu.title | translate)}}</span>
+              </div>
+            </div>
+          </div>
+          <!-- Join Our Community -->
+            <div class="col-xxl-4 col-xl-4 col-lg-4 col-md-3 col-sm-3 col-xs-12" style="line-height: 25px;">
+              <b><span>{{appSettings.translate("Join our Community" | translate)}}</span></b>
+              <div style="display: flex; gap: 0.5rem;flex-wrap: wrap; padding-top: 20px;">
+                <a [href]="social_media.path" target="_blank" *ngFor="let social_media of social_media_menuItems">
+                  <button class="btn btn-pill btn-light button-back-wallet" placement="top" ngbTooltip="{{appSettings.translate(social_media.title)}}" style="color: white !important;">
+                    <i class="icofont icofont-{{social_media.icon}} f-20" *ngIf="social_media.title!='Discord'"></i>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-discord" viewBox="0 0 16 16"  *ngIf="social_media.title=='Discord'">
+                      <path d="M13.545 2.907a13.227 13.227 0 0 0-3.257-1.011.05.05 0 0 0-.052.025c-.141.25-.297.577-.406.833a12.19 12.19 0 0 0-3.658 0 8.258 8.258 0 0 0-.412-.833.051.051 0 0 0-.052-.025c-1.125.194-2.22.534-3.257 1.011a.041.041 0 0 0-.021.018C.356 6.024-.213 9.047.066 12.032c.001.014.01.028.021.037a13.276 13.276 0 0 0 3.995 2.02.05.05 0 0 0 .056-.019c.308-.42.582-.863.818-1.329a.05.05 0 0 0-.01-.059.051.051 0 0 0-.018-.011 8.875 8.875 0 0 1-1.248-.595.05.05 0 0 1-.02-.066.051.051 0 0 1 .015-.019c.084-.063.168-.129.248-.195a.05.05 0 0 1 .051-.007c2.619 1.196 5.454 1.196 8.041 0a.052.052 0 0 1 .053.007c.08.066.164.132.248.195a.051.051 0 0 1-.004.085 8.254 8.254 0 0 1-1.249.594.05.05 0 0 0-.03.03.052.052 0 0 0 .003.041c.24.465.515.909.817 1.329a.05.05 0 0 0 .056.019 13.235 13.235 0 0 0 4.001-2.02.049.049 0 0 0 .021-.037c.334-3.451-.559-6.449-2.366-9.106a.034.034 0 0 0-.02-.019Zm-8.198 7.307c-.789 0-1.438-.724-1.438-1.612 0-.889.637-1.613 1.438-1.613.807 0 1.45.73 1.438 1.613 0 .888-.637 1.612-1.438 1.612Zm5.316 0c-.788 0-1.438-.724-1.438-1.612 0-.889.637-1.613 1.438-1.613.807 0 1.451.73 1.438 1.613 0 .888-.631 1.612-1.438 1.612Z"/>
+                    </svg>
+                  </button>
+                </a>
+              </div>
+            </div>
         </div>
-        <div>
-          <div class="social-media">
+      </div>
+    </div>
+  </div>
+  <br/>
+</div>
+<div class="column" style="gap:0px">
+  <hr class="m-t-15">
+  <div class="col-sm-12 col-md-12 col-xl-12 footer-copyright text-center">
+    <!-- <div class="row">
+      <div class="row icon-lists" style="display: flex;justify-content: space-between;">
+        <div class="col-sm-4 col-md-2 col-xl-2" *ngFor="let legal of legal_menuItems" (click)="redirectTo(legal.path)">
+            <span>{{appSettings.translate(legal.title)}}</span>
+        </div>
+      </div>
+    </div> -->
+    <p class="mb-0" style="color: #635383;
+
+    ">Copyright {{ today | date:'y'}} © XGame by NexGen </p>
+  </div>
+</div>
+<!-- <div class="container-fluid" id="Contact">
+  <div class="row" style="justify-content: center">
+      <div class="col-xm-6 col-sm-6 col-md-4 col-l-4 col-xl-4">
+        <div class="row icon-lists">
+          <div class="col-sm-9 col-md-9 col-xl-9" *ngFor="let menu of footer_menuItems; let first = first" (click)="redirectTo(menu.path)">
+            <span>{{appSettings.translate(menu.title)}}</span>
+            <ng-container *ngIf="first">
+                <img class="img-fluid for-light" src="assets/images/logo/logo.webp" alt="" (click)="redirectTo(appSettings.UIURLHomePageHost)" />
+                <img class="img-fluid for-dark" src="assets/images/logo/logo_dark.webp" alt="" (click)="redirectTo(appSettings.UIURLHomePageHost)"/>
+            </ng-container>
+        </div>
+        </div>
+      </div>
+      <div class="col-xs-6 col-sm-6 col-md-4 col-l-4 col-xl-4">
+        <div class="row icon-lists">
+          <div class="col-sm-12 col-md-9 col-xl-9"  *ngFor="let menu of community_menuItems" (click)="redirectTo(menu.path)">
+            <span>{{appSettings.translate(menu.title)}}</span>
+          </div>
+        </div>
+        <div class="col-sm-12 col-md-12 col-xl-12" style="line-height: 25px;">
+          <span>{{appSettings.translate("Join our Community")}}</span>
+          <div style="display: flex; gap: 0.5rem;flex-wrap: wrap;">
             <a [href]="social_media.path" target="_blank" *ngFor="let social_media of social_media_menuItems">
-              <button class="btn btn-pill btn-light button-back-wallet d-flex" placement="top" ngbTooltip="{{ social_media.title | translate }}">
-                <i
-                  class="icofont icofont-{{ social_media.icon }} f-20"
-                  *ngIf="social_media.title != 'Discord'"
-                ></i>
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="20"
-                  height="20"
-                  fill="currentColor"
-                  class="bi bi-discord"
-                  viewBox="0 0 16 16"
-                  *ngIf="social_media.title == 'Discord'"
-                >
-                  <path
-                    d="M13.545 2.907a13.227 13.227 0 0 0-3.257-1.011.05.05 0 0 0-.052.025c-.141.25-.297.577-.406.833a12.19 12.19 0 0 0-3.658 0 8.258 8.258 0 0 0-.412-.833.051.051 0 0 0-.052-.025c-1.125.194-2.22.534-3.257 1.011a.041.041 0 0 0-.021.018C.356 6.024-.213 9.047.066 12.032c.001.014.01.028.021.037a13.276 13.276 0 0 0 3.995 2.02.05.05 0 0 0 .056-.019c.308-.42.582-.863.818-1.329a.05.05 0 0 0-.01-.059.051.051 0 0 0-.018-.011 8.875 8.875 0 0 1-1.248-.595.05.05 0 0 1-.02-.066.051.051 0 0 1 .015-.019c.084-.063.168-.129.248-.195a.05.05 0 0 1 .051-.007c2.619 1.196 5.454 1.196 8.041 0a.052.052 0 0 1 .053.007c.08.066.164.132.248.195a.051.051 0 0 1-.004.085 8.254 8.254 0 0 1-1.249.594.05.05 0 0 0-.03.03.052.052 0 0 0 .003.041c.24.465.515.909.817 1.329a.05.05 0 0 0 .056.019 13.235 13.235 0 0 0 4.001-2.02.049.049 0 0 0 .021-.037c.334-3.451-.559-6.449-2.366-9.106a.034.034 0 0 0-.02-.019Zm-8.198 7.307c-.789 0-1.438-.724-1.438-1.612 0-.889.637-1.613 1.438-1.613.807 0 1.45.73 1.438 1.613 0 .888-.637 1.612-1.438 1.612Zm5.316 0c-.788 0-1.438-.724-1.438-1.612 0-.889.637-1.613 1.438-1.613.807 0 1.451.73 1.438 1.613 0 .888-.631 1.612-1.438 1.612Z"
-                  />
+              <button class="btn btn-pill btn-light button-back-wallet" placement="top" ngbTooltip="{{appSettings.translate(social_media.title)}}">
+                <i class="icofont icofont-{{social_media.icon}} f-20" *ngIf="social_media.title!='Discord'"></i>
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-discord" viewBox="0 0 16 16"  *ngIf="social_media.title=='Discord'">
+                  <path d="M13.545 2.907a13.227 13.227 0 0 0-3.257-1.011.05.05 0 0 0-.052.025c-.141.25-.297.577-.406.833a12.19 12.19 0 0 0-3.658 0 8.258 8.258 0 0 0-.412-.833.051.051 0 0 0-.052-.025c-1.125.194-2.22.534-3.257 1.011a.041.041 0 0 0-.021.018C.356 6.024-.213 9.047.066 12.032c.001.014.01.028.021.037a13.276 13.276 0 0 0 3.995 2.02.05.05 0 0 0 .056-.019c.308-.42.582-.863.818-1.329a.05.05 0 0 0-.01-.059.051.051 0 0 0-.018-.011 8.875 8.875 0 0 1-1.248-.595.05.05 0 0 1-.02-.066.051.051 0 0 1 .015-.019c.084-.063.168-.129.248-.195a.05.05 0 0 1 .051-.007c2.619 1.196 5.454 1.196 8.041 0a.052.052 0 0 1 .053.007c.08.066.164.132.248.195a.051.051 0 0 1-.004.085 8.254 8.254 0 0 1-1.249.594.05.05 0 0 0-.03.03.052.052 0 0 0 .003.041c.24.465.515.909.817 1.329a.05.05 0 0 0 .056.019 13.235 13.235 0 0 0 4.001-2.02.049.049 0 0 0 .021-.037c.334-3.451-.559-6.449-2.366-9.106a.034.034 0 0 0-.02-.019Zm-8.198 7.307c-.789 0-1.438-.724-1.438-1.612 0-.889.637-1.613 1.438-1.613.807 0 1.45.73 1.438 1.613 0 .888-.637 1.612-1.438 1.612Zm5.316 0c-.788 0-1.438-.724-1.438-1.612 0-.889.637-1.613 1.438-1.613.807 0 1.451.73 1.438 1.613 0 .888-.631 1.612-1.438 1.612Z"/>
                 </svg>
               </button>
             </a>
           </div>
-          <ul class="main_menu d-flex">
-            <li 
-            *ngFor="let menu of footer_menuItems; let first = first"
-            (click)="redirectTo(menu.path)">
-              <a href="javascript:void(0)" class="footer-link">{{ menu.title | translate}}</a>
-            </li>
-          </ul>
         </div>
       </div>
+      <div class="col-sm-12 col-md-4 col-l-4 col-xl-4">
+        <div style="display: flex; gap: 1rem; flex-direction: column; ">
+          <div>
+            <a href="https://www.xgame.live/">
+              <img class="img-fluid for-light" src="assets/images/logo/logo.webp" alt="" />
+              <img class="img-fluid for-dark" src="assets/images/logo/logo_dark.webp" alt=""/>
+            </a>
+          </div>
+          <div>
+            <div>308-309 Arcada 5, Lopez Jaena St., Tipolo</div>
+            <div>(032) 505 2433</div>
+          </div>
+          <a [href]="'mailto:' + appSettings.Email">{{appSettings.Email}}</a>
+        </div>
+      </div>
+    <hr class="m-t-15">
+    <div class="col-sm-12 col-md-12 col-xl-12 footer-copyright text-center">
+      <div class="row">
+        <div class="row icon-lists" style="display: flex;justify-content: space-between;">
+          <div class="col-sm-4 col-md-2 col-xl-2" *ngFor="let legal of legal_menuItems" (click)="redirectTo(legal.path)">
+              <span>{{appSettings.translate(legal.title)}}</span>
+          </div>
+        </div>
+      </div>
+      <p class="mb-0 m-t-10">Copyright {{ today | date:'y'}} © XGame by NexGen </p>
     </div>
   </div>
-</div>
-<div class="copyright">
-  <div class="container-lg">
-    <div class="row">
-      <div class="col-xxl-12" *ngIf="other_menuItems.length>0">
-        <div class="d-flex footer_section">
-          <ul class="d-flex">
-            <li
-            class="p-r-20"  
-            *ngFor="let menu of other_menuItems; let first = first"
-            (click)="redirectTo(menu.path)">
-              <a href="javascript:void(0)" class="footer-link">{{ menu.title | translate}}</a>
-            </li>
-          </ul>
-        </div>
-      </div>
-      <div class="col-xxl-12 col-xl-12 col-lg-12 ">
-        <div class="d-flex footer_section">
-          <ul class="d-flex">
-            <li  
-            class="p-r-20"         
-            *ngFor="let menu of legal_menuItems; let first = first"
-            (click)="redirectTo(menu.path)"
-            >
-              <a href="javascript:void(0)" class="footer-link">{{ menu.title | translate}}</a>
-            </li>
-          </ul>
-          <p class="paragraph m-b-0" style="text-align: right;">
-            {{'Copyright' | translate}} {{ today | date : "y" }} © XGame by NexGen
-          </p>
-        </div>
-      </div>
-    </div>
-  </div>
-</div> 
+</div> -->

@@ -1,69 +1,50 @@
-.footer-link{
+.icon-lists div {
+    max-width: unset;
+}
+
+// .content {
+//     display: flex;
+//     flex-wrap: wrap;
+//     @media screen and (max-width: 425px) {
+//         gap: 1rem;
+//     }
+// }
+// .content-legal{
+//     display: flex;
+//     flex-direction: column;
+
+// }
+.icon-lists div {
+    line-height: 25px;
+}
+.legal-footer:hover{
+    background-color: var(--sidebar-border);
+}
+.flex-container {
     display: flex;
+}
+.sub-header:hover{
+    cursor: unset;
+    background-color: unset;
+}
+.image-logo{
+    max-width: 70%;
+    @media screen and (max-width: 567px) {
+        max-width: 300px;
+    }
+}
+::ng-deep .footer{
+    position: relative;
+    flex-shrink: 0;
+    background: #071620 url('../../../../assets/images/home/section-background/footer-banner.webp') 50% 0/auto 100% no-repeat !important;
+    background-size: cover !important;
+    background-position: center !important;
+    color: white !important;
+    padding: 0px;
+}
+.footer-content{
     height: 100%;
-    width: 100%;
-}
-.btn-light{
-    padding: 12px;
-}
-
-.copyright{
-    text-align: center;
-    border-top: 1px solid #374558;
-}
-body.dark-only .page-wrapper.horizontal-wrapper .footer > app-footer > .copyright{
-    background-color: hsl(225, 14%, 17%);
-}
-.footer-info{
-    display: flex; gap: 0.5rem; flex-direction: column
-}
-.social-media{
-    display: flex; 
-    flex-wrap: wrap; 
-    justify-content: flex-end;
-    gap: 0.5rem;
-    @media (max-width: 749px) {
-        justify-content: flex-start;
+    @media screen and (max-width: 567.98px){
+        margin: 0px;
     }
-}
-div > .main_menu{
-    justify-content: flex-end;
-    li:not(:first-child) {
-        padding-left: 20px;
-    }
-}
-
-.row > div{
-    display: flex;
-    flex-direction: column;
-    gap: 0.5rem;
-    justify-content: space-between;
-    margin-bottom: 20px;
-}
-div ul li a {
-    color: #2F2F3B ;
-}
-
-::ng-deep body.dark-only div ul li a {
-    color: #98a6ad !important;
-}
-.footer_section{
-    display: flex !important;
-    flex-wrap: wrap;
-    justify-content: space-between;
-    gap: 0.5rem;
-}
-.footer_section > div{
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    gap: 1rem;
-}
-ul{
-    display: flex !important;
-    gap: 0.5rem;
-    flex-wrap: wrap;
-}
-a:hover{
-    color: var(--theme-deafult) !important;
 }

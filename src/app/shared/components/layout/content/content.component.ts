@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, OnInit } from '@angular/core';
+import { AfterViewInit, Component, OnInit, HostListener } from '@angular/core';
 import { ActivatedRoute } from '@angular/router'
 import * as feather from 'feather-icons';
 import { LayoutService } from '../../../services/layout.service';
@@ -29,6 +29,23 @@ export class ContentComponent implements OnInit, AfterViewInit {
 
   public getRouterOutletState(outlet) {
     return outlet.isActivated ? outlet.activatedRoute : '';
+  }
+  backgroundColor = ''; 
+  @HostListener('window:scroll', ['$event'])
+  onScroll() {
+    const scrollPosition = window.scrollY || document.documentElement.scrollTop;
+
+    // Set a threshold value based on your design
+    const threshold = 10;
+    const screenWidth = window.innerWidth;
+    // Check if the scroll position is beyond the threshold
+    if (scrollPosition > threshold && screenWidth > 991.98) {
+      this.backgroundColor = 'rgba(00,00,00, 0.8) !important'; // Set your desired background color with 50% opacity
+    } else if(screenWidth > 991.98){
+      this.backgroundColor = 'rgba(17, 8, 34, 0)';
+    }else{
+      this.backgroundColor = 'hsl(225, 14%, 17%)';
+    }
   }
 
   get layoutClass() {

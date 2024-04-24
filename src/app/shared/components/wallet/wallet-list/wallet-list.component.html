@@ -1,62 +1,52 @@
-
-
-
-<div class="modal-header">
-    <button type="button" class="btn-close" aria-label="Close"  aria-label="Close" (click)="activeModal.dismiss('Cross click')">
-    </button>
-  </div>
-<div class="modal-body">
-    <div style="display: flex; justify-content: center;" class="p-b-40">
-        <img src="./../../../../../assets/images/logo/logo.webp" alt="" class="img-fluid for-light">
-        <img src="./../../../../../assets/images/logo/logo_dark.webp" alt="" class="img-fluid for-dark">
-    </div>
-    <div *ngIf="selectedWallet == ''">
-        <div class="connect-wallet-title text-center" style="margin-bottom: 40px;">
-            <div class="text-center f-18">{{'Connect Wallet' | translate}}</div>
-            <span class="text-center text-sm w-full">{{'Start using XGame' | translate}}</span>
+<div class="card">
+    <div class="card-header card-no-border">
+      <div class="header-top" style="    justify-content: center;">
+        <!-- <h5>Gem Transaction</h5> -->
+        <div class="p-b-40">
+            <img src="./../../../../../assets/images/logo/logo.webp" alt="" class="img-fluid for-light">
+            <img src="./../../../../../assets/images/logo/logo_dark.webp" alt="" class="img-fluid for-dark">
         </div>
-        <div class="connect-wallet-button" style="margin-bottom: 40px;">
-            <button class="btn btn-outline-warning" type="button" style="padding: 0.9375rem 1.5625rem; width: 100%; display: flex; align-items: center; justify-content: space-between;" (click)="selectPolkadot()">
-                <div style="display: flex; gap: 0.5rem;">
-                    <img alt="logo" src="./../../../../../assets/images/polkadot/polkadot_icon.webp" style="width: 1.5rem" />
-                    <span class="f-20">Polkadot(.js)</span>
-                </div>
-                <i class="icon-arrow-right" style="font-size: 1rem;"></i>
-            </button>
-        </div>
+      </div>
     </div>
-    
-    
-    
-    <div *ngIf="selectedWallet == 'PolkadotJS'">
-        <div *ngIf="isLogin == true && chooseAccount == false">
-            <br />
-            <div class="card border-round-2xl" style="box-shadow: 3px 2px 5px 0px #dfdfdf !important;">
-                <div class="flex-wrap card-container overflow-hidden w-full">
-                    <div class="bg-gray-100 px-5 pt-6 pb-4 border-round-2xl" style="min-height: 180px;">
-                        <app-wallet-info (changeAccount)="changeAccount()"></app-wallet-info>
+    <div class="card-body pt-0">
+        <div *ngIf="selectedWallet == ''">
+            <div class="connect-wallet-title text-center" style="margin-bottom: 40px;">
+                <div class="text-center f-18">{{appSettings.translate('Connect Wallet')}}</div>
+                <span class="text-center text-sm w-full">{{appSettings.translate('Start using XGame')}}</span>
+            </div>
+            <div class="connect-wallet-button" style="margin-bottom: 40px;">
+                <button class="btn btn-outline-warning" type="button" style="padding: 0.9375rem 1.5625rem; width: 100%; display: flex; align-items: center; justify-content: space-between;" (click)="selectPolkadot()">
+                    <div style="display: flex; gap: 0.5rem;">
+                        <img alt="logo" src="./../../../../../assets/images/polkadot/polkadot_icon.webp" style="width: 1.5rem" />
+                        <span class="f-20">Polkadot(.js)</span>
+                    </div>
+                    <i class="icon-arrow-right" style="font-size: 1rem;"></i>
+                </button>
+            </div>
+        </div>
+        <div *ngIf="selectedWallet == 'PolkadotJS'">
+            <div *ngIf="isLogin == true && chooseAccount == false">
+                <br />
+                <div class="card border-round-2xl" style="box-shadow: 3px 2px 5px 0px #dfdfdf !important;">
+                    <div class="flex-wrap card-container overflow-hidden w-full">
+                        <div class="bg-gray-100 px-5 pt-6 pb-4 border-round-2xl" style="min-height: 180px;">
+                            <app-wallet-info (changeAccount)="changeAccount()"></app-wallet-info>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
-        <div *ngIf="chooseAccount == true">
-            <div class="connect-wallet-title">
-                <div class="text-center" style="font-size: 20px; margin-bottom: 5px;">
-                    <span>
-                        {{'Choose Account' | translate}}
-                    </span>
+            <div *ngIf="chooseAccount == true" style="max-width: 100%;">
+                <div class="connect-wallet-title">
+                    <div class="text-center" style="font-size: 20px; margin-bottom: 5px;">
+                        <span>
+                            {{appSettings.translate('Choose Account')}}
+                        </span>
+                    </div>
                 </div>
-            </div>
-            <br />
-            <div class="categories">
-                <ul>
-                  <li 
-                  *ngFor="let web3Wallet of web3Wallets"
-                  (click)="onWalletSelect(web3Wallet)"
-                  >
-                    <a href="javascript:void(0)" class="footer-link" style="    display: block;
-                    width: 100%;
-                    height: 100%;">
+                <br />
+                <div class="row icon-lists">
+                    <div class="col-xl-12 p-20" *ngFor="let web3Wallet of web3Wallets" (click)="onWalletSelect(web3Wallet)" style="min-width: 100%;">
+                 
                         <span style="font-size: 20px; font-weight: bold;">
                             {{web3Wallet.metaName}}
                         </span>
@@ -64,22 +54,20 @@
                         <span style="font-size: 12px; color: gray;">
                             {{web3Wallet.address}}
                         </span>
-                    </a>
-                  </li>
-                </ul>
-              </div>
-            <div *ngIf="web3Wallets.length > 0">
+                </div>
+                </div>
             </div>
+            <br />
+            <div style="text-align: center; width: 100%;display: flex;
+            justify-content: center;" *ngIf="isLogin == false">
+                <button class="btn btn-pill btn-warning button-back-wallet" (click)="selectedWallet = ''"><i class="icon-arrow-left" style="font-size: 1rem;"></i></button>
+            </div>
+            <br />
         </div>
-        <br />
-        <div style="text-align: center; width: 100%;display: flex;
-        justify-content: center;" *ngIf="isLogin == false">
-            <button class="btn btn-pill btn-warning button-back-wallet" (click)="selectedWallet = ''"><i class="icon-arrow-left" style="font-size: 1rem;"></i></button>
+    
+        <div class="text-sm text-center">
+            <span>{{appSettings.translate('By connecting, I accept XGame’s Terms of Service')}}</span>
         </div>
-        <br />
     </div>
-<div class="modal-footer">
-    <div class="text-sm text-center">
-        <span>{{'By connecting, I accept XGame’s Terms of Service' | translate}}</span>
-    </div>
-</div>
+  </div>
+  
