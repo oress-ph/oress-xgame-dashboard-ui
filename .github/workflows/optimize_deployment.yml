@@ -1,9 +1,9 @@
-name: staging_deployment
+name: optimize_deployment
 
 on:
   push:
     tags:
-      - v**-staging
+      - v**-optimize
 
 jobs:
   build_and_deploy:
@@ -28,5 +28,5 @@ jobs:
           mkdir ~/.ssh
           echo -e "${{ secrets.STAGING_PRIVATE_KEY }}" > ~/.ssh/xgames-keypair
           chmod 400 ~/.ssh/xgames-keypair
-          rsync -e "ssh -o StrictHostKeyChecking=no -i ~/.ssh/xgames-keypair" -r dist/* ${{ secrets.STAGING_USERNAME }}@${{ secrets.STAGING_HOST }}:${{ secrets.STAGING_PATH }}
+          rsync -e "ssh -o StrictHostKeyChecking=no -i ~/.ssh/xgames-keypair" -r dist/* ${{ secrets.STAGING_USERNAME }}@${{ secrets.STAGING_HOST }}:${{ secrets.STAGING_PATH_OPTIMIZE }}
           ssh -o StrictHostKeyChecking=no -i ~/.ssh/xgames-keypair ${{ secrets.STAGING_USERNAME }}@${{ secrets.STAGING_HOST }} 'sudo systemctl restart nginx'
