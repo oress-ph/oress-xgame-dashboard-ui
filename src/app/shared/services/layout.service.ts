@@ -9,19 +9,19 @@ export class LayoutService {
     settings: {
       layout: 'horizontal-wrapper',
       layout_type: "ltr",
-      layout_version: this.cookieService.getCookie('layout_version')=='dark-only'? 'dark-only' : 'light-only',
+      // layout_version: this.cookieService.getCookie("layout_version")!=null? this.cookieService.getCookie("layout_version") : 'dark-only',
+      layout_version:  'dark-only',
       icon: "stroke-svg",
     },
     color: {
       primary_color: '#0ffeff',
-      secondary_color: '#f73164'
+      secondary_color: '#30c6f8'
     }
   };
 
   constructor(
     private cookieService: CookiesService
   ) {
-    
     if (this.config.settings.layout_type == "rtl") document.getElementsByTagName("html")[0].setAttribute("dir", this.config.settings.layout_type);
 
     document.documentElement.style.setProperty("--theme-deafult", this.config.color.primary_color);
@@ -34,7 +34,6 @@ export class LayoutService {
     localStorage.getItem("secondary_color") || this.config.color.secondary_color;
     if ((this.config.settings.layout_version == "dark-only")) {
       document.body.classList.toggle("dark-only");
-      document.body.classList.add("dark-only");
     }else{
       document.body.remove;
     }
@@ -53,7 +52,7 @@ export class LayoutService {
     document.documentElement.style.setProperty("--theme-secondary", this.config.color.secondary_color);
     (<HTMLInputElement>document.getElementById("ColorPicker1")).value = this.config.color.primary_color;
     (<HTMLInputElement>document.getElementById("ColorPicker2")).value = this.config.color.secondary_color;
-    localStorage.setItem("primary_color", "#0ffeff");
+    localStorage.setItem("primary_color", "#7366ff");
     localStorage.setItem("secondary_color", " #f73164");
     window.location.reload();
   }

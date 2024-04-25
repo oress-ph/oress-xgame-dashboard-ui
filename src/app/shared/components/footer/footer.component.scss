@@ -27,38 +27,49 @@ body.dark-only .page-wrapper.horizontal-wrapper .footer > app-footer > .copyrigh
     }
 }
 
+// .content {
+//     display: flex;
+//     flex-wrap: wrap;
+//     @media screen and (max-width: 425px) {
+//         gap: 1rem;
+//     }
+// }
+// .content-legal{
+//     display: flex;
+//     flex-direction: column;
 
-.row > div{
+// }
+.icon-lists div {
+    line-height: 25px;
+}
+.legal-footer:hover{
+    background-color: var(--sidebar-border);
+}
+.flex-container {
     display: flex;
-    flex-direction: column;
-    gap: 0.5rem;
-    justify-content: space-between;
-    margin-bottom: 20px;
 }
-div ul li a {
-    color: #2F2F3B ;
+.sub-header:hover{
+    cursor: unset;
+    background-color: unset;
 }
-
-::ng-deep body.dark-only div ul li a {
-    color: #98a6ad !important;
+.image-logo{
+    max-width: 70%;
+    @media screen and (max-width: 567px) {
+        max-width: 300px;
+    }
 }
-.footer_section{
-    display: flex !important;
-    flex-wrap: wrap;
-    justify-content: space-between;
-    gap: 0.5rem;
+::ng-deep .footer{
+    position: relative;
+    flex-shrink: 0;
+    background: #071620 url('../../../../assets/images/home/section-background/footer-banner.webp') 50% 0/auto 100% no-repeat !important;
+    background-size: cover !important;
+    background-position: center !important;
+    color: white !important;
+    padding: 0px;
 }
-.footer_section > div{
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    gap: 1rem;
-}
-ul{
-    display: flex !important;
-    gap: 0.5rem;
-    flex-wrap: wrap;
-}
-a:hover{
-    color: var(--theme-deafult) !important;
+.footer-content{
+    height: 100%;
+    @media screen and (max-width: 567.98px){
+        margin: 0px;
+    }
 }

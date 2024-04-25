@@ -10,10 +10,9 @@ export const environment = {
       networks: [
         { 
           id: 1,
-          name: 'Mainnet',
-          wsProviderEndpoint: 'wss://rpcnodea01.xode.net/n7yoxCmcIrCF6VziCcDmYTwL8R03a/ws',
-          net_name: 'MAINNET',
-          is_default: true
+          name: 'Evolution',
+          wsProviderEndpoint: 'wss://rpcnodea01.xode.net/n7yoxCmcIrCF6VziCcDmYTwL8R03a/rpc',
+          net_name: 'MAINNET'
         }
       ]
     },
@@ -21,14 +20,23 @@ export const environment = {
       networks: [
         { 
           id: 2,
-          name: 'Testnet',
-          wsProviderEndpoint: 'wss://testrpcnodea01.xode.net/aRoyklGrhl9m2LlhX8NP/rpc' ,
-          net_name: 'TESTNET',
-          is_default: false
+          name: 'Genesis',
+          wsProviderEndpoint: 'wss://testrpcnodea01.xode.net/aRoyklGrhl9m2LlhX8NP/rpc',
+          net_name: 'TESTNET'
         }
       ]
     },
-  ], 
+    // {
+    //   networks: [
+    //     {
+    //       id: 3,
+    //       name: 'Development',p
+    //       wsProviderEndpoint:'wss://humidefi-dev.zeeve.net/para',
+    //       net_name: 'DEVNET'
+    //     }
+    //   ]
+    // }
+  ],
     // Website URL
     HomePageURL: 'https://xgame.live/',
     MarketplaceURL: 'https://nft.xgame.live/',

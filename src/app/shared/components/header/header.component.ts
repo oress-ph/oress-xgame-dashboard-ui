@@ -32,7 +32,22 @@ export class HeaderComponent implements OnInit {
     this.elem = document.documentElement;
   }
   backgroundColor = ''; 
+  @HostListener('window:scroll', ['$event'])
+  onScroll() {
+    const scrollPosition = window.scrollY || document.documentElement.scrollTop;
 
+    // Set a threshold value based on your design
+    const threshold = 10;
+    const screenWidth = window.innerWidth;
+    // Check if the scroll position is beyond the threshold
+    if (scrollPosition > threshold && screenWidth > 991.98) {
+      this.backgroundColor = 'rgba(00,00,00, 0.8) !important'; // Set your desired background color with 50% opacity
+    } else if(screenWidth > 991.98){
+      this.backgroundColor = 'rgba(17, 8, 34, 0)';
+    }else{
+      this.backgroundColor = 'hsl(225, 14%, 17%)';
+    }
+  }
   sidebarToggle() {
     this.navServices.collapseSidebar = !this.navServices.collapseSidebar;
     this.navServices.megaMenu = false;
@@ -47,12 +62,12 @@ export class HeaderComponent implements OnInit {
       this.cookiesService.setCookie("layout_version","light-only")
       this.layout.config.settings.layout_version="light-only";
     }else{
+      document.body.remove;
       document.body.classList.toggle("dark-only");
       this.layout.config.settings.layout_version="dark-only";
       this.cookiesService.setCookie("layout_version","dark-only")
     }
-    console.log(this.layout.config.settings.layout_version);
-    console.log(this.cookiesService.getCookie('layout_version'));
+    
   }
 
   searchToggle() {
