@@ -32,11 +32,11 @@ export class MyPortfolioComponent implements OnInit {
     private portfolioService: PortfolioService,
     private sweetalertService: SweetalertService,
   ) {
-    this.navServices.dashboard_items.subscribe(menuItems => {
-      this.dashboard_menuItems = menuItems;
-      this.router.events.subscribe((event) => {
-      });
-    });
+    // this.navServices.dashboard_items.subscribe(menuItems => {
+    //   this.dashboard_menuItems = menuItems;
+    //   this.router.events.subscribe((event) => {
+    //   });
+    // });
     // this.tokenSymbol = this.cookiesService.getCookie('tokenSymbol');
   }
 

@@ -1,4 +1,4 @@
-<div class="loader-wrapper" [class.loderhide]="!show">
+<!-- <div class="loader-wrapper" [class.loderhide]="!show">
   <div class="loader-index"><span></span></div>
   <svg>
     <defs></defs>
@@ -7,4 +7,7 @@
       <fecolormatrix in="blur" values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 19 -9" result="goo"></fecolormatrix>
     </filter>
   </svg>
+</div> -->
+<div class="loader-box" style="height: 100vh;" *ngIf="isContentShow">
+  <div class="loader-30"></div>
 </div>

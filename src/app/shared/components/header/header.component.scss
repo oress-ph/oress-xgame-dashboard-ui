@@ -1,50 +1,10 @@
-// header css here
-::ng-deep .page-wrapper .page-header {
-    
-    max-width: unset;
-    @media screen and (min-width: 991.98px){
-        background-color: unset !important;
-    }
+::ng-deep body.dark-only .page-wrapper .page-header {
+    background-color: hsl(225, 14%, 17%);
 }
-
-::ng-deep .header-wrapper{
-    
-    @media screen and (min-width: 991.98px){
-        background-color: unset !important;
-    }
+.header-wrapper{
+    max-width: 1526px;
 }
-::ng-deep .page-wrapper .page-header .header-wrapper{
-    padding: 10px 20px !important;
-}
-::ng-deep .sidebar-wrapper{
-    top: 61px !important;
-    background: unset !important;
-    @media screen and (max-width: 991.98px){
-        top: 0px !important;
-        background: unset !important;
-        box-shadow: unset !important;
-        height: unset !important;
-        background-color: hsl(225, 14%, 17%) !important;
-    }
-}
-::ng-deep .header-logo-wrapper{
-    @media screen and (min-width: 991.98px){
-        background-color: unset !important;
-    }
-}
-.show-social-media{
+::ng-deep .logo-wrapper{
     display: flex;
-    @media screen and (max-width: 578.98px){
-        display: none;
-    }
-}
-.page-wrapper .page-header .header-wrapper .nav-right .notification-dropdown{
-    top: 105px !important;
-}
-// end of headercss
-
-::ng-deep .page-wrapper.compact-wrapper .page-header .header-wrapper .toggle-sidebar {
-    display: flex;
-    flex-wrap: wrap;
-    align-content: center;
+    justify-content: space-between;
 }

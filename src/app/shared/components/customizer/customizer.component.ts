@@ -23,7 +23,7 @@ export class CustomizerComponent implements OnInit {
   public MIXLayout: string = "default";
   public icon: string = "stroke-svg";
 
-  public primary_color: string = "#7366ff";
+  public primary_color: string = "#0ffeff";
   public secondary_color: string = "#f73164";
 
   public chats : any;
@@ -65,7 +65,8 @@ export class CustomizerComponent implements OnInit {
 
   ngOnInit() {
     this.chatBotService.connect();
-    // this.chatBotService.messageReceived.subscribe((message: string) => { 
+    // this.chatBotService.messageReceived.subscribe((message: string) => {
+    //   console.log(message);      
     //   if (this.is_new_message == true) {
     //     this.chatBotModel.push({
     //       text: "",
