@@ -1,10 +1,29 @@
-<div class="card">
-    <div class="card-header card-no-border">
-      <div class="header-top" style="    justify-content: center;">
-        <!-- <h5>Gem Transaction</h5> -->
-        <div class="p-b-40">
-            <img src="./../../../../../assets/images/logo/logo.webp" alt="" class="img-fluid for-light">
-            <img src="./../../../../../assets/images/logo/logo_dark.webp" alt="" class="img-fluid for-dark">
+
+
+
+<!-- 
+<div class="modal-header">
+    <button type="button" class="btn-close" aria-label="Close"  aria-label="Close" (click)="activeModal.dismiss('Cross click')">
+    </button>
+  </div> -->
+<div class="modal-body">
+    <div style="display: flex; justify-content: center;" class="p-b-40">
+        <img src="./../../../../../assets/images/logo/logo.webp" alt="" class="img-fluid for-light">
+        <img src="./../../../../../assets/images/logo/logo_dark.webp" alt="" class="img-fluid for-dark">
+    </div>
+    <div *ngIf="selectedWallet == ''">
+        <div class="connect-wallet-title text-center" style="margin-bottom: 40px;">
+            <div class="text-center f-18">{{'Connect Wallet' | translate}}</div>
+            <span class="text-center text-sm w-full">{{'Start using XGame' | translate}}</span>
+        </div>
+        <div class="connect-wallet-button" style="margin-bottom: 40px;">
+            <button class="btn btn-outline-warning" type="button" style="padding: 0.9375rem 1.5625rem; width: 100%; display: flex; align-items: center; justify-content: space-between;" (click)="selectPolkadot()">
+                <div style="display: flex; gap: 0.5rem;">
+                    <img alt="logo" src="./../../../../../assets/images/polkadot/polkadot_icon.webp" style="width: 1.5rem" />
+                    <span class="f-20">Polkadot(.js)</span>
+                </div>
+                <i class="icon-arrow-right" style="font-size: 1rem;"></i>
+            </button>
         </div>
       </div>
     </div>

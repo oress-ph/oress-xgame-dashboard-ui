@@ -1,5 +1,30 @@
-.icon-lists div {
-    max-width: unset;
+.footer-link{
+    display: flex;
+    height: 100%;
+    width: 100%;
+}
+.btn-light{
+    padding: 12px;
+}
+
+.copyright{
+    text-align: center;
+    border-top: 1px solid #374558;
+}
+body.dark-only .page-wrapper.horizontal-wrapper .footer > app-footer > .copyright{
+    background-color: hsl(225, 14%, 17%);
+}
+.footer-info{
+    display: flex; gap: 0.5rem; flex-direction: column
+}
+.social-media{
+    display: flex; 
+    flex-wrap: wrap; 
+    justify-content: flex-end;
+    gap: 1rem;
+    @media (max-width: 749px) {
+        justify-content: flex-start;
+    }
 }
 
 // .content {

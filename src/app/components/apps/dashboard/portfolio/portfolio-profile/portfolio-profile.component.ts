@@ -24,6 +24,7 @@ export class PortfolioProfileComponent implements OnInit{
   openVerticallyCentered(content) {
     this.modalService.open(content, { centered: true });
   }
+  
   ngOnInit() {
     this.polkadotService.getCurrentBalance().subscribe(data => {
       this.wallet_balance = data;

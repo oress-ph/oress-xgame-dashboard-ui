@@ -8,7 +8,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { SharedModule } from "./shared/shared.module";
 import { AppRoutingModule } from './app-routing.module';
-import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { NgbActiveModal, NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { ToastrModule } from 'ngx-toastr';
 
 // // for HttpClient import:
@@ -65,7 +65,7 @@ export function HttpLoaderFactory(http: HttpClient) {
   // for Core use:
     LoadingBarModule
   ],
-  providers: [ AdminGuard, WalletGuard ,CookieService,AppSettings,DatePipe,PolkadotService],
+  providers: [ AdminGuard, WalletGuard ,CookieService,AppSettings,DatePipe,PolkadotService,NgbActiveModal],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
