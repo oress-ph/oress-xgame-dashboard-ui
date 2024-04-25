@@ -21,17 +21,12 @@ body.dark-only .page-wrapper.horizontal-wrapper .footer > app-footer > .copyrigh
     display: flex; 
     flex-wrap: wrap; 
     justify-content: flex-end;
-    gap: 0.5rem;
+    gap: 1rem;
     @media (max-width: 749px) {
         justify-content: flex-start;
     }
 }
-div > .main_menu{
-    justify-content: flex-end;
-    li:not(:first-child) {
-        padding-left: 20px;
-    }
-}
+
 
 .row > div{
     display: flex;

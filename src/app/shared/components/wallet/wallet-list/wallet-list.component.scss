@@ -4,6 +4,9 @@
     line-height: normal;
     align-items: unset;
     flex-direction: column;
+    span{
+        color: black;
+    }
 }
 .modal-footer{
     justify-content: center;
