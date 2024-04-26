@@ -1,32 +1,32 @@
 <div class="card portfolio-card balance-box">
   <div class="card-body">
-    <div class="balance-profile row">
-      <div class="col-xxl-3 col-xl-3 col-lg-3 col-md-6 col-sm-6 col-xs-12">
+    <div class="row">
+      <div class="media faq-widgets">
         <i class="icofont icofont-wallet portfolio-icon m-auto"></i>
-      </div>
-      <div class="col-xxl-9 col-xl-9 col-lg-9 col-md-6 col-sm-6 col-xs-12">
-        <span class="f-light d-block my-portfolio" style="margin-top: 8px;">{{"My Portfolio" | translate}}</span>
-        <div class="portfolio-balance d-flex align-items-center f-light">
-          {{ totalBalance | number:'1.2-2' }}
-          <div ngbDropdown class="d-inline-block dropdown-currency">
-            <button class="btn dropdown-toggle btn-light" type="button"
-              data-bs-toggle="dropdown" aria-haspopup="true"
-              aria-expanded="false" ngbDropdownToggle
-              style="background-color: transparent !important;">
-              <div class="selectedCurrency">{{ selectedCurrency }}</div>
-            </button>
-            <div class="dropdown-menu dropdown-size" ngbDropdownMenu style="z-index: 11 !important;">
-              <a class="dropdown-item" ngbDropdownItem href="javascript:void(0)"
-                *ngFor="let curr of currency" (click)="handleSelectCurrency(curr.name)"
-                style="opacity: unset; display: flex;">
-                <img class="m-r-20" [src]="curr.flag_icon" style="width: 40px; height: auto;">
-                <span>{{ curr.name }}</span>
-              </a>
+        <div class="media-body">
+          <h3>{{"My Portfolio" | translate}}</h3>
+          <div class="portfolio-balance d-flex align-items-center f-light">
+            {{ totalBalance | number:'1.2-2' }}
+            <div ngbDropdown class="d-inline-block dropdown-currency">
+              <button class="btn dropdown-toggle btn-light" type="button"
+                data-bs-toggle="dropdown" aria-haspopup="true"
+                aria-expanded="false" ngbDropdownToggle
+                style="background-color: transparent !important;">
+                <div class="selectedCurrency">{{ selectedCurrency }}</div>
+              </button>
+              <div class="dropdown-menu dropdown-size" ngbDropdownMenu style="z-index: 11 !important;">
+                <a class="dropdown-item" ngbDropdownItem href="javascript:void(0)"
+                  *ngFor="let curr of currency" (click)="handleSelectCurrency(curr.name)"
+                  style="opacity: unset; display: flex;">
+                  <img class="m-r-20" [src]="curr.flag_icon" style="width: 40px; height: auto;">
+                  <span>{{ curr.name }}</span>
+                </a>
+              </div>
             </div>
           </div>
         </div>
+        
       </div>
     </div>
   </div>
 </div>
-<!-- <app-loader *ngIf="isLoading" style="opacity: 30%;"></app-loader> -->

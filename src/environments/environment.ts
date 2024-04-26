@@ -42,6 +42,7 @@ export const environment = {
     ChatBotAPIWSHost: "chatbot-api.xgame.live",
     BlogAPIURL: "https://blogs-api.xgame.live",
     ExchangeAPIRUL: "http://127.0.0.1:3002",
+    WALLETAPIURL: "http://127.0.0.1:3004",
   
     // Social Media
     LinkedIn : 'https://www.linkedin.com/company/xgame-official/about/',

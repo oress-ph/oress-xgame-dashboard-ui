@@ -17,17 +17,23 @@ import { NFTModel } from './../model/nft.model';
 import { BehaviorSubject } from 'rxjs';
 import { environment } from 'src/environments/environment';
 
-const httpOptions = {
-  headers: new HttpHeaders({
-    'Content-Type': 'application/json',
-    Authorization: 'Bearer ' + localStorage.getItem('token'),
-  }),
-};
+
 
 @Injectable({
   providedIn: 'root'
 })
 export class PolkadotService {
+  private tokensSubject = new BehaviorSubject<any[]>([]);
+  tokens$ = this.tokensSubject.asObservable();
+
+  getTokens() {
+    return this.tokensSubject.value;
+  }
+
+  setTokens(tokens: any) {
+    this.tokensSubject.next(tokens);
+  }
+
   private dataSubject: BehaviorSubject<any> = new BehaviorSubject<any>(null);
   setCurrentBalance(data: any) {
     this.dataSubject.next(data);
@@ -44,7 +50,14 @@ export class PolkadotService {
   ) {
     this.getChainTokens();
   }
-  public defaultAPIURLHost: string = this.appSettings.APIURLHostNFT;
+  public httpOptions = {
+    headers: new HttpHeaders({
+      'Content-Type': 'application/json',
+      Authorization: 'Bearer ' + localStorage.getItem('token'),
+      websocket: this.cookiesService.getCookieArray('network').wsProviderEndpoint,
+    }),
+  };
+  public defaultAPIURLHost: string = environment.WALLETAPIURL;
   wsProvider = new WsProvider(this.appSettings.wsProviderEndpoint);
   api = ApiPromise.create({ provider: this.wsProvider });
   keypair = this.appSettings.keypair;
@@ -227,16 +240,18 @@ export class PolkadotService {
     return tokens[0];
   }
 
-  async getAstroToken(): Promise<any> {
+  async getAllTokens(): Promise<any> {
+    
     let wallet = this.cookiesService.getCookieArray("wallet-info").address;
     return new Observable<[boolean, any]>((observer) => {
       this.httpClient.get<any>(
         this.defaultAPIURLHost + '/chain/gettokens/' + wallet,
-        httpOptions
+        this.httpOptions
       ).subscribe({
         next: (response) => {
           let results = response;
           if (results != null) {
+            this.setTokens(results);
           }
           observer.next([true, results]);
           observer.complete();
@@ -280,7 +295,7 @@ export class PolkadotService {
       this.httpClient.post<any>(
         this.defaultAPIURLHost + '/nfts/signed',
         { sign: tx },
-        httpOptions
+        this.httpOptions
       ).subscribe({
         next: (response) => {
           let results = response;

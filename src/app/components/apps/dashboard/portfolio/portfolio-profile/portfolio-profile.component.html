@@ -1,27 +1,27 @@
 <div class="card ">
-    <div class="card-body" style="display: flex; gap: 3rem;">
-        <img src="./../../../../../../../assets/images/polkadot/polkadot_icon.webp" style="    max-height: 90px;
-        width: auto;"/>
-        <div>
-          <h3>{{wallet_info.metaName | translate}}</h3>
-          <span class="my-portfolio">{{wallet_info.address_display | translate}}</span>
-          <div style="display: flex; gap: 1rem;">
-            <a href="javascript:void(0);" (click)="openVerticallyCentered(content)"><span><i class="fa fa-edit"></i> {{appSettings.translate("Change" | translate)}}</span></a>
-            <a href="javascript:void(0);"><span><i class="fa fa-copy"></i> {{appSettings.translate("Copy" | translate) }}</span></a>
+    <div class="card-body">
+      <div class="row">
+        <div class="media faq-widgets gap-3">
+          <img src="./../../../../../../../assets/images/polkadot/polkadot_icon.webp" style="    max-height: 90px;
+          width: auto;"/>
+          <div>
+            <h3>{{wallet_info.metaName | translate}}</h3>
+            <span class="my-portfolio">{{wallet_info.address_display | translate}}</span>
+            <div style="display: flex; gap: 1rem;">
+              <a href="javascript:void(0);" (click)="openVerticallyCentered(content)"><span><i class="fa fa-edit"></i> {{appSettings.translate("Change" | translate)}}</span></a>
+              <a href="javascript:void(0);"><span><i class="fa fa-copy"></i> {{appSettings.translate("Copy" | translate) }}</span></a>
+            </div>
           </div>
         </div>
+      </div>
     </div>
 </div>
 <ng-template #content let-modal>
     <div class="modal-header">
-      <!-- <h4 class="modal-title" id="modal-basic-title">Profile update</h4> -->
       <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
     </div>
     <div class="modal-body">
       <app-wallet-list [current_wallet]="wallet_info.address"></app-wallet-list>
     </div>
-    <!-- <div class="modal-footer">
-      <button type="button" class="btn btn-outline-dark" (click)="modal.close('Save click')">Save</button>
-    </div> -->
 </ng-template>
   

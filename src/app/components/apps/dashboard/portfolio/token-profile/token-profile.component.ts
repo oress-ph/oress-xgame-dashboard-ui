@@ -13,7 +13,6 @@ import { PortfolioService } from "src/app/shared/services/portfolio.service";
   styleUrls: ["./token-profile.component.scss"],
 })
 export class TokenProfileComponent implements OnInit, AfterContentInit {
-  public portfolio = chartData.portfolio;
   public show: boolean = false;
 
   constructor(
@@ -33,18 +32,12 @@ export class TokenProfileComponent implements OnInit, AfterContentInit {
   nmsPrice: number = 10;
   amount: number = 0;
   loading: boolean = true;
-  tokens = [];
-
-  toggle(){
-    this.show = !this.show
-  }
+  tokens: any = [];
 
   async ngOnInit(): Promise<void> {
-    this.portfolioService.tokens$.subscribe(tokens => {
+    this.polkadotService.tokens$.subscribe(tokens => {
+      console.log(tokens);
       this.tokens = tokens;
-      if (tokens.length > 0) {
-        this.loading = false;
-      }
     });
     await this.polkadotService.getChainTokens();
   }

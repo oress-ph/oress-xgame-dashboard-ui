@@ -72,4 +72,12 @@ p {
   font-size: 25px;
   font-weight: bold;
   color: rgba(36, 41, 52, 255);
+  justify-content: center;
+}
+
+.dropdown .dropdown-toggle:after {
+  right: 0px;
+}
+.media{
+  flex-wrap: wrap;
 }
