@@ -44,12 +44,12 @@ export class PortfolioService {
     if (token != undefined) {
       for (let i = 0; i < token.length; i++) {
         let new_token = new PortfolioModel();
-        const rate = this.data.rates[currency];
+        const rate = this.data?.rates[currency];
         new_token.currency = currency;
-        new_token.token_quantity = parseFloat(token[i].balance);
-        new_token.conversion_rate = token[i].price * rate;
-        new_token.token_symbol = token[i].symbol;
-        const amount = parseFloat(token[i].balance) * (rate * parseInt(token[i].price));
+        new_token.token_quantity = parseFloat(token[i]?.balance);
+        new_token.conversion_rate = token[i]?.price * rate;
+        new_token.token_symbol = token[i]?.symbol;
+        const amount = parseFloat(token[i]?.balance) * (rate * parseInt(token[i]?.price));
         new_token.amount = amount;
         this.totalBalance += amount;
         this.tokens.push(new_token);

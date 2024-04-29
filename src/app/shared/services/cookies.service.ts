@@ -3,6 +3,7 @@ import * as CryptoJS from 'crypto-js'
 import { CookieService } from 'ngx-cookie-service';
 import { AppSettings } from './../../app-settings';
 import { Router } from '@angular/router';
+import { environment } from "src/environments/environment";
 
 @Injectable({
   providedIn: 'root'
@@ -18,40 +19,43 @@ export class CookiesService {
   all_site:any = this.appSettings.AllURL;
 
   encryptData(data: string, secretKey: string): string {
-    let encJson = CryptoJS.AES.encrypt(JSON.stringify(data), secretKey).toString()
-    let encData = CryptoJS.enc.Base64.stringify(CryptoJS.enc.Utf8.parse(encJson))
-    return encData
+    // const encryptedData = CryptoJS.AES.encrypt(data, secretKey).toString();
+    // return encryptedData;
+    const encryptedData = CryptoJS.AES.encrypt(JSON.stringify({ data }), secretKey).toString();
+    return encryptedData
   }
 
   decryptData(encryptedData: string, secretKey: string): string {
-    let decData = CryptoJS.enc.Base64.parse(encryptedData).toString(CryptoJS.enc.Utf8)
-    let bytes = CryptoJS.AES.decrypt(decData, secretKey).toString(CryptoJS.enc.Utf8)
-    return JSON.parse(bytes)
-
     // const bytes = CryptoJS.AES.decrypt(encryptedData, secretKey);
     // const decryptedData = bytes.toString(CryptoJS.enc.Utf8);
     // return decryptedData;
+    const decryptedData = CryptoJS.AES.decrypt(encryptedData, secretKey).toString(CryptoJS.enc.Utf8);
+    // console.log(JSON.parse(JSON.parse(decryptedData).data));
+    return decryptedData;
   }
 
   setCookie(name: string,value:string){
     try{
-      const secretKey = 'x_game_encryption_password';
+      const secretKey = environment.secret_key
       const domain = 'localhost';
       const expirationDays = 1;
       const encrypt_value = this.encryptData(value,secretKey)
       this.all_site.forEach((sites:any) => {
+        // this.cookieService.set(name, encrypt_value, expirationDays, '/', sites.url, true, 'Strict');
         this.cookieService.set(name, encrypt_value, expirationDays, '/', sites.url, true, 'None');
       });
     }catch(e){
+      console.log(e);
     }
   }
   getCookie(name:string){
     try{
       const cookie_value = this.cookieService.get(name);
-      const secretKey = 'x_game_encryption_password';
+      const secretKey = environment.secret_key
       const decrypt_value = this.decryptData(cookie_value,secretKey);
       return decrypt_value;
     }catch(e){
+      console.log(e);
       return null
     }
   }
@@ -80,12 +84,12 @@ export class CookiesService {
         return null; // No need to decrypt and parse if the cookie value is empty
       }
 
-      const secretKey = 'x_game_encryption_password';
+      const secretKey = environment.secret_key
       const decrypt_value = this.decryptData(cookie_value, secretKey);
-
       try {
         if(decrypt_value!=''){
-          return JSON.parse(decrypt_value as string);
+          return JSON.parse(JSON.parse(decrypt_value).data)
+          // return JSON.parse(decrypt_value as string);
         }else{
           return null
         }
@@ -101,7 +105,7 @@ export class CookiesService {
 
   setCookieArray(name: any,value:any){
     try{
-      const secretKey = 'x_game_encryption_password';
+      const secretKey = environment.secret_key
       const expirationDays = 1;
       const json_value = JSON.stringify(value);
       const encrypt_value = this.encryptData(json_value,secretKey)
@@ -109,6 +113,7 @@ export class CookiesService {
         this.cookieService.set(name, encrypt_value, expirationDays, '/', sites.url, true, 'Strict');
       });
     }catch(e){
+      console.log(e);
     }
   }
 
@@ -134,8 +139,10 @@ export class CookiesService {
   isExpired(cookie: string) {
     const isCookieValid = this.cookieService.check(cookie);
     if (!isCookieValid) {
+      // console.log('The cookie has expired.');
       return true;
     } else {
+      // console.log('The cookie is still valid.');
       return false;
     }
   }
