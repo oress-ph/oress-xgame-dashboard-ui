@@ -1,6 +1,6 @@
 import { ApexAnnotations, ApexAxisChartSeries, ApexChart, ApexDataLabels, ApexFill, ApexGrid, ApexLegend, ApexMarkers, ApexNonAxisChartSeries, ApexPlotOptions, ApexResponsive, ApexStroke, ApexTheme, ApexTitleSubtitle, ApexXAxis, ApexYAxis } from "ng-apexcharts";
 
-let primary_color = localStorage.getItem("primary_color") || "#7366ff";
+let primary_color = localStorage.getItem("primary_color") || "#0ffeff";
 let secondary_color = localStorage.getItem("secondary_color") || "#f73164";
 
 export type ChartOptions = {
@@ -242,7 +242,7 @@ export let recentOrders: ChartOptions | any = {
       colorStops: [
         {
           offset: 0,
-          color: "#7366FF",
+          color: "#0ffeff",
           opacity: 1,
         },
         {
@@ -467,7 +467,7 @@ export let followersGrowth: ChartOptions | any = {
       top: 5,
       left: 0,
       blur: 4,
-      color: "#7366ff",
+      color: "#0ffeff",
       opacity: 0.22,
     },
   },

@@ -1,7 +1,6 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { Router } from '@angular/router';
 import { Clipboard } from '@angular/cdk/clipboard';
-import { CookiesService } from 'src/app/shared/services/cookies.service';
 
 
 @Component({
@@ -15,8 +14,7 @@ export class WalletInfoComponent {
 
   constructor(
     private router: Router,
-    private clipboard: Clipboard,
-    private cookiesService: CookiesService
+    private clipboard: Clipboard
   ) { }
 
   iframeSrc = "";
@@ -38,8 +36,8 @@ export class WalletInfoComponent {
   }
 
   ngOnInit(): void {
-    this.walletMetaName = this.cookiesService.getCookie("wallet-meta-name") || "";
-    this.walletKeyPair = this.cookiesService.getCookie("wallet-keypair") || "";
+    this.walletMetaName = localStorage.getItem("wallet-meta-name") || "";
+    this.walletKeyPair = localStorage.getItem("wallet-keypair") || "";
 
     let url = location.origin + "/polkadot-identicon";
     this.iframeSrc = url;

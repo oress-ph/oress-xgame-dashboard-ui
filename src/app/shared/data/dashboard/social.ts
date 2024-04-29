@@ -1,6 +1,6 @@
 import { ApexAnnotations, ApexAxisChartSeries, ApexChart, ApexDataLabels, ApexFill, ApexGrid, ApexLegend, ApexMarkers, ApexNonAxisChartSeries, ApexPlotOptions, ApexResponsive, ApexStroke, ApexTheme, ApexTitleSubtitle, ApexXAxis, ApexYAxis } from "ng-apexcharts";
 
-let primary_color = localStorage.getItem("primary_color") || "#7366ff";
+let primary_color = localStorage.getItem("primary_color") || "#0ffeff";
 let secondary_color = localStorage.getItem("secondary_color") || "#f73164";
 
 export type ChartOptions = {
@@ -282,7 +282,7 @@ export let subscriberChart: any = {
       },
     },
   },
-  colors: ["#FFA941", "#7366FF"],
+  colors: ["#FFA941", "#0ffeff"],
   stroke: {
     width: 2,
     curve: "smooth",
@@ -1054,7 +1054,7 @@ export let views: any = {
         y: 44,
         marker: {
           size: 15,
-          fillColor: "#7366FF",
+          fillColor: "#0ffeff",
           strokeColor: "var(--view-border-marker)",
           strokeWidth: 20,
           radius: 2,

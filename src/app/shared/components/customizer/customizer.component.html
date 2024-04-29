@@ -4,7 +4,7 @@
       <div class="settings">
         <div class="settings"><i class="icofont icofont-chat"></i></div>
       </div>
-      <span>{{appSettings.translate("How can we help you?")}}</span>
+      <span>{{'How can we help you?' | translate}}</span>
     </a>
     <!-- <a href="javascript:void(0)" class="nav-link" [ngClass]="{ 'active show': customizer == 'option' }" id="c-pills-home-tab" (click)="Customizer('option')">
       <div class="settings"><i class="icon-settings"></i></div>
@@ -16,9 +16,9 @@
   <div class="tab-content" id="c-pills-tabContent">
     <div class="customizer-header">
       <i class="icofont-close icon-close" (click)="Customizer('')"></i>
-      <h5 style="text-transform:unset">{{customizer=='ChatBot'? appSettings.translate("Chat With Us!") : ''}}</h5>
+      <h5 style="text-transform:unset">{{'Chat With Us!' | translate}}</h5>
     </div>
-    <div class="customizer-body custom-scrollbar" style="max-height: calc(100vh - 130px);">
+    <div class="customizer-body custom-scrollbar" style="height: calc(100vh - 130px);">
       <div class="tab-pane fade" [ngClass]="{ 'active show': customizer == 'ChatBot' }" id="c-pills-layouts" role="tabpanel" style="display: flex; gap:1rem;flex-direction: column;" *ngFor="let chat of chatBotModel">
         <div class="sender m-b-20" *ngIf="chat.reply!=false">
           <div class="" style="    text-align: right;">

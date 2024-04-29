@@ -5,6 +5,8 @@ import { Router } from '@angular/router';
 import { DexService } from './../../../services/dex.service';
 import { CookiesService } from './../../../services/cookies.service';
 import {WalletAccountsModel} from './../../../model/polkadot.model';
+import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
+
 declare var require
 const Swal = require('sweetalert2')
 @Component({
@@ -13,13 +15,13 @@ const Swal = require('sweetalert2')
   styleUrls: ['./wallet-list.component.scss']
 })
 export class WalletListComponent {
-  @Input() current_wallet: string | undefined;
   constructor(
     private polkadotService: PolkadotService,
     public appSettings: AppSettings,
     private router: Router,
     private dexService: DexService,
     private cookiesService: CookiesService,
+    public activeModal: NgbActiveModal,
   ){}
 
   selectedWallet = "";
@@ -31,7 +33,7 @@ export class WalletListComponent {
     this.selectedWallet = "PolkadotJS";
 
     this.web3Wallets = [];
-    
+
     this.selectedWalletAccount = new WalletAccountsModel();
 
     this.getWeb3Accounts();
@@ -43,10 +45,6 @@ export class WalletListComponent {
 
     if (data.length > 0) {
       for (let i = 0; i < data.length; i++) {
-        if (this.current_wallet && data[i].address === this.current_wallet) {
-          continue;
-        }
-
         this.web3Wallets.push({
           address: data[i].address,
           address_display: data[i].address.substring(0, 5) + "..." + data[i].address.substring(data[i].address.length - 5, data[i].address.length),
@@ -97,12 +95,12 @@ export class WalletListComponent {
         timer: 1500,
         timerProgressBar: true,
         willClose: () => {
-          window.location.href = '/portfolio';
+          window.location.reload()
         }
       }).then((result) => {
         /* Read more about handling dismissals below */
         if (result.dismiss === Swal.DismissReason.timer) {
-          window.location.href = '/portfolio';
+          window.location.reload()
         }
       })
 

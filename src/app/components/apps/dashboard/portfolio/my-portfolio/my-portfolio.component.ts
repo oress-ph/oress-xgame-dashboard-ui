@@ -32,11 +32,11 @@ export class MyPortfolioComponent implements OnInit {
     private portfolioService: PortfolioService,
     private sweetalertService: SweetalertService,
   ) {
-    this.navServices.dashboard_items.subscribe(menuItems => {
-      this.dashboard_menuItems = menuItems;
-      this.router.events.subscribe((event) => {
-      });
-    });
+    // this.navServices.dashboard_items.subscribe(menuItems => {
+    //   this.dashboard_menuItems = menuItems;
+    //   this.router.events.subscribe((event) => {
+    //   });
+    // });
     // this.tokenSymbol = this.cookiesService.getCookie('tokenSymbol');
   }
 
@@ -78,8 +78,9 @@ export class MyPortfolioComponent implements OnInit {
   }
 
   async ngOnInit(): Promise<void> {
-    (await this.polkadotService.getAstroToken()).subscribe({
+    (await this.polkadotService.getAllTokens()).subscribe({
       next: async (response: any) => {
+        console.log(response);
         if (!response[0]){
           this.sweetalertService.fireSwal(
             response[0],

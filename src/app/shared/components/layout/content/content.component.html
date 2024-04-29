@@ -4,7 +4,7 @@
     <app-header></app-header>
     <!-- Page Body Start-->
     <div class="page-body-wrapper">
-      <div class="sidebar-wrapper" [style.backgroundColor]="backgroundColor" [attr.icon]="layout.config.settings.icon" [class.close_icon]="navServices.collapseSidebar">
+      <div class="sidebar-wrapper" [attr.icon]="layout.config.settings.icon" [class.close_icon]="navServices.collapseSidebar">
         <app-sidebar></app-sidebar>
       </div>
       <div class="page-body">
@@ -13,7 +13,7 @@
         </main>
       </div>
       <!-- footer start-->
-      <footer class="footer">
+      <footer class="footer page-body m-t-0" style="min-height: unset;">
         <app-footer></app-footer>
       </footer>
       <!-- footer End-->

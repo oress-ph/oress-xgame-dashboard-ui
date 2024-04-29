@@ -178,7 +178,7 @@ export class TokenTransferComponent implements OnInit {
   }
 
   async ngOnInit(): Promise<void> {
-    (await this.polkadotService.getAstroToken()).subscribe({
+    (await this.polkadotService.getAllTokens()).subscribe({
       next: async (response: any) => {
         if (response[0]){
           this.tokens = response[1];

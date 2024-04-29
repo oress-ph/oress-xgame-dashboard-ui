@@ -96,13 +96,13 @@ export class NavService implements OnDestroy {
     this.screenWidth.next(width);
   }
 
-  MENUITEMS: Menu[] = [
-    { path: "https://xgame."+this.top_level_domain+"/home?section=about", title: "About", icon: "home", type: "link" },
-    { path: "https://xgame."+this.top_level_domain+"/home?section=assets", title: "Assets", icon: "gem", type: "link" },
-    { path: "https://xgame."+this.top_level_domain+"/home?section=play", title: "Play", icon: "games", type: "link" },
-    { path: "https://xgame."+this.top_level_domain+"/home?section=blogs", title: "Blogs", icon: "blog", type: "link" },
-    { path: "https://xgame."+this.top_level_domain+"/home?section=contact", title: "Contact", icon: "contact", type: "link" },
-  ];
+  // MENUITEMS: Menu[] = [
+  //   { path: "https://xgame."+this.top_level_domain+"/home?section=about", title: "About", icon: "home", type: "link" },
+  //   { path: "https://xgame."+this.top_level_domain+"/home?section=assets", title: "Assets", icon: "gem", type: "link" },
+  //   { path: "https://xgame."+this.top_level_domain+"/home?section=play", title: "Play", icon: "games", type: "link" },
+  //   { path: "https://xgame."+this.top_level_domain+"/home?section=blogs", title: "Blogs", icon: "blog", type: "link" },
+  //   { path: "https://xgame."+this.top_level_domain+"/home?section=contact", title: "Contact", icon: "contact", type: "link" },
+  // ];
   FOOTERMENUITEMS: Menu[] = [
     { path: "https://xgame."+this.top_level_domain+"/home?section=about", title: "About", icon: "home", type: "link" },
     { path: "https://xgame."+this.top_level_domain+"/web3", title: "Web3 Wallet", icon: "gem", type: "link" },
@@ -122,7 +122,7 @@ export class NavService implements OnDestroy {
     { path: "https://xgame."+this.top_level_domain+"/policy/cookie", title: "Cookie Policy", icon: "gem", type: "link" },
     { path: "https://xgame."+this.top_level_domain+"/policy/legal-disclaimer", title: "Legal Disclaimer", icon: "gem", type: "link" },
   ];
-  DASHBOARDITEMS: Menu[] = [
+  MENUITEMS: Menu[] = [
     { path: "/portfolio", title: "Portfolio", icon: "widget", type: "link" },
     { path: "/swap", title: "Transfer", icon: "swap", type: "link" },
     { path: "/cash-in", title: "Cash-In", icon: "cash-in", type: "link" },
@@ -139,11 +139,19 @@ export class NavService implements OnDestroy {
     { path: environment.Youtube, title: "Youtube", icon: "youtube-play", type: "link" },
   ];
 
+  OTHERMENUITEMS: Menu[] = [
+    // { path: "/about_us", title: "About Us", icon: "home", type: "link" },
+    // { path: "/contact_us", title: "Contact Us", icon: "nft", type: "link" },
+    // { path: "/teams", title: "Teams", icon: "teams", type: "link" },
+    // { path: "/blogs", title: "Blogs", icon: "blogs", type: "link" },
+  ];
+
   // Array
   items = new BehaviorSubject<Menu[]>(this.MENUITEMS);
   community_items = new BehaviorSubject<Menu[]>(this.COMMUNITYMENUITEMS);
   legal_items = new BehaviorSubject<Menu[]>(this.LEGALMENUITEMS);
   footer_items = new BehaviorSubject<Menu[]>(this.FOOTERMENUITEMS);
-  dashboard_items = new BehaviorSubject<Menu[]>(this.DASHBOARDITEMS);
+  // dashboard_items = new BehaviorSubject<Menu[]>(this.DASHBOARDITEMS);
   social_media_items = new BehaviorSubject<Menu[]>(this.SOCIALMEDIAMENU);
+  other_items = new BehaviorSubject<Menu[]>(this.OTHERMENUITEMS);
 }
