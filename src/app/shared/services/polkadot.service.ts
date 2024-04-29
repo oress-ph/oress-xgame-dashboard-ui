@@ -54,7 +54,7 @@ export class PolkadotService {
     headers: new HttpHeaders({
       'Content-Type': 'application/json',
       Authorization: 'Bearer ' + localStorage.getItem('token'),
-      websocket: this.cookiesService.getCookieArray('network').wsProviderEndpoint,
+      websocket: this.cookiesService.getCookieArray('network')?.wsProviderEndpoint? this.cookiesService.getCookieArray('network').wsProviderEndpoint : environment.network[0],
     }),
   };
   public defaultAPIURLHost: string = environment.WALLETAPIURL;

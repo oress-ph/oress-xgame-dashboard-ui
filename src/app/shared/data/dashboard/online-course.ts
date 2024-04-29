@@ -1,6 +1,6 @@
 import * as ApexCharts from "apexcharts";
 
-let primary_color = localStorage.getItem("primary_color") || "#7366ff";
+let primary_color = localStorage.getItem("primary_color") || "#0ffeff";
 let secondary_color = localStorage.getItem("secondary_color") || "#f73164";
 
 export let todayProgress: any = {
@@ -219,7 +219,7 @@ export let learningChart: any = {
       },
     },
   },
-  colors: ["var(--theme-deafult)", "#F47DEA", "#FFA941", "#FFC200", "#54BA4A", "#3DA831", "#57B9F6", "#FF3377", "#773ACE", "#945CFF", "#7366ff"],
+  colors: ["var(--theme-deafult)", "#F47DEA", "#FFA941", "#FFC200", "#54BA4A", "#3DA831", "#57B9F6", "#FF3377", "#773ACE", "#945CFF", "#0ffeff"],
   stroke: {
     width: 1.5,
     curve: "smooth",

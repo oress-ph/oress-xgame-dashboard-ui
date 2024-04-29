@@ -36,7 +36,6 @@ export class TokenProfileComponent implements OnInit, AfterContentInit {
 
   async ngOnInit(): Promise<void> {
     this.polkadotService.tokens$.subscribe(tokens => {
-      console.log(tokens);
       this.tokens = tokens;
     });
     await this.polkadotService.getChainTokens();

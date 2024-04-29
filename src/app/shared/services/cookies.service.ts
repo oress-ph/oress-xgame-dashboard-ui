@@ -18,14 +18,19 @@ export class CookiesService {
   all_site:any = this.appSettings.AllURL;
 
   encryptData(data: string, secretKey: string): string {
-    const encryptedData = CryptoJS.AES.encrypt(data, secretKey).toString();
-    return encryptedData;
+    let encJson = CryptoJS.AES.encrypt(JSON.stringify(data), secretKey).toString()
+    let encData = CryptoJS.enc.Base64.stringify(CryptoJS.enc.Utf8.parse(encJson))
+    return encData
   }
 
   decryptData(encryptedData: string, secretKey: string): string {
-    const bytes = CryptoJS.AES.decrypt(encryptedData, secretKey);
-    const decryptedData = bytes.toString(CryptoJS.enc.Utf8);
-    return decryptedData;
+    let decData = CryptoJS.enc.Base64.parse(encryptedData).toString(CryptoJS.enc.Utf8)
+    let bytes = CryptoJS.AES.decrypt(decData, secretKey).toString(CryptoJS.enc.Utf8)
+    return JSON.parse(bytes)
+
+    // const bytes = CryptoJS.AES.decrypt(encryptedData, secretKey);
+    // const decryptedData = bytes.toString(CryptoJS.enc.Utf8);
+    // return decryptedData;
   }
 
   setCookie(name: string,value:string){

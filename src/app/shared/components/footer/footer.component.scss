@@ -9,11 +9,12 @@
 
 .copyright{
     text-align: center;
-    border-top: 1px solid #374558;
+    border-top: 1px solid #efefef;
 }
-body.dark-only .page-wrapper.horizontal-wrapper .footer > app-footer > .copyright{
-    background-color: hsl(225, 14%, 17%);
+::ng-deep body.dark-only .page-wrapper.horizontal-wrapper .page-body-wrapper > .footer > app-footer > .copyright {
+    border-top: 1px solid #374558 !important;
 }
+
 .footer-info{
     display: flex; gap: 0.5rem; flex-direction: column
 }
@@ -26,11 +27,6 @@ body.dark-only .page-wrapper.horizontal-wrapper .footer > app-footer > .copyrigh
         justify-content: flex-start;
     }
 }
-// div > .main_menu{
-//     li:not(:first-child) {
-//         padding-left: 20px;
-//     }
-// }
 
 .row > div{
     display: flex;
@@ -62,7 +58,6 @@ ul{
     display: flex !important;
     gap: 1rem;
     flex-wrap: wrap;
-    justify-content: space-between
 }
 a:hover{
     color: var(--theme-deafult) !important;

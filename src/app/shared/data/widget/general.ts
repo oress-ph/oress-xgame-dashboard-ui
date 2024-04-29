@@ -17,7 +17,7 @@ export let followersGrowth: any = {
       top: 5,
       left: 0,
       blur: 4,
-      color: "#7366ff",
+      color: "#0ffeff",
       opacity: 0.22,
     },
   },
