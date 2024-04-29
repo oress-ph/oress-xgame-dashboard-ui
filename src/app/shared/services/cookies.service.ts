@@ -19,7 +19,7 @@ export class CookiesService {
   all_site:any = this.appSettings.AllURL;
 
   encryptData(data: string, secretKey: string): string {
-    // const encryptedData = CryptoJS.AES.encrypt(data, secretKey).toString();
+    // const encryptedData = CryptoJS.AES.envncrypt(data, secretKey).toString();
     // return encryptedData;
     const encryptedData = CryptoJS.AES.encrypt(JSON.stringify({ data }), secretKey).toString();
     return encryptedData
@@ -53,7 +53,7 @@ export class CookiesService {
       const cookie_value = this.cookieService.get(name);
       const secretKey = environment.secret_key
       const decrypt_value = this.decryptData(cookie_value,secretKey);
-      return decrypt_value;
+      return decrypt_value!=''? JSON.parse(decrypt_value).data : decrypt_value ;
     }catch(e){
       console.log(e);
       return null
