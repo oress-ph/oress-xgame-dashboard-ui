@@ -89,7 +89,7 @@
           <tbody>
             <tr *ngFor="let token of tokens">
               <th scope="row">{{ token.symbol }}</th>
-              <td scope="row">{{ token.balance | number:'1.4' }}</td>
+              <td scope="row">{{ token.balance != null ? (token.balance | number:'1.4-4') : (token.price | number:'1.4-4') }}</td>
               <!-- <td scope="row">{{ token.conversion_rate | number:'1.2-2' }} {{ token.currency }}</td> -->
             </tr>
           </tbody>
