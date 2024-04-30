@@ -59,7 +59,7 @@
   font-size: 36px;
 }
 .dropdown-size{
-  @media screen and (max-width: 375px) {
-      overflow-x: scroll;
+  @media screen and (max-width: 600px) {
+    overflow-x: scroll;
   }
 }
