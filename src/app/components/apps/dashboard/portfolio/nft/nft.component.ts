@@ -187,7 +187,6 @@ export class NFTComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    this.grid3s();
     this.get_games_list();
     setTimeout(() => {
       feather.replace();
