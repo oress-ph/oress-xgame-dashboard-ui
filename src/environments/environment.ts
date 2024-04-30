@@ -42,7 +42,7 @@ export const environment = {
     ChatBotAPIWSHost: "chatbot-api.xgame.live",
     BlogAPIURL: "https://blogs-api.xgame.live",
     ExchangeAPIRUL: "http://127.0.0.1:3002",
-    WALLETAPIURL: "http://127.0.0.1:3004",
+    WALLETAPIURL: "https://wallet-api.xode.net",
   
     // Social Media
     LinkedIn : 'https://www.linkedin.com/company/xgame-official/about/',
@@ -71,7 +71,10 @@ export const environment = {
     maintenance: false,
 
     // mobile apk download link
-    mobile_apps:"https://drive.google.com/u/0/uc?id=19cH0M981ysB-yZJEigtAP0lpmsJGRqxF&export=download"
+    mobile_apps:"https://drive.google.com/u/0/uc?id=19cH0M981ysB-yZJEigtAP0lpmsJGRqxF&export=download",
+
+    // secret_key
+    secret_key: "^a7T&kPzL#9s@4!gF%8H"
 };
 
 /*

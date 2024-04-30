@@ -8,8 +8,8 @@
             <h3>{{wallet_info.metaName | translate}}</h3>
             <span class="my-portfolio">{{wallet_info.address_display | translate}}</span>
             <div style="display: flex; gap: 1rem;">
-              <a href="javascript:void(0);" (click)="openVerticallyCentered(content)"><span><i class="fa fa-edit"></i> {{appSettings.translate("Change" | translate)}}</span></a>
-              <a href="javascript:void(0);"><span><i class="fa fa-copy"></i> {{appSettings.translate("Copy" | translate) }}</span></a>
+              <a href="javascript:void(0);" (click)="openVerticallyCentered(content)"><span><i class="fa fa-edit"></i> {{"Change" | translate}}</span></a>
+              <a href="javascript:void(0);" (click)="copyInputMessage(wallet_info.address)"><span><i class="fa fa-copy"></i> {{"Copy" | translate}}</span></a>
             </div>
           </div>
         </div>

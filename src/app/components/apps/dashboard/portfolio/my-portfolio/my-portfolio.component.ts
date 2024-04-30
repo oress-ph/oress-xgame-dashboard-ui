@@ -80,7 +80,6 @@ export class MyPortfolioComponent implements OnInit {
   async ngOnInit(): Promise<void> {
     (await this.polkadotService.getAllTokens()).subscribe({
       next: async (response: any) => {
-        console.log(response);
         if (!response[0]){
           this.sweetalertService.fireSwal(
             response[0],
