@@ -58,3 +58,8 @@
 .product-box .product-img .product-hover ul li i {
   font-size: 36px;
 }
+.dropdown-size{
+  @media screen and (max-width: 375px) {
+      overflow-x: scroll;
+  }
+}

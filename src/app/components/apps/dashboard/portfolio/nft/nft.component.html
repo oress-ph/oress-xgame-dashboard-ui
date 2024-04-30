@@ -16,10 +16,12 @@
                   {{appSettings.translate("Change Collection" | translate)}}
                 </button>
                 <div class="dropdown-menu dropdown-size" ngbDropdownMenu style="z-index: 11 !important;">
-                  <a class="dropdown-item" ngbDropdownItem href="javascript:void(0)" *ngFor="let product of product_list" (click)="handleItemClick(product)" style="opacity: unset;display: flex;">
-                    <img class="m-r-20" [src]="product.game_logo" style="width: 80px; height: auto;">
-                    <span style="font-size: 18px;">{{product.game_name | translate}}</span>
-                  </a>
+                  <ng-container *ngFor="let product of product_list">
+                    <a class="dropdown-item" ngbDropdownItem href="javascript:void(0)" *ngIf="product!=selected_product" (click)="handleItemClick(product)" style="opacity: unset;display: flex; width: max-content;">
+                      <img class="m-r-20" [src]="product.game_logo" style="width: 80px; height: auto;">
+                      <span style="font-size: 18px;">{{product.game_name | translate}}</span>
+                    </a>
+                  </ng-container>
                 </div>
               </div>
             </div>
