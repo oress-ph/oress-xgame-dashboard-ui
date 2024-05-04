@@ -77,7 +77,10 @@
   </div>
   <div class="card-block row">
     <div class="col-sm-12 col-lg-12 col-xl-12">
-      <div class="table-responsive">
+      <div class="loader-box" *ngIf="!is_content_shown">
+        <div class="loader-30"></div>
+      </div>
+      <div class="table-responsive" *ngIf="is_content_shown">
         <table class="table table-lg">
           <thead>
             <tr>

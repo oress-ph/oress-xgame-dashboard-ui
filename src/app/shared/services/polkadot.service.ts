@@ -233,12 +233,20 @@ export class PolkadotService {
     return parseFloat(balances) < 100 ? true : false;
   }
 
-  async getChainTokens(): Promise<string> {
-    const api = await this.api;
-    const tokens = api.registry.chainTokens;
-    this.cookiesService.setCookie('tokenSymbol', tokens[0]);
-    return tokens[0];
+  async getChainTokens(): Promise<any> {
+    return new Observable<[boolean, any]>((observer) => {
+      const tokensPromise = this.api; // Assuming this.api returns a Promise
+      tokensPromise.then(async (api) => {
+        const tokens = api.registry.chainTokens;
+        this.cookiesService.setCookie('tokenSymbol', tokens[0]);
+        observer.next([true, tokens[0]]); // Using a tuple to match the expected type
+        observer.complete();
+      }).catch((error) => {
+        observer.error(error);
+      });
+    });
   }
+  
 
   async getAllTokens(): Promise<any> {
     

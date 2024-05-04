@@ -31,14 +31,26 @@ export class TokenProfileComponent implements OnInit, AfterContentInit {
   tokenSymbol: any = 'NMS';
   nmsPrice: number = 10;
   amount: number = 0;
-  loading: boolean = true;
+  is_content_shown: boolean = true;
   tokens: any = [];
 
   async ngOnInit(): Promise<void> {
+    this.is_content_shown = false;
     this.polkadotService.tokens$.subscribe(tokens => {
-      console.log(tokens);
       this.tokens = tokens;
     });
-    await this.polkadotService.getChainTokens();
+    // await this.polkadotService.getChainTokens();
+    (await this.polkadotService.getChainTokens()).subscribe({
+      next: async (response: any) => {
+        if (response[0]){
+          this.is_content_shown = true
+        }
+        // this.tokens = response[1].error_result;
+        // await this.handleSelectCurrency(this.selectedCurrency);
+      },
+      error: (error: any) => {
+        throw new Error('An error has occured: ' + error);
+      }
+    });
   }
 }
