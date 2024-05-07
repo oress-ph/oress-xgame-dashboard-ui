@@ -109,62 +109,73 @@ export class TokenTransferComponent implements OnInit {
   }
 
   async confirmTransfer() {
-    Swal.fire({
-      title: 'Please Wait!',
-      allowOutsideClick: false,
-    });
     Swal.showLoading();
-    if (this.selectedToken == 'NMS' || this.selectedToken == 'XON') {
-      const result = await this.polkadotService.transferNativeToken(
-        this.walletAddress,
-        this.amount
-      );
-      (await this.polkadotService.submitTx(
-        result,
-      )).subscribe({
-        next: async (response) => {
-          if (response[0]){
-            Swal.close();
-            this.fireSwal(
-              true,
-              'Tokens Transfer',
-              'Token was transferred successfully!'
-            );
-          }
-        },
-        error: (error) => {
-          Swal.close();
-          this.fireSwal(false, 'Error', error);
-          throw new Error('An error has occured: ' + error);
-        }
-      });
+    let endpoint: string;
+    if (this.selectedToken == 'XON') {
+      endpoint = 'chain';
+    } else if (this.selectedToken == 'ASTRO') {
+      endpoint = 'economy';
     } else {
-      (await this.nftService.tokenTransfer(
-        this.walletAddress,
-        this.amount,
-        this.selectedToken
-      )).subscribe({
-        next: async (response) => {
-          if (response[0]){
-            Swal.close();
-            this.fireSwal(
-              true,
-              'Tokens Transfer',
-              'Token was transferred successfully!'
-            );
-          } else {
-            console.log(response[1])
-            Swal.close();
-            this.fireSwal(false, 'Error', response[1].message);
-          }
-        },
-        error: (error) => {
-          Swal.close();
-          this.fireSwal(false, 'Error', error);
-          throw new Error('An error has occured: ' + error);
-        }
-      });
+      endpoint = this.selectedToken.toLocaleLowerCase();
     }
+    const value = await this.polkadotService.convertTokenFormat(this.amount);
+    this.nftService.tokenTransfer(
+      this.walletAddress,
+      value,
+      endpoint
+    ).subscribe({
+      next: async (response) => {
+        if (response[0]){
+          this.signExtrinsic(response[1]);
+        } else {
+          Swal.close();
+          console.error(response[1])
+          this.fireSwal(false, 'Error', response[1].message);
+        }
+      },
+      error: (error) => {
+        Swal.close();
+        this.fireSwal(false, 'Error', error);
+        throw new Error('An error has occured: ' + error);
+      }
+    });
+  }
+
+  async signExtrinsic(data: string) {
+    this.polkadotService.signExtrinsics(data).then(
+      (signedExtrinsics: any) => {
+        Swal.fire({
+          title: 'Transaction in progress...',
+          allowOutsideClick: false,
+        });
+        Swal.showLoading();
+        this.nftService.submitExtrinsic(
+          signedExtrinsics
+        ).subscribe({
+          next: async (response) => {
+            if (response[0]){
+              Swal.close();
+              this.fireSwal(
+                true,
+                'Tokens Transfer',
+                'Token was transferred successfully!'
+              );
+            } else {
+              console.error(response[1])
+              this.fireSwal(false, 'Error', response[1].message);
+            }
+          },
+          error: (error) => {
+            Swal.close();
+            this.fireSwal(false, 'Error', error);
+          }
+        });
+      },
+      (error) => {
+        Swal.close();
+        this.fireSwal(false, 'Error', error);
+      }
+    )
   }
 
   getTotalTokens(): string {
