@@ -227,7 +227,7 @@ export class PolkadotService {
     return tokens[0];
   }
 
-  async getAstroToken(): Promise<any> {
+  getAstroToken(): Observable<[boolean, any]> {
     let wallet = this.cookiesService.getCookieArray("wallet-info").address;
     return new Observable<[boolean, any]>((observer) => {
       this.httpClient.get<any>(

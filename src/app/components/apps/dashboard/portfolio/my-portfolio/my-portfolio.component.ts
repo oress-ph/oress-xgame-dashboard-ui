@@ -78,7 +78,7 @@ export class MyPortfolioComponent implements OnInit {
   }
 
   async ngOnInit(): Promise<void> {
-    (await this.polkadotService.getAstroToken()).subscribe({
+    this.polkadotService.getAstroToken().subscribe({
       next: async (response: any) => {
         if (!response[0]){
           this.sweetalertService.fireSwal(
@@ -87,7 +87,7 @@ export class MyPortfolioComponent implements OnInit {
             'Getting tokens error'
           );
         }
-        this.tokens = response[1].error_result;
+        this.tokens = response[1];
         await this.handleSelectCurrency(this.selectedCurrency);
       },
       error: (error: any) => {
