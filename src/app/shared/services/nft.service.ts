@@ -29,14 +29,6 @@ export class NftService {
     }),
   };
 
-  private httpOptions = {
-    headers: new HttpHeaders({
-      'Content-Type': 'application/json',
-      Authorization: 'Bearer ' + localStorage.getItem('token'),
-      'websocket': this.cookiesService.getCookieArray('network').wsProviderEndpoint
-    }),
-  };
-
   getAstroToken(): Promise<any> {
     let wallet = this.cookiesService.getCookieArray("wallet-info");
     return new Observable<[boolean, any]>((observer) => {
@@ -200,7 +192,6 @@ export class NftService {
   }
 
   async getUserNfts(wallet_address:string) {
-
     return new Observable<[boolean, NFTModel[]]>((observer) => {
       this.httpClient.get<any>(
         this.defaultAPIURLHost +

@@ -13,6 +13,7 @@ import { PortfolioService } from "src/app/shared/services/portfolio.service";
   styleUrls: ["./token-profile.component.scss"],
 })
 export class TokenProfileComponent implements OnInit, AfterContentInit {
+  public portfolio = chartData.portfolio;
   public show: boolean = false;
 
   constructor(
@@ -31,26 +32,20 @@ export class TokenProfileComponent implements OnInit, AfterContentInit {
   tokenSymbol: any = 'NMS';
   nmsPrice: number = 10;
   amount: number = 0;
-  is_content_shown: boolean = true;
-  tokens: any = [];
+  loading: boolean = true;
+  tokens = [];
+
+  toggle(){
+    this.show = !this.show
+  }
 
   async ngOnInit(): Promise<void> {
-    this.is_content_shown = false;
-    this.polkadotService.tokens$.subscribe(tokens => {
+    this.portfolioService.tokens$.subscribe(tokens => {
       this.tokens = tokens;
-    });
-    // await this.polkadotService.getChainTokens();
-    (await this.polkadotService.getChainTokens()).subscribe({
-      next: async (response: any) => {
-        if (response[0]){
-          this.is_content_shown = true
-        }
-        // this.tokens = response[1].error_result;
-        // await this.handleSelectCurrency(this.selectedCurrency);
-      },
-      error: (error: any) => {
-        throw new Error('An error has occured: ' + error);
+      if (tokens.length > 0) {
+        this.loading = false;
       }
     });
+    await this.polkadotService.getChainTokens();
   }
 }
