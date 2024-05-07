@@ -330,17 +330,41 @@ export class NftService {
     });
   }
 
-  async tokenTransfer(
+  tokenTransfer(
     to: string,
     value: number,
-    token: string
-  ): Promise<Observable<[boolean, any]>> {
-    let from = this.cookiesService.getCookieArray("wallet-info").address;
+    endpoint: string
+  ): Observable<[boolean, any]> {
     return new Observable<[boolean, any]>((observer) => {
       this.httpClient.post<any>(
         this.defaultAPIURLHost +
-        '/economy/transfer',
-        { to, from, value, token },
+        `/${endpoint}/transfer`,
+        { to, value },
+        httpOptions
+      ).subscribe({
+        next: (response) => {
+          let results = response;
+          if (results != null) {
+          }
+          observer.next([true, results]);
+          observer.complete();
+        },
+        error: (error) => {
+          observer.next([false, error.error]);
+          observer.complete();
+        }
+      });
+    });
+  }
+
+  submitExtrinsic(
+    extrinsic: string,
+  ): Observable<[boolean, any]> {
+    return new Observable<[boolean, any]>((observer) => {
+      this.httpClient.post<any>(
+        this.defaultAPIURLHost +
+        '/chain/extrinsic/submit',
+        { extrinsic },
         httpOptions
       ).subscribe({
         next: (response) => {

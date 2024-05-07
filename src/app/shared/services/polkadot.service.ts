@@ -202,14 +202,14 @@ export class PolkadotService {
   }
 
   async getChainDecimals(amount: number) {
-    let api = await this.api;
+    let api = await this.connect();
     const factor = new BN(10).pow(new BN(api.registry.chainDecimals));
     const convertedAmount = new BN(amount).mul(factor);
     return convertedAmount;
   }
 
   async checkBalance(wallet_address) {
-    let api = await this.api;
+    let api = await this.connect();
     const balance = await api.derive.balances.all(wallet_address);
     const available = balance.availableBalance;
     const chainDecimals = api.registry.chainDecimals[0];
@@ -221,7 +221,7 @@ export class PolkadotService {
   }
 
   async getChainTokens(): Promise<string> {
-    const api = await this.api;
+    const api = await this.connect();
     const tokens = api.registry.chainTokens;
     this.cookiesService.setCookie('tokenSymbol', tokens[0]);
     return tokens[0];
@@ -253,47 +253,29 @@ export class PolkadotService {
     });
   }
 
-  public async transferNativeToken(
-    wallet_address: string,
+  public async convertTokenFormat(
     amount: number
-  ): Promise<string> {
-    const api = await this.api;
-    const sender = this.cookiesService.getCookieArray("wallet-info").address;
-    const injector = await web3FromAddress(sender);
+  ): Promise<number> {
+    const api = await this.connect();
     const chainDecimals = api.registry.chainDecimals[0];
-    const value = amount * 10 ** chainDecimals;
-    const tx = await api.tx.balances.transfer(
-      wallet_address,
-      value
-    ).signAsync(
-      sender,
-      { signer: injector.signer }
-    );
-    const txString = JSON.stringify(tx);
-    const txn = JSON.parse(txString);
-    return txn;
-    // await this.submitTx(txString);
+    return amount * 10 ** chainDecimals;
   }
 
-  public async submitTx(tx: string): Promise<any> {
-    return new Observable<[boolean, any]>((observer) => {
-      this.httpClient.post<any>(
-        this.defaultAPIURLHost + '/nfts/signed',
-        { sign: tx },
-        httpOptions
-      ).subscribe({
-        next: (response) => {
-          let results = response;
-          if (results != null) {
-          }
-          observer.next([true, results]);
-          observer.complete();
-        },
-        error: (error) => {
-          observer.next([false, error.status]);
-          observer.complete();
-        }
-      });
-    });
+  public async signExtrinsics(
+    extrinsics: string
+  ): Promise<any> {
+    try {
+      const api = await this.connect();
+      const sender = this.cookiesService.getCookieArray("wallet-info").address;
+      const injector = await web3FromAddress(sender);
+      api.setSigner(injector.signer);
+      const unsignedExtrinsics = api.tx(extrinsics);
+      let signedExtrinsics = (await unsignedExtrinsics.signAsync(sender)).toHex();
+      if (signedExtrinsics) {
+        return signedExtrinsics;
+      }
+    } catch (error) {
+      throw Error(error);
+    }
   }
 }
