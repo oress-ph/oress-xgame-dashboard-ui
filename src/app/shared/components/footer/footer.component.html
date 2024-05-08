@@ -1,6 +1,6 @@
 <!-- footer start-->
 
-<div class="container-lg">
+<div class="container-lg p-t-20">
   <div class="row">
     <div class="col-xxl-12">
       <div class="footer_section d-flex">
@@ -63,13 +63,12 @@
   </div>
 </div>
 <div class="copyright">
-  <div class="container-lg">
+  <div class="container-lg p-t-20">
     <div class="row">
       <div class="col-xxl-12" *ngIf="other_menuItems.length>0">
         <div class="d-flex footer_section">
           <ul class="d-flex">
             <li
-            class="p-r-20"  
             *ngFor="let menu of other_menuItems; let first = first"
             (click)="redirectTo(menu.path)">
               <a href="javascript:void(0)" class="footer-link">{{ menu.title | translate}}</a>

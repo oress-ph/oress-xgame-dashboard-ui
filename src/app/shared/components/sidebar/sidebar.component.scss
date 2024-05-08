@@ -20,16 +20,16 @@ svg-icon {
   }
 }
 .simplebar-wrapper{
-  max-width: 1576px !important;
+  max-width: 1526px !important;
   margin: 0 auto;
   width: 100%;
-  padding: 0px 20px 0px 20px !important;
-  @media only screen and (max-width: 1399px){
-    padding: 0px 10px 0px 10px !important;
-  }
-  @media only screen and (max-width: 991.98px){
-      padding: unset !important
-  }
+  // padding: 0px 20px 0px 20px !important;
+  // @media only screen and (max-width: 1399px){
+  //   padding: 0px 10px 0px 10px !important;
+  // }
+  // @media only screen and (max-width: 991.98px){
+  //     padding: unset !important
+  // }
 }
 body.dark-only .page-wrapper.horizontal-wrapper .page-body-wrapper .sidebar-wrapper .sidebar-main .sidebar-links .simplebar-wrapper .simplebar-mask .simplebar-content-wrapper .simplebar-content > li > a.active {
   background-color: rgba(255, 255, 255, 0.1);

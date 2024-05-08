@@ -104,11 +104,12 @@ export class NavService implements OnDestroy {
   //   { path: "https://xgame."+this.top_level_domain+"/home?section=contact", title: "Contact", icon: "contact", type: "link" },
   // ];
   FOOTERMENUITEMS: Menu[] = [
-    { path: "https://xgame."+this.top_level_domain+"/home?section=about", title: "About", icon: "home", type: "link" },
-    { path: "https://xgame."+this.top_level_domain+"/web3", title: "Web3 Wallet", icon: "gem", type: "link" },
-    { path: "https://xgame."+this.top_level_domain+"/games", title: "Game Catalog", icon: "games", type: "link" },
-    { path: "https://xgame."+this.top_level_domain+"/tokenomics", title: "Tokenomics", icon: "tokens", type: "link" },
-    { path: "https://xgame."+this.top_level_domain+"/blogs", title: "Blogs", icon: "marketplace", type: "link" },
+    { path: "https://staging.xgame.live/games", title: "Games", icon: "home", type: "link" },
+    // { path: "/nft/all_nft", title: "NFT", icon: "nft", type: "link" },
+    { path: "/marketplace", title: "Marketplace", icon: "market", type: "link" },
+    { path: "https://staging.xgame.live/token", title: "Token", icon: "team", type: "link" },
+    { path: "https://staging.xgame.live/teams", title: "Teams", icon: "teams", type: "link" },
+    { path: "https://staging.xgame.live/blogs", title: "Blogs", icon: "blogs", type: "link" },
   ];
   COMMUNITYMENUITEMS: Menu[] = [
     { path: "https://nft.xgame."+this.top_level_domain+"/marketplace", title: "NFT Marketplace", icon: "home", type: "link" },

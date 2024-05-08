@@ -2,14 +2,14 @@
     background-color: hsl(225, 14%, 17%);
 }
 .header-wrapper{
-    max-width: 1576px;
+    max-width: 1526px;
 }
 ::ng-deep .logo-wrapper{
     display: flex;
     justify-content: space-between;
 }
-::ng-deep .page-wrapper .page-header .header-wrapper{
-    padding: 22px 30px;
+::ng-deep .page-wrapper .page-header .header-wrapper {
+    padding: 22px 20px;
     @media only screen and (max-width: 991.98px){
         padding: 12px 20px;
     }
