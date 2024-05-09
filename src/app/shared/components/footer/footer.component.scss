@@ -23,19 +23,24 @@
     flex-wrap: wrap; 
     justify-content: flex-end;
     gap: 0.5rem;
+    align-content: center;
     @media (max-width: 749px) {
         justify-content: flex-start;
+    }
+    a{
+        height: fit-content;
+        
     }
 }
 
 .row > div{
     display: flex;
-    flex-direction: column;
     gap: 0.5rem;
     justify-content: space-between;
-    margin-bottom: 20px;
+    flex-wrap: wrap;
 }
 div ul li a {
+    font-weight: bold !important;
     color: #2F2F3B ;
 }
 
@@ -58,7 +63,13 @@ ul{
     display: flex !important;
     gap: 1rem;
     flex-wrap: wrap;
+
 }
 a:hover{
     color: var(--theme-deafult) !important;
+}
+.active{
+    a{
+        color: var(--theme-deafult) !important;
+    }
 }

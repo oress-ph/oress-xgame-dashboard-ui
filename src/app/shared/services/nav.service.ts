@@ -54,11 +54,6 @@ export class NavService implements OnDestroy {
     private router: Router,
     public appSettings: AppSettings
   ) {
-          // const url = window.location.href;
-          const url = new URL("https://xgame.co/home");
-
-          const hostnameParts = url.hostname.split('.');
-          this.top_level_domain = hostnameParts[hostnameParts.length - 1];
 
     this.setScreenWidth(window.innerWidth);
     fromEvent(window, "resize")
@@ -104,12 +99,12 @@ export class NavService implements OnDestroy {
   //   { path: "https://xgame."+this.top_level_domain+"/home?section=contact", title: "Contact", icon: "contact", type: "link" },
   // ];
   FOOTERMENUITEMS: Menu[] = [
-    { path: "https://staging.xgame.live/games", title: "Games", icon: "home", type: "link" },
+    { path: "https://xgame.live/games", title: "Games", icon: "home", type: "link" },
     // { path: "/nft/all_nft", title: "NFT", icon: "nft", type: "link" },
-    { path: "/marketplace", title: "Marketplace", icon: "market", type: "link" },
-    { path: "https://staging.xgame.live/token", title: "Token", icon: "team", type: "link" },
-    { path: "https://staging.xgame.live/teams", title: "Teams", icon: "teams", type: "link" },
-    { path: "https://staging.xgame.live/blogs", title: "Blogs", icon: "blogs", type: "link" },
+    { path: "https://nft.xgame.live/marketplace", title: "Marketplace", icon: "market", type: "link" },
+    { path: "https://xgame.live/token", title: "Token", icon: "team", type: "link" },
+    { path: "https://xgame.live/teams", title: "Teams", icon: "teams", type: "link" },
+    { path: "https://xgame.live/blogs", title: "Blogs", icon: "blogs", type: "link" },
   ];
   COMMUNITYMENUITEMS: Menu[] = [
     { path: "https://nft.xgame."+this.top_level_domain+"/marketplace", title: "NFT Marketplace", icon: "home", type: "link" },
@@ -141,10 +136,10 @@ export class NavService implements OnDestroy {
   ];
 
   OTHERMENUITEMS: Menu[] = [
-    // { path: "/about_us", title: "About Us", icon: "home", type: "link" },
-    // { path: "/contact_us", title: "Contact Us", icon: "nft", type: "link" },
-    // { path: "/teams", title: "Teams", icon: "teams", type: "link" },
-    // { path: "/blogs", title: "Blogs", icon: "blogs", type: "link" },
+    { path: "https://xgame.live/about-us", title: "About Us", icon: "home", type: "link" },
+    { path: "https://xgame.live/contact-us", title: "Contact Us", icon: "nft", type: "link" },
+    { path: "https://xgame.live/teams", title: "Teams", icon: "teams", type: "link" },
+    { path: "https://xgame.live/blogs", title: "Blogs", icon: "blogs", type: "link" },
   ];
 
   // Array

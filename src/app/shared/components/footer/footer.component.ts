@@ -91,5 +91,7 @@ export class FooterComponent implements OnInit {
 
   ngOnInit(): void {
   }
-
+  isActive(path: string): boolean {
+    return this.router.url === path;
+  }
 }
