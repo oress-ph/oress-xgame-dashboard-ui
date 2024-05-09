@@ -52,9 +52,10 @@ export class NavService implements OnDestroy {
 
   constructor(
     private router: Router,
-    public appSettings: AppSettings
+    public appSettings: AppSettings,
+    private location: Location
   ) {
-
+    
     this.setScreenWidth(window.innerWidth);
     fromEvent(window, "resize")
       .pipe(debounceTime(1000), takeUntil(this.unsubscriber))
@@ -77,6 +78,21 @@ export class NavService implements OnDestroy {
         this.levelMenu = false;
       });
     }
+
+    const url = this.location.path();
+    // Regular expression to match the domain
+    const domainRegex = /\.(co|live|com)\b/i;
+  
+    // Match the domain using the regex
+    const match = url.match(domainRegex);
+  
+    // Check if a match is found
+    if (match && match.length > 1) {
+      this.top_level_domain = match[1];
+    } else {
+      this.top_level_domain = 'live';
+    }
+
   }
 
   ngOnDestroy() {
@@ -99,12 +115,12 @@ export class NavService implements OnDestroy {
   //   { path: "https://xgame."+this.top_level_domain+"/home?section=contact", title: "Contact", icon: "contact", type: "link" },
   // ];
   FOOTERMENUITEMS: Menu[] = [
-    { path: "https://xgame.live/games", title: "Games", icon: "home", type: "link" },
+    { path: "https://xgame."+this.top_level_domain+"/games", title: "Games", icon: "home", type: "link" },
     // { path: "/nft/all_nft", title: "NFT", icon: "nft", type: "link" },
-    { path: "https://nft.xgame.live/marketplace", title: "Marketplace", icon: "market", type: "link" },
-    { path: "https://xgame.live/token", title: "Token", icon: "team", type: "link" },
-    { path: "https://xgame.live/teams", title: "Teams", icon: "teams", type: "link" },
-    { path: "https://xgame.live/blogs", title: "Blogs", icon: "blogs", type: "link" },
+    { path: "https://nft.xgame."+this.top_level_domain+"/marketplace", title: "Marketplace", icon: "market", type: "link" },
+    { path: "https://xgame."+this.top_level_domain+"/token", title: "Token", icon: "team", type: "link" },
+    { path: "https://xgame."+this.top_level_domain+"/teams", title: "Teams", icon: "teams", type: "link" },
+    { path: "https://xgame."+this.top_level_domain+"/blogs", title: "Blogs", icon: "blogs", type: "link" },
   ];
   COMMUNITYMENUITEMS: Menu[] = [
     { path: "https://nft.xgame."+this.top_level_domain+"/marketplace", title: "NFT Marketplace", icon: "home", type: "link" },
@@ -136,10 +152,10 @@ export class NavService implements OnDestroy {
   ];
 
   OTHERMENUITEMS: Menu[] = [
-    { path: "https://xgame.live/about-us", title: "About Us", icon: "home", type: "link" },
-    { path: "https://xgame.live/contact-us", title: "Contact Us", icon: "nft", type: "link" },
-    { path: "https://xgame.live/teams", title: "Teams", icon: "teams", type: "link" },
-    { path: "https://xgame.live/blogs", title: "Blogs", icon: "blogs", type: "link" },
+    { path: "https://xgame."+this.top_level_domain+"/about-us", title: "About Us", icon: "home", type: "link" },
+    { path: "https://xgame."+this.top_level_domain+"/contact-us", title: "Contact Us", icon: "nft", type: "link" },
+    { path: "https://xgame."+this.top_level_domain+"/teams", title: "Teams", icon: "teams", type: "link" },
+    { path: "https://xgame."+this.top_level_domain+"/blogs", title: "Blogs", icon: "blogs", type: "link" },
   ];
 
   // Array
