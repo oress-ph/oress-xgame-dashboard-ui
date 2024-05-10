@@ -19,6 +19,7 @@ export class MyAccountComponent implements OnInit {
   tokenSymbol: any;
   public wallet_info: any = this.cookiesService.getCookieArray("wallet-info");
   public wallet_balance: any = "";
+  iframeSrc = "";
 
   constructor(
     public router: Router,
@@ -41,6 +42,8 @@ export class MyAccountComponent implements OnInit {
     this.polkadotService.getCurrentBalance().subscribe(data => {
       this.wallet_balance = data;
     });
+    let url = location.origin + "/polkadot-identicon/"+this.cookiesService.getCookieArray('wallet-info').address;
+    this.iframeSrc = url;
   }
 
   logout(){

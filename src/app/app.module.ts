@@ -30,6 +30,8 @@ import { AppSettings } from './app-settings';
 import { DatePipe } from '@angular/common';
 import { PolkadotService } from './shared/services/polkadot.service';
 
+import { PolkadotIdentIconModule } from 'polkadot-angular-identicon';
+import { PolkadotIdenticonComponent } from './shared/components/polkadot-identicon/polkadot-identicon.component';
 
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http, "./assets/i18n/", ".json");
@@ -38,6 +40,7 @@ export function HttpLoaderFactory(http: HttpClient) {
 @NgModule({
   declarations: [
     AppComponent,
+    PolkadotIdenticonComponent
   ],
   imports: [
     BrowserModule,
@@ -67,7 +70,8 @@ export function HttpLoaderFactory(http: HttpClient) {
   // for Router use:
     LoadingBarRouterModule,
   // for Core use:
-    LoadingBarModule
+    LoadingBarModule,
+    PolkadotIdentIconModule
   ],
   providers: [ AdminGuard, WalletGuard ,CookieService,AppSettings,DatePipe,PolkadotService,NgbActiveModal],
   bootstrap: [AppComponent]

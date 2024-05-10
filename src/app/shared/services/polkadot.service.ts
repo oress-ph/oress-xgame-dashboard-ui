@@ -61,8 +61,8 @@ export class PolkadotService {
   wsProvider = new WsProvider(this.appSettings.wsProviderEndpoint);
   api = ApiPromise.create({ provider: this.wsProvider });
   keypair = this.appSettings.keypair;
-  extensions = web3Enable('XGAME DASHBOARD');
-  accounts = web3Accounts();
+  // extensions = web3Enable('XGAME DASHBOARD');
+  // accounts = web3Accounts();
   abi = require("./../../../assets/json/sample.json");
 
   getAbi(): Observable<any> {
@@ -150,9 +150,10 @@ export class PolkadotService {
 
   async getWeb3Accounts(): Promise<WalletAccountsModel[]> {
     let walletAccounts: WalletAccountsModel[] = [];
-
-    if ((await this.extensions).length > 0) {
-      const accounts = await this.accounts;
+    let extension = web3Enable('XGAME DASHBOARD');
+    let account = web3Accounts();
+    if ((await extension).length > 0) {
+      const accounts = await account;
       if (accounts.length > 0) {
         for (let i = 0; i < accounts.length; i++) {
           walletAccounts.push({

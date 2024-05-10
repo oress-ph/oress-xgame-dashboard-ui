@@ -9,6 +9,7 @@ import { AdminGuard } from './shared/guard/admin.guard';
 import { WalletGuard } from './shared/guard/wallet.guard';
 import { MaintenanceGuard } from './shared/guard/maintenance.guard';
 import { MaintenanceComponent } from './components/apps/maintenancepage/maintenance.component';
+import { PolkadotIdenticonComponent } from './shared/components/polkadot-identicon/polkadot-identicon.component';
 
 const routes: Routes = [
   {
@@ -34,8 +35,12 @@ const routes: Routes = [
     children: full
   },
   {
+    path: 'polkadot-identicon/:wallet_address',
+    component: PolkadotIdenticonComponent
+  },
+  {
     path: '**',
-    redirectTo: ''
+    redirectTo: '/wallet'
   }
 ];
 
