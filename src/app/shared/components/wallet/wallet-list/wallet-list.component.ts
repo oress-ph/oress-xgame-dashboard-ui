@@ -40,7 +40,7 @@ export class WalletListComponent {
 
     this.selectedWalletAccount = new WalletAccountsModel();
 
-    this.getWeb3Accounts();
+    // this.getWeb3Accounts();
   }
 
   async getWeb3Extensions(){

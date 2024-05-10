@@ -97,23 +97,12 @@ export class PolkadotService {
 
   async getAccount(contractAddress: any) {
     try {
-      let accounts = [];
-
-      do {
-        await web3Enable('XGAME DASHBOARD');
-        accounts = await web3Accounts();
-        if (accounts.length === 0) {
-          await new Promise(resolve => setTimeout(resolve, 1000));
-        }
-      } while (accounts.length === 0);
-      // const SENDER = this.appSettings.wallet_info.wallet_keypair;
-      const SENDER = this.cookiesService.getCookieArray("wallet-info").address;
-      const injector = await web3FromAddress(SENDER);
+      const walletAddress = this.cookiesService.getCookieArray("wallet-info").address;
       let api = await this.api;
       const contract = await this.getContract(api, this.abi, contractAddress);
-
+  
       // Returns the data
-      return { api, SENDER, injector, contract };
+      return { api, SENDER: walletAddress, contract };
     } catch (error) {
       console.error('Get account error: ' + error);
       return undefined;
@@ -134,6 +123,7 @@ export class PolkadotService {
         formatBalance.getDefaults();
         const free = formatBalance(balance.free, { forceUnit: "NMS", withUnit: false });
         const balances = free.split(',').join('');
+        this.setCurrentBalance(balances);
         return balances;
       } else {
         console.error('API not available in the returned data.');

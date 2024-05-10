@@ -35,29 +35,29 @@ export class WalletComponent {
     
     this.selectedWalletAccount = new WalletAccountsModel();
 
-    this.getWeb3Accounts();
+    // this.getWeb3Accounts();
   }
 
-  async getWeb3Accounts(): Promise<void> {
-    let web3Accounts: Promise<WalletAccountsModel[]> = this.polkadotService.getWeb3Accounts();
-    let data = (await web3Accounts);
+  // async getWeb3Accounts(): Promise<void> {
+  //   let web3Accounts: Promise<WalletAccountsModel[]> = this.polkadotService.getWeb3Accounts();
+  //   let data = (await web3Accounts);
 
-    if (data.length > 0) {
-      for (let i = 0; i < data.length; i++) {
-        this.web3Wallets.push({
-          address: data[i].address,
-          address_display: data[i].address.substring(0, 5) + "..." + data[i].address.substring(data[i].address.length - 5, data[i].address.length),
-          metaGenesisHash: data[i].metaGenesisHash,
-          tokenSymbol: await this.polkadotService.getChainTokens(),
-          metaName: data[i].metaName,
-          metaSource: data[i].metaSource,
-          type: data[i].type
-        });
-      }
-    }
-    this.chooseAccount = true;
+  //   if (data.length > 0) {
+  //     for (let i = 0; i < data.length; i++) {
+  //       this.web3Wallets.push({
+  //         address: data[i].address,
+  //         address_display: data[i].address.substring(0, 5) + "..." + data[i].address.substring(data[i].address.length - 5, data[i].address.length),
+  //         metaGenesisHash: data[i].metaGenesisHash,
+  //         tokenSymbol: await this.polkadotService.getChainTokens(),
+  //         metaName: data[i].metaName,
+  //         metaSource: data[i].metaSource,
+  //         type: data[i].type
+  //       });
+  //     }
+  //   }
+  //   this.chooseAccount = true;
     
-  }
+  // }
   changeAccount(): void {
     this.selectPolkadot();
   }
