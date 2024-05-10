@@ -21,14 +21,18 @@ export class WalletListComponent {
     private router: Router,
     private dexService: DexService,
     private cookiesService: CookiesService,
-    public activeModal: NgbActiveModal,
+    // public activeModal: NgbActiveModal,
   ){}
 
   selectedWallet = "";
   web3Wallets: WalletAccountsModel[] = [];
+  web3WalletArray: any[] = [];
+  walletAccounts: WalletAccountsModel[] = [];
   selectedWalletAccount: WalletAccountsModel = new WalletAccountsModel();
-  @Input() isLogin: boolean = false;
+  isAccountChoosen: boolean = false;
+  loader: boolean = false;
   chooseAccount: boolean = false;
+  
   selectPolkadot(): void {
     this.selectedWallet = "PolkadotJS";
 
@@ -37,6 +41,56 @@ export class WalletListComponent {
     this.selectedWalletAccount = new WalletAccountsModel();
 
     this.getWeb3Accounts();
+  }
+
+  async getWeb3Extensions(){
+
+    let dappExtension = await this.polkadotService.getDappExtension();
+    let extensions = await dappExtension;
+    console.log(extensions)
+    setTimeout(() => {
+      if (extensions.length != 0) {
+        extensions.forEach(async data => {
+          this.web3WalletArray.push({
+            name: data.name,
+            accounts: data.WalletAccounts
+          });
+        })
+        }
+    }, 100);
+  }
+
+  async selectWalletExtension(walletExtension: any) {
+    let accounts = await walletExtension.accounts;
+
+    this.walletAccounts = [];
+    this.selectedWalletAccount = new WalletAccountsModel();
+
+    if (accounts.length > 0) {
+      for (let i = 0; i < accounts.length; i++) {
+        this.walletAccounts.push({
+          address: accounts[i].address,
+          address_display: accounts[i].address.substring(0, 5) + "..." + accounts[i].address.substring(accounts[i].address.length - 5, accounts[i].address.length),
+          metaGenesisHash: accounts[i].genesisHash,
+          metaName: accounts[i].metaName,
+          tokenSymbol: "",
+          metaSource: walletExtension.name,
+          type: accounts[i].type
+        });
+      }
+    }
+    
+    this.selectedWallet = walletExtension.name;
+    this.isAccountChoosen = true;
+  }
+
+  async onWalletSelectAndVerify(walletAccount: WalletAccountsModel) {
+
+    let signAndVerify: Promise<boolean> = this.polkadotService.signAndVerify(walletAccount);
+    let verified = (await signAndVerify);
+    if (verified == true) {
+      this.generateKeypair(walletAccount);
+    }
   }
 
   async getWeb3Accounts(): Promise<void> {
@@ -62,36 +116,34 @@ export class WalletListComponent {
     this.selectPolkadot();
   }
 
-  onWalletSelect(event: any): void {
-    this.selectedWalletAccount = event;
-    this.signAndVerify();
-  }
+  // onWalletSelect(event: any): void {
+  //   this.selectedWalletAccount = event;
+  //   this.signAndVerify();
+  // }
 
-  async signAndVerify(): Promise<void> {
-    let signAndVerify: Promise<boolean> = this.polkadotService.signAndVerify(this.selectedWalletAccount);
-    let verified = (await signAndVerify);
-    if (verified == true) {
-      this.generateKeypair();
-    }
-  }
+  // async signAndVerify(): Promise<void> {
+  //   let signAndVerify: Promise<boolean> = this.polkadotService.signAndVerify(this.selectedWalletAccount);
+  //   let verified = (await signAndVerify);
+  //   if (verified == true) {
+  //     this.generateKeypair();
+  //   }
+  // }
 
-  async generateKeypair(): Promise<void> {
+  async generateKeypair(walletAccount: WalletAccountsModel): Promise<void> {
+
+    this.selectedWalletAccount = walletAccount;
+   
     let generateKeypair: Promise<string> = this.polkadotService.generateKeypair(this.selectedWalletAccount.address);
     let keypair = (await generateKeypair);
     if (keypair != "") {
-      // this.cookiesService.setCookie("wallet-meta-name",String(this.selectedWalletAccount.metaName))
-      // this.cookiesService.setCookie("wallet-address",String(this.selectedWalletAccount.address))
-      // this.cookiesService.setCookie("wallet-keypair",keypair)
-      this.selectedWalletAccount.tokenSymbol = await this.polkadotService.getChainTokens();
-      this.cookiesService.setCookieArray("wallet-info",this.selectedWalletAccount);
-      // localStorage.setItem("wallet-meta-name", String(this.selectedWalletAccount.metaName));
-      // localStorage.setItem("wallet-keypair", keypair);
 
+      this.selectedWalletAccount.tokenSymbol = await this.polkadotService.getChainTokens();
+      await this.cookiesService.setCookieArray("wallet-info",this.selectedWalletAccount);
       
       Swal.fire({
         icon: 'success',
-        title: this.appSettings.translate('Connected'),
-        text: this.appSettings.translate("Wallet Connected successfully")+'!',
+        title: 'Connected',
+        text: 'Wallet Connected successfully.',
         timer: 1500,
         timerProgressBar: true,
         willClose: () => {
@@ -103,26 +155,10 @@ export class WalletListComponent {
           window.location.reload()
         }
       })
-
-      // if (this.isLogin == false) {
-      //   await this.dexService.loadDexConfigs();
-      //   this.appSettings.lumiAccountAddress = localStorage.getItem("lumi-account-address") || "";
-      //   this.appSettings.lumiContractAddress = localStorage.getItem("lumi-contract-address") || "";
-      //   this.appSettings.phpuContractAddress = localStorage.getItem("phpu-contract-address") || "";
-      //   this.appSettings.lphpuAccountAddress = localStorage.getItem("lphpu-account-address") || "";
-      //   this.appSettings.lphpuContractAddress = localStorage.getItem("lphpu-contract-address") || "";
-      //   this.appSettings.swapFees = localStorage.getItem("swap-fees") || "";
-      //   this.appSettings.forexUpdates = localStorage.getItem("forex-updates") || "";
-      //   // this.router.navigate(['/dapp']);
-      // } else {
-      //   location.reload();
-      // }
     }
   }
 
   ngOnInit(): void {
-    if (this.isLogin == true) {
-      this.selectedWallet = "PolkadotJS";
-    }
+    this.getWeb3Extensions();
   }
 }

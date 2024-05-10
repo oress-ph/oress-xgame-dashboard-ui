@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { WalletAccountsModel } from './../model/polkadot.model';
+import { DappExtensionModel, WalletAccountsModel } from './../model/polkadot.model';
 import { web3Accounts, web3Enable, web3FromAddress, web3FromSource } from '@polkadot/extension-dapp';
 import { cryptoWaitReady, decodeAddress, signatureVerify } from '@polkadot/util-crypto';
 import { hexToU8a, isHex, stringToHex, stringToU8a, u8aToHex } from '@polkadot/util';
@@ -299,6 +299,41 @@ export class PolkadotService {
     } catch (error) {
       throw Error(error);
     }
+  }
+
+  async getDappExtension(): Promise<DappExtensionModel[]> {
+    let web3WalletArray: DappExtensionModel[] = [];
+    let extensions = await web3Enable('Xode');
+
+    if (extensions.length != 0) {
+      await extensions.forEach(async data => {
+
+        let walletAccounts: WalletAccountsModel[] = [];
+
+        let accounts = await data.accounts.get();
+        
+        accounts.forEach(account => {
+          walletAccounts.push({
+            address: account.address,
+            address_display: account.address.substring(0, 5) + "..." + account.address.substring(account.address.length - 5, account.address.length),
+            metaGenesisHash: account.genesisHash,
+            metaName: account.name,
+            tokenSymbol: "",
+            metaSource: data.name,
+            type: account.type
+          });
+        });
+        
+        web3WalletArray.push({
+          name: data.name,
+          WalletAccounts: walletAccounts
+        });
+      })
+      console.log(web3WalletArray)
+      return web3WalletArray;
+    }
+
+    return [];
   }
   
 }

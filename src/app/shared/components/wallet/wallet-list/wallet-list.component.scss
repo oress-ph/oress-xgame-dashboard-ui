@@ -8,3 +8,26 @@
 .modal-footer{
     justify-content: center;
 }
+
+.account-div:hover{
+    background-color: var(--theme-deafult);
+    color: black;
+    cursor: pointer;
+}
+.btn-back {
+    background-color:black;
+}
+.btn-pill:hover {
+    background-color: var(--theme-deafult);
+    color: black;
+}
+
+.btn-wallet {
+    border-color: var(--theme-deafult);
+    color: var(--theme-deafult)
+}
+
+.btn-wallet:hover {
+    background-color: var(--theme-deafult);
+    color: black;
+}
