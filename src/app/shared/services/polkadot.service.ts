@@ -16,6 +16,7 @@ import { ContractPromise } from '@polkadot/api-contract';
 import { NFTModel } from './../model/nft.model';
 import { BehaviorSubject } from 'rxjs';
 import { environment } from 'src/environments/environment';
+import { BaseDotsamaWallet, PolkadotjsWallet, TalismanWallet, Wallet, getWalletBySource,getWallets } from '@talismn/connect-wallets';
 
 
 
@@ -61,6 +62,7 @@ export class PolkadotService {
   wsProvider = new WsProvider(this.appSettings.wsProviderEndpoint);
   api = ApiPromise.create({ provider: this.wsProvider });
   keypair = this.appSettings.keypair;
+  walletAccounts: WalletAccountsModel[] = [];
   // extensions = web3Enable('XGAME DASHBOARD');
   // accounts = web3Accounts();
   abi = require("./../../../assets/json/sample.json");
@@ -161,29 +163,29 @@ export class PolkadotService {
 
     return walletAccounts;
   }
-  async signAndVerify(walletAccount: WalletAccountsModel): Promise<boolean> {
-    const injector = await web3FromSource(String(walletAccount.metaSource));
-    const signRaw = injector?.signer?.signRaw;
+  // async signAndVerify(walletAccount: WalletAccountsModel): Promise<boolean> {
+  //   const injector = await web3FromSource(String(walletAccount.metaSource));
+  //   const signRaw = injector?.signer?.signRaw;
 
-    if (!!signRaw) {
-      await cryptoWaitReady();
+  //   if (!!signRaw) {
+  //     await cryptoWaitReady();
 
-      const message: string = 'Please sign before you proceed. Thank you!';
-      const { signature } = await signRaw({
-        address: walletAccount.address,
-        data: stringToHex(message),
-        type: 'bytes'
-      });
+  //     const message: string = 'Please sign before you proceed. Thank you!';
+  //     const { signature } = await signRaw({
+  //       address: walletAccount.address,
+  //       data: stringToHex(message),
+  //       type: 'bytes'
+  //     });
 
-      let publicKey = decodeAddress(walletAccount.address);
-      let hexPublicKey = u8aToHex(publicKey);
+  //     let publicKey = decodeAddress(walletAccount.address);
+  //     let hexPublicKey = u8aToHex(publicKey);
 
-      let { isValid } = signatureVerify(message, signature, hexPublicKey);
-      return isValid;
-    }
+  //     let { isValid } = signatureVerify(message, signature, hexPublicKey);
+  //     return isValid;
+  //   }
 
-    return false;
-  }
+  //   return false;
+  // }
   async generateKeypair(address: string): Promise<string> {
     const keyring = new Keyring({ type: 'sr25519', ss58Format: 0 });
     const hexPair = keyring.addFromAddress(address);
@@ -292,39 +294,118 @@ export class PolkadotService {
     }
   }
 
-  async getDappExtension(): Promise<DappExtensionModel[]> {
-    let web3WalletArray: DappExtensionModel[] = [];
-    let extensions = await web3Enable('Xode');
+  // async getDappExtension(): Promise<DappExtensionModel[]> {
+  //   let web3WalletArray: DappExtensionModel[] = [];
+  //   let extensions = await web3Enable('Xode');
 
-    if (extensions.length != 0) {
-      await extensions.forEach(async data => {
+  //   if (extensions.length != 0) {
+  //     await extensions.forEach(async data => {
 
-        let walletAccounts: WalletAccountsModel[] = [];
+  //       let walletAccounts: WalletAccountsModel[] = [];
 
-        let accounts = await data.accounts.get();
+  //       let accounts = await data.accounts.get();
         
-        accounts.forEach(account => {
-          walletAccounts.push({
-            address: account.address,
-            address_display: account.address.substring(0, 5) + "..." + account.address.substring(account.address.length - 5, account.address.length),
-            metaGenesisHash: account.genesisHash,
-            metaName: account.name,
-            tokenSymbol: "",
-            metaSource: data.name,
-            type: account.type
-          });
-        });
+  //       accounts.forEach(account => {
+  //         walletAccounts.push({
+  //           address: account.address,
+  //           address_display: account.address.substring(0, 5) + "..." + account.address.substring(account.address.length - 5, account.address.length),
+  //           metaGenesisHash: account.genesisHash,
+  //           metaName: account.name,
+  //           tokenSymbol: "",
+  //           metaSource: data.name,
+  //           type: account.type
+  //         });
+  //       });
         
-        web3WalletArray.push({
-          name: data.name,
-          WalletAccounts: walletAccounts
-        });
-      })
-      console.log(web3WalletArray)
-      return web3WalletArray;
-    }
+  //       web3WalletArray.push({
+  //         name: data.name,
+  //         WalletAccounts: walletAccounts
+  //       });
+  //     })
+  //     console.log(web3WalletArray)
+  //     return web3WalletArray;
+  //   }
 
-    return [];
+  //   return [];
+  // }
+  getAllExtension(): any{
+    const supportedWallets: Wallet[] = getWallets();
+    return supportedWallets;
   }
+
+  connectExtension(extension: string): Promise<any> {
+    return new Promise((resolve, reject) => {
+      let wallet: TalismanWallet | PolkadotjsWallet | null = null;
+      this.walletAccounts = [];
+      
+      if (extension === 'talisman') {
+        wallet = getWalletBySource('talisman') as TalismanWallet;
+      } else if (extension === 'polkadot-js') {
+        wallet = getWalletBySource('polkadot-js') as PolkadotjsWallet;
+      }
   
+      if (wallet) {
+        wallet.enable('XGame')
+          .then(() => {
+            wallet.getAccounts()
+              .then((accounts) => {
+                if (accounts) {
+                  accounts.forEach((account) => {
+                    this.walletAccounts.push({
+                      address: account.address,
+                      address_display: account.address.substring(0, 5) + "..." + account.address.substring(account.address.length - 5),
+                      metaGenesisHash: '',
+                      metaName: account.name,
+                      tokenSymbol: "",
+                      metaSource: account.wallet.extensionName,
+                      type: ''
+                    });
+                  });
+                  resolve(this.walletAccounts); // Resolve the Promise with walletAccounts
+                } else {
+                  reject(new Error('No accounts found'));
+                }
+              })
+              .catch((error) => {
+                reject(error);
+              });
+          })
+          .catch((error) => {
+            reject(error);
+          });
+      } else {
+        reject(new Error('Wallet not found'));
+      }
+    });
+  }
+
+  async signAndVerify(walletAccount: WalletAccountsModel): Promise<any> {
+    try {
+      const wallet = getWalletBySource(walletAccount.metaSource);
+      const accounts = await wallet.getAccounts();
+      const currentAccount = accounts.find((acc) => acc.address === walletAccount.address);
+  
+      if (!currentAccount) {
+        console.error('Account not found.');
+        return; // or handle accordingly
+      }
+  
+      const signer = currentAccount.wallet.signer;
+      const message: string = 'Please sign before you proceed. Thank you!';
+      const { signature } = await signer.signRaw({
+        type: 'bytes',
+        data: stringToHex(message),
+        address: currentAccount.address,
+      });
+  
+      let publicKey = decodeAddress(walletAccount.address);
+      let hexPublicKey = u8aToHex(publicKey);
+  
+      let { isValid } = signatureVerify(message, signature, hexPublicKey);
+      return isValid;
+    } catch (err) {
+      console.error('Error:', err);
+      // Handle error...
+    }
+  }
 }

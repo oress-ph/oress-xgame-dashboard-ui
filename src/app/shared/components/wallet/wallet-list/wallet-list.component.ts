@@ -29,35 +29,27 @@ export class WalletListComponent {
   web3WalletArray: any[] = [];
   walletAccounts: WalletAccountsModel[] = [];
   selectedWalletAccount: WalletAccountsModel = new WalletAccountsModel();
-  isAccountChoosen: boolean = false;
+  isExtensionChoosen: boolean = false;
   loader: boolean = false;
   chooseAccount: boolean = false;
   
-  selectPolkadot(): void {
-    this.selectedWallet = "PolkadotJS";
 
-    this.web3Wallets = [];
-
-    this.selectedWalletAccount = new WalletAccountsModel();
-
-    // this.getWeb3Accounts();
+  getAllExtension(){
+    let allExtension = this.polkadotService.getAllExtension();
+    this.web3WalletArray = allExtension;
   }
-
-  async getWeb3Extensions(){
-
-    let dappExtension = await this.polkadotService.getDappExtension();
-    let extensions = await dappExtension;
-    console.log(extensions)
-    setTimeout(() => {
-      if (extensions.length != 0) {
-        extensions.forEach(async data => {
-          this.web3WalletArray.push({
-            name: data.name,
-            accounts: data.WalletAccounts
-          });
-        })
-        }
-    }, 100);
+  connectExtension(extension: string){
+    this.walletAccounts = [];
+    this.polkadotService.connectExtension(extension)
+    .then((walletAccounts) => {
+      this.selectedWallet
+      this.walletAccounts = walletAccounts;
+      this.isExtensionChoosen = true;
+      // Do something with walletAccounts
+    })
+    .catch((error) => {
+      console.error('Error connecting extension:', error);
+    });
   }
 
   async selectWalletExtension(walletExtension: any) {
@@ -81,7 +73,7 @@ export class WalletListComponent {
     }
     
     this.selectedWallet = walletExtension.name;
-    this.isAccountChoosen = true;
+    this.isExtensionChoosen = true;
   }
 
   async onWalletSelectAndVerify(walletAccount: WalletAccountsModel) {
@@ -112,22 +104,6 @@ export class WalletListComponent {
     }
     this.chooseAccount = true;
   }
-  changeAccount(): void {
-    this.selectPolkadot();
-  }
-
-  // onWalletSelect(event: any): void {
-  //   this.selectedWalletAccount = event;
-  //   this.signAndVerify();
-  // }
-
-  // async signAndVerify(): Promise<void> {
-  //   let signAndVerify: Promise<boolean> = this.polkadotService.signAndVerify(this.selectedWalletAccount);
-  //   let verified = (await signAndVerify);
-  //   if (verified == true) {
-  //     this.generateKeypair();
-  //   }
-  // }
 
   async generateKeypair(walletAccount: WalletAccountsModel): Promise<void> {
 
@@ -159,6 +135,6 @@ export class WalletListComponent {
   }
 
   ngOnInit(): void {
-    this.getWeb3Extensions();
+    this.getAllExtension();
   }
 }
