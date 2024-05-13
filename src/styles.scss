@@ -143,3 +143,10 @@ h1,h2,h3{
 .toast-container {
     position: fixed;
 }
+.btn-primary{
+    color: black;
+}
+
+.page-wrapper .page-body-wrapper .page-body {
+    min-height: calc(100vh - 183px);
+}
