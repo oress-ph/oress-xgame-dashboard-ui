@@ -9,7 +9,11 @@ import { PortfolioService } from "src/app/shared/services/portfolio.service";
 import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 import Swal from 'sweetalert2'
 import { TokenListComponent } from "src/app/shared/components/token-list/token-list.component";
+import { AbstractControl, AsyncValidatorFn, FormBuilder, FormGroup, ValidationErrors, ValidatorFn, Validators } from "@angular/forms";
+import { debounceTime, map, catchError } from 'rxjs/operators';
+import { Observable, of } from 'rxjs';
 
+import { TokenTransferModel } from "src/app/shared/model/token-transfer.model";
 @Component({
   selector: "app-token-transfer",
   templateUrl: "./token-transfer.component.html",
@@ -19,6 +23,7 @@ export class TokenTransferComponent implements OnInit {
   public portfolio = chartData.portfolio;
   public show: boolean = false;
   portfolioModel: PortfolioModel = new PortfolioModel();
+  public tokenTransferForm: FormGroup;
 
   constructor(
     public appSettings: AppSettings,
@@ -26,8 +31,15 @@ export class TokenTransferComponent implements OnInit {
     private nftService: NftService,
     private cookiesService: CookiesService,
     private portfolioService: PortfolioService,
-    private modalService: NgbModal
+    private modalService: NgbModal,
+    private fb: FormBuilder,
   ) {
+  
+    this.tokenTransferForm = this.fb.group({
+      amount: ["", [Validators.required,Validators.min(1)]],
+      transaction_fee: ["", [Validators.required]],
+      wallet_address: ["", Validators.required,this.walletAddressValidator()],
+    });
   }
 
   balance: any[] = [];
@@ -39,9 +51,26 @@ export class TokenTransferComponent implements OnInit {
   isWalletValid: boolean = false;
   amountWarning: boolean = false;
   loading: boolean = true;
+  tokenTransferModel: TokenTransferModel = new TokenTransferModel();
 
   toggle(){
     this.show = !this.show
+  }
+
+  walletAddressValidator(): AsyncValidatorFn {
+    return (control: AbstractControl): Observable<ValidationErrors | null> => {
+      if (!control.value) {
+        return of(null);
+      }
+      const regex = /^(5[a-zA-Z0-9]{47}|1[a-zA-Z0-9]{47})$/;
+
+      const valid = regex.test(control.value);
+      return of(valid ? null : { invalidWalletAddress: true }).pipe(
+        debounceTime(300),
+        map(() => valid ? null : { invalidWalletAddress: true }),
+        catchError(() => of({ invalidWalletAddress: true }))
+      );
+    };
   }
 
   async fireSwal(
@@ -209,8 +238,6 @@ export class TokenTransferComponent implements OnInit {
     modalRef.result.then((result) => {
       console.log(result);
       
-    }).catch((error) => {
-      console.log('Modal dismissed with error:', error);
-    });
+    })
   }
 }
