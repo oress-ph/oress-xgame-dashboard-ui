@@ -1,0 +1,36 @@
+<div class="modal-header">
+    <h3>Select a token</h3>
+    <button type="button" class="btn-close" aria-label="Close"  aria-label="Close" (click)="activeModal.dismiss('Cross click')">
+    </button>
+</div>
+
+<div class="modal-body">
+    <div  class="form-group mb-4">
+        <input  type="search" placeholder="Search.." data-original-title="" title="" class="form-control">
+        <i  class="fa fa-search"></i>
+    </div>
+    <div class="portfolio-table recent-table table-responsive p-l-10 p-r-10">
+        <table class="table">
+            <tbody>
+                <tr (click)="selected_token()">
+                    <td>
+                        <div class="d-flex align-items-center gap-2">
+                            <img src="https://resources.acala.network/tokens/ASEED.png" class="img-fluid me-1" style="width: 36px;">
+                        <div>
+                            <h6 class="f-14 mb-1 f-light">Xode</h6>
+                            <div class="d-flex align-items-center gap-1"><span class="f-light">XON</span></div>
+                        </div>
+                        </div>
+                    </td>
+                    <td class="text-end f-light p-r-5">
+                        0
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<div class="modal-footer">
+
+</div>

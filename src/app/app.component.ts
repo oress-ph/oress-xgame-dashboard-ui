@@ -34,7 +34,9 @@ export class AppComponent {
 
   ngOnInit() {
     this.get_language_list();
-    this.getBalance();
+    if(this.cookiesService.getCookieArray("wallet-info")!=null){
+      this.getBalance();
+    }
   }
 
   get_language_list(): void {
@@ -43,8 +45,10 @@ export class AppComponent {
       (data) => {
         this.languageService.setLanguageList(data);
         if(this.cookiesService.getCookieArray('language')==null){
+          localStorage.removeItem('translation')
           this.fetchUserCountry(data);
         }else{
+
           this.is_loading= false;
         }
       },
@@ -79,6 +83,7 @@ export class AppComponent {
         }else{
           this.languageService.setSelectedLanguage(this.cookiesService.getCookieArray('language'));
         }
+
         this.translation()
       })
       .catch(error => {
@@ -90,23 +95,23 @@ export class AppComponent {
     if(this.cookiesService.getCookieArray('language')!=null&&localStorage.getItem('translation')==null){
         var language = this.cookiesService.getCookieArray('language');
         this.labelService.label_all(language.language).toPromise()
-          .then(response => {
-            let results = response;
+        .then(response => {
+          let results = response;
 
-            if (results[0] == true) {
-              this.cookiesService.setCookieArray('translation',JSON.stringify(response[1]));
-              const translationJsonString = JSON.stringify(response[1]);
-              localStorage.setItem('translation',translationJsonString);
-            }
-          })
-          .catch(error => {
-            console.error('Error fetching translations:', error);
-          })
-          .finally(() => {
-            setTimeout(() => {
-              this.is_loading = false;
-            }, 2000);
-          });
+          if (results[0] == true) {
+            this.cookiesService.setCookieArray('translation',JSON.stringify(response[1]));
+            const translationJsonString = JSON.stringify(response[1]);
+            localStorage.setItem('translation',translationJsonString);
+          }
+        })
+        .catch(error => {
+          console.error('Error fetching translations:', error);
+        })
+        .finally(() => {
+          setTimeout(() => {
+            this.is_loading = false;
+          }, 2000);
+        });
     }
   }
 

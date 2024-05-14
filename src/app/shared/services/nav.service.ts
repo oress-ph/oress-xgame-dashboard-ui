@@ -116,11 +116,11 @@ export class NavService implements OnDestroy {
   // ];
   FOOTERMENUITEMS: Menu[] = [
     { path: "https://xgame."+this.top_level_domain+"/games", title: "Games", icon: "home", type: "link" },
-    // { path: "/nft/all_nft", title: "NFT", icon: "nft", type: "link" },
+    { path: "https://xgame."+this.top_level_domain+"/nft/drops", title: "NFT", icon: "nft", type: "link" },
     { path: "https://nft.xgame."+this.top_level_domain+"/marketplace", title: "Marketplace", icon: "market", type: "link" },
     { path: "https://xgame."+this.top_level_domain+"/token", title: "Token", icon: "team", type: "link" },
-    { path: "https://xgame."+this.top_level_domain+"/teams", title: "Teams", icon: "teams", type: "link" },
-    { path: "https://xgame."+this.top_level_domain+"/blogs", title: "Blogs", icon: "blogs", type: "link" },
+    // { path: "https://xgame."+this.top_level_domain+"/teams", title: "Teams", icon: "teams", type: "link" },
+    // { path: "https://xgame."+this.top_level_domain+"/blogs", title: "Blogs", icon: "blogs", type: "link" },
   ];
   COMMUNITYMENUITEMS: Menu[] = [
     { path: "https://nft.xgame."+this.top_level_domain+"/marketplace", title: "NFT Marketplace", icon: "home", type: "link" },

@@ -8,6 +8,7 @@ import { PortfolioModel } from "src/app/shared/model/portfolio";
 import { PortfolioService } from "src/app/shared/services/portfolio.service";
 import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 import Swal from 'sweetalert2'
+import { TokenListComponent } from "src/app/shared/components/token-list/token-list.component";
 
 @Component({
   selector: "app-token-transfer",
@@ -201,6 +202,15 @@ export class TokenTransferComponent implements OnInit {
         this.loading = false;
         throw new Error('An error has occured: ' + error);
       }
+    });
+  }
+  select_token(){
+    const modalRef = this.modalService.open(TokenListComponent,{ centered: true, backdrop: true,keyboard:true });
+    modalRef.result.then((result) => {
+      console.log(result);
+      
+    }).catch((error) => {
+      console.log('Modal dismissed with error:', error);
     });
   }
 }

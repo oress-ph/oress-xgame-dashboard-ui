@@ -1,0 +1,33 @@
+.add-post form .form-control {
+    background: var(--bs-border-color-translucent);
+    color: var(--bs-modal-color) !important;
+}
+
+.form-group i {
+    position: absolute;
+    top: 29px;
+    right: 46px;
+    color: #898989;
+}
+.form-control:focus {
+    /* color: rgba(255, 255, 255, 0.6) !important; */
+    color: unset !important;
+}
+
+::ng-deep body.dark-only .modal-content .modal-body .form-control{
+    background-color: #1d1e26 !important;
+    color: rgba(255, 255, 255, 0.6) !important;
+    border: 1px solid #1d1e26 !important;
+}
+tr{
+    cursor: pointer;
+    :hover{
+
+    }
+}
+.modal-footer{
+    border-top: unset;
+}
+.portfolio-table{
+    max-height: 40vh;
+}
