@@ -37,7 +37,6 @@ export class TokenTransferComponent implements OnInit {
   
     this.tokenTransferForm = this.fb.group({
       amount: ["", [Validators.required,Validators.min(1)]],
-      transaction_fee: ["", [Validators.required]],
       wallet_address: ["", Validators.required,this.walletAddressValidator()],
     });
   }
@@ -156,6 +155,7 @@ export class TokenTransferComponent implements OnInit {
     ).subscribe({
       next: async (response) => {
         if (response[0]){
+          
           this.signExtrinsic(response[1]);
         } else {
           Swal.close();
@@ -219,6 +219,40 @@ export class TokenTransferComponent implements OnInit {
   }
 
   async ngOnInit(): Promise<void> {
+    this.calculateTransactionFee(this.tokenTransferModel.amount)
+    this.polkadotService.tokens$.subscribe(tokens => {
+      // this.tokenTransferModel = tokens[0];
+      this.tokenTransferModel.balance = tokens[0]?.balance;
+      this.tokenTransferModel.symbol = tokens[0]?.symbol;
+      this.tokenTransferModel.logo = tokens[0]?.logo;
+
+      if(this.tokenTransferModel.balance >1){
+        this.tokenTransferModel.amount = 1;
+      }else if(this.tokenTransferModel.balance <1 || this.tokenTransferModel.balance>0){
+        this.tokenTransferModel.amount = this.tokenTransferModel.balance
+      }
+
+      if(tokens.length>0){
+        this.loading = false;
+      }
+    });
+
+    this.tokenTransferForm.get('amount').valueChanges.subscribe(value => {
+      if (!value) {
+        if (this.tokenTransferModel.balance >1) {
+          this.tokenTransferForm.get('amount').setValue(1, { emitEvent: false });
+        } else if(this.tokenTransferModel.balance <1 || this.tokenTransferModel.balance>0){
+          this.tokenTransferForm.get('amount').setValue(this.tokenTransferModel.balance, { emitEvent: false });
+        }
+      }else if(value==0){
+        if (this.tokenTransferModel.balance != 0) {
+          this.tokenTransferForm.get('amount').setValue(1, { emitEvent: false });
+        } else {
+          this.tokenTransferForm.get('amount').setValue(0, { emitEvent: false });
+        }
+      } 
+    });
+
     (await this.polkadotService.getAstroToken()).subscribe({
       next: async (response: any) => {
         if (response[0]){
@@ -233,10 +267,46 @@ export class TokenTransferComponent implements OnInit {
       }
     });
   }
+
+  async calculateTransactionFee(amount: number) {
+    try {
+      const feeObservable = await this.polkadotService.getTransactionFee(amount);
+      feeObservable.subscribe({
+        next: async (response) => {
+          console.log(response)
+          if (response[0] == true) {
+            this.tokenTransferModel.transaction_fee = response[1].finalFee;
+            await this.polkadotService.getChainTokens();
+          } else {
+            console.error(response[1]);
+            this.fireSwal(false, 'Error', response[1].message);
+          }
+        },
+        error: (error) => {
+          console.error('Error in feeObservable:', error);
+          Swal.close();
+          this.fireSwal(false, 'Error', error);
+          throw new Error('An error has occurred: ' + error);
+        }
+      });
+    } catch (error) {
+      console.error('Error calculating transaction fee:', error);
+    }
+  }
+  calculateTotal(): number {
+    const amount = this.tokenTransferModel.amount;
+    const fee = this.tokenTransferModel.transaction_fee;
+    const total = amount + fee;
+    return total; // Formats to four decimal places
+  }
+  
+
   select_token(){
     const modalRef = this.modalService.open(TokenListComponent,{ centered: true, backdrop: true,keyboard:true });
     modalRef.result.then((result) => {
-      console.log(result);
+      this.tokenTransferModel.balance = result.balance;
+      this.tokenTransferModel.symbol = result.symbol;
+      this.tokenTransferModel.logo = result.logo;
       
     })
   }

@@ -7,7 +7,7 @@ import { Keyring, encodeAddress } from '@polkadot/keyring';
 import { ApiPromise } from '@polkadot/api';
 import { WsProvider } from '@polkadot/rpc-provider';
 // import { ContractPromise } from '@polkadot/api-contract';
-import { Observable } from 'rxjs';
+import { Observable, from } from 'rxjs';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { AppSettings } from 'src/app/app-settings';
 import { CookiesService } from './../services/cookies.service';
@@ -16,7 +16,7 @@ import { ContractPromise } from '@polkadot/api-contract';
 import { NFTModel } from './../model/nft.model';
 import { BehaviorSubject } from 'rxjs';
 import { environment } from 'src/environments/environment';
-
+import { BaseDotsamaWallet, PolkadotjsWallet, TalismanWallet, Wallet, getWalletBySource,getWallets } from '@talismn/connect-wallets';
 
 
 @Injectable({
@@ -26,12 +26,25 @@ export class PolkadotService {
   private tokensSubject = new BehaviorSubject<any[]>([]);
   tokens$ = this.tokensSubject.asObservable();
 
+  private transFeeSubject = new BehaviorSubject<number>(0);
+  transFeeSubject$ = this.transFeeSubject.asObservable();
+
+  walletAccounts: WalletAccountsModel[] = [];
+
   getTokens() {
     return this.tokensSubject.value;
   }
 
   setTokens(tokens: any) {
     this.tokensSubject.next(tokens);
+  }
+
+  getTransFee(){
+    return this.tokensSubject.value;
+  }
+
+  setTransFee(amount: any) {
+    this.transFeeSubject.next(amount);
   }
 
   private dataSubject: BehaviorSubject<any> = new BehaviorSubject<any>(null);
@@ -161,29 +174,30 @@ export class PolkadotService {
 
     return walletAccounts;
   }
-  async signAndVerify(walletAccount: WalletAccountsModel): Promise<boolean> {
-    const injector = await web3FromSource(String(walletAccount.metaSource));
-    const signRaw = injector?.signer?.signRaw;
+  // async signAndVerify(walletAccount: WalletAccountsModel): Promise<boolean> {
+  //   const injector = await web3FromSource(String(walletAccount.metaSource));
+  //   const signRaw = injector?.signer?.signRaw;
 
-    if (!!signRaw) {
-      await cryptoWaitReady();
+  //   if (!!signRaw) {
+  //     await cryptoWaitReady();
 
-      const message: string = 'Please sign before you proceed. Thank you!';
-      const { signature } = await signRaw({
-        address: walletAccount.address,
-        data: stringToHex(message),
-        type: 'bytes'
-      });
+  //     const message: string = 'Please sign before you proceed. Thank you!';
+  //     const { signature } = await signRaw({
+  //       address: walletAccount.address,
+  //       data: stringToHex(message),
+  //       type: 'bytes'
+  //     });
 
-      let publicKey = decodeAddress(walletAccount.address);
-      let hexPublicKey = u8aToHex(publicKey);
+  //     let publicKey = decodeAddress(walletAccount.address);
+  //     let hexPublicKey = u8aToHex(publicKey);
 
-      let { isValid } = signatureVerify(message, signature, hexPublicKey);
-      return isValid;
-    }
+  //     let { isValid } = signatureVerify(message, signature, hexPublicKey);
+  //     return isValid;
+  //   }
 
-    return false;
-  }
+  //   return false;
+  // }
+
   async generateKeypair(address: string): Promise<string> {
     const keyring = new Keyring({ type: 'sr25519', ss58Format: 0 });
     const hexPair = keyring.addFromAddress(address);
@@ -250,6 +264,7 @@ export class PolkadotService {
           let results = response;
           if (results != null) {
             this.setTokens(results);
+            this.getTransactionFee(1);
           }
           observer.next([true, results]);
           observer.complete();
@@ -258,12 +273,43 @@ export class PolkadotService {
           const error_result = [
             {balance: 0.00, symbol: 'XON', price: '0'},
             {balance: 0.00, symbol: 'ASTRO', price: '0'},
+            {balance: 0.00, symbol: 'AZK', price: '0'},
+            {balance: 0.00, symbol: 'XGM', price: '0'}
           ];
           observer.next([false, { error: error, error_result: error_result }]);
           observer.complete();
         }
       });
     });
+  }
+  async getTransactionFee(amount: number): Promise<Observable<[boolean, any]>> {
+    try {
+      const wallet = this.cookiesService.getCookieArray("wallet-info").address;
+      const api = await this.connect();
+      const factor = new BN(10).pow(new BN(api.registry.chainDecimals));
+      const convertedAmount = new BN(amount).mul(factor);
+
+      const chainDecimals = api.registry.chainDecimals[0];
+      formatBalance.setDefaults({ decimals: chainDecimals, unit: 'XON' });
+      const defaults = formatBalance.getDefaults();
+      const test = parseFloat(String(amount).split(',').join('')) / (10 ** parseInt(chainDecimals[0]));
+      console.log(test)
+
+
+
+
+
+      const fee = await api.tx.balances.transfer(wallet, convertedAmount).paymentInfo(wallet);
+      const finalFee = (parseFloat(fee.partialFee.toHuman()) / 1000).toFixed(4);
+      const dm = new BN(amount).divmod(factor);
+      console.log(dm.div.toString() + "." + dm.mod.toString());
+      this.setTransFee(finalFee);
+      const transactionFee: [boolean, any] = [true, { finalFee }];
+      return from(Promise.resolve(transactionFee));
+    } catch (error) {
+      console.error('Error in getTransactionFee:', error);
+      return from(Promise.reject(error));
+    }
   }
 
   public async convertTokenFormat(
@@ -320,11 +366,97 @@ export class PolkadotService {
           WalletAccounts: walletAccounts
         });
       })
-      console.log(web3WalletArray)
       return web3WalletArray;
     }
 
     return [];
+  }
+
+  getAllExtension(): any{
+    const supportedWallets: Wallet[] = getWallets();
+    return supportedWallets;
+  }
+
+  async connectExtension(extension: string): Promise<any> {
+    return new Promise((resolve, reject) => {
+      let wallet: TalismanWallet | PolkadotjsWallet | null = null;
+      this.walletAccounts = [];
+      
+      
+      if (extension === 'talisman') {
+        wallet = getWalletBySource('talisman') as TalismanWallet;
+      } else if (extension === 'polkadot-js') {
+        wallet = getWalletBySource('polkadot-js') as PolkadotjsWallet;
+      }
+      if(wallet.installed){
+        if (wallet) {
+          wallet.enable('XGame')
+            .then(() => {
+              wallet.getAccounts()
+                .then((accounts) => {
+                  if (accounts) {
+                    accounts.forEach((account) => {
+                      this.walletAccounts.push({
+                        address: account.address,
+                        address_display: account.address.substring(0, 5) + "..." + account.address.substring(account.address.length - 5),
+                        metaGenesisHash: '',
+                        metaName: account.name,
+                        tokenSymbol: "",
+                        metaSource: account.wallet.extensionName,
+                        type: ''
+                      });
+                    });
+                    resolve(this.walletAccounts); // Resolve the Promise with walletAccounts
+                  } else {
+                    reject(new Error('No accounts found'));
+                  }
+                })
+                .catch((error) => {
+                  reject(error);
+                });
+            })
+            .catch((error) => {
+              reject(error);
+            });
+        } else {
+          reject(new Error('Wallet not found'));
+        }
+      }else{
+        const error = new Error('Wallet is not installed');
+        error['status'] = 404;
+        reject(error);
+      }
+    });
+  }
+
+  async signAndVerify(walletAccount: WalletAccountsModel): Promise<any> {
+    try {
+      const wallet = getWalletBySource(walletAccount.metaSource);
+      const accounts = await wallet.getAccounts();
+      const currentAccount = accounts.find((acc) => acc.address === walletAccount.address);
+  
+      if (!currentAccount) {
+        console.error('Account not found.');
+        return; // or handle accordingly
+      }
+  
+      const signer = currentAccount.wallet.signer;
+      const message: string = 'Please sign before you proceed. Thank you!';
+      const { signature } = await signer.signRaw({
+        type: 'bytes',
+        data: stringToHex(message),
+        address: currentAccount.address,
+      });
+  
+      let publicKey = decodeAddress(walletAccount.address);
+      let hexPublicKey = u8aToHex(publicKey);
+  
+      let { isValid } = signatureVerify(message, signature, hexPublicKey);
+      return isValid;
+    } catch (err) {
+      console.error('Error:', err);
+      // Handle error...
+    }
   }
   
 }

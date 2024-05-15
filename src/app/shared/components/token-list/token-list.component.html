@@ -12,18 +12,18 @@
     <div class="portfolio-table recent-table table-responsive p-l-10 p-r-10">
         <table class="table">
             <tbody>
-                <tr (click)="selected_token()">
+                <tr (click)="selected_token(token)" *ngFor="let token of token_list">
                     <td>
                         <div class="d-flex align-items-center gap-2">
-                            <img src="https://resources.acala.network/tokens/ASEED.png" class="img-fluid me-1" style="width: 36px;">
-                        <div>
-                            <h6 class="f-14 mb-1 f-light">Xode</h6>
-                            <div class="d-flex align-items-center gap-1"><span class="f-light">XON</span></div>
-                        </div>
+                            <img [src]="token.logo" class="img-fluid me-1" style="width: 36px;" *ngIf="token.logo!=' ' && token.logo!=undefined">
+                            <div>
+                                <h6 class="f-14 mb-1 f-light" *ngIf="token.token_name!=''">{{token.token_name}}</h6>
+                                <div class="d-flex align-items-center gap-1"><span class="f-light">{{token.symbol}}</span></div>
+                            </div>
                         </div>
                     </td>
                     <td class="text-end f-light p-r-5">
-                        0
+                        {{token.balance}}
                     </td>
                 </tr>
             </tbody>

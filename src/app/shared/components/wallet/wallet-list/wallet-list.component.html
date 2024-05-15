@@ -1,7 +1,111 @@
-<!-- 
 
-
-<div class="modal-header">
+<div class="d-flex flex-column">
+    <div class="modal-header d-flex flex-column m-b-20">
+        <div style="display: flex; justify-content: center;" class="p-b-20">
+            <img src="./../../../../../assets/images/logo/logo.webp" alt="" class="img-fluid for-light">
+            <img src="./../../../../../assets/images/logo/logo_dark.webp" alt="" class="img-fluid for-dark">
+        </div>
+        <div class="connect-wallet-title text-center p-b-20">
+            <div class="text-center f-18">{{'Connect Wallet' | translate}}</div>
+            <span class="text-center text-sm w-full">{{'Start using XGame' | translate}}</span>
+        </div>
+    </div>
+    
+    <div class="modal-body">
+        <div>
+            <div *ngIf="selectedWallet == '' && isExtensionChoosen == false">
+                <!-- <div class="connect-wallet-button" style="margin-bottom: 40px;">
+                    <button class="btn btn-outline-warning" type="button" style="padding: 0.9375rem 1.5625rem; width: 100%; display: flex; align-items: center; justify-content: space-between;" (click)="selectPolkadot()">
+                        <div style="display: flex; gap: 0.5rem;">
+                            <img alt="logo" src="./../../../../../assets/images/polkadot/polkadot_icon.webp" style="width: 1.5rem" />
+                            <span class="f-20">Polkadot(.js)</span>
+                        </div>
+                        <i class="icon-arrow-right" style="font-size: 1rem;"></i>
+                    </button>
+                </div> -->
+                <div class="connect-wallet-button" style="margin-bottom: 40px;">
+                    <p *ngIf="!isInstall">
+                        Download {{selected_extension.title}} Extension <a [href]="selected_extension.installUrl" target="_blank">here</a>
+                    </p>
+                    <ul>
+                        <ng-container *ngFor="let item of web3WalletArray">
+                            <li (click)="connectExtension(item)">
+                                <button class="btn btn-wallet" type="button" *ngIf="item.title =='Talisman' || item.title=='Polkadot.js'" style="padding: 0.9375rem 1.5625rem; width: 100%; display: flex; align-items: center; justify-content: space-between; margin: 5px;">
+                                    <div style="display: flex; gap: 0.5rem;">
+                                        <img class="img-fluid" style="width: 36px;" [src]="item.logo.src" alt="item.logo.alt">
+                                        <span class="f-20 d-flex align-content-center flex-wrap">{{item.title}}</span>
+                                    </div>
+                                    <i class="icon-arrow-right" style="font-size: 1rem;"></i>
+                                </button>
+                            </li>
+                        </ng-container>
+                        <!-- <li>
+                            <button class="btn btn-wallet" type="button" style="padding: 0.9375rem 1.5625rem; width: 100%; display: flex; align-items: center; justify-content: space-between; margin: 5px;" (click)="getWeb3Extensions(item)">
+                                <div style="display: flex; gap: 0.5rem;">
+                                    <img class="img-fluid" style="width: 36px;" src="data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiIHN0YW5kYWxvbmU9InllcyI/PjxzdmcgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB4bWxuczp4bGluaz0iaHR0cDovL3d3dy53My5vcmcvMTk5OS94bGluayIgdmVyc2lvbj0iMS4xIiBpZD0iTGF5ZXJfMSIgeD0iMHB4IiB5PSIwcHgiIHZpZXdCb3g9IjE1IDE1IDE0MCAxNDAiIHN0eWxlPSJlbmFibGUtYmFja2dyb3VuZDpuZXcgMCAwIDE3MCAxNzA7em9vbTogMTsiIHhtbDpzcGFjZT0icHJlc2VydmUiPjxzdHlsZSB0eXBlPSJ0ZXh0L2NzcyI+LmJnMHtmaWxsOiNGRjhDMDB9IC5zdDB7ZmlsbDojRkZGRkZGfTwvc3R5bGU+PGc+PGNpcmNsZSBjbGFzcz0iYmcwIiBjeD0iODUiIGN5PSI4NSIgcj0iNzAiPjwvY2lyY2xlPjxnPjxwYXRoIGNsYXNzPSJzdDAiIGQ9Ik04NSwzNC43Yy0yMC44LDAtMzcuOCwxNi45LTM3LjgsMzcuOGMwLDQuMiwwLjcsOC4zLDIsMTIuM2MwLjksMi43LDMuOSw0LjIsNi43LDMuM2MyLjctMC45LDQuMi0zLjksMy4zLTYuNyBjLTEuMS0zLjEtMS42LTYuNC0xLjUtOS43QzU4LjEsNTcuNiw2OS41LDQ2LDgzLjYsNDUuM2MxNS43LTAuOCwyOC43LDExLjcsMjguNywyNy4yYzAsMTQuNS0xMS40LDI2LjQtMjUuNywyNy4yIGMwLDAtNS4zLDAuMy03LjksMC43Yy0xLjMsMC4yLTIuMywwLjQtMywwLjVjLTAuMywwLjEtMC42LTAuMi0wLjUtMC41bDAuOS00LjRMODEsNzMuNGMwLjYtMi44LTEuMi01LjYtNC02LjIgYy0yLjgtMC42LTUuNiwxLjItNi4yLDRjMCwwLTExLjgsNTUtMTEuOSw1NS42Yy0wLjYsMi44LDEuMiw1LjYsNCw2LjJjMi44LDAuNiw1LjYtMS4yLDYuMi00YzAuMS0wLjYsMS43LTcuOSwxLjctNy45IGMxLjItNS42LDUuOC05LjcsMTEuMi0xMC40YzEuMi0wLjIsNS45LTAuNSw1LjktMC41YzE5LjUtMS41LDM0LjktMTcuOCwzNC45LTM3LjdDMTIyLjgsNTEuNiwxMDUuOCwzNC43LDg1LDM0Ljd6IE04Ny43LDEyMS43IGMtMy40LTAuNy02LjgsMS40LTcuNSw0LjljLTAuNywzLjQsMS40LDYuOCw0LjksNy41YzMuNCwwLjcsNi44LTEuNCw3LjUtNC45QzkzLjMsMTI1LjcsOTEuMiwxMjIuNCw4Ny43LDEyMS43eiI+PC9wYXRoPjwvZz48L2c+PC9zdmc+Cg==" alt="Polkadotjs Logo">
+                                    <span class="f-20 text-capitalize d-flex align-content-center flex-wrap">Polkadot.js</span>
+                                </div>
+                                <i class="icon-arrow-right" style="font-size: 1rem;"></i>
+                            </button>
+                        </li>
+                        <li>
+                            <button class="btn btn-wallet" type="button" style="padding: 0.9375rem 1.5625rem; width: 100%; display: flex; align-items: center; justify-content: space-between; margin: 5px;" (click)="getWeb3Extensions(item)">
+                                <div style="display: flex; gap: 0.5rem;">
+                                    <img class="img-fluid" style="width: 36px;" src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjQiIGhlaWdodD0iMjQiIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjI0IiBoZWlnaHQ9IjI0IiByeD0iNCIgZmlsbD0iI0Q1RkY1QyIvPgo8cGF0aCBmaWxsLXJ1bGU9ImV2ZW5vZGQiIGNsaXAtcnVsZT0iZXZlbm9kZCIgZD0iTTE2LjUzNDkgMTIuOTE1OUMxNi42ODcxIDEzLjI0NzIgMTcuMTM1IDEzLjM2NDMgMTcuMzkyOSAxMy4xMDY1TDE3Ljg2NTEgMTIuNjM0NUMxOC4zNTM1IDEyLjE0NjQgMTkuMTQ1MyAxMi4xNDY0IDE5LjYzMzcgMTIuNjM0NUMyMC4xMjIxIDEzLjEyMjcgMjAuMTIyMSAxMy45MTQxIDE5LjYzMzcgMTQuNDAyM0wxNS44MDk3IDE4LjIyNDZDMTQuODkyMSAxOS4zMTA0IDEzLjUxOTggMjAgMTEuOTg2NSAyMEMxMC4zODUxIDIwIDguOTU5NDIgMTkuMjQ3OCA4LjA0Mzg1IDE4LjA3NzdMNC4zNjYyOSAxNC40MDE4QzMuODc3OTEgMTMuOTEzNiAzLjg3NzkxIDEzLjEyMjIgNC4zNjYyOSAxMi42MzRDNC44NTQ2NyAxMi4xNDU5IDUuNjQ2NDkgMTIuMTQ1OSA2LjEzNDg3IDEyLjYzNEw2LjYwMDQ0IDEzLjA5OTRDNi44NTI1MyAxMy4zNTE0IDcuMjkwMDIgMTMuMjM4IDcuNDM4OTQgMTIuOTE0MVYxMi45MTQxQzcuNDY4MzggMTIuODUwMSA3LjQ4NDM5IDEyLjc4MTQgNy40ODQzOSAxMi43MTFMNy40ODQzOCA3LjAwMDU5QzcuNDg0MzggNi4zMDk5MSA4LjA0NDI4IDUuNzUwMDEgOC43MzQ5NiA1Ljc1MDAxQzkuNDI1NjMgNS43NTAwMSA5Ljk4NTUzIDYuMzA5OTEgOS45ODU1MyA3LjAwMDU4TDkuOTg1NTMgOS44ODg5MkM5Ljk4NTUzIDEwLjEzNzYgMTAuMjQwMyAxMC4zMDY1IDEwLjQ3NzQgMTAuMjMxNVYxMC4yMzE1QzEwLjYyNzYgMTAuMTg0MSAxMC43MzYgMTAuMDQ3NCAxMC43MzYgOS44OTAwMUwxMC43MzYgNS4yNTA0MUMxMC43MzYgNC41NTk3NCAxMS4yOTU5IDMuOTk5ODQgMTEuOTg2NiAzLjk5OTg0QzEyLjY3NzMgMy45OTk4NCAxMy4yMzcyIDQuNTU5NzQgMTMuMjM3MiA1LjI1MDQxTDEzLjIzNzIgOS44OTAxOEMxMy4yMzcyIDEwLjA0NzYgMTMuMzQ1NiAxMC4xODQyIDEzLjQ5NTcgMTAuMjMxNlYxMC4yMzE2QzEzLjczMjcgMTAuMzA2NSAxMy45ODc0IDEwLjEzNzcgMTMuOTg3NCA5Ljg4OTA5TDEzLjk4NzQgNy4wMDA1OUMxMy45ODc0IDYuMzA5OTEgMTQuNTQ3MyA1Ljc1MDAxIDE1LjIzNzkgNS43NTAwMUMxNS45Mjg2IDUuNzUwMDEgMTYuNDg4NSA2LjMwOTkxIDE2LjQ4ODUgNy4wMDA1OEwxNi40ODg1IDEyLjcwODZDMTYuNDg4NSAxMi43ODA1IDE2LjUwNDkgMTIuODUwNiAxNi41MzQ5IDEyLjkxNTlWMTIuOTE1OVoiIGZpbGw9IiNGRDQ4NDgiLz4KPHBhdGggZD0iTTE1Ljk4ODUgMTUuNUMxNS45ODg1IDE1LjUgMTQuMTk2OSAxOCAxMS45ODY3IDE4QzkuNzc2NTUgMTggNy45ODQ4NiAxNS41IDcuOTg0ODYgMTUuNUM3Ljk4NDg2IDE1LjUgOS43NzY1NSAxMyAxMS45ODY3IDEzQzE0LjE5NjkgMTMgMTUuOTg4NSAxNS41IDE1Ljk4ODUgMTUuNVoiIGZpbGw9IiNENUZGNUMiLz4KPHBhdGggZD0iTTEzLjg1NDMgMTUuNUMxMy44NTQzIDE2LjUzMTEgMTMuMDE4IDE3LjM2NzEgMTEuOTg2MyAxNy4zNjcxQzEwLjk1NDUgMTcuMzY3MSAxMC4xMTgzIDE2LjUzMTEgMTAuMTE4MyAxNS41QzEwLjExODMgMTQuNDY4OSAxMC45NTQ1IDEzLjYzMjkgMTEuOTg2MyAxMy42MzI5QzEzLjAxOCAxMy42MzI5IDEzLjg1NDMgMTQuNDY4OSAxMy44NTQzIDE1LjVaIiBzdHJva2U9IiNGRDQ4NDgiIHN0cm9rZS13aWR0aD0iMC4yNjU4MzEiLz4KPHBhdGggZD0iTTEzLjEwNDEgMTUuNUMxMy4xMDQxIDE2LjExNjkgMTIuNjAzNyAxNi42MTcxIDExLjk4NjQgMTYuNjE3MUMxMS4zNjkxIDE2LjYxNzEgMTAuODY4OCAxNi4xMTY5IDEwLjg2ODggMTUuNUMxMC44Njg4IDE0Ljg4MzEgMTEuMzY5MSAxNC4zODI5IDExLjk4NjQgMTQuMzgyOUMxMi42MDM3IDE0LjM4MjkgMTMuMTA0MSAxNC44ODMxIDEzLjEwNDEgMTUuNVoiIHN0cm9rZT0iI0ZENDg0OCIgc3Ryb2tlLXdpZHRoPSIwLjI2NTgzMSIvPgo8cGF0aCBkPSJNMTQuNjA1IDE1LjVDMTQuNjA1IDE2Ljk0NTMgMTMuNDMyNyAxOC4xMTcxIDExLjk4NjYgMTguMTE3MUMxMC41NDA1IDE4LjExNzEgOS4zNjgyNyAxNi45NDUzIDkuMzY4MjcgMTUuNUM5LjM2ODI3IDE0LjA1NDcgMTAuNTQwNSAxMi44ODI5IDExLjk4NjYgMTIuODgyOUMxMy40MzI3IDEyLjg4MjkgMTQuNjA1IDE0LjA1NDcgMTQuNjA1IDE1LjVaIiBzdHJva2U9IiNGRDQ4NDgiIHN0cm9rZS13aWR0aD0iMC4yNjU4MzEiLz4KPHBhdGggZD0iTTE1LjM1NTIgMTUuNUMxNS4zNTUyIDE3LjM1OTUgMTMuODQ3IDE4Ljg2NzEgMTEuOTg2NSAxOC44NjcxQzEwLjEyNTkgMTguODY3MSA4LjYxNzc4IDE3LjM1OTUgOC42MTc3OCAxNS41QzguNjE3NzggMTMuNjQwNSAxMC4xMjU5IDEyLjEzMjkgMTEuOTg2NSAxMi4xMzI5QzEzLjg0NyAxMi4xMzI5IDE1LjM1NTIgMTMuNjQwNSAxNS4zNTUyIDE1LjVaIiBzdHJva2U9IiNGRDQ4NDgiIHN0cm9rZS13aWR0aD0iMC4yNjU4MzEiLz4KPHBhdGggZD0iTTEyLjM1MzQgMTUuNUMxMi4zNTM0IDE1LjcwMjcgMTIuMTg5MSAxNS44NjcxIDExLjk4NjMgMTUuODY3MUMxMS43ODM2IDE1Ljg2NzEgMTEuNjE5MiAxNS43MDI3IDExLjYxOTIgMTUuNUMxMS42MTkyIDE1LjI5NzMgMTEuNzgzNiAxNS4xMzI5IDExLjk4NjMgMTUuMTMyOUMxMi4xODkxIDE1LjEzMjkgMTIuMzUzNCAxNS4yOTczIDEyLjM1MzQgMTUuNVoiIGZpbGw9IiMxNjJCRUIiIHN0cm9rZT0iI0ZENDg0OCIgc3Ryb2tlLXdpZHRoPSIwLjI2NTgzMSIvPgo8ZWxsaXBzZSBjeD0iMTEuOTg2MyIgY3k9IjE1LjUiIHJ4PSIwLjUiIHJ5PSIwLjUiIGZpbGw9IiNGRDQ4NDgiLz4KPG1hc2sgaWQ9InBhdGgtMTAtaW5zaWRlLTFfNDY4NF8xNzAzNCIgZmlsbD0id2hpdGUiPgo8cGF0aCBkPSJNMTUuOTg4NSAxNS41QzE1Ljk4ODUgMTUuNSAxNC4xOTY5IDE4IDExLjk4NjcgMThDOS43NzY1NSAxOCA3Ljk4NDg2IDE1LjUgNy45ODQ4NiAxNS41QzcuOTg0ODYgMTUuNSA5Ljc3NjU1IDEzIDExLjk4NjcgMTNDMTQuMTk2OSAxMyAxNS45ODg1IDE1LjUgMTUuOTg4NSAxNS41WiIvPgo8L21hc2s+CjxwYXRoIGQ9Ik0xNS45ODg1IDE1LjVDMTUuOTg4NSAxNS41IDE0LjE5NjkgMTggMTEuOTg2NyAxOEM5Ljc3NjU1IDE4IDcuOTg0ODYgMTUuNSA3Ljk4NDg2IDE1LjVDNy45ODQ4NiAxNS41IDkuNzc2NTUgMTMgMTEuOTg2NyAxM0MxNC4xOTY5IDEzIDE1Ljk4ODUgMTUuNSAxNS45ODg1IDE1LjVaIiBzdHJva2U9IiNENUZGNUMiIHN0cm9rZS13aWR0aD0iMC41MzE2NjMiIG1hc2s9InVybCgjcGF0aC0xMC1pbnNpZGUtMV80Njg0XzE3MDM0KSIvPgo8L3N2Zz4K" alt="Talisman Logo">
+                                    <span class="f-20 text-capitalize d-flex align-content-center flex-wrap">Talisman</span>
+                                </div>
+                                <i class="icon-arrow-right" style="font-size: 1rem;"></i>
+                            </button>
+                        </li> -->
+                    </ul>
+                </div>
+            </div>
+            
+            <div style="padding: 10px;" *ngIf="selectedWallet != '' || isExtensionChoosen == true">
+                <div *ngIf="isExtensionChoosen == true">
+                    <div class="connect-wallet-title">
+                        <div class="text-center" style="font-size: 20px; margin-bottom: 5px;">
+                            <span>
+                                {{'Choose Account' | translate}}
+                            </span>
+                        </div>
+                    </div>
+                    <br />
+                    <div class="row account-list" *ngIf="loader!=true">
+                        <ng-container *ngIf="walletAccounts.length === 0">
+                            <span class="text-center">
+                                {{ 'We Couldn\'t Find Your Wallet' | translate }}
+                            </span>
+                        </ng-container>
+                        
+                        <div class="col-xl-12 p-10 account-div" *ngFor="let web3Wallet of walletAccounts" (click)="onWalletSelectAndVerify(web3Wallet)" style="min-width: 100%;">
+                            <span class="disable-hover" style="font-size: 20px; font-weight: bold;">
+                                {{web3Wallet.metaName}}
+                            </span>
+                            <br />
+                            <span class="disable-hover"  style="font-size: 12px;">
+                                {{web3Wallet.address}}
+                            </span>
+                      </div>
+                    </div>
+                    <div class="loader-box" *ngIf="loader">
+                        <div class="loader-30"></div>
+                    </div>
+                </div>
+                <br />
+                <div style="text-align: center; width: 100%;display: flex;
+                justify-content: center;">
+                    <button class="btn btn-pill btn-back d-flex" (click)="isExtensionChoosen = false"><i class="icon-arrow-left" style="font-size: 1rem;"></i></button>
+                </div>
+                <br />
+            </div>
+            
+            <div class="text-sm text-center">
+                <span>{{'By connecting, I accept XGame’s Terms of Service' | translate}}</span>
+            </div>
+    </div>
+</div> 
+<!--<div class="modal-header">
     <button type="button" class="btn-close" aria-label="Close"  aria-label="Close" (click)="activeModal.dismiss('Cross click')">
     </button>
   </div>
@@ -83,83 +187,7 @@
         <span>{{'By connecting, I accept XGame’s Terms of Service' | translate}}</span>
     </div>
 </div> -->
-<div>
-    <div style="display: flex; justify-content: center;" class="p-b-40">
-        <img src="./../../../../../assets/images/logo/logo.webp" alt="" class="img-fluid for-light">
-        <img src="./../../../../../assets/images/logo/logo_dark.webp" alt="" class="img-fluid for-dark">
-    </div>
-    <div *ngIf="selectedWallet == ''">
-        <div class="connect-wallet-title text-center" style="margin-bottom: 40px;">
-            <div class="text-center f-18">{{'Connect Wallet' | translate}}</div>
-            <span class="text-center text-sm w-full">{{'Start using XGame' | translate}}</span>
-        </div>
-        <!-- <div class="connect-wallet-button" style="margin-bottom: 40px;">
-            <button class="btn btn-outline-warning" type="button" style="padding: 0.9375rem 1.5625rem; width: 100%; display: flex; align-items: center; justify-content: space-between;" (click)="selectPolkadot()">
-                <div style="display: flex; gap: 0.5rem;">
-                    <img alt="logo" src="./../../../../../assets/images/polkadot/polkadot_icon.webp" style="width: 1.5rem" />
-                    <span class="f-20">Polkadot(.js)</span>
-                </div>
-                <i class="icon-arrow-right" style="font-size: 1rem;"></i>
-            </button>
-        </div> -->
-        <div class="connect-wallet-button" style="margin-bottom: 40px;">
-            <ul>
-                <li *ngFor="let item of web3WalletArray">
-                <button class="btn btn-wallet" type="button" style="padding: 0.9375rem 1.5625rem; width: 100%; display: flex; align-items: center; justify-content: space-between; margin: 5px;" (click)="selectWalletExtension(item)">
-                    <div style="display: flex; gap: 0.5rem;">
-                        <img class="img-fluid" style="width: 36px;" *ngIf="item.name =='polkadot-js'" src="data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiIHN0YW5kYWxvbmU9InllcyI/PjxzdmcgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB4bWxuczp4bGluaz0iaHR0cDovL3d3dy53My5vcmcvMTk5OS94bGluayIgdmVyc2lvbj0iMS4xIiBpZD0iTGF5ZXJfMSIgeD0iMHB4IiB5PSIwcHgiIHZpZXdCb3g9IjE1IDE1IDE0MCAxNDAiIHN0eWxlPSJlbmFibGUtYmFja2dyb3VuZDpuZXcgMCAwIDE3MCAxNzA7em9vbTogMTsiIHhtbDpzcGFjZT0icHJlc2VydmUiPjxzdHlsZSB0eXBlPSJ0ZXh0L2NzcyI+LmJnMHtmaWxsOiNGRjhDMDB9IC5zdDB7ZmlsbDojRkZGRkZGfTwvc3R5bGU+PGc+PGNpcmNsZSBjbGFzcz0iYmcwIiBjeD0iODUiIGN5PSI4NSIgcj0iNzAiPjwvY2lyY2xlPjxnPjxwYXRoIGNsYXNzPSJzdDAiIGQ9Ik04NSwzNC43Yy0yMC44LDAtMzcuOCwxNi45LTM3LjgsMzcuOGMwLDQuMiwwLjcsOC4zLDIsMTIuM2MwLjksMi43LDMuOSw0LjIsNi43LDMuM2MyLjctMC45LDQuMi0zLjksMy4zLTYuNyBjLTEuMS0zLjEtMS42LTYuNC0xLjUtOS43QzU4LjEsNTcuNiw2OS41LDQ2LDgzLjYsNDUuM2MxNS43LTAuOCwyOC43LDExLjcsMjguNywyNy4yYzAsMTQuNS0xMS40LDI2LjQtMjUuNywyNy4yIGMwLDAtNS4zLDAuMy03LjksMC43Yy0xLjMsMC4yLTIuMywwLjQtMywwLjVjLTAuMywwLjEtMC42LTAuMi0wLjUtMC41bDAuOS00LjRMODEsNzMuNGMwLjYtMi44LTEuMi01LjYtNC02LjIgYy0yLjgtMC42LTUuNiwxLjItNi4yLDRjMCwwLTExLjgsNTUtMTEuOSw1NS42Yy0wLjYsMi44LDEuMiw1LjYsNCw2LjJjMi44LDAuNiw1LjYtMS4yLDYuMi00YzAuMS0wLjYsMS43LTcuOSwxLjctNy45IGMxLjItNS42LDUuOC05LjcsMTEuMi0xMC40YzEuMi0wLjIsNS45LTAuNSw1LjktMC41YzE5LjUtMS41LDM0LjktMTcuOCwzNC45LTM3LjdDMTIyLjgsNTEuNiwxMDUuOCwzNC43LDg1LDM0Ljd6IE04Ny43LDEyMS43IGMtMy40LTAuNy02LjgsMS40LTcuNSw0LjljLTAuNywzLjQsMS40LDYuOCw0LjksNy41YzMuNCwwLjcsNi44LTEuNCw3LjUtNC45QzkzLjMsMTI1LjcsOTEuMiwxMjIuNCw4Ny43LDEyMS43eiI+PC9wYXRoPjwvZz48L2c+PC9zdmc+Cg==" alt="Polkadotjs Logo">
-                        <img class="img-fluid" style="width: 36px;" *ngIf="item.name =='talisman'" src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjQiIGhlaWdodD0iMjQiIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjI0IiBoZWlnaHQ9IjI0IiByeD0iNCIgZmlsbD0iI0Q1RkY1QyIvPgo8cGF0aCBmaWxsLXJ1bGU9ImV2ZW5vZGQiIGNsaXAtcnVsZT0iZXZlbm9kZCIgZD0iTTE2LjUzNDkgMTIuOTE1OUMxNi42ODcxIDEzLjI0NzIgMTcuMTM1IDEzLjM2NDMgMTcuMzkyOSAxMy4xMDY1TDE3Ljg2NTEgMTIuNjM0NUMxOC4zNTM1IDEyLjE0NjQgMTkuMTQ1MyAxMi4xNDY0IDE5LjYzMzcgMTIuNjM0NUMyMC4xMjIxIDEzLjEyMjcgMjAuMTIyMSAxMy45MTQxIDE5LjYzMzcgMTQuNDAyM0wxNS44MDk3IDE4LjIyNDZDMTQuODkyMSAxOS4zMTA0IDEzLjUxOTggMjAgMTEuOTg2NSAyMEMxMC4zODUxIDIwIDguOTU5NDIgMTkuMjQ3OCA4LjA0Mzg1IDE4LjA3NzdMNC4zNjYyOSAxNC40MDE4QzMuODc3OTEgMTMuOTEzNiAzLjg3NzkxIDEzLjEyMjIgNC4zNjYyOSAxMi42MzRDNC44NTQ2NyAxMi4xNDU5IDUuNjQ2NDkgMTIuMTQ1OSA2LjEzNDg3IDEyLjYzNEw2LjYwMDQ0IDEzLjA5OTRDNi44NTI1MyAxMy4zNTE0IDcuMjkwMDIgMTMuMjM4IDcuNDM4OTQgMTIuOTE0MVYxMi45MTQxQzcuNDY4MzggMTIuODUwMSA3LjQ4NDM5IDEyLjc4MTQgNy40ODQzOSAxMi43MTFMNy40ODQzOCA3LjAwMDU5QzcuNDg0MzggNi4zMDk5MSA4LjA0NDI4IDUuNzUwMDEgOC43MzQ5NiA1Ljc1MDAxQzkuNDI1NjMgNS43NTAwMSA5Ljk4NTUzIDYuMzA5OTEgOS45ODU1MyA3LjAwMDU4TDkuOTg1NTMgOS44ODg5MkM5Ljk4NTUzIDEwLjEzNzYgMTAuMjQwMyAxMC4zMDY1IDEwLjQ3NzQgMTAuMjMxNVYxMC4yMzE1QzEwLjYyNzYgMTAuMTg0MSAxMC43MzYgMTAuMDQ3NCAxMC43MzYgOS44OTAwMUwxMC43MzYgNS4yNTA0MUMxMC43MzYgNC41NTk3NCAxMS4yOTU5IDMuOTk5ODQgMTEuOTg2NiAzLjk5OTg0QzEyLjY3NzMgMy45OTk4NCAxMy4yMzcyIDQuNTU5NzQgMTMuMjM3MiA1LjI1MDQxTDEzLjIzNzIgOS44OTAxOEMxMy4yMzcyIDEwLjA0NzYgMTMuMzQ1NiAxMC4xODQyIDEzLjQ5NTcgMTAuMjMxNlYxMC4yMzE2QzEzLjczMjcgMTAuMzA2NSAxMy45ODc0IDEwLjEzNzcgMTMuOTg3NCA5Ljg4OTA5TDEzLjk4NzQgNy4wMDA1OUMxMy45ODc0IDYuMzA5OTEgMTQuNTQ3MyA1Ljc1MDAxIDE1LjIzNzkgNS43NTAwMUMxNS45Mjg2IDUuNzUwMDEgMTYuNDg4NSA2LjMwOTkxIDE2LjQ4ODUgNy4wMDA1OEwxNi40ODg1IDEyLjcwODZDMTYuNDg4NSAxMi43ODA1IDE2LjUwNDkgMTIuODUwNiAxNi41MzQ5IDEyLjkxNTlWMTIuOTE1OVoiIGZpbGw9IiNGRDQ4NDgiLz4KPHBhdGggZD0iTTE1Ljk4ODUgMTUuNUMxNS45ODg1IDE1LjUgMTQuMTk2OSAxOCAxMS45ODY3IDE4QzkuNzc2NTUgMTggNy45ODQ4NiAxNS41IDcuOTg0ODYgMTUuNUM3Ljk4NDg2IDE1LjUgOS43NzY1NSAxMyAxMS45ODY3IDEzQzE0LjE5NjkgMTMgMTUuOTg4NSAxNS41IDE1Ljk4ODUgMTUuNVoiIGZpbGw9IiNENUZGNUMiLz4KPHBhdGggZD0iTTEzLjg1NDMgMTUuNUMxMy44NTQzIDE2LjUzMTEgMTMuMDE4IDE3LjM2NzEgMTEuOTg2MyAxNy4zNjcxQzEwLjk1NDUgMTcuMzY3MSAxMC4xMTgzIDE2LjUzMTEgMTAuMTE4MyAxNS41QzEwLjExODMgMTQuNDY4OSAxMC45NTQ1IDEzLjYzMjkgMTEuOTg2MyAxMy42MzI5QzEzLjAxOCAxMy42MzI5IDEzLjg1NDMgMTQuNDY4OSAxMy44NTQzIDE1LjVaIiBzdHJva2U9IiNGRDQ4NDgiIHN0cm9rZS13aWR0aD0iMC4yNjU4MzEiLz4KPHBhdGggZD0iTTEzLjEwNDEgMTUuNUMxMy4xMDQxIDE2LjExNjkgMTIuNjAzNyAxNi42MTcxIDExLjk4NjQgMTYuNjE3MUMxMS4zNjkxIDE2LjYxNzEgMTAuODY4OCAxNi4xMTY5IDEwLjg2ODggMTUuNUMxMC44Njg4IDE0Ljg4MzEgMTEuMzY5MSAxNC4zODI5IDExLjk4NjQgMTQuMzgyOUMxMi42MDM3IDE0LjM4MjkgMTMuMTA0MSAxNC44ODMxIDEzLjEwNDEgMTUuNVoiIHN0cm9rZT0iI0ZENDg0OCIgc3Ryb2tlLXdpZHRoPSIwLjI2NTgzMSIvPgo8cGF0aCBkPSJNMTQuNjA1IDE1LjVDMTQuNjA1IDE2Ljk0NTMgMTMuNDMyNyAxOC4xMTcxIDExLjk4NjYgMTguMTE3MUMxMC41NDA1IDE4LjExNzEgOS4zNjgyNyAxNi45NDUzIDkuMzY4MjcgMTUuNUM5LjM2ODI3IDE0LjA1NDcgMTAuNTQwNSAxMi44ODI5IDExLjk4NjYgMTIuODgyOUMxMy40MzI3IDEyLjg4MjkgMTQuNjA1IDE0LjA1NDcgMTQuNjA1IDE1LjVaIiBzdHJva2U9IiNGRDQ4NDgiIHN0cm9rZS13aWR0aD0iMC4yNjU4MzEiLz4KPHBhdGggZD0iTTE1LjM1NTIgMTUuNUMxNS4zNTUyIDE3LjM1OTUgMTMuODQ3IDE4Ljg2NzEgMTEuOTg2NSAxOC44NjcxQzEwLjEyNTkgMTguODY3MSA4LjYxNzc4IDE3LjM1OTUgOC42MTc3OCAxNS41QzguNjE3NzggMTMuNjQwNSAxMC4xMjU5IDEyLjEzMjkgMTEuOTg2NSAxMi4xMzI5QzEzLjg0NyAxMi4xMzI5IDE1LjM1NTIgMTMuNjQwNSAxNS4zNTUyIDE1LjVaIiBzdHJva2U9IiNGRDQ4NDgiIHN0cm9rZS13aWR0aD0iMC4yNjU4MzEiLz4KPHBhdGggZD0iTTEyLjM1MzQgMTUuNUMxMi4zNTM0IDE1LjcwMjcgMTIuMTg5MSAxNS44NjcxIDExLjk4NjMgMTUuODY3MUMxMS43ODM2IDE1Ljg2NzEgMTEuNjE5MiAxNS43MDI3IDExLjYxOTIgMTUuNUMxMS42MTkyIDE1LjI5NzMgMTEuNzgzNiAxNS4xMzI5IDExLjk4NjMgMTUuMTMyOUMxMi4xODkxIDE1LjEzMjkgMTIuMzUzNCAxNS4yOTczIDEyLjM1MzQgMTUuNVoiIGZpbGw9IiMxNjJCRUIiIHN0cm9rZT0iI0ZENDg0OCIgc3Ryb2tlLXdpZHRoPSIwLjI2NTgzMSIvPgo8ZWxsaXBzZSBjeD0iMTEuOTg2MyIgY3k9IjE1LjUiIHJ4PSIwLjUiIHJ5PSIwLjUiIGZpbGw9IiNGRDQ4NDgiLz4KPG1hc2sgaWQ9InBhdGgtMTAtaW5zaWRlLTFfNDY4NF8xNzAzNCIgZmlsbD0id2hpdGUiPgo8cGF0aCBkPSJNMTUuOTg4NSAxNS41QzE1Ljk4ODUgMTUuNSAxNC4xOTY5IDE4IDExLjk4NjcgMThDOS43NzY1NSAxOCA3Ljk4NDg2IDE1LjUgNy45ODQ4NiAxNS41QzcuOTg0ODYgMTUuNSA5Ljc3NjU1IDEzIDExLjk4NjcgMTNDMTQuMTk2OSAxMyAxNS45ODg1IDE1LjUgMTUuOTg4NSAxNS41WiIvPgo8L21hc2s+CjxwYXRoIGQ9Ik0xNS45ODg1IDE1LjVDMTUuOTg4NSAxNS41IDE0LjE5NjkgMTggMTEuOTg2NyAxOEM5Ljc3NjU1IDE4IDcuOTg0ODYgMTUuNSA3Ljk4NDg2IDE1LjVDNy45ODQ4NiAxNS41IDkuNzc2NTUgMTMgMTEuOTg2NyAxM0MxNC4xOTY5IDEzIDE1Ljk4ODUgMTUuNSAxNS45ODg1IDE1LjVaIiBzdHJva2U9IiNENUZGNUMiIHN0cm9rZS13aWR0aD0iMC41MzE2NjMiIG1hc2s9InVybCgjcGF0aC0xMC1pbnNpZGUtMV80Njg0XzE3MDM0KSIvPgo8L3N2Zz4K" alt="Talisman Logo">
-                        <span class="f-20 text-capitalize d-flex align-content-center flex-wrap">{{item.name}}</span>
-                    </div>
-                    <i class="icon-arrow-right" style="font-size: 1rem;"></i>
-                </button>
-            </li>
-            </ul>
-        </div>
-    </div>
-    
-    <div style="padding: 10px;" *ngIf="selectedWallet != ''">
-        <div *ngIf="isAccountChoosen == true">
-            <div class="connect-wallet-title">
-                <div class="text-center" style="font-size: 20px; margin-bottom: 5px;">
-                    <span>
-                        {{'Choose Account' | translate}}
-                    </span>
-                </div>
-            </div>
-            <br />
-            <div class="row account-list" *ngIf="loader!=true">
-                <ng-container *ngIf="walletAccounts.length === 0">
-                    <span class="text-center">
-                        {{ 'We Couldn\'t Find Your Wallet' | translate }}
-                    </span>
-                </ng-container>
-                
-                <div class="col-xl-12 p-10 account-div" *ngFor="let web3Wallet of walletAccounts" (click)="onWalletSelectAndVerify(web3Wallet)" style="min-width: 100%;">
-                    <span class="disable-hover" style="font-size: 20px; font-weight: bold;">
-                        {{web3Wallet.metaName}}
-                    </span>
-                    <br />
-                    <span class="disable-hover"  style="font-size: 12px;">
-                        {{web3Wallet.address}}
-                    </span>
-              </div>
-            </div>
-            <div class="loader-box" *ngIf="loader">
-                <div class="loader-30"></div>
-            </div>
-        </div>
-        <br />
-        <div style="text-align: center; width: 100%;display: flex;
-        justify-content: center;">
-            <button class="btn btn-pill btn-back d-flex" (click)="selectedWallet = ''"><i class="icon-arrow-left" style="font-size: 1rem;"></i></button>
-        </div>
-        <br />
-    </div>
-    
-    <div class="text-sm text-center">
-        <span>{{'By connecting, I accept XGame’s Terms of Service' | translate}}</span>
-    </div>
+
     
     
     <!-- <div *ngIf="selectedWallet == 'PolkadotJS'">
