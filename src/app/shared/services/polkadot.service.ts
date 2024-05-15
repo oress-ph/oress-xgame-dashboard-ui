@@ -71,7 +71,7 @@ export class PolkadotService {
     }),
   };
   public defaultAPIURLHost: string = environment.WALLETAPIURL;
-  wsProvider = new WsProvider(this.appSettings.wsProviderEndpoint);
+  wsProvider = new WsProvider(this.cookiesService.getCookieArray('network')!=undefined? this.cookiesService.getCookieArray('network').wsProviderEndpoint  :environment.network[0].networks[0].wsProviderEndpoint);
   api = ApiPromise.create({ provider: this.wsProvider });
   keypair = this.appSettings.keypair;
   // extensions = web3Enable('XGAME DASHBOARD');
@@ -284,28 +284,53 @@ export class PolkadotService {
   }
   async getTransactionFee(amount: number): Promise<Observable<[boolean, any]>> {
     try {
-      const wallet = this.cookiesService.getCookieArray("wallet-info").address;
+      // const wallet = this.cookiesService.getCookieArray("wallet-info").address;
       const api = await this.connect();
-      const factor = new BN(10).pow(new BN(api.registry.chainDecimals));
-      const convertedAmount = new BN(amount).mul(factor);
+      // const factor = new BN(10).pow(new BN(api.registry.chainDecimals));
+      // const convertedAmount = new BN(amount).mul(factor);
 
-      const chainDecimals = api.registry.chainDecimals[0];
-      formatBalance.setDefaults({ decimals: chainDecimals, unit: 'XON' });
-      const defaults = formatBalance.getDefaults();
-      const test = parseFloat(String(amount).split(',').join('')) / (10 ** parseInt(chainDecimals[0]));
-      console.log(test)
+      // const chainDecimals = api.registry.chainDecimals[0];
+      // formatBalance.setDefaults({ decimals: chainDecimals, unit: 'XON' });
+      // const defaults = formatBalance.getDefaults();
+      // const test = parseFloat(String(amount).split(',').join('')) / (10 ** parseInt(chainDecimals[0]));
+      // console.log(test)
+
+      // const fee = await api.tx.balances.transfer(wallet, convertedAmount).paymentInfo(wallet);
+      // const finalFee = (parseFloat(fee.partialFee.toHuman()) / 1000).toFixed(4);
+      // const dm = new BN(amount).divmod(factor);
+      // console.log(dm.div.toString() + "." + dm.mod.toString());
+      // this.setTransFee(finalFee);
+      // const transactionFee: [boolean, any] = [true, { finalFee }];
+      // return from(Promise.resolve(transactionFee));
+      
+      // returns Hash
+      
+
+      // await api.rpc.chain.subscribeNewHeads(async (lastHeader) => {
+      //   console.log(`Last block #${lastHeader.number} has hash ${lastHeader.hash}`);
+    
+      //   // Retrieve the block to access extrinsics
+      //   const signedBlock = await api.rpc.chain.getBlock(lastHeader.hash);
+        
+      //   // Ensure there is at least one extrinsic in the block
+      //   if (signedBlock.block.extrinsics.length > 1) {
+      //       console.log('Extrinsic:', JSON.stringify(signedBlock.block.extrinsics[1].toHuman(), null, 2));
+            
+      //       // Query the fee details of the second extrinsic
+      //       const queryFeeDetails = await api.rpc.payment.queryFeeDetails(signedBlock.block.extrinsics[1].toHex(), lastHeader.hash);
+            
+      //       console.log('QueryFeeDetails:', JSON.stringify(queryFeeDetails.toHuman(), null, 2));
+
+      //       const queryInfo = await api.rpc.payment.queryInfo(signedBlock.block.extrinsics[1].toHex(), lastHeader.hash);
+      //       console.log('queryInfo:', JSON.stringify(queryInfo.toHuman(), null, 2));
+      //   } else {
+      //       console.log('Not enough extrinsics in the block.');
+      //   }
+      // });
+    
+      // const queryFeeDetails = await api.rpc.payment.queryFeeDetails(block.extrinsics[1].toHex(), blockHash);
 
 
-
-
-
-      const fee = await api.tx.balances.transfer(wallet, convertedAmount).paymentInfo(wallet);
-      const finalFee = (parseFloat(fee.partialFee.toHuman()) / 1000).toFixed(4);
-      const dm = new BN(amount).divmod(factor);
-      console.log(dm.div.toString() + "." + dm.mod.toString());
-      this.setTransFee(finalFee);
-      const transactionFee: [boolean, any] = [true, { finalFee }];
-      return from(Promise.resolve(transactionFee));
     } catch (error) {
       console.error('Error in getTransactionFee:', error);
       return from(Promise.reject(error));
@@ -315,8 +340,8 @@ export class PolkadotService {
   public async convertTokenFormat(
     amount: number
   ): Promise<number> {
-    const api = await this.connect();
-    const chainDecimals = api.registry.chainDecimals[0];
+    // const api = await this.connect();
+    const chainDecimals = (await this.api).registry.chainDecimals[0];
     return amount * 10 ** chainDecimals;
   }
 
@@ -324,17 +349,43 @@ export class PolkadotService {
     extrinsics: string
   ): Promise<any> {
     try {
-      const api = await this.connect();
-      const sender = this.cookiesService.getCookieArray("wallet-info").address;
-      const injector = await web3FromAddress(sender);
-      api.setSigner(injector.signer);
-      const unsignedExtrinsics = api.tx(extrinsics);
-      let signedExtrinsics = (await unsignedExtrinsics.signAsync(sender)).toHex();
-      if (signedExtrinsics) {
-        return signedExtrinsics;
+      const walletInfo = this.cookiesService.getCookieArray("wallet-info");
+      const sender = walletInfo.address;
+      
+      let wallet: TalismanWallet | PolkadotjsWallet | null = null;
+      this.walletAccounts = [];
+  
+      if (walletInfo.metaSource === 'talisman') {
+        wallet = getWalletBySource('talisman') as TalismanWallet;
+      } else if (walletInfo.metaSource === 'polkadot-js') {
+        wallet = getWalletBySource('polkadot-js') as PolkadotjsWallet;
+      }
+  
+      if (wallet) {
+        await wallet.enable('XGame');
+  
+        const accounts = await wallet.getAccounts();
+        if (accounts) {
+          const currentAccount = accounts.find((acc) => acc.address === sender);
+  
+          if (!currentAccount) {
+            console.error('Account not found.');
+            return; // or handle accordingly
+          }
+          // const api = await this.connect();
+          const injector = currentAccount.wallet.signer;
+          (await this.api).setSigner(injector);
+  
+          const unsignedExtrinsics =  (await this.api).tx(extrinsics); 
+          const signedExtrinsics = await unsignedExtrinsics.signAsync(sender);
+  
+          if (signedExtrinsics) {
+            return signedExtrinsics.toHex();
+          }
+        }
       }
     } catch (error) {
-      throw Error(error);
+      throw new Error(error);
     }
   }
 

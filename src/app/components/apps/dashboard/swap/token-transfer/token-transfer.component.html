@@ -86,12 +86,12 @@
           <div class="loader-box" style="height: 20vh;" *ngIf="loading">
             <div class="loader-30"></div>
           </div>
-          <form class="needs-validation" [formGroup]="tokenTransferForm" *ngIf="!loading">
+          <form class="needs-validation" [formGroup]="tokenTransferForm" *ngIf="!loading" (ngSubmit)="submitTransfer()">
             <div class="mb-3">
               <label>Transfer With</label>
               <div class="input-group mb-2">
                 <input class="form-control" type="text" formControlName="amount" placeholder="Amount" aria-label="Amount" type="number" max="tokenTransferModel.balance" [(ngModel)]="tokenTransferModel.amount"/>
-                <button class="btn btn-primary" (click)="select_token()">
+                <button class="btn btn-primary" (click)="select_token()" type="button">
                   <img src="https://resources.acala.network/tokens/ASEED.png" class="img-fluid " style="width: 36px;" *ngIf="tokenTransferModel.logo!='' && tokenTransferModel.logo!=undefined">
                   <span class="f-16 me-1">{{tokenTransferModel.symbol}}</span>
                   <i class="icon-angle-down"></i>
@@ -99,7 +99,7 @@
               </div>
               <div *ngIf="tokenTransferForm.controls.amount.touched && tokenTransferForm.controls.amount.errors?.required" class="text text-danger mt-1" value="1">{{'Amount is required' | translate}}</div>
 
-              <input class="form-control me-2" id="exampleInputPassword22" type="text" disabled="" placeholder="Transaction Fee: {{ tokenTransferModel.transaction_fee }}" />
+              <!-- <input class="form-control me-2" id="exampleInputPassword22" type="text" disabled="" placeholder="Transaction Fee: {{ tokenTransferModel.transaction_fee }}" /> -->
               <span class="d-flex justify-content-end">Balance {{tokenTransferModel.balance}}</span>
             </div>
             

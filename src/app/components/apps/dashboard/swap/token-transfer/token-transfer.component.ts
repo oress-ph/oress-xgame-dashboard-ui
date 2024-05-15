@@ -7,13 +7,18 @@ import { CookiesService } from "src/app/shared/services/cookies.service";
 import { PortfolioModel } from "src/app/shared/model/portfolio";
 import { PortfolioService } from "src/app/shared/services/portfolio.service";
 import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
-import Swal from 'sweetalert2'
+// import Swal from 'sweetalert2'
 import { TokenListComponent } from "src/app/shared/components/token-list/token-list.component";
 import { AbstractControl, AsyncValidatorFn, FormBuilder, FormGroup, ValidationErrors, ValidatorFn, Validators } from "@angular/forms";
 import { debounceTime, map, catchError } from 'rxjs/operators';
 import { Observable, of } from 'rxjs';
 
 import { TokenTransferModel } from "src/app/shared/model/token-transfer.model";
+
+declare var require
+const Swal = require('sweetalert2')
+
+
 @Component({
   selector: "app-token-transfer",
   templateUrl: "./token-transfer.component.html",
@@ -138,7 +143,15 @@ export class TokenTransferComponent implements OnInit {
   }
 
   async confirmTransfer() {
-    Swal.showLoading();
+    Swal.fire({
+      title: 'Processing...',
+      text: 'Please wait while we process your transfer',
+      allowOutsideClick: false,
+      didOpen: () => {
+        Swal.showLoading();
+      }
+    });
+
     let endpoint: string;
     if (this.selectedToken == 'XON') {
       endpoint = 'chain';
@@ -147,9 +160,9 @@ export class TokenTransferComponent implements OnInit {
     } else {
       endpoint = this.selectedToken.toLocaleLowerCase();
     }
-    const value = await this.polkadotService.convertTokenFormat(this.amount);
+    const value = await this.polkadotService.convertTokenFormat(this.tokenTransferModel.amount);
     this.nftService.tokenTransfer(
-      this.walletAddress,
+      this.tokenTransferModel.wallet_address,
       value,
       endpoint
     ).subscribe({
@@ -174,22 +187,23 @@ export class TokenTransferComponent implements OnInit {
   async signExtrinsic(data: string) {
     this.polkadotService.signExtrinsics(data).then(
       (signedExtrinsics: any) => {
-        Swal.fire({
-          title: 'Transaction in progress...',
-          allowOutsideClick: false,
-        });
-        Swal.showLoading();
         this.nftService.submitExtrinsic(
           signedExtrinsics
         ).subscribe({
           next: async (response) => {
-            if (response[0]){
-              Swal.close();
-              this.fireSwal(
-                true,
-                'Tokens Transfer',
-                'Token was transferred successfully!'
-              );
+            console.log(response);
+            if (response[0]==true){
+              Swal.fire({
+                title: "Token Transfer!",
+                text: "Token was transferred successfully!",
+                icon: "success"
+              });
+              // Swal.close();
+              // this.fireSwal(
+              //   true,
+              //   'Tokens Transfer',
+              //   'Token was transferred successfully!'
+              // );
             } else {
               console.error(response[1])
               this.fireSwal(false, 'Error', response[1].message);
@@ -219,12 +233,8 @@ export class TokenTransferComponent implements OnInit {
   }
 
   async ngOnInit(): Promise<void> {
-    this.calculateTransactionFee(this.tokenTransferModel.amount)
+    // this.calculateTransactionFee(this.tokenTransferModel.amount)
     this.polkadotService.tokens$.subscribe(tokens => {
-      // this.tokenTransferModel = tokens[0];
-      this.tokenTransferModel.balance = tokens[0]?.balance;
-      this.tokenTransferModel.symbol = tokens[0]?.symbol;
-      this.tokenTransferModel.logo = tokens[0]?.logo;
 
       if(this.tokenTransferModel.balance >1){
         this.tokenTransferModel.amount = 1;
@@ -233,6 +243,11 @@ export class TokenTransferComponent implements OnInit {
       }
 
       if(tokens.length>0){
+        // this.tokenTransferModel = tokens[0];
+        this.tokenTransferModel.balance = tokens[0]?.balance;
+        this.tokenTransferModel.symbol = tokens[0]?.symbol;
+        this.tokenTransferModel.logo = tokens[0]?.logo;
+        this.selectedToken = tokens[0].symbol;
         this.loading = false;
       }
     });
@@ -273,7 +288,6 @@ export class TokenTransferComponent implements OnInit {
       const feeObservable = await this.polkadotService.getTransactionFee(amount);
       feeObservable.subscribe({
         next: async (response) => {
-          console.log(response)
           if (response[0] == true) {
             this.tokenTransferModel.transaction_fee = response[1].finalFee;
             await this.polkadotService.getChainTokens();
@@ -307,7 +321,23 @@ export class TokenTransferComponent implements OnInit {
       this.tokenTransferModel.balance = result.balance;
       this.tokenTransferModel.symbol = result.symbol;
       this.tokenTransferModel.logo = result.logo;
-      
+      this.selectedToken = result.symbol
+    })
+  }
+  submitTransfer(){
+    Swal.fire({
+      title: 'Are you sure?',
+      text: "You want to transfer",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Confirm'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        
+        this.confirmTransfer();
+      }
     })
   }
 }
