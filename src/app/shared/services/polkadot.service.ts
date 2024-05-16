@@ -74,7 +74,6 @@ export class PolkadotService {
   wsProvider = new WsProvider(this.cookiesService.getCookieArray('network')!=undefined? this.cookiesService.getCookieArray('network').wsProviderEndpoint  :environment.network[0].networks[0].wsProviderEndpoint);
   api = ApiPromise.create({ provider: this.wsProvider });
   keypair = this.appSettings.keypair;
-  walletAccounts: WalletAccountsModel[] = [];
   // extensions = web3Enable('XGAME DASHBOARD');
   // accounts = web3Accounts();
   abi = require("./../../../assets/json/sample.json");
