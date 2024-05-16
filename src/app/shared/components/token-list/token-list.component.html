@@ -6,13 +6,13 @@
 
 <div class="modal-body">
     <div  class="form-group mb-4">
-        <input  type="search" placeholder="Search.." data-original-title="" title="" class="form-control">
+        <input type="search" placeholder="Search.." data-original-title="" title="" class="form-control" [(ngModel)]="searchKeyword" (input)="onSearchInput()">
         <i  class="fa fa-search"></i>
     </div>
     <div class="portfolio-table recent-table table-responsive p-l-10 p-r-10">
         <table class="table">
             <tbody>
-                <tr (click)="selected_token(token)" *ngFor="let token of token_list">
+                <tr (click)="selected_token(token)" *ngFor="let token of filter_token">
                     <td>
                         <div class="d-flex align-items-center gap-2">
                             <img [src]="token.logo" class="img-fluid me-1" style="width: 36px;" *ngIf="token.logo!=' ' && token.logo!=undefined">

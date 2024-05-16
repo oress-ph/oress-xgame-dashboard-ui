@@ -15,6 +15,7 @@ export class TokenListComponent implements OnInit{
   ){}
 
   token_list : TokenModel[] = [];
+  filter_token: TokenModel[] = [];
   
   selected_token(token:any) {
     // console.log("test");
@@ -24,10 +25,30 @@ export class TokenListComponent implements OnInit{
    get_token(){
     this.polkadotService.tokens$.subscribe(tokens => {
       this.token_list = tokens;
+      this.onSearchInput();
     });
     this.polkadotService.getChainTokens();
   }
   
+  searchKeyword: string = ''; // Property to hold the search keyword
+
+  // Function triggered on input in the search box
+  onSearchInput() {
+    this.search(this.searchKeyword); // Call the search function with the current searchKeyword value
+  }
+
+  search(keyword: string) {
+    if (!keyword.trim()) {
+      this.filter_token = [...this.token_list];
+    } else {
+      this.filter_token = this.token_list.filter(token =>
+        token.symbol && token.symbol.toLowerCase().includes(keyword.toLowerCase())
+      );
+    }
+  }
+  
+
+
   ngOnInit(): void {
     this.get_token();
   }
