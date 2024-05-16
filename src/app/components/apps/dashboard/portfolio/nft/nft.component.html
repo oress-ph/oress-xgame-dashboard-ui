@@ -155,7 +155,7 @@
           <div class="card">
             <div class="product-box">
               <div class="product-img">
-                <!-- <div class="ribbon ribbon-danger" *ngIf="product.status == 'sale'">{{ product.status }}</div> -->
+                <div class="ribbon ribbon-danger" *ngIf="product.isForSale">For Sale</div>
                 <!-- <div class="ribbon ribbon-success ribbon-right" *ngIf="product.status == '50%'">{{ product.status }}</div> -->
                 <img class="img-fluid" src="{{ product.imagePath }}" alt=""/>
                 <div class="product-hover">

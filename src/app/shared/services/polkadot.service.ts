@@ -352,7 +352,6 @@ export class PolkadotService {
       const sender = walletInfo.address;
       
       let wallet: TalismanWallet | PolkadotjsWallet | null = null;
-      this.walletAccounts = [];
   
       if (walletInfo.metaSource === 'talisman') {
         wallet = getWalletBySource('talisman') as TalismanWallet;
