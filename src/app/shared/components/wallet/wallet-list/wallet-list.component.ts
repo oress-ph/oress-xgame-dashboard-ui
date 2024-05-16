@@ -42,21 +42,16 @@ export class WalletListComponent {
     this.web3WalletArray = allExtension;
   }
   connectExtension(extension: string){
-    this.selected_extension = extension
     this.walletAccounts = [];
-    this.polkadotService.connectExtension(this.selected_extension?.extensionName)
+    this.polkadotService.connectExtension(extension)
     .then((walletAccounts) => {
-      this.isInstall = true;
       this.selectedWallet
       this.walletAccounts = walletAccounts;
       this.isExtensionChoosen = true;
+      // Do something with walletAccounts
     })
     .catch((error) => {
-      if(error.status==404){
-        this.isInstall = false;
-      }else{
-        console.error('Error connecting extension:', error);
-      }
+      console.error('Error connecting extension:', error);
     });
   }
 

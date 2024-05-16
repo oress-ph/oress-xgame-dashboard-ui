@@ -74,6 +74,7 @@ export class PolkadotService {
   wsProvider = new WsProvider(this.cookiesService.getCookieArray('network')!=undefined? this.cookiesService.getCookieArray('network').wsProviderEndpoint  :environment.network[0].networks[0].wsProviderEndpoint);
   api = ApiPromise.create({ provider: this.wsProvider });
   keypair = this.appSettings.keypair;
+  walletAccounts: WalletAccountsModel[] = [];
   // extensions = web3Enable('XGAME DASHBOARD');
   // accounts = web3Accounts();
   abi = require("./../../../assets/json/sample.json");
@@ -197,7 +198,6 @@ export class PolkadotService {
 
   //   return false;
   // }
-
   async generateKeypair(address: string): Promise<string> {
     const keyring = new Keyring({ type: 'sr25519', ss58Format: 0 });
     const hexPair = keyring.addFromAddress(address);
@@ -389,93 +389,87 @@ export class PolkadotService {
     }
   }
 
-  async getDappExtension(): Promise<DappExtensionModel[]> {
-    let web3WalletArray: DappExtensionModel[] = [];
-    let extensions = await web3Enable('Xode');
+  // async getDappExtension(): Promise<DappExtensionModel[]> {
+  //   let web3WalletArray: DappExtensionModel[] = [];
+  //   let extensions = await web3Enable('Xode');
 
-    if (extensions.length != 0) {
-      await extensions.forEach(async data => {
+  //   if (extensions.length != 0) {
+  //     await extensions.forEach(async data => {
 
-        let walletAccounts: WalletAccountsModel[] = [];
+  //       let walletAccounts: WalletAccountsModel[] = [];
 
-        let accounts = await data.accounts.get();
+  //       let accounts = await data.accounts.get();
         
-        accounts.forEach(account => {
-          walletAccounts.push({
-            address: account.address,
-            address_display: account.address.substring(0, 5) + "..." + account.address.substring(account.address.length - 5, account.address.length),
-            metaGenesisHash: account.genesisHash,
-            metaName: account.name,
-            tokenSymbol: "",
-            metaSource: data.name,
-            type: account.type
-          });
-        });
+  //       accounts.forEach(account => {
+  //         walletAccounts.push({
+  //           address: account.address,
+  //           address_display: account.address.substring(0, 5) + "..." + account.address.substring(account.address.length - 5, account.address.length),
+  //           metaGenesisHash: account.genesisHash,
+  //           metaName: account.name,
+  //           tokenSymbol: "",
+  //           metaSource: data.name,
+  //           type: account.type
+  //         });
+  //       });
         
-        web3WalletArray.push({
-          name: data.name,
-          WalletAccounts: walletAccounts
-        });
-      })
-      return web3WalletArray;
-    }
+  //       web3WalletArray.push({
+  //         name: data.name,
+  //         WalletAccounts: walletAccounts
+  //       });
+  //     })
+  //     console.log(web3WalletArray)
+  //     return web3WalletArray;
+  //   }
 
-    return [];
-  }
-
+  //   return [];
+  // }
   getAllExtension(): any{
     const supportedWallets: Wallet[] = getWallets();
     return supportedWallets;
   }
 
-  async connectExtension(extension: string): Promise<any> {
+  connectExtension(extension: string): Promise<any> {
     return new Promise((resolve, reject) => {
       let wallet: TalismanWallet | PolkadotjsWallet | null = null;
       this.walletAccounts = [];
-      
       
       if (extension === 'talisman') {
         wallet = getWalletBySource('talisman') as TalismanWallet;
       } else if (extension === 'polkadot-js') {
         wallet = getWalletBySource('polkadot-js') as PolkadotjsWallet;
       }
-      if(wallet.installed){
-        if (wallet) {
-          wallet.enable('XGame')
-            .then(() => {
-              wallet.getAccounts()
-                .then((accounts) => {
-                  if (accounts) {
-                    accounts.forEach((account) => {
-                      this.walletAccounts.push({
-                        address: account.address,
-                        address_display: account.address.substring(0, 5) + "..." + account.address.substring(account.address.length - 5),
-                        metaGenesisHash: '',
-                        metaName: account.name,
-                        tokenSymbol: "",
-                        metaSource: account.wallet.extensionName,
-                        type: ''
-                      });
+  
+      if (wallet) {
+        wallet.enable('XGame')
+          .then(() => {
+            wallet.getAccounts()
+              .then((accounts) => {
+                if (accounts) {
+                  accounts.forEach((account) => {
+                    this.walletAccounts.push({
+                      address: account.address,
+                      address_display: account.address.substring(0, 5) + "..." + account.address.substring(account.address.length - 5),
+                      metaGenesisHash: '',
+                      metaName: account.name,
+                      tokenSymbol: "",
+                      metaSource: account.wallet.extensionName,
+                      type: ''
                     });
-                    resolve(this.walletAccounts); // Resolve the Promise with walletAccounts
-                  } else {
-                    reject(new Error('No accounts found'));
-                  }
-                })
-                .catch((error) => {
-                  reject(error);
-                });
-            })
-            .catch((error) => {
-              reject(error);
-            });
-        } else {
-          reject(new Error('Wallet not found'));
-        }
-      }else{
-        const error = new Error('Wallet is not installed');
-        error['status'] = 404;
-        reject(error);
+                  });
+                  resolve(this.walletAccounts); // Resolve the Promise with walletAccounts
+                } else {
+                  reject(new Error('No accounts found'));
+                }
+              })
+              .catch((error) => {
+                reject(error);
+              });
+          })
+          .catch((error) => {
+            reject(error);
+          });
+      } else {
+        reject(new Error('Wallet not found'));
       }
     });
   }
@@ -509,5 +503,4 @@ export class PolkadotService {
       // Handle error...
     }
   }
-  
 }
