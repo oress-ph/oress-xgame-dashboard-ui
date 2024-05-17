@@ -16,10 +16,12 @@
                   {{appSettings.translate("Change Collection" | translate)}}
                 </button>
                 <div class="dropdown-menu dropdown-size" ngbDropdownMenu style="z-index: 11 !important;">
-                  <a class="dropdown-item" ngbDropdownItem href="javascript:void(0)" *ngFor="let product of product_list" (click)="handleItemClick(product)" style="opacity: unset;display: flex;">
-                    <img class="m-r-20" [src]="product.game_logo" style="width: 80px; height: auto;">
-                    <span style="font-size: 18px;">{{product.game_name | translate}}</span>
-                  </a>
+                  <ng-container *ngFor="let product of product_list">
+                    <a class="dropdown-item" ngbDropdownItem href="javascript:void(0)" *ngIf="product!=selected_product" (click)="handleItemClick(product)" style="opacity: unset;display: flex; width: max-content;">
+                      <img class="m-r-20" [src]="product.game_logo" style="width: 80px; height: auto;">
+                      <span style="font-size: 18px;">{{product.game_name | translate}}</span>
+                    </a>
+                  </ng-container>
                 </div>
               </div>
             </div>
@@ -134,13 +136,28 @@
     </div>
     <div class="product-wrapper-grid" [class.list-view]="listView" *ngIf="!loading" [style.height]="nft_list_filter.length == 0 ? '20vh' : '100%'">
       <div class="row">
-        <div [class.col-xl-3]="col_xl_3" [class.col-xl-4]="xl_4" [class.col-sm-3]="col_sm_3" [class.col-xl-4]="col_xl_4" [class.col-sm-4]="col_sm_4" [class.col-xl-6]="col_xl_6" [class.col-sm-6]="col_sm_6" [class.col-xl-12]="col_xl_12" [class.col-xl-2]="col_xl_2" *ngFor="let product of nft_list_filter">
+        <div class="divider" *ngIf="nft_list_filter.length==0">
+          <h6>{{'No NFT Result' | translate}}</h6>
+        </div>
+        <div 
+        [class.col-xl-3]="col_xl_3" 
+        [class.col-xl-4]="xl_4" 
+        [class.col-sm-3]="col_sm_3" 
+        [class.col-xl-4]="col_xl_4" 
+        [class.col-sm-4]="col_sm_4" 
+        [class.col-xl-6]="col_xl_6" 
+        [class.col-sm-6]="col_sm_6" 
+        [class.col-xl-12]="col_xl_12" 
+        [class.col-xl-2]="col_xl_2" 
+        [class.col-xxl-2]="col_xxl_2"
+        [class.col-lg-6]="col_lg_6"
+        *ngFor="let product of nft_list_filter">
           <div class="card">
             <div class="product-box">
               <div class="product-img">
-                <!-- <div class="ribbon ribbon-danger" *ngIf="product.status == 'sale'">{{ product.status }}</div> -->
+                <div class="ribbon ribbon-danger" *ngIf="product.isForSale">For Sale</div>
                 <!-- <div class="ribbon ribbon-success ribbon-right" *ngIf="product.status == '50%'">{{ product.status }}</div> -->
-                <img class="img-fluid" src="{{ product.imagePath }}" alt="" [style.max-height.px]="height" [style.min-height.px]="height"/>
+                <img class="img-fluid" src="{{ product.imagePath }}" alt=""/>
                 <div class="product-hover">
                   <ul>
                     <li placement="top" ngbTooltip="Details"  *ngIf="product.nftTokenId !== 0">

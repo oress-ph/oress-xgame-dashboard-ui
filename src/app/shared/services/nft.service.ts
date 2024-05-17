@@ -6,13 +6,7 @@ import { NFTModel } from '../model/nft.model';
 import { AppSettings } from '../../app-settings';
 import { CookiesService } from './cookies.service';
 import { PolkadotService } from './polkadot.service';
-
-const httpOptions = {
-  headers: new HttpHeaders({
-    'Content-Type': 'application/json',
-    Authorization: 'Bearer ' + localStorage.getItem('token'),
-  }),
-};
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -27,6 +21,13 @@ export class NftService {
 
   public defaultAPIURLHost: string = this.appSettings.APIURLHostNFT;
   private collectionId = this.appSettings.collectionId;
+  private httpOptions = {
+    headers: new HttpHeaders({
+      'Content-Type': 'application/json',
+      Authorization: 'Bearer ' + localStorage.getItem('token'),
+      websocket: this.cookiesService.getCookieArray('network')!=undefined? this.cookiesService.getCookieArray('network').wsProviderEndpoint : environment.network[0].networks[0].wsProviderEndpoint
+    }),
+  };
 
   getAstroToken(): Promise<any> {
     let wallet = this.cookiesService.getCookieArray("wallet-info");
@@ -34,7 +35,7 @@ export class NftService {
       this.httpClient.post<any>(
         this.defaultAPIURLHost + '/economy/balanceof/' +
         wallet.address,
-        httpOptions
+        this.httpOptions
       ).subscribe({
         next: (response) => {
           let data = response;
@@ -60,7 +61,7 @@ export class NftService {
       this.httpClient.post<any>(
         this.defaultAPIURLHost + '/nfts/transferfromwoa',
         params,
-        httpOptions
+        this.httpOptions
       ).subscribe({
         next: (response) => {
           let data = response;
@@ -94,7 +95,7 @@ export class NftService {
       this.httpClient.put<any>(
         this.defaultAPIURLHost + '/nfts/' + id,
         updateModel,
-        httpOptions
+        this.httpOptions
       ).subscribe({
         next: (response) => {
           let data = response;
@@ -118,7 +119,7 @@ export class NftService {
           this.defaultAPIURLHost +
           '/nfts/marketplace',
           { collection_id },
-          httpOptions
+          this.httpOptions
       ).subscribe({
           next: (response) => {
           let results = response;
@@ -170,7 +171,7 @@ export class NftService {
         this.defaultAPIURLHost +
         '/nfts/id/' +
         nftTokenId,
-        httpOptions
+        this.httpOptions
       ).subscribe({
         next: (response) => {
           let results = response;
@@ -196,7 +197,7 @@ export class NftService {
         this.defaultAPIURLHost +
         '/nfts/nftdashboard/' +
         wallet_address,
-        httpOptions
+        this.httpOptions
       ).subscribe({
         next: (response) => {
           let results = response;
@@ -312,7 +313,7 @@ export class NftService {
         this.defaultAPIURLHost +
         '/nfts/balancetransfer',
         { from, amount },
-        httpOptions
+        this.httpOptions
       ).subscribe({
         next: (response) => {
           let results = response;
@@ -330,18 +331,42 @@ export class NftService {
     });
   }
 
-  async tokenTransfer(
+  tokenTransfer(
     to: string,
     value: number,
-    token: string
-  ): Promise<Observable<[boolean, any]>> {
-    let from = this.cookiesService.getCookieArray("wallet-info").address;
+    endpoint: string
+  ): Observable<[boolean, any]> {
     return new Observable<[boolean, any]>((observer) => {
       this.httpClient.post<any>(
         this.defaultAPIURLHost +
-        '/economy/transfer',
-        { to, from, value, token },
-        httpOptions
+        `/${endpoint}/transfer`,
+        { to, value },
+        this.httpOptions
+      ).subscribe({
+        next: (response) => {
+          let results = response;
+          if (results != null) {
+          }
+          observer.next([true, results]);
+          observer.complete();
+        },
+        error: (error) => {
+          observer.next([false, error.error]);
+          observer.complete();
+        }
+      });
+    });
+  }
+
+  submitExtrinsic(
+    extrinsic: string,
+  ): Observable<[boolean, any]> {
+    return new Observable<[boolean, any]>((observer) => {
+      this.httpClient.post<any>(
+        this.defaultAPIURLHost +
+        '/chain/extrinsic/submit',
+        { extrinsic },
+        this.httpOptions
       ).subscribe({
         next: (response) => {
           let results = response;

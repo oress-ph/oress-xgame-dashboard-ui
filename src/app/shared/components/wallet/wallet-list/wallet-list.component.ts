@@ -5,6 +5,8 @@ import { Router } from '@angular/router';
 import { DexService } from './../../../services/dex.service';
 import { CookiesService } from './../../../services/cookies.service';
 import {WalletAccountsModel} from './../../../model/polkadot.model';
+import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
+
 declare var require
 const Swal = require('sweetalert2')
 @Component({
@@ -13,28 +15,78 @@ const Swal = require('sweetalert2')
   styleUrls: ['./wallet-list.component.scss']
 })
 export class WalletListComponent {
-  @Input() current_wallet: string | undefined;
   constructor(
     private polkadotService: PolkadotService,
     public appSettings: AppSettings,
     private router: Router,
     private dexService: DexService,
     private cookiesService: CookiesService,
+    public activeModal: NgbActiveModal,
   ){}
 
   selectedWallet = "";
   web3Wallets: WalletAccountsModel[] = [];
+  web3WalletArray: any[] = [];
+  walletAccounts: WalletAccountsModel[] = [];
   selectedWalletAccount: WalletAccountsModel = new WalletAccountsModel();
-  @Input() isLogin: boolean = false;
+  isExtensionChoosen: boolean = false;
+  loader: boolean = false;
   chooseAccount: boolean = false;
-  selectPolkadot(): void {
-    this.selectedWallet = "PolkadotJS";
 
-    this.web3Wallets = [];
-    
+  selected_extension: any = '';
+  isInstall: boolean = true;
+  @Input() close: boolean = true; 
+  
+
+  getAllExtension(){
+    let allExtension = this.polkadotService.getAllExtension();
+    this.web3WalletArray = allExtension;
+  }
+  connectExtension(extension: string){
+    this.walletAccounts = [];
+    this.polkadotService.connectExtension(extension)
+    .then((walletAccounts) => {
+      this.selectedWallet
+      this.walletAccounts = walletAccounts;
+      this.isExtensionChoosen = true;
+      // Do something with walletAccounts
+    })
+    .catch((error) => {
+      console.error('Error connecting extension:', error);
+    });
+  }
+
+  async selectWalletExtension(walletExtension: any) {
+    let accounts = await walletExtension.accounts;
+
+    this.walletAccounts = [];
     this.selectedWalletAccount = new WalletAccountsModel();
 
-    this.getWeb3Accounts();
+    if (accounts.length > 0) {
+      for (let i = 0; i < accounts.length; i++) {
+        this.walletAccounts.push({
+          address: accounts[i].address,
+          address_display: accounts[i].address.substring(0, 5) + "..." + accounts[i].address.substring(accounts[i].address.length - 5, accounts[i].address.length),
+          metaGenesisHash: accounts[i].genesisHash,
+          metaName: accounts[i].metaName,
+          tokenSymbol: "",
+          metaSource: walletExtension.name,
+          type: accounts[i].type
+        });
+      }
+    }
+    
+    this.selectedWallet = walletExtension.name;
+    this.isExtensionChoosen = true;
+  }
+
+  async onWalletSelectAndVerify(walletAccount: WalletAccountsModel) {
+
+    let signAndVerify: Promise<boolean> = this.polkadotService.signAndVerify(walletAccount);
+    let verified = (await signAndVerify);
+    if (verified == true) {
+      this.generateKeypair(walletAccount);
+    }
   }
 
   async getWeb3Accounts(): Promise<void> {
@@ -43,10 +95,6 @@ export class WalletListComponent {
 
     if (data.length > 0) {
       for (let i = 0; i < data.length; i++) {
-        if (this.current_wallet && data[i].address === this.current_wallet) {
-          continue;
-        }
-
         this.web3Wallets.push({
           address: data[i].address,
           address_display: data[i].address.substring(0, 5) + "..." + data[i].address.substring(data[i].address.length - 5, data[i].address.length),
@@ -60,71 +108,37 @@ export class WalletListComponent {
     }
     this.chooseAccount = true;
   }
-  changeAccount(): void {
-    this.selectPolkadot();
-  }
 
-  onWalletSelect(event: any): void {
-    this.selectedWalletAccount = event;
-    this.signAndVerify();
-  }
+  async generateKeypair(walletAccount: WalletAccountsModel): Promise<void> {
 
-  async signAndVerify(): Promise<void> {
-    let signAndVerify: Promise<boolean> = this.polkadotService.signAndVerify(this.selectedWalletAccount);
-    let verified = (await signAndVerify);
-    if (verified == true) {
-      this.generateKeypair();
-    }
-  }
-
-  async generateKeypair(): Promise<void> {
+    this.selectedWalletAccount = walletAccount;
+   
     let generateKeypair: Promise<string> = this.polkadotService.generateKeypair(this.selectedWalletAccount.address);
     let keypair = (await generateKeypair);
     if (keypair != "") {
-      // this.cookiesService.setCookie("wallet-meta-name",String(this.selectedWalletAccount.metaName))
-      // this.cookiesService.setCookie("wallet-address",String(this.selectedWalletAccount.address))
-      // this.cookiesService.setCookie("wallet-keypair",keypair)
-      this.selectedWalletAccount.tokenSymbol = await this.polkadotService.getChainTokens();
-      this.cookiesService.setCookieArray("wallet-info",this.selectedWalletAccount);
-      // localStorage.setItem("wallet-meta-name", String(this.selectedWalletAccount.metaName));
-      // localStorage.setItem("wallet-keypair", keypair);
 
+      this.selectedWalletAccount.tokenSymbol = await this.polkadotService.getChainTokens();
+      await this.cookiesService.setCookieArray("wallet-info",this.selectedWalletAccount);
       
       Swal.fire({
         icon: 'success',
-        title: this.appSettings.translate('Connected'),
-        text: this.appSettings.translate("Wallet Connected successfully")+'!',
+        title: 'Connected',
+        text: 'Wallet Connected successfully.',
         timer: 1500,
         timerProgressBar: true,
         willClose: () => {
-          window.location.href = '/portfolio';
+          window.location.reload()
         }
       }).then((result) => {
         /* Read more about handling dismissals below */
         if (result.dismiss === Swal.DismissReason.timer) {
-          window.location.href = '/portfolio';
+          window.location.reload()
         }
       })
-
-      // if (this.isLogin == false) {
-      //   await this.dexService.loadDexConfigs();
-      //   this.appSettings.lumiAccountAddress = localStorage.getItem("lumi-account-address") || "";
-      //   this.appSettings.lumiContractAddress = localStorage.getItem("lumi-contract-address") || "";
-      //   this.appSettings.phpuContractAddress = localStorage.getItem("phpu-contract-address") || "";
-      //   this.appSettings.lphpuAccountAddress = localStorage.getItem("lphpu-account-address") || "";
-      //   this.appSettings.lphpuContractAddress = localStorage.getItem("lphpu-contract-address") || "";
-      //   this.appSettings.swapFees = localStorage.getItem("swap-fees") || "";
-      //   this.appSettings.forexUpdates = localStorage.getItem("forex-updates") || "";
-      //   // this.router.navigate(['/dapp']);
-      // } else {
-      //   location.reload();
-      // }
     }
   }
 
   ngOnInit(): void {
-    if (this.isLogin == true) {
-      this.selectedWallet = "PolkadotJS";
-    }
+    this.getAllExtension();
   }
 }

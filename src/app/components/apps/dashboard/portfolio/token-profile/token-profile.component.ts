@@ -27,7 +27,7 @@ export class TokenProfileComponent implements OnInit, AfterContentInit {
   }
   ngAfterContentInit(): void {
   }
-
+  is_content_shown:boolean = false;
   astroProperties: any;
   tokenSymbol: any = 'NMS';
   nmsPrice: number = 10;
@@ -40,10 +40,10 @@ export class TokenProfileComponent implements OnInit, AfterContentInit {
   }
 
   async ngOnInit(): Promise<void> {
-    this.portfolioService.tokens$.subscribe(tokens => {
+    this.polkadotService.tokens$.subscribe(tokens => {
       this.tokens = tokens;
       if (tokens.length > 0) {
-        this.loading = false;
+        this.is_content_shown = true;
       }
     });
     await this.polkadotService.getChainTokens();

@@ -8,7 +8,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { SharedModule } from "./shared/shared.module";
 import { AppRoutingModule } from './app-routing.module';
-import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { NgbActiveModal, NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { ToastrModule } from 'ngx-toastr';
 
 // // for HttpClient import:
@@ -30,6 +30,8 @@ import { AppSettings } from './app-settings';
 import { DatePipe } from '@angular/common';
 import { PolkadotService } from './shared/services/polkadot.service';
 
+import { PolkadotIdentIconModule } from 'polkadot-angular-identicon';
+import { PolkadotIdenticonComponent } from './shared/components/polkadot-identicon/polkadot-identicon.component';
 
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http, "./assets/i18n/", ".json");
@@ -38,6 +40,7 @@ export function HttpLoaderFactory(http: HttpClient) {
 @NgModule({
   declarations: [
     AppComponent,
+    PolkadotIdenticonComponent
   ],
   imports: [
     BrowserModule,
@@ -49,7 +52,11 @@ export function HttpLoaderFactory(http: HttpClient) {
     AppRoutingModule,
     HttpClientModule,
     NgbModule,
-    ToastrModule.forRoot(),
+    ToastrModule.forRoot({
+      timeOut: 2000,
+      positionClass: 'toast-bottom-left',
+      preventDuplicates: true,
+    }),
     TranslateModule.forRoot({
       loader: {
         provide: TranslateLoader,
@@ -63,9 +70,10 @@ export function HttpLoaderFactory(http: HttpClient) {
   // for Router use:
     LoadingBarRouterModule,
   // for Core use:
-    LoadingBarModule
+    LoadingBarModule,
+    PolkadotIdentIconModule
   ],
-  providers: [ AdminGuard, WalletGuard ,CookieService,AppSettings,DatePipe,PolkadotService],
+  providers: [ AdminGuard, WalletGuard ,CookieService,AppSettings,DatePipe,PolkadotService,NgbActiveModal],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

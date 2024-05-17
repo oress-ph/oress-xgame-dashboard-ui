@@ -10,9 +10,10 @@ export const environment = {
       networks: [
         { 
           id: 1,
-          name: 'Evolution',
-          wsProviderEndpoint: 'wss://rpcnodea01.xode.net/n7yoxCmcIrCF6VziCcDmYTwL8R03a/rpc',
-          net_name: 'MAINNET'
+          name: 'Mainnet',
+          wsProviderEndpoint: 'wss://rpcnodea01.xode.net/n7yoxCmcIrCF6VziCcDmYTwL8R03a/ws',
+          net_name: 'MAINNET',
+          is_default: true
         }
       ]
     },
@@ -20,23 +21,14 @@ export const environment = {
       networks: [
         { 
           id: 2,
-          name: 'Genesis',
-          wsProviderEndpoint: 'wss://testrpcnodea01.xode.net/aRoyklGrhl9m2LlhX8NP/rpc',
-          net_name: 'TESTNET'
+          name: 'Testnet',
+          wsProviderEndpoint: 'wss://testrpcnodea01.xode.net/aRoyklGrhl9m2LlhX8NP/rpc' ,
+          net_name: 'TESTNET',
+          is_default: false
         }
       ]
     },
-    // {
-    //   networks: [
-    //     {
-    //       id: 3,
-    //       name: 'Development',p
-    //       wsProviderEndpoint:'wss://humidefi-dev.zeeve.net/para',
-    //       net_name: 'DEVNET'
-    //     }
-    //   ]
-    // }
-  ],
+  ], 
     // Website URL
     HomePageURL: 'https://xgame.live/',
     MarketplaceURL: 'https://nft.xgame.live/',
@@ -50,6 +42,7 @@ export const environment = {
     ChatBotAPIWSHost: "chatbot-api.xgame.live",
     BlogAPIURL: "https://blogs-api.xgame.live",
     ExchangeAPIRUL: "http://127.0.0.1:3002",
+    WALLETAPIURL: "https://wallet-api.xode.net",
   
     // Social Media
     LinkedIn : 'https://www.linkedin.com/company/xgame-official/about/',
@@ -78,7 +71,10 @@ export const environment = {
     maintenance: false,
 
     // mobile apk download link
-    mobile_apps:"https://drive.google.com/u/0/uc?id=19cH0M981ysB-yZJEigtAP0lpmsJGRqxF&export=download"
+    mobile_apps:"https://drive.google.com/u/0/uc?id=19cH0M981ysB-yZJEigtAP0lpmsJGRqxF&export=download",
+
+    // secret_key
+    secret_key: "^a7T&kPzL#9s@4!gF%8H"
 };
 
 /*

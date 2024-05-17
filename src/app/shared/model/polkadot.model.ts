@@ -7,3 +7,7 @@ export class WalletAccountsModel {
     metaSource: string | undefined = "";
     type: string | undefined = "";
 }
+export class DappExtensionModel {
+    name: string = "";
+    WalletAccounts: WalletAccountsModel[] = [];
+}

@@ -36,7 +36,6 @@ export class LanguagesComponent implements OnInit {
     });
     this.languageService.selectedLanguage$.subscribe((data) => {
       this.selected_language = data;
-      console.log('selected language', this.selected_language);
       // ... other code
     });
     if(this.cookiesService.getCookieArray('language')==null){

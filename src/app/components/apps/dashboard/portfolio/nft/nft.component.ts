@@ -40,6 +40,8 @@ export class NFTComponent implements OnInit, OnDestroy {
   public col_xl_4: boolean = false;
   public col_sm_6: boolean = true;
   public col_xl_6: boolean = false;
+  public col_xxl_2: boolean = false;
+  public col_lg_6: boolean = false;
   public gridOptions: boolean = true;
   public active: boolean = false;
 
@@ -187,7 +189,6 @@ export class NFTComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    this.grid3s();
     this.get_games_list();
     setTimeout(() => {
       feather.replace();
@@ -437,16 +438,24 @@ export class NFTComponent implements OnInit, OnDestroy {
     this.col_xl_3 = false;
     this.col_sm_3 = false;
 
-    this.col_xl_2 = true;
-    this.col_xl_4 = false;
+    this.col_xl_2 = false;
+    this.col_xl_4 = true;
     this.col_sm_4 = false;
-
+    this.col_xxl_2 = true;
+    this.col_lg_6 = true;
     this.col_xl_6 = false;
     this.col_sm_6 = false;
 
     this.col_xl_12 = false;
 
     this.grid = '6s';
+    // if (window.innerWidth > 2000) {
+    //   console.log()
+    //   this.max_height = 400;
+    //   this.min_height = 400;
+    // } else {
+    //   this.max_height = 300;
+    // }
   }
 
   openProductDetail(content: any, item: any) {

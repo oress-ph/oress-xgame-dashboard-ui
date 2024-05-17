@@ -12,13 +12,13 @@ import { PortfolioComponent } from "./../portfolio/portfolio.component"
 import { TokenProfileComponent } from "./token-profile/token-profile.component";
 import { NFTComponent} from "./nft/nft.component"
 import { PortfolioRoutingModule } from "./portfolio-routing-module";
-import { PortfolioProfileComponent } from './portfolio-profile/portfolio-profile.component';
+// import { PortfolioProfileComponent } from './portfolio-profile/portfolio-profile.component';
 @NgModule({
   declarations: [
     PortfolioComponent,
     TokenProfileComponent,
     NFTComponent,
-    PortfolioProfileComponent,
+    // PortfolioProfileComponent,
     // BalanceProfileComponent
   ],
   imports: [CommonModule, ChartistModule, CarouselModule, NgChartsModule, NgApexchartsModule, SharedModule, GoogleMapsModule, NgbModule, FormsModule, PortfolioRoutingModule],

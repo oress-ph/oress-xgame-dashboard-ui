@@ -1,4 +1,4 @@
-
+<!-- 
 <div class="card portfolio-card">
   <div *ngIf="!loading">
     <div class="card-header card-no-border">
@@ -8,6 +8,31 @@
         </div>
       </div>
     </div>
+    <div class="card-body">
+      <div class="loader-box" *ngIf="is_content_shown">
+        <div class="loader-30"></div>
+      </div>
+      <div class="product-list-custom custom-datatable" *ngIf="!is_content_shown">
+          <div class="table-responsive">
+              <table class="table table-hover token-table">
+                  <thead>
+                      <tr>
+                      <th scope="col">Assets</th>
+                      <th scope="col">Balance</th>
+                      <th scope="col">Value</th>
+                      </tr>
+                  </thead>
+                  <tbody>
+                      <tr  *ngFor="let token of tokens">
+                        <td scope="row">{{ token.token_symbol }}</td>
+                        <td scope="row">{{ token.token_quantity | number:'1.4' }}</td>
+                        <td scope="row">{{ token.conversion_rate | number:'1.2-2' }} {{ token.currency }}</td>
+                      </tr>
+                  </tbody>
+              </table>
+          </div>
+      </div>
+  </div>
     <div class="card-body p-t-0">
       <div class="row">
         <div class="col-xxl-12 col-xl-12 col-sm-12 col-md-12 box-col-12">
@@ -17,8 +42,8 @@
                 <tr>
                   <th class="f-light" style="min-width: 20px;">{{appSettings.translate("Tokens" | translate)}}</th>
                   <th class="f-light">{{appSettings.translate("Quantity" | translate)}}</th>
-                  <!-- <th class="f-light">{{appSettings.translate("Price" | translate)}}</th>
-                  <th class="f-light text-end">{{appSettings.translate("Amount" | translate)}}</th> -->
+                  <th class="f-light">{{appSettings.translate("Price" | translate)}}</th>
+                  <th class="f-light text-end">{{appSettings.translate("Amount" | translate)}}</th>
                 </tr>
               </thead>
               <tbody>
@@ -31,8 +56,8 @@
                     </div>
                   </td>
                   <td>{{ model.token_quantity | number:'1.4' }}</td>
-                  <!-- <td>{{ model.conversion_rate | number:'1.2-2' }} {{ model.currency }}</td>
-                  <td class="text-end">{{ model.amount | number:'1.2-2' }} {{ model.currency }}</td> -->
+                  <td>{{ model.conversion_rate | number:'1.2-2' }} {{ model.currency }}</td>
+                  <td class="text-end">{{ model.amount | number:'1.2-2' }} {{ model.currency }}</td>
                 </tr>
               </tbody>
             </table>
@@ -43,5 +68,36 @@
   </div>
   <div class="table-container loader-box" style="height: 20vh;" *ngIf="loading">
     <div class="loader-30"></div>
+  </div>
+</div> -->
+
+<div class="card">
+  <div class="card-header">
+    <h3>Tokens</h3>
+  </div>
+  <div class="card-block row">
+    <div class="col-sm-12 col-lg-12 col-xl-12">
+      <div class="loader-box" *ngIf="!is_content_shown">
+        <div class="loader-30"></div>
+      </div>
+      <div class="table-responsive" *ngIf="is_content_shown">
+        <table class="table table-lg">
+          <thead>
+            <tr>
+              <th scope="col">Assets</th>
+              <th scope="col">Balance</th>
+              <!-- <th scope="col">Value</th> -->
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let token of tokens">
+              <th scope="row">{{ token.symbol }}</th>
+              <td scope="row">{{ token.balance != null ? (token.balance | number:'1.4-4') : (token.price | number:'1.4-4') }}</td>
+              <!-- <td scope="row">{{ token.conversion_rate | number:'1.2-2' }} {{ token.currency }}</td> -->
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
   </div>
 </div>

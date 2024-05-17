@@ -17,6 +17,7 @@ export class FooterComponent implements OnInit {
   public footer_menuItems: Menu[];
   public legal_menuItems: Menu[];
   public social_media_menuItems: Menu[];
+  public other_menuItems: Menu[];
 
   constructor(
     private router: Router, 
@@ -60,6 +61,9 @@ export class FooterComponent implements OnInit {
     this.navServices.social_media_items.subscribe(social_media_menuItems => {
       this.social_media_menuItems = social_media_menuItems;
     });
+    this.navServices.other_items.subscribe(other_menuItems => {
+      this.other_menuItems = other_menuItems;
+    });
   }
   // Active Nave state
   setNavActive(item) {
@@ -87,5 +91,7 @@ export class FooterComponent implements OnInit {
 
   ngOnInit(): void {
   }
-
+  isActive(path: string): boolean {
+    return this.router.url === path;
+  }
 }

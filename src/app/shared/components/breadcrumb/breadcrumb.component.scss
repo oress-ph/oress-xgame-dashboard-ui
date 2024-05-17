@@ -1,0 +1,6 @@
+.page-title .breadcrumb{
+    justify-content: flex-start;
+}
+::ng-deep .page-wrapper .page-body-wrapper .page-title .breadcrumb .breadcrumb-item + .breadcrumb-item:before {
+    content: '>';
+}

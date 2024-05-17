@@ -1,4 +1,4 @@
-let primary = localStorage.getItem("primary_color") || "#7366ff";
+let primary = localStorage.getItem("primary_color") || "#0ffeff";
 let secondary = localStorage.getItem("secondary_color") || "#f73164";
 
 export let monthlyOrderChart: any = {

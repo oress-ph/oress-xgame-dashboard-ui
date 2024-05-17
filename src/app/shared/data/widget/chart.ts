@@ -1,7 +1,7 @@
 import { ApexAnnotations, ApexAxisChartSeries, ApexChart, ApexDataLabels, ApexFill, ApexGrid, ApexLegend, ApexMarkers, ApexNonAxisChartSeries, ApexOptions, ApexPlotOptions, ApexResponsive, ApexStroke, ApexTheme, ApexTitleSubtitle, ApexXAxis, ApexYAxis } from "ng-apexcharts";
 
 let trigoStrength = 3;
-let primary_color = localStorage.getItem("primary_color") || "#7366ff";
+let primary_color = localStorage.getItem("primary_color") || "#0ffeff";
 let secondary_color = localStorage.getItem("secondary_color") || "#f73164";
 
 var iteration = 11;
