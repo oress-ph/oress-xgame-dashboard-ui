@@ -150,3 +150,6 @@ h1,h2,h3{
 .page-wrapper .page-body-wrapper .page-body {
     min-height: calc(100vh - 183px);
 }
+::ng-deep body.dark-only .dark-mode{
+    background-color: red !important;
+}

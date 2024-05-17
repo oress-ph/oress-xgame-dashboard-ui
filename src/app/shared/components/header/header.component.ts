@@ -49,10 +49,9 @@ export class HeaderComponent implements OnInit {
     }else{
       document.body.classList.toggle("dark-only");
       this.layout.config.settings.layout_version="dark-only";
-      this.cookiesService.setCookie("layout_version","dark-only")
+      this.cookiesService.setCookie("layout_version","dark-only");
+      document.body.classList.add("dark-only");
     }
-    console.log(this.layout.config.settings.layout_version);
-    console.log(this.cookiesService.getCookie('layout_version'));
   }
 
   searchToggle() {

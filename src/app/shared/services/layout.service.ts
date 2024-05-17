@@ -9,7 +9,7 @@ export class LayoutService {
     settings: {
       layout: 'horizontal-wrapper',
       layout_type: "ltr",
-      layout_version: this.cookieService.getCookie('layout_version')==null? this.cookieService.getCookie('layout_version')=='dark-only'? 'dark-only' : 'dark-only' : 'dark-only',
+      layout_version: this.cookiesService.getCookie('layout_version')!='' && this.cookiesService.getCookie('layout_version')!=undefined? this.cookiesService.getCookie('layout_version') : 'dark-only',
       icon: "stroke-svg",
     },
     color: {
@@ -19,7 +19,7 @@ export class LayoutService {
   };
 
   constructor(
-    private cookieService: CookiesService
+    private cookiesService: CookiesService
   ) {
     
     if (this.config.settings.layout_type == "rtl") document.getElementsByTagName("html")[0].setAttribute("dir", this.config.settings.layout_type);

@@ -56,6 +56,7 @@ import { WalletInfoComponent } from "./components/wallet/wallet-info/wallet-info
 import { WalletListComponent } from "./components/wallet/wallet-list/wallet-list.component";
 import { NetworkService } from "./../shared/services/network.service"
 import { TokenListComponent } from "./components/token-list/token-list.component";
+import { PortfolioProfileComponent } from "../components/apps/dashboard/portfolio/portfolio-profile/portfolio-profile.component";
 
 @NgModule({
   declarations: [
@@ -90,7 +91,8 @@ import { TokenListComponent } from "./components/token-list/token-list.component
     TranslationPipe,
     WalletInfoComponent,
     WalletListComponent,
-    TokenListComponent
+    TokenListComponent,
+    PortfolioProfileComponent
   ],
   imports: [
     CommonModule,
@@ -131,6 +133,7 @@ import { TokenListComponent } from "./components/token-list/token-list.component
     MyPortfolioComponent,
     WalletInfoComponent,
     WalletListComponent,
+    PortfolioProfileComponent
   ],
 })
 export class SharedModule {}

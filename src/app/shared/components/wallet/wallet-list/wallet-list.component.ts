@@ -21,7 +21,7 @@ export class WalletListComponent {
     private router: Router,
     private dexService: DexService,
     private cookiesService: CookiesService,
-    // public activeModal: NgbActiveModal,
+    public activeModal: NgbActiveModal,
   ){}
 
   selectedWallet = "";
@@ -35,6 +35,7 @@ export class WalletListComponent {
 
   selected_extension: any = '';
   isInstall: boolean = true;
+  @Input() close: boolean = true; 
   
 
   getAllExtension(){

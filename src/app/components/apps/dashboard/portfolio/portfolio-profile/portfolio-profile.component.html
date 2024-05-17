@@ -2,13 +2,15 @@
     <div class="card-body">
       <div class="row">
         <div class="media faq-widgets gap-3">
-          <img src="./../../../../../../../assets/images/polkadot/polkadot_icon.webp" style="    max-height: 90px;
-          width: auto;"/>
+          <iframe width="80" height="80" [scrolling]="'no'" [frameBorder]="0" [src]="iframeSrc | safe" allowfullscreen
+          style="float: left;"></iframe>
+          <!-- <img src="./../../../../../../../assets/images/polkadot/polkadot_icon.webp" style="    max-height: 90px;
+          width: auto;"/> -->
           <div>
             <h3>{{wallet_info.metaName | translate}}</h3>
             <span class="my-portfolio">{{wallet_info.address_display | translate}}</span>
             <div style="display: flex; gap: 1rem;">
-              <a href="javascript:void(0);" (click)="openVerticallyCentered(content)"><span><i class="fa fa-edit"></i> {{"Change" | translate}}</span></a>
+              <a href="javascript:void(0);" (click)="openConnectWallet()"><span><i class="fa fa-edit"></i> {{"Change" | translate}}</span></a>
               <a href="javascript:void(0);" (click)="copyInputMessage(wallet_info.address)"><span><i class="fa fa-copy"></i> {{"Copy" | translate}}</span></a>
             </div>
           </div>
@@ -16,7 +18,7 @@
       </div>
     </div>
 </div>
-<ng-template #content let-modal>
+<!-- <ng-template #content let-modal>
     <div class="modal-header">
       <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
     </div>
@@ -24,4 +26,4 @@
       <app-wallet-list [current_wallet]="wallet_info.address"></app-wallet-list>
     </div>
 </ng-template>
-  
+   -->
