@@ -4,6 +4,7 @@ import { LabelModel } from './../model/label.model';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import {AppSettings} from './../../app-settings'
 import { CookiesService } from '../services/cookies.service';
+import { environment } from 'src/environments/environment';
 
 
 @Injectable({
@@ -17,7 +18,7 @@ export class LabelService {
     private cookiesService: CookiesService
   ) { }
 
-  public defaultAPIURLHost: string = this.appSettings.APIURLHostLabel;
+  public defaultAPIURLHost: string = environment.LabelAPIURL;
 
 
   label_all(language:string): Observable<[boolean, any]> {

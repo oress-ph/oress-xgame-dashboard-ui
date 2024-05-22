@@ -16,7 +16,7 @@ export class CookiesService {
     private router: Router
   ) { }
 
-  all_site:any = this.appSettings.AllURL;
+  all_site:any = environment.AllURL;
 
   encryptData(data: string, secretKey: string): string {
     // const encryptedData = CryptoJS.AES.envncrypt(data, secretKey).toString();

@@ -1,5 +1,5 @@
 <!-- page-wrapper Start-->
-<div [ngClass]="layout.config.settings.layout_type">
+<div [ngClass]="layout.config.settings.layout_type" *ngIf="!is_loading">
   <div class="page-wrapper" id="canvas-bookmark" [ngClass]="layoutClass">
     <app-header></app-header>
     <!-- Page Body Start-->
@@ -24,3 +24,4 @@
 <div class="bg-overlay1"></div>
 <app-customizer></app-customizer>
 <!-- page-wrapper End-->
+<app-loader *ngIf="is_loading" [is_loading]="is_loading"></app-loader>
