@@ -3,6 +3,7 @@ import { Menu, NavService } from '../../services/nav.service';
 import { LayoutService } from '../../services/layout.service';
 import { NavigationEnd, Router } from '@angular/router';
 import { AppSettings } from 'src/app/app-settings';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-footer',
@@ -18,6 +19,7 @@ export class FooterComponent implements OnInit {
   public legal_menuItems: Menu[];
   public social_media_menuItems: Menu[];
   public other_menuItems: Menu[];
+  email:string = environment.email;
 
   constructor(
     private router: Router, 

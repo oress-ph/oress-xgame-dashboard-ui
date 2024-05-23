@@ -51,7 +51,7 @@ export class LanguageService {
 
       let language_list: LanguageModel[] = [];
       this.httpClient
-        .get<any>(this.appSettings.APIURLHostLanguage + '/languages/public?', httpOptions)
+        .get<any>(environment.LanguageAPIURL + '/languages/public?', httpOptions)
         .subscribe(
           (response) => {
             let result = response;

@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "xgame-dashboard-ui": {
+    "xgames-dashboard-ui": {
       "projectType": "application",
       "schematics": {
         "@schematics/angular:component": {
@@ -142,24 +142,81 @@
                   "maximumError": "9mb"
                 }
               ]
+            },
+            "staging": {
+              "fileReplacements": [
+                {
+                  "replace": "src/environments/environment.ts",
+                  "with": "src/environments/environment.staging.ts"
+                }
+              ],
+              "optimization": true,
+              "outputHashing": "all",
+              "sourceMap": false,
+              "namedChunks": false,
+              "extractLicenses": true,
+              "vendorChunk": false,
+              "buildOptimizer": true,
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "9mb",
+                  "maximumError": "9mb"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "9mb",
+                  "maximumError": "9mb"
+                }
+              ]
+            },
+            "development": {
+              "fileReplacements": [
+                {
+                  "replace": "src/environments/environment.ts",
+                  "with": "src/environments/environment.development.ts"
+                }
+              ],
+              "optimization": true,
+              "outputHashing": "all",
+              "sourceMap": false,
+              "namedChunks": false,
+              "extractLicenses": true,
+              "vendorChunk": false,
+              "buildOptimizer": true,
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "9mb",
+                  "maximumError": "9mb"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "9mb",
+                  "maximumError": "9mb"
+                }
+              ]
             }
           }
         },
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "xgame-dashboard-ui:build"
+            "browserTarget": "xgames-dashboard-ui:build"
           },
           "configurations": {
             "production": {
-              "browserTarget": "xgame-dashboard-ui:build:production"
+              "browserTarget": "xgames-dashboard-ui:build:production"
+            },
+            "staging": {
+              "browserTarget": "xgames-dashboard-ui:build:staging"
             }
           }
         },
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "xgame-dashboard-ui:build"
+            "browserTarget": "xgames-dashboard-ui:build"
           }
         },
         "test": {
@@ -178,11 +235,11 @@
           "builder": "@angular-devkit/build-angular:protractor",
           "options": {
             "protractorConfig": "e2e/protractor.conf.js",
-            "devServerTarget": "xgame-dashboard-ui:serve"
+            "devServerTarget": "xgames-dashboard-ui:serve"
           },
           "configurations": {
             "production": {
-              "devServerTarget": "xgame-dashboard-ui:serve:production"
+              "devServerTarget": "xgames-dashboard-ui:serve:production"
             }
           }
         }

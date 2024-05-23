@@ -115,24 +115,24 @@ export class NavService implements OnDestroy {
   //   { path: "https://xgame."+this.top_level_domain+"/home?section=contact", title: "Contact", icon: "contact", type: "link" },
   // ];
   FOOTERMENUITEMS: Menu[] = [
-    { path: "https://xgame."+this.top_level_domain+"/games", title: "Games", icon: "home", type: "link" },
-    { path: "https://xgame."+this.top_level_domain+"/nft/drops", title: "NFT", icon: "nft", type: "link" },
-    { path: "https://nft.xgame."+this.top_level_domain+"/marketplace", title: "Marketplace", icon: "market", type: "link" },
-    { path: "https://xgame."+this.top_level_domain+"/token", title: "Token", icon: "team", type: "link" },
+    { path: environment.HomePageURL+"/games", title: "Games", icon: "home", type: "link" },
+    { path: environment.HomePageURL+"/nft/drops", title: "NFT", icon: "nft", type: "link" },
+    { path: environment.HomePageURL+"/marketplace", title: "Marketplace", icon: "market", type: "link" },
+    { path: environment.HomePageURL+"/token", title: "Token", icon: "team", type: "link" },
     // { path: "https://xgame."+this.top_level_domain+"/teams", title: "Teams", icon: "teams", type: "link" },
     // { path: "https://xgame."+this.top_level_domain+"/blogs", title: "Blogs", icon: "blogs", type: "link" },
   ];
   COMMUNITYMENUITEMS: Menu[] = [
-    { path: "https://nft.xgame."+this.top_level_domain+"/marketplace", title: "NFT Marketplace", icon: "home", type: "link" },
-    { path: "https://dashboard.xgame."+this.top_level_domain+"/wallet", title: "Dashboard", icon: "gem", type: "link" },
+    { path: environment.MarketplaceURL+"/marketplace", title: "NFT Marketplace", icon: "home", type: "link" },
+    { path: environment.DashboardURL+"/wallet", title: "Dashboard", icon: "gem", type: "link" },
   ];
 
   LEGALMENUITEMS: Menu[] = [
-    { path: "https://xgame."+this.top_level_domain+"/policy/copyright", title: "Copyright Notice", icon: "home", type: "link" },
-    { path: "https://xgame."+this.top_level_domain+"/policy/privacy", title: "Privacy Policy", icon: "gem", type: "link" },
-    { path: "https://xgame."+this.top_level_domain+"/policy/terms", title: "Terms of Use", icon: "gem", type: "link" },
-    { path: "https://xgame."+this.top_level_domain+"/policy/cookie", title: "Cookie Policy", icon: "gem", type: "link" },
-    { path: "https://xgame."+this.top_level_domain+"/policy/legal-disclaimer", title: "Legal Disclaimer", icon: "gem", type: "link" },
+    { path: environment.HomePageURL+"/policy/copyright", title: "Copyright Notice", icon: "home", type: "link" },
+    { path: environment.HomePageURL+"/policy/privacy", title: "Privacy Policy", icon: "gem", type: "link" },
+    { path: environment.HomePageURL+"/policy/terms", title: "Terms of Use", icon: "gem", type: "link" },
+    { path: environment.HomePageURL+"/policy/cookie", title: "Cookie Policy", icon: "gem", type: "link" },
+    { path: environment.HomePageURL+"/policy/legal-disclaimer", title: "Legal Disclaimer", icon: "gem", type: "link" },
   ];
   MENUITEMS: Menu[] = [
     { path: "/portfolio", title: "Portfolio", icon: "widget", type: "link" },
@@ -152,10 +152,10 @@ export class NavService implements OnDestroy {
   ];
 
   OTHERMENUITEMS: Menu[] = [
-    { path: "https://xgame."+this.top_level_domain+"/about-us", title: "About Us", icon: "home", type: "link" },
-    { path: "https://xgame."+this.top_level_domain+"/contact-us", title: "Contact Us", icon: "nft", type: "link" },
-    { path: "https://xgame."+this.top_level_domain+"/teams", title: "Teams", icon: "teams", type: "link" },
-    { path: "https://xgame."+this.top_level_domain+"/blogs", title: "Blogs", icon: "blogs", type: "link" },
+    { path: environment.HomePageURL+"/about-us", title: "About Us", icon: "home", type: "link" },
+    { path: environment.HomePageURL+"/contact-us", title: "Contact Us", icon: "nft", type: "link" },
+    { path: environment.HomePageURL+"/teams", title: "Teams", icon: "teams", type: "link" },
+    { path: environment.HomePageURL+"/blogs", title: "Blogs", icon: "blogs", type: "link" },
   ];
 
   // Array
