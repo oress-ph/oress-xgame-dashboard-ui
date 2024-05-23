@@ -87,8 +87,8 @@
     <div style="display: flex; justify-content: center;" class="p-b-40" class="modal-header">
         <img src="./../../../../../assets/images/logo/logo.webp" alt="" class="img-fluid for-light">
         <img src="./../../../../../assets/images/logo/logo_dark.webp" alt="" class="img-fluid for-dark">
-        <button *ngIf="close" type="button" class="btn-close" aria-label="Close" (click)="activeModal.dismiss('Cross click')"></button>
-
+        <button type="button" class="btn-close" aria-label="Close"  aria-label="Close" (click)="activeModal.dismiss('Cross click')">
+        </button>
     </div>
     <div class="modal-body">
         <ng-container *ngIf="selectedWallet == '' && isExtensionChoosen == false">
@@ -98,15 +98,22 @@
             </div>
             <div class="connect-wallet-button" style="margin-bottom: 40px;" >
                 <ul>
-                    <li *ngFor="let item of web3WalletArray" (click)="connectExtension(item.extensionName)">
-                        <button class="btn btn-wallet" type="button" *ngIf="item.title =='Talisman' || item.title=='Polkadot.js'" style="padding: 0.9375rem 1.5625rem; width: 100%; display: flex; align-items: center; justify-content: space-between; margin: 5px;">
+                    <li *ngFor="let item of web3WalletArray">
+                        <button class="btn btn-wallet" type="button" *ngIf="item.title =='Talisman' || item.title=='Polkadot.js'" (click)="connectExtension(item.extensionName)" style="padding: 0.9375rem 1.5625rem; width: 100%; display: flex; align-items: center; justify-content: space-between; margin: 5px;">
                             <div style="display: flex; gap: 0.5rem;">
                                 <img class="img-fluid" style="width: 36px;" [src]="item.logo.src" alt="item.logo.alt">
                                 <span class="f-20 d-flex align-content-center flex-wrap">{{item.title}}</span>
                             </div>
                             <i class="icon-arrow-right" style="font-size: 1rem;"></i>
                         </button>
+                        <p *ngIf="item.extensionName == errorWeb3Wallet.extensionName" class="text text-danger mt-1">{{errorWeb3Wallet.errorMessage | translate}}  
+                            <span class="text-primary" *ngIf="errorWeb3Wallet.errorCode=='404' && item.extensionName == errorWeb3Wallet.extensionName">
+                                <a [href]="item.installUrl" target="_blank">{{'here' | translate}}.</a>
+                            </span>
+                        </p>
                     </li>
+                   
+
                     <!-- <li>
                         <button class="btn btn-wallet" type="button" style="padding: 0.9375rem 1.5625rem; width: 100%; display: flex; align-items: center; justify-content: space-between; margin: 5px;" (click)="getWeb3Extensions(item)">
                             <div style="display: flex; gap: 0.5rem;">
@@ -144,16 +151,20 @@
                             {{ 'We Couldn\'t Find Your Wallet' | translate }}
                         </span>
                     </ng-container>
-                    
-                    <div class="col-xl-12 p-10 account-div" *ngFor="let web3Wallet of walletAccounts" (click)="onWalletSelectAndVerify(web3Wallet)" style="min-width: 100%;">
-                        <span class="disable-hover" style="font-size: 20px; font-weight: bold;">
-                            {{web3Wallet.metaName}}
-                        </span>
-                        <br />
-                        <span class="disable-hover"  style="font-size: 12px;">
-                            {{web3Wallet.address}}
-                        </span>
-                  </div>
+                    <ng-container *ngFor="let web3Wallet of walletAccounts">
+                        <div class="col-xl-12 p-10 account-div" (click)="onWalletSelectAndVerify(web3Wallet)" style="min-width: 100%;" *ngIf="!loader">
+                            <span class="disable-hover" style="font-size: 20px; font-weight: bold;">
+                                {{web3Wallet.metaName}}
+                            </span>
+                            <br />
+                            <span class="disable-hover"  style="font-size: 12px;">
+                                {{web3Wallet.address}}
+                            </span>
+                        </div>
+                        <div class="loader-box" style="height: 40vh;" *ngIf="loader">
+                            <div class="loader-30"></div>
+                        </div>
+                    </ng-container>
                 </div>
                 <div class="loader-box" *ngIf="loader">
                     <div class="loader-30"></div>

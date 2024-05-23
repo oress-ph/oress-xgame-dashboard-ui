@@ -13,7 +13,7 @@
 
 <ul class="profile-dropdown onhover-show-div">
   <li style="display: flex; justify-content: space-between;">
-    <span>{{'Balance' | translate}}: </span>
+    <span>{{'Balance' | translate}}:</span>
     <span> {{wallet_balance}} {{ tokenSymbol }}</span>
   </li>
   <li style="display: flex; justify-content: space-between;">
@@ -21,7 +21,7 @@
     <span style="display: flex; gap: 0.5rem;"> {{wallet_info.address_display}} <a href="javascript:void(0);" (click)="copyInputMessage(wallet_info.address)"><i class="fa fa-copy"></i></a></span>
   </li>
   <li>
-    <a class="d-flex" [routerLink]="['/portfolio']" routerLinkActive="router-link-active">
+    <a class="d-flex" href="https://dashboard.xgame.live/wallet">
       <app-feather-icons class="d-flex" [icon]="'settings'"></app-feather-icons>
       <span>{{ 'Dashboard' | translate}}</span>
     </a>

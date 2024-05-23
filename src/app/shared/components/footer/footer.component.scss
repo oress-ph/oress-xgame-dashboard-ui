@@ -39,14 +39,16 @@
     justify-content: space-between;
     flex-wrap: wrap;
 }
-div ul li a {
-    font-weight: bold !important;
-    color: #2F2F3B ;
-}
 
-::ng-deep body.dark-only div ul li a {
-    color: #98a6ad !important;
-}
+
+// ::ng-deep body.dark-only div ul li a {
+//     color: #98a6ad;
+// }
+// div ul li a {
+//     font-weight: bold;
+//     color: #2F2F3B ;
+// }
+
 .footer_section{
     display: flex !important;
     flex-wrap: wrap;
