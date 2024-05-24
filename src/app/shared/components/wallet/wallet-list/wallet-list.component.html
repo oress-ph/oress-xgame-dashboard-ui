@@ -87,8 +87,8 @@
     <div style="display: flex; justify-content: center;" class="p-b-40" class="modal-header">
         <img src="./../../../../../assets/images/logo/logo.webp" alt="" class="img-fluid for-light">
         <img src="./../../../../../assets/images/logo/logo_dark.webp" alt="" class="img-fluid for-dark">
-        <button type="button" class="btn-close" aria-label="Close"  aria-label="Close" (click)="activeModal.dismiss('Cross click')">
-        </button>
+        <button *ngIf="close" type="button" class="btn-close" aria-label="Close" (click)="activeModal.dismiss('Cross click')"></button>
+
     </div>
     <div class="modal-body">
         <ng-container *ngIf="selectedWallet == '' && isExtensionChoosen == false">
