@@ -4,8 +4,9 @@ import { AppSettings } from 'src/app/app-settings';
 import { Router } from '@angular/router';
 import { DexService } from './../../../services/dex.service';
 import { CookiesService } from './../../../services/cookies.service';
-import {WalletAccountsModel} from './../../../model/polkadot.model';
+import {ErrorWeb3Wallet, WalletAccountsModel} from './../../../model/polkadot.model';
 import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { PolkadotjsWallet, TalismanWallet, getWalletBySource } from '@talismn/connect-wallets';
 
 declare var require
 const Swal = require('sweetalert2')
@@ -27,15 +28,12 @@ export class WalletListComponent {
   selectedWallet = "";
   web3Wallets: WalletAccountsModel[] = [];
   web3WalletArray: any[] = [];
+  errorWeb3Wallet: ErrorWeb3Wallet = new ErrorWeb3Wallet();;
   walletAccounts: WalletAccountsModel[] = [];
   selectedWalletAccount: WalletAccountsModel = new WalletAccountsModel();
   isExtensionChoosen: boolean = false;
   loader: boolean = false;
   chooseAccount: boolean = false;
-
-  selected_extension: any = '';
-  isInstall: boolean = true;
-  @Input() close: boolean = true; 
   
 
   getAllExtension(){
@@ -43,16 +41,33 @@ export class WalletListComponent {
     this.web3WalletArray = allExtension;
   }
   connectExtension(extension: string){
+    
     this.walletAccounts = [];
     this.polkadotService.connectExtension(extension)
     .then((walletAccounts) => {
+      this.errorWeb3Wallet = new ErrorWeb3Wallet();
       this.selectedWallet
       this.walletAccounts = walletAccounts;
       this.isExtensionChoosen = true;
       // Do something with walletAccounts
     })
     .catch((error) => {
-      console.error('Error connecting extension:', error);
+      if(this.errorWeb3Wallet.extensionName != extension){
+        this.errorWeb3Wallet = new ErrorWeb3Wallet();
+      }
+      this.errorWeb3Wallet.extensionName = extension;
+      if (error.toString().includes("Talisman extension has not been configured yet. Please continue with onboarding")) {
+        this.errorWeb3Wallet.errorCode = "400";
+        this.errorWeb3Wallet.errorMessage = error.message;
+      }else if(error.toString().includes("Refresh the browser if Polkadot.js is already installed.")){
+        this.errorWeb3Wallet.errorCode = "404";
+        this.errorWeb3Wallet.errorMessage = "We can't find your Polkadot.js extension, Download Polkadot.js extension";
+      }else if(error.toString().includes("Refresh the browser if Talisman is already installed.")){
+        this.errorWeb3Wallet.errorCode = "404";
+        this.errorWeb3Wallet.errorMessage = "We can't find your Talisman extension, Download Talisman extension";
+      }
+     
+      // console.error('Error connecting extension:', error);
     });
   }
 
@@ -81,10 +96,11 @@ export class WalletListComponent {
   }
 
   async onWalletSelectAndVerify(walletAccount: WalletAccountsModel) {
-
     let signAndVerify: Promise<boolean> = this.polkadotService.signAndVerify(walletAccount);
     let verified = (await signAndVerify);
     if (verified == true) {
+      console.log("verified");
+      this.loader = true;
       this.generateKeypair(walletAccount);
     }
   }
@@ -112,14 +128,12 @@ export class WalletListComponent {
   async generateKeypair(walletAccount: WalletAccountsModel): Promise<void> {
 
     this.selectedWalletAccount = walletAccount;
-   
     let generateKeypair: Promise<string> = this.polkadotService.generateKeypair(this.selectedWalletAccount.address);
     let keypair = (await generateKeypair);
     if (keypair != "") {
-
+      
       this.selectedWalletAccount.tokenSymbol = await this.polkadotService.getChainTokens();
       await this.cookiesService.setCookieArray("wallet-info",this.selectedWalletAccount);
-      
       Swal.fire({
         icon: 'success',
         title: 'Connected',
@@ -136,6 +150,7 @@ export class WalletListComponent {
         }
       })
     }
+    this.loader = false;
   }
 
   ngOnInit(): void {
