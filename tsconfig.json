@@ -24,6 +24,9 @@
   "emitDecoratorMetadata": true,
   "experimentalDecorators": true,
   "useDefineForClassFields": false,
-
+  "paths": {
+    "crypto": ["./node_modules/crypto-browserify"],
+    "stream": ["./node_modules/stream-browserify"]
+  }
 }
 }
