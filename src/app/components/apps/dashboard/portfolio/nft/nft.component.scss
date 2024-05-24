@@ -42,7 +42,9 @@
   }
 }
 .game_logo{
-  width: 80px; height: auto;
+  min-width: 300px;
+  width: 80px; 
+  height: auto;
   @media screen and (max-width: 668px) {
       width: 100%;
   }

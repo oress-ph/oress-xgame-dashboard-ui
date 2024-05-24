@@ -3,6 +3,7 @@ import { AppSettings } from 'src/app/app-settings';
 import { Observable } from 'rxjs';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import {GameModel, ProductModel} from "./../model/games.model"
+import { environment } from 'src/environments/environment';
 
 const httpOptions = {
   headers: new HttpHeaders({
@@ -26,7 +27,7 @@ export class GamesService {
 
       let blog_list: GameModel[] = [];
       this.httpClient
-        .get<any>(this.appSettings.APIURLHostGames + '/games/public?language=English', httpOptions)
+        .get<any>(environment.ProductAPIURL + '/games/public?language=English', httpOptions)
         .subscribe(
           (response) => {
             let result = response;
@@ -59,7 +60,7 @@ export class GamesService {
 
       let blog_list: ProductModel[] = [];
       this.httpClient
-        .get<any>(this.appSettings.APIURLHostProduct + '/games/public?language='+language + '&page=1&pageSize=10', httpOptions)
+        .get<any>(environment.ProductAPIURL + '/games/public?language='+language + '&page=1&pageSize=10', httpOptions)
         .subscribe(
           (response) => {
             let result:any = response;

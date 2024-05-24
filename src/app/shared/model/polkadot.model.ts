@@ -11,3 +11,8 @@ export class DappExtensionModel {
     name: string = "";
     WalletAccounts: WalletAccountsModel[] = [];
 }
+export class ErrorWeb3Wallet{
+    extensionName: string = "";
+    errorCode: string = "";
+    errorMessage: string = "";
+}
