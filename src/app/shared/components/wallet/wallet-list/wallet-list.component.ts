@@ -34,6 +34,8 @@ export class WalletListComponent {
   isExtensionChoosen: boolean = false;
   loader: boolean = false;
   chooseAccount: boolean = false;
+
+  @Input() close: boolean = true; 
   
 
   getAllExtension(){
