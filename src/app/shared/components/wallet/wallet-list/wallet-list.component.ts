@@ -134,7 +134,7 @@ export class WalletListComponent {
     let keypair = (await generateKeypair);
     if (keypair != "") {
       
-      this.selectedWalletAccount.tokenSymbol = await this.polkadotService.getChainTokens();
+      // this.selectedWalletAccount.tokenSymbol = await this.polkadotService.getChainTokens();
       await this.cookiesService.setCookieArray("wallet-info",this.selectedWalletAccount);
       Swal.fire({
         icon: 'success',
