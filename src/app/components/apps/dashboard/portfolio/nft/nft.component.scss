@@ -36,7 +36,8 @@
   flex-wrap: wrap;
 }
 .dropdown-toggle{
-  width: 320px;
+  width: 100%;
+  max-width: 320px;
   @media screen and (max-width: 375px) {
       width: 100%;
   }

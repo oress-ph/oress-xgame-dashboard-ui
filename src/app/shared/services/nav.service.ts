@@ -58,9 +58,10 @@ export class NavService implements OnDestroy {
     
     this.setScreenWidth(window.innerWidth);
     fromEvent(window, "resize")
-      .pipe(debounceTime(1000), takeUntil(this.unsubscriber))
+      .pipe(debounceTime(1), takeUntil(this.unsubscriber))
       .subscribe((evt: any) => {
         this.setScreenWidth(evt.target.innerWidth);
+        this.horizontal= evt.target.innerWidth < 991 ? false : true;       
         if (evt.target.innerWidth < 991) {
           this.collapseSidebar = true;
           this.megaMenu = false;
@@ -137,9 +138,9 @@ export class NavService implements OnDestroy {
   MENUITEMS: Menu[] = [
     { path: "/portfolio", title: "Portfolio", icon: "widget", type: "link" },
     { path: "/swap", title: "Transfer", icon: "swap", type: "link" },
-    { path: "/cash-in", title: "Cash-In", icon: "cash-in", type: "link" },
-    { path: "/cash-out", title: "Cash-Out", icon: "cash-out", type: "link" },
-    { path: "/investments", title: "Investments", icon: "investment", type: "link" },
+    // { path: "/cash-in", title: "Cash-In", icon: "cash-in", type: "link" },
+    // { path: "/cash-out", title: "Cash-Out", icon: "cash-out", type: "link" },
+    // { path: "/investments", title: "Investments", icon: "investment", type: "link" },
   ];
 
   SOCIALMEDIAMENU: Menu[] = [
