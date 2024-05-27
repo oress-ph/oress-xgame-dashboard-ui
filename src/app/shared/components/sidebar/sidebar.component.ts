@@ -66,7 +66,7 @@ export class SidebarComponent {
 
   @HostListener('window:resize', ['$event'])
   onResize(event) {
-    this.width = event.target.innerWidth - 500;
+    this.width = event.target.innerWidth;
   }
 
   sidebarToggle() {

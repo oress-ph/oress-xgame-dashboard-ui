@@ -58,9 +58,10 @@ export class NavService implements OnDestroy {
     
     this.setScreenWidth(window.innerWidth);
     fromEvent(window, "resize")
-      .pipe(debounceTime(1000), takeUntil(this.unsubscriber))
+      .pipe(debounceTime(1), takeUntil(this.unsubscriber))
       .subscribe((evt: any) => {
         this.setScreenWidth(evt.target.innerWidth);
+        this.horizontal= evt.target.innerWidth < 991 ? false : true;       
         if (evt.target.innerWidth < 991) {
           this.collapseSidebar = true;
           this.megaMenu = false;

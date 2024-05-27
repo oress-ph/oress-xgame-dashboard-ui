@@ -19,7 +19,7 @@ export class NftService {
     private polkadtoService: PolkadotService
   ) { }
 
-  public defaultAPIURLHost: string = environment.APIURLHostNFT;
+  public defaultAPIURLHost: string = environment.WALLETAPIURL;
   private collectionId = environment.collectionId;
   private httpOptions = {
     headers: new HttpHeaders({

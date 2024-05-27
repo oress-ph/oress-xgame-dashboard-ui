@@ -6,13 +6,15 @@
       <ul class="main_menu d-flex">
         <li *ngFor="let menu of other_menuItems; let first = first"
             [class.active]="isActive(menu.path)">
-          <a [href]="menu.path" class="footer-link">{{ menu.title | translate}}</a>
+            <a [routerLink]="menu.path" class="footer-link" *ngIf="menu.title=='Marketplace'" class="text-secondary f-w-900">{{ menu.title | translate}}</a>
+            <a [href]="menu.path" class="footer-link" *ngIf="menu.title!='Marketplace'" class="text-secondary f-w-900">{{ menu.title | translate}}</a>
         </li>
       </ul>
       <ul class="main_menu d-flex">
         <li *ngFor="let menu of footer_menuItems; let first = first"
             [class.active]="isActive(menu.path)">
-          <a [href]="menu.path" class="footer-link">{{ menu.title | translate}}</a>
+          <a [routerLink]="menu.path" class="footer-link" *ngIf="menu.title=='Marketplace'" class="text-secondary f-w-900">{{ menu.title | translate}}</a>
+          <a [href]="menu.path" class="footer-link" *ngIf="menu.title!='Marketplace'" class="text-secondary f-w-900">{{ menu.title | translate}}</a>
         </li>
       </ul>
     </div>
@@ -41,9 +43,9 @@
         }}</a> 
         </p>
       </div>
-      <div class="d-flex flex-column flex-wrap justify-content-center p-b-10">
+      <div class="d-flex flex-column flex-wrap justify-content-center">
         <p class="m-b-0 text-center">{{'STAY CONNECTED' | translate}}!</p>
-        <div class="social-media">
+        <div class="social-media p-b-10">
           <a [href]="social_media.path" target="_blank" *ngFor="let social_media of social_media_menuItems">
             <button class="btn btn-pill btn-light button-back-wallet d-flex" placement="top" ngbTooltip="{{ social_media.title | translate }}">
               <i
@@ -79,7 +81,7 @@
           *ngFor="let menu of legal_menuItems; let first = first"
           [class.active]="isActive(menu.path)"
           >
-            <a [href]="menu.path" class="footer-link">{{ menu.title | translate}}</a>
+            <a [href]="menu.path" class="footer-link text-secondary f-w-900">{{ menu.title | translate}}</a>
           </li>
         </ul>
         <p class="f-14 m-b-0" style="text-align: right;">
