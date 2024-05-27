@@ -11,7 +11,7 @@ export const environment = {
         { 
           id: 1,
           name: 'Mainnet',
-          wsProviderEndpoint: 'wss://rpcnodea01.xode.net/n7yoxCmcIrCF6VziCcDmYTwL8R03a/ws',
+          wsProviderEndpoint: 'wss://rpcnodea01.xode.net/n7yoxCmcIrCF6VziCcDmYTwL8R03a/rpc',
           net_name: 'MAINNET',
           is_default: true
         }

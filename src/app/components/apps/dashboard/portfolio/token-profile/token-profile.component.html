@@ -77,10 +77,10 @@
   </div>
   <div class="card-block row">
     <div class="col-sm-12 col-lg-12 col-xl-12">
-      <div class="loader-box" *ngIf="!is_content_shown">
+      <div class="loader-box" *ngIf="is_loading">
         <div class="loader-30"></div>
       </div>
-      <div class="table-responsive" *ngIf="is_content_shown">
+      <div class="table-responsive" *ngIf="!is_loading">
         <table class="table table-lg">
           <thead>
             <tr>
@@ -90,11 +90,13 @@
             </tr>
           </thead>
           <tbody>
-            <tr *ngFor="let token of tokens">
-              <th scope="row">{{ token.symbol }}</th>
-              <td scope="row">{{ token.balance != null ? (token.balance | number:'1.4-4') : (token.price | number:'1.4-4') }}</td>
-              <!-- <td scope="row">{{ token.conversion_rate | number:'1.2-2' }} {{ token.currency }}</td> -->
-            </tr>
+            <ng-container *ngFor="let token of tokens">
+              <tr *ngIf="token.symbol!=''">
+                <th scope="row">{{ token.symbol }}</th>
+                <td scope="row">{{ token.balance != null ? (token.balance | number:'1.4-4') : (token.price | number:'1.4-4') }}</td>
+                <!-- <td scope="row">{{ token.conversion_rate | number:'1.2-2' }} {{ token.currency }}</td> -->
+              </tr>
+            </ng-container>
           </tbody>
         </table>
       </div>
