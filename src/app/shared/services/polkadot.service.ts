@@ -63,11 +63,11 @@ export class PolkadotService {
   ) {
     this.getChainTokens();
   }
-  public httpOptions = {
+  private httpOptions = {
     headers: new HttpHeaders({
       'Content-Type': 'application/json',
       Authorization: 'Bearer ' + localStorage.getItem('token'),
-      websocket: this.cookiesService.getCookieArray('network')?.wsProviderEndpoint? this.cookiesService.getCookieArray('network').wsProviderEndpoint : environment.network[0],
+      'websocket': this.cookiesService.getCookieArray('network')!=undefined? this.cookiesService.getCookieArray('network').wsProviderEndpoint  :environment.network[0].networks[0].wsProviderEndpoint
     }),
   };
   public defaultAPIURLHost: string = environment.WALLETAPIURL;

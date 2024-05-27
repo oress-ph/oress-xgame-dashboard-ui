@@ -27,12 +27,11 @@ export class TokenProfileComponent implements OnInit, AfterContentInit {
   }
   ngAfterContentInit(): void {
   }
-  is_content_shown:boolean = false;
   astroProperties: any;
   tokenSymbol: any = 'NMS';
   nmsPrice: number = 10;
   amount: number = 0;
-  loading: boolean = true;
+  is_loading: boolean = true;
   tokens = [];
 
   toggle(){
@@ -40,12 +39,31 @@ export class TokenProfileComponent implements OnInit, AfterContentInit {
   }
 
   async ngOnInit(): Promise<void> {
-    this.polkadotService.tokens$.subscribe(tokens => {
+    
+    const tokens = this.polkadotService.getTokens();
+    if(tokens.length==0){
+      (await this.polkadotService.getAstroToken()).subscribe({
+        next: async (response: any) => {
+          if (response[0]==true){
+            this.tokens = response[1];
+            this.is_loading = false;
+          }
+        },
+        error: (error: any) => {
+          // this.is_loading = false;
+          throw new Error('An error has occured: ' + error);
+        }
+      });
+    }else{
+      this.is_loading = false;
       this.tokens = tokens;
-      if (tokens.length > 0) {
-        this.is_content_shown = true;
-      }
-    });
-    await this.polkadotService.getChainTokens();
+    }
+    // this.polkadotService.tokens$.subscribe(tokens => {
+    //   this.tokens = tokens;
+    //   if (tokens.length > 0) {
+    //     this.is_loading = true;
+    //   }
+    // });
+    // await this.polkadotService.getChainTokens();
   }
 }
