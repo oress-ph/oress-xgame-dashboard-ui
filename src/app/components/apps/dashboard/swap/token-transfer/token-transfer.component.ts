@@ -267,20 +267,26 @@ export class TokenTransferComponent implements OnInit {
         }
       } 
     });
-
-    (await this.polkadotService.getAstroToken()).subscribe({
-      next: async (response: any) => {
-        if (response[0]){
-          this.tokens = response[1];
-          this.selectedToken = response[1][0].symbol;
+    const tokens = this.polkadotService.getTokens();
+    if(tokens.length==0){
+      
+      (await this.polkadotService.getAstroToken()).subscribe({
+        next: async (response: any) => {
+          if (response[0]){
+            this.tokens = response[1];
+            this.selectedToken = response[1][0].symbol;
+            this.loading = false;
+          }
+        },
+        error: (error: any) => {
           this.loading = false;
+          throw new Error('An error has occured: ' + error);
         }
-      },
-      error: (error: any) => {
-        this.loading = false;
-        throw new Error('An error has occured: ' + error);
-      }
-    });
+      });
+    }else{
+      this.loading = false;
+      this.tokens = tokens;
+    }
   }
 
   async calculateTransactionFee(amount: number) {
