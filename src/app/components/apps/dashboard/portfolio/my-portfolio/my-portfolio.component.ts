@@ -74,7 +74,7 @@ export class MyPortfolioComponent implements OnInit {
     const tokens = await this.portfolioService.setPortfolioDetails(currency, this.tokens, new_tokens);
     this.portfolioService.setTokens(tokens);
     this.selectedCurrency = currency;
-    this.totalBalance = this.portfolioService.getTotalBalance();
+    // this.totalBalance = this.portfolioService.getTotalBalance();
   }
 
   async ngOnInit(): Promise<void> {
