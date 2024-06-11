@@ -47,7 +47,7 @@ export class TokenTransferComponent implements OnInit {
   }
 
   balance: any[] = [];
-  tokens: any[] = [];
+  token_list: any[] = [];
   selectedToken: string;
   amount: number;
   walletAddress: string;
@@ -104,7 +104,7 @@ export class TokenTransferComponent implements OnInit {
   }
 
   onAmountInputChange() {
-    const selectedTokenBalance = this.tokens.find(token => token.symbol === this.selectedToken);
+    const selectedTokenBalance = this.token_list.find(token => token.symbol === this.selectedToken);
     const convertedBalance = parseFloat(selectedTokenBalance.balance);
     this.amountWarning = this.amount > convertedBalance;
     if (typeof this.amount === 'number') {
@@ -132,7 +132,7 @@ export class TokenTransferComponent implements OnInit {
     let convertedBalance: any;
     const isValidToken = !!this.selectedToken;
     if (isValidToken) {
-      const selectedTokenBalance = this.tokens.find(token => token.symbol === this.selectedToken);
+      const selectedTokenBalance = this.token_list.find(token => token.symbol === this.selectedToken);
       convertedBalance = parseFloat(selectedTokenBalance.balance);
     }
     const isValidAmount = !!this.amount && this.amount > 0 && this.amount < convertedBalance;
@@ -224,7 +224,7 @@ export class TokenTransferComponent implements OnInit {
 
   getTotalTokens(): string {
     if (this.selectedToken) {
-      const selectedTokenObject = this.tokens.find(token => token.symbol === this.selectedToken);
+      const selectedTokenObject = this.token_list.find(token => token.symbol === this.selectedToken);
       if (selectedTokenObject) {
         return parseFloat(selectedTokenObject.balance).toFixed(4);
       }
@@ -273,8 +273,10 @@ export class TokenTransferComponent implements OnInit {
       (await this.polkadotService.getAstroToken()).subscribe({
         next: async (response: any) => {
           if (response[0]){
-            this.tokens = response[1];
-            this.selectedToken = response[1][0].symbol;
+            
+            this.token_list = response[1].tokens;
+            this.selectedToken = this.token_list[0].symbol;
+            this.tokenTransferModel = this.token_list[0];
             this.loading = false;
           }
         },
@@ -285,7 +287,7 @@ export class TokenTransferComponent implements OnInit {
       });
     }else{
       this.loading = false;
-      this.tokens = tokens;
+      this.token_list = tokens;
     }
   }
 
