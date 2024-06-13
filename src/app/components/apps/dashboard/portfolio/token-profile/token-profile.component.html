@@ -90,7 +90,7 @@
             </tr>
           </thead>
           <tbody>
-            <ng-container *ngFor="let token of tokens">
+            <ng-container *ngFor="let token of token_list">
               <tr *ngIf="token.symbol!=''">
                 <th scope="row">{{ token.symbol }}</th>
                 <td scope="row">{{ token.balance != null ? (token.balance | number:'1.4-4') : (token.price | number:'1.4-4') }}</td>

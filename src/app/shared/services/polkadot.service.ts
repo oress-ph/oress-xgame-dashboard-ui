@@ -36,7 +36,7 @@ export class PolkadotService {
   }
 
   setTokens(tokens: any) {
-    this.tokensSubject.next(tokens);
+    this.tokensSubject.next(tokens.tokens);
   }
 
   getTransFee(){

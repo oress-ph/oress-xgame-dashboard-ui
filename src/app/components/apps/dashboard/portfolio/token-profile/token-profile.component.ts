@@ -6,6 +6,7 @@ import { NftService } from "src/app/shared/services/nft.service";
 import { CookiesService } from "src/app/shared/services/cookies.service";
 import { PortfolioModel } from "src/app/shared/model/portfolio";
 import { PortfolioService } from "src/app/shared/services/portfolio.service";
+import { TokenModel } from "src/app/shared/model/token-transfer.model";
 
 @Component({
   selector: "app-token-profile",
@@ -32,7 +33,7 @@ export class TokenProfileComponent implements OnInit, AfterContentInit {
   nmsPrice: number = 10;
   amount: number = 0;
   is_loading: boolean = true;
-  tokens = [];
+  token_list : TokenModel[] = [];
 
   toggle(){
     this.show = !this.show
@@ -45,7 +46,7 @@ export class TokenProfileComponent implements OnInit, AfterContentInit {
       (await this.polkadotService.getAstroToken()).subscribe({
         next: async (response: any) => {
           if (response[0]==true){
-            this.tokens = response[1];
+            this.token_list = response[1].tokens;
             this.is_loading = false;
           }
         },
@@ -56,14 +57,7 @@ export class TokenProfileComponent implements OnInit, AfterContentInit {
       });
     }else{
       this.is_loading = false;
-      this.tokens = tokens;
+      this.token_list = tokens; // Corrected line
     }
-    // this.polkadotService.tokens$.subscribe(tokens => {
-    //   this.tokens = tokens;
-    //   if (tokens.length > 0) {
-    //     this.is_loading = true;
-    //   }
-    // });
-    // await this.polkadotService.getChainTokens();
   }
 }

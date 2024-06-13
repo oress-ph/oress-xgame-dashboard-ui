@@ -191,7 +191,6 @@ export class TokenTransferComponent implements OnInit {
           signedExtrinsics
         ).subscribe({
           next: async (response) => {
-            console.log(response);
             if (response[0]==true){
               Swal.fire({
                 title: "Token Transfer!",
@@ -234,21 +233,23 @@ export class TokenTransferComponent implements OnInit {
 
   async ngOnInit(): Promise<void> {
     // this.calculateTransactionFee(this.tokenTransferModel.amount)
-    this.polkadotService.tokens$.subscribe(tokens => {
-
+    this.polkadotService.tokens$.subscribe((tokens:any) => {
+      let token_list = tokens.tokens
       if(this.tokenTransferModel.balance >1){
         this.tokenTransferModel.amount = 1;
       }else if(this.tokenTransferModel.balance <1 || this.tokenTransferModel.balance>0){
         this.tokenTransferModel.amount = this.tokenTransferModel.balance
       }
 
-      if(tokens.length>0){
-        // this.tokenTransferModel = tokens[0];
-        this.tokenTransferModel.balance = tokens[0]?.balance;
-        this.tokenTransferModel.symbol = tokens[0]?.symbol;
-        this.tokenTransferModel.logo = tokens[0]?.logo;
-        this.selectedToken = tokens[0].symbol;
-        this.loading = false;
+      if(token_list!=undefined){
+        if(token_list.length>0){
+          // this.tokenTransferModel = tokens[0];
+          this.tokenTransferModel.balance = token_list[0]?.balance;
+          this.tokenTransferModel.symbol = token_list[0]?.symbol;
+          this.tokenTransferModel.logo = token_list[0]?.logo;
+          this.selectedToken = token_list[0].symbol;
+          this.loading = false;
+        }
       }
     });
 

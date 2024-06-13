@@ -22,7 +22,7 @@ export class TokenListComponent implements OnInit{
     this.activeModal.close(token)
   }
 
-   get_token(){
+  get_token(){
     this.polkadotService.tokens$.subscribe((tokens:any) => {
       this.token_list = tokens.tokens;
       this.onSearchInput();
