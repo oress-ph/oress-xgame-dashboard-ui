@@ -24,7 +24,7 @@ export class TokenListComponent implements OnInit{
 
   get_token(){
     this.polkadotService.tokens$.subscribe((tokens:any) => {
-      this.token_list = tokens.tokens;
+      this.token_list = tokens;
       this.onSearchInput();
     });
     this.polkadotService.getChainTokens();
