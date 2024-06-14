@@ -234,7 +234,7 @@ export class TokenTransferComponent implements OnInit {
   async ngOnInit(): Promise<void> {
     // this.calculateTransactionFee(this.tokenTransferModel.amount)
     this.polkadotService.tokens$.subscribe((tokens:any) => {
-      let token_list = tokens.tokens
+      let token_list = tokens
       if(this.tokenTransferModel.balance >1){
         this.tokenTransferModel.amount = 1;
       }else if(this.tokenTransferModel.balance <1 || this.tokenTransferModel.balance>0){
