@@ -39,7 +39,7 @@ export class TokenTransferComponent implements OnInit {
     private modalService: NgbModal,
     private fb: FormBuilder,
   ) {
-  
+
     this.tokenTransferForm = this.fb.group({
       amount: ["", [Validators.required,Validators.min(1)]],
       wallet_address: ["", Validators.required,this.walletAddressValidator()],
@@ -160,16 +160,15 @@ export class TokenTransferComponent implements OnInit {
     } else {
       endpoint = this.selectedToken.toLocaleLowerCase();
     }
-    const value = await this.polkadotService.convertTokenFormat(this.tokenTransferModel.amount);
+    // const value = await this.polkadotService.convertTokenFormat(this.tokenTransferModel.amount);
     this.nftService.tokenTransfer(
       this.tokenTransferModel.wallet_address,
-      value,
+      this.tokenTransferModel.amount,
       endpoint
     ).subscribe({
       next: async (response) => {
         if (response[0]){
-          
-          this.signExtrinsic(response[1]);
+          this.signExtrinsic(response[1].hash);
         } else {
           Swal.close();
           console.error(response[1])
@@ -266,15 +265,15 @@ export class TokenTransferComponent implements OnInit {
         } else {
           this.tokenTransferForm.get('amount').setValue(0, { emitEvent: false });
         }
-      } 
+      }
     });
     const tokens = this.polkadotService.getTokens();
     if(tokens.length==0){
-      
+
       (await this.polkadotService.getAstroToken()).subscribe({
         next: async (response: any) => {
           if (response[0]){
-            
+
             this.token_list = response[1].tokens;
             this.selectedToken = this.token_list[0].symbol;
             this.tokenTransferModel = this.token_list[0];
@@ -322,7 +321,7 @@ export class TokenTransferComponent implements OnInit {
     const total = amount + fee;
     return total; // Formats to four decimal places
   }
-  
+
 
   select_token(){
     const modalRef = this.modalService.open(TokenListComponent,{ centered: true, backdrop: true,keyboard:true });
@@ -344,7 +343,7 @@ export class TokenTransferComponent implements OnInit {
       confirmButtonText: 'Confirm'
     }).then((result) => {
       if (result.isConfirmed) {
-        
+
         this.confirmTransfer();
       }
     })

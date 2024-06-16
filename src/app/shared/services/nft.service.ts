@@ -332,7 +332,7 @@ export class NftService {
   }
 
   tokenTransfer(
-    to: string,
+    target: string,
     value: number,
     endpoint: string
   ): Observable<[boolean, any]> {
@@ -340,7 +340,7 @@ export class NftService {
       this.httpClient.post<any>(
         this.defaultAPIURLHost +
         `/${endpoint}/transfer`,
-        { to, value },
+        { target, value },
         this.httpOptions
       ).subscribe({
         next: (response) => {
